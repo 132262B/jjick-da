@@ -27,6 +27,12 @@ dependencies {
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+    // JSP
+    implementation "org.apache.tomcat.embed:tomcat-embed-jasper"
+
+    // JSTL
+    implementation 'javax.servlet:jstl'
+
     // swagger
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
 
