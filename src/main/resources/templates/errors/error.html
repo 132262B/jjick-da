@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<th:block th:replace="fragments/head :: headFragment"></th:block>
+<body>
+<th:block th:replace="fragments/header :: headerFragment"></th:block>
+
+<section>
+    <div>
+        <p th:text="${status}"/>
+    </div>
+</section>
+
+
+<th:block th:replace="fragments/footer :: footerFragment"></th:block>
+
+</body>
+</html>
