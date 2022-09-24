@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!-- 공통 헤더-->
+<th:block th:replace="fragments/head :: headFragment"></th:block>
+<body>
+<th:block th:replace="fragments/header :: headerFragment"></th:block>
+
+  <main id="main">
+
+    <!-- 위치영역 시작 -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <ol>
+        </ol>
+        <p class="main-subject">전체풀기 - 정보처리기사(필기)</p>
+
+      </div>
+    </section><!-- 위치영역 끝 -->
+
+    <!-- ======= exam Section ======= -->
+    <section id="exam" class="exam">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+
+          <div class="col-lg-8 entries">
+
+            <article class="entry">
+
+              <h2 class="exam-title">
+                1. 소프트웨어 개발영역을 결정하는 요소 중 다음 사항과 관계있는 것은?
+              </h2>
+              <div class="entry-meta">
+                <br><br><br>
+                <ul>
+                  <li class="d-flex align-items-center"><span>①&nbsp;</span>기능(Function)</li>
+                  <li class="d-flex align-items-center"><span>②&nbsp;</span>성능(Performance)</li>
+                  <li class="d-flex align-items-center"><span>③&nbsp;</span>제약 조건(Constraint)</li>
+                  <li class="d-flex align-items-center"><span>④&nbsp;</span>인터페이스(Interface)</li>
+                </ul>
+              </div>
+
+              <div class="entry-content">
+                
+              </div>
+
+            </article><!-- 문제하나 영역의 끝 -->
+
+          </div><!-- 문제영역의 끝 -->
+
+          <div class="col-lg-4">
+
+            <div class="sidebar">
+              <h3 class="sidebar-title">답안지</h3>
+              <div class="sidebar-item tags">
+                <ul>
+                  <div class="d-cell">
+                    <span class="title">01.</span>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4 </a></li>
+                  </div>
+                </ul>
+              </div>
+
+              <nav class="grading-nav">
+                  <a class="grading-btn" th:href="@{/examResult}">채점하기</a>
+              </nav><!-- 채점영역 끝-->
+
+            </div>
+
+          </div><!-- 답안지영역 끝 -->
+        </div>
+      </div>
+    </section><!-- 전체풀기영역 끝 -->
+
+  </main><!-- 메인 끝 -->
+
+  <th:block th:replace="fragments//footer :: footerFragment"></th:block>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+<script>
+  
+</script>
+<style>
+  .main-subject {
+    margin-bottom: 8px;
+    color: white;
+    font-size: 17px;
+    font-weight: 700;
+    font-family: "Nunito", sans-serif;
+  }
+  .sidebar-title {
+    text-align: center;
+  }
+  .tags > ul {
+    text-align: center;
+    margin: 0 auto;
+  }
+  .title {
+    font-size: 20px;
+    font-weight: 700;
+    padding: 0 0 0 0;
+    margin-right: 10px;
+    color: #012970;
+    position: relative;
+  }
+</style>
+</html>

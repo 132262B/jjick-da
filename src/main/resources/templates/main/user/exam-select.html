@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!-- 공통 헤더-->
+<th:block th:replace="fragments/head :: headFragment"></th:block>
+<body>
+<th:block th:replace="fragments/header :: headerFragment"></th:block>
+
+  <main id="main">
+
+    <!-- 위치영역 시작 -->
+    <section class="breadcrumbs">
+      <div class="container">
+        <ol>
+        </ol>
+        <p class="main-subject">과목 선택하기</p>
+
+      </div>
+    </section><!-- 위치영역 끝 -->
+
+    <!-- ======= exam Single Section ======= -->
+    <section id="exam" class="exam">
+      <div class="container" data-aos="fade-up">
+
+          <div class="col-lg-8 entries">
+
+            <article class="entry entry-single">
+
+              <h2 class="entry-title">
+                <span class="select-title">과목을 선택하여 주십시오.</span>
+              </h2>
+
+              <div class="entry-meta">
+                <div class="select-content d-flex justify-content-center">
+                  <div id="datalist">
+                    <input id="datalist-input" type="text" placeholder="과목 선택">
+                    <i id="datalist-icon" class="icon iconfont icon-arrow"></i>
+                    <ul id="datalist-ul"></ul>
+                  </div>
+                </div>
+
+                <nav class="select-nav">
+                  <a class="select-btn" th:href="@{/selectNext}">선택하기</a>
+                </nav>
+              </div>
+            </article>
+          </div><!-- End exam entries list -->
+
+          <div>
+            <a></a>
+            <a></a>
+          </div>
+
+      </div>
+    </section><!-- End exam Single Section -->
+
+  </main><!-- End #main -->
+
+  <th:block th:replace="fragments//footer :: footerFragment"></th:block>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+<script>
+  class DataList {
+	constructor(containerId, inputId, listId, options) {
+		this.containerId = containerId;
+		this.inputId = inputId;
+		this.listId = listId;
+		this.options = options;
+	}
+
+	create(filter = "") {
+		const list = document.getElementById(this.listId);
+		const filterOptions = this.options.filter(
+			d => filter === "" || d.text.includes(filter)
+		);
+
+		if (filterOptions.length === 0) {
+			list.classList.remove("active");
+		} else {
+			list.classList.add("active");
+		}
+
+		list.innerHTML = filterOptions
+			.map(o => `<li id=${o.value}>${o.text}</li>`)
+			.join("");
+	}
+
+	addListeners(datalist) {
+		const container = document.getElementById(this.containerId);
+		const input = document.getElementById(this.inputId);
+		const list = document.getElementById(this.listId);
+		container.addEventListener("click", e => {
+			if (e.target.id === this.inputId) {
+				container.classList.toggle("active");
+			} else if (e.target.id === "datalist-icon") {
+				container.classList.toggle("active");
+				input.focus();
+			}
+		});
+
+		input.addEventListener("input", function(e) {
+			if (!container.classList.contains("active")) {
+				container.classList.add("active");
+			}
+
+			datalist.create(input.value);
+		});
+
+		list.addEventListener("click", function(e) {
+			if (e.target.nodeName.toLocaleLowerCase() === "li") {
+				input.value = e.target.innerText;
+				container.classList.remove("active");
+			}
+		});
+	}
+}
+
+const data = [
+	{ value: "1", text: "산업인력공단 > 기능사 > 전자기기기능사" },
+	{ value: "2", text: "산업기사" },
+	{ value: "3", text: "기사" },
+	{ value: "4", text: "기능장" },
+	{ value: "5", text: "기술사" }
+];
+
+const datalist = new DataList(
+	"datalist",
+	"datalist-input",
+	"datalist-ul",
+	data
+);
+datalist.create();
+datalist.addListeners(datalist);
+</script>
+<style>
+  .entries {
+    margin: 0 auto;
+  }
+  .main-subject {
+    margin-bottom: 8px;
+    color: white;
+    font-size: 17px;
+    font-weight: 700;
+    font-family: "Nunito", sans-serif;
+  }
+</style>
+</html>

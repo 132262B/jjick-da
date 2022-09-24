@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!-- 공통 헤더-->
+<th:block th:replace="fragments/head :: headFragment"></th:block>
+<body>
+<th:block th:replace="fragments/header :: headerFragment"></th:block>
+
+  <main id="main">
+
+    <!-- 위치영역 시작 -->
+    <section class="breadcrumbs">
+      <div class="container">
+        <ol>
+        </ol>
+        <p class="main-subject">과목선택</p>
+
+      </div>
+    </section><!-- 위치영역 끝 -->
+
+    <!-- ======= exam Single Section ======= -->
+    <section id="exam" class="exam">
+      <div class="container" data-aos="fade-up">
+        <div class="col-lg-8 entries">
+          <article class="entry entry-single">
+            <h2 class="entry-title">
+              <span class="select-title">과목을 선택하여 주십시오.</span>
+            </h2>
+
+            <div class="entry-meta">
+              <div class="d-radio">
+                <input type="radio" name="choose" value="1" checked>회차선택 : 지정된 년도의 기출문제를 풉니다. <br>
+                <input type="radio" name="choose" value="2">모의고사 : 지정년도에서 지정년도까지 기출문제를 풉니다.
+              </div>
+
+              <div class="d-selectbox d-flex justify-content-center">
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>년도선택</option>
+                  <option value="1">2022년 1회차</option>
+                  <option value="2">2022년 2회차</option>
+                  <option value="3">2022년 3회차</option>
+                </select>
+              </div>
+            </div>
+
+            <nav class="select-nav">
+              <a class="select-btn" th:href="@{/examSingle}">한문제씩 풀기</a>
+              <a class="select-btn" th:href="@{/examAll}">전체풀기</a>
+            </nav>
+
+          </article>
+        </div>
+      </div><!-- End exam entries list -->
+          <div>
+            <a></a>
+            <a></a>
+          </div>
+    </section><!-- End exam Single Section -->
+
+  </main><!-- End #main -->
+
+  <th:block th:replace="fragments//footer :: footerFragment"></th:block>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+<script>
+
+</script>
+<style>
+  .entries {
+    margin: 0 auto;
+  }
+  .main-subject {
+    margin-bottom: 8px;
+    color: white;
+    font-size: 17px;
+    font-weight: 700;
+    font-family: "Nunito", sans-serif;
+  }
+</style>
+</html>
