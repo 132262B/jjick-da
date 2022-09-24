@@ -16,7 +16,7 @@ public class ExamService {
     }
 
     public TestDto examService() {
-        throw new CustomException(ErrorCode.TEST_ERROR);
+        throw new CustomException("에러이름", ErrorCode.TEST_ERROR);
         //return examRepository.select();
     }
 

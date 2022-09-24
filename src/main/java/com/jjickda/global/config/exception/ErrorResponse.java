@@ -2,6 +2,7 @@ package com.jjickda.global.config.exception;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,27 +15,33 @@ import org.springframework.validation.BindingResult;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ErrorResponse {
 
+
+    private final LocalDateTime timestamp = LocalDateTime.now();
+    private int status;
     private String message;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<FieldError> errors;
 
-    private ErrorResponse(String message, List<FieldError> errors) {
+    public static ErrorResponse of(ErrorCode code) {
+        return new ErrorResponse(code.getStatus().value(), code.getMessage(), null);
+    }
+
+    public static ErrorResponse of(ErrorCode code, String message) {
+        return new ErrorResponse(code.getStatus().value(), message, null);
+    }
+
+
+    public static ErrorResponse of(ErrorCode code, BindingResult bindingResult) {
+        return new ErrorResponse(code.getStatus().value(), code.getMessage(), FieldError.of(bindingResult));
+    }
+
+    private ErrorResponse(int status, String message, List<FieldError> errors) {
+        this.status = status;
         this.message = message;
         this.errors = errors;
     }
 
-    public static ErrorResponse of(ErrorCode code) {
-        return new ErrorResponse(code.getMessage(), null);
-    }
-
-    public static ErrorResponse of(ErrorCode code, String message) {
-        return new ErrorResponse(message, null);
-    }
-
-    public static ErrorResponse of(ErrorCode code, BindingResult bindingResult) {
-        return new ErrorResponse(code.getMessage(), FieldError.of(bindingResult));
-    }
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private List<FieldError> errors;
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
