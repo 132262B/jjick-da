@@ -1,6 +1,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <!--headerFragment 선언-->
 <th:block th:fragment="headerFragment">
+    <!-- 헤더 시작 -->
     <header id="header" class="header fixed-top">
         <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
@@ -10,15 +11,11 @@
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a class="nav-link scrollto active" href="#hero">시작하기</a></li>
+                    <li><a class="nav-link scrollto active" th:href="@{/select}">시작하기</a></li>
                     <li><a class="nav-link scrollto" href="#services">서비스</a></li>
-                    <li><a href="solve-all.html">전체풀기</a></li>
-                    <li><a href="solve-single.html">하나씩풀기</a></li>
-                    <li><a href="solve-select01.html">선택페이지</a></li>
-                    <li><a href="solve-result.html">결과페이지</a></li>
-                    <li><a class="getstarted scrollto" href="#about">로그인</a></li>
+                    <li><a class="getstarted scrollto" href="">로그인</a></li>
                 </ul>
-            </nav><!-- .navbar -->
+            </nav>
             <i class="bi bi-list mobile-nav-toggle"></i>
         </div>
     </header><!-- 헤더 끝 -->
