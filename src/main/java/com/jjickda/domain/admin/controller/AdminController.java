@@ -9,16 +9,16 @@ import springfox.documentation.annotations.ApiIgnore;
 @Controller
 public class AdminController {
 
-    @GetMapping("/adminPage")
+    @GetMapping("/adminpage")
     public String AdminPage(Model model) {
         return "main/admin/adminPage";
     }
-    @GetMapping("/writeQuestion")
+    @GetMapping("/writequestion")
     public String questionWrite(Model model){
         return "main/admin/writeQuestion";
     }
 
-    @GetMapping("/writeQuestionForm")
+    @GetMapping("/writequestionform")
     public String questionWriteForm(Model model){
         return "main/admin/writeQuestionForm";
     }

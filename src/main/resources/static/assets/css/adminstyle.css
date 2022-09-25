@@ -396,7 +396,9 @@ section {
   margin-left: 5px;
   font-size: 18px;
 }
-
+.services .service-box.red {
+  border-bottom: 3px solid #e9222c;
+}
 
 .services .service-box.red .icon {
   color: #e9222c;
@@ -1075,7 +1077,8 @@ custom
   margin-right: 20px;
 }
 #plus_btn{
-  text-align: right;
+    margin-top: 5px;
+    text-align: right;
 }
 
 #plus_button{
@@ -1101,4 +1104,36 @@ custom
 }
 #set{
   margin-bottom: 20px;
+}
+
+#correct_check{
+  margin-bottom: 3px;
+}
+
+.accordion-collapse {
+  border: 0;
+}
+
+.accordion-button {
+  padding: 15px 15px 20px 0;
+  font-weight: 600;
+  border: 0;
+  font-size: 18px;
+  color: #444444;
+  text-align: left;
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+}
+
+.accordion-button:not(.collapsed) {
+  background: none;
+  color: #4154f1;
+  border-bottom: 0;
+}
+
+.accordion-body {
+  padding: 0 0 25px 0;
+  border: 0;
 }
