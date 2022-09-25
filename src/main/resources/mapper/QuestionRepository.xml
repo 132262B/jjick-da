@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jjickda.domain.question.repository.QuestionRepository">
+
+
+    <select id="questionSelect" resultType="com.jjickda.domain.question.dto.response.QuestionListDto">
+        select main_ctg_seq as questionSeq
+             , main_ctg_name as questionName
+          from exam_main_category where 1=1 order by main_ctg_seq DESC;
+    </select>
+
+
+</mapper>

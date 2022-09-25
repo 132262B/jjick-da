@@ -2,7 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <!-- 공통 헤더-->
 <th:block th:replace="fragments/head :: headFragment"></th:block>
+<script>
+  $(document).ready(function(){
+    select();
+  });
+
+</script>
+
+
 <body>
+
+
 <th:block th:replace="fragments/header :: headerFragment"></th:block>
 
   <main id="main">
@@ -35,6 +45,7 @@
                     <input id="datalist-input" type="text" placeholder="과목 선택">
                     <i id="datalist-icon" class="icon iconfont icon-arrow"></i>
                     <ul id="datalist-ul"></ul>
+
                   </div>
                 </div>
 
@@ -62,77 +73,35 @@
 
 </body>
 <script>
-  class DataList {
-	constructor(containerId, inputId, listId, options) {
-		this.containerId = containerId;
-		this.inputId = inputId;
-		this.listId = listId;
-		this.options = options;
-	}
 
-	create(filter = "") {
-		const list = document.getElementById(this.listId);
-		const filterOptions = this.options.filter(
-			d => filter === "" || d.text.includes(filter)
-		);
+  function select() {
+    $.ajax({
+      url: '/api/question-select',
+      type: 'post',
+      contentType: "application/json; charset=utf-8",
+      data: {},
+      success: function (data) {
 
-		if (filterOptions.length === 0) {
-			list.classList.remove("active");
-		} else {
-			list.classList.add("active");
-		}
+        console.log(data);
 
-		list.innerHTML = filterOptions
-			.map(o => `<li id=${o.value}>${o.text}</li>`)
-			.join("");
-	}
+        let htmls = '';
+        $.each(data, function (index, item) {
+          htmls += `
+            <li> ${this.questionSeq} / ${this.questionName} </li>
+          `;
 
-	addListeners(datalist) {
-		const container = document.getElementById(this.containerId);
-		const input = document.getElementById(this.inputId);
-		const list = document.getElementById(this.listId);
-		container.addEventListener("click", e => {
-			if (e.target.id === this.inputId) {
-				container.classList.toggle("active");
-			} else if (e.target.id === "datalist-icon") {
-				container.classList.toggle("active");
-				input.focus();
-			}
-		});
+          $("#datalist-ul").html(htmls);
 
-		input.addEventListener("input", function(e) {
-			if (!container.classList.contains("active")) {
-				container.classList.add("active");
-			}
+        });
 
-			datalist.create(input.value);
-		});
+        console.log(data);
+      },
+      error: function (err) {
 
-		list.addEventListener("click", function(e) {
-			if (e.target.nodeName.toLocaleLowerCase() === "li") {
-				input.value = e.target.innerText;
-				container.classList.remove("active");
-			}
-		});
-	}
-}
+      }
+    });
+  }
 
-const data = [
-	{ value: "1", text: "산업인력공단 > 기능사 > 전자기기기능사" },
-	{ value: "2", text: "산업기사" },
-	{ value: "3", text: "기사" },
-	{ value: "4", text: "기능장" },
-	{ value: "5", text: "기술사" }
-];
-
-const datalist = new DataList(
-	"datalist",
-	"datalist-input",
-	"datalist-ul",
-	data
-);
-datalist.create();
-datalist.addListeners(datalist);
 </script>
 <style>
   .entries {
