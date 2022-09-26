@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <!-- 공통 헤더-->
-<th:block th:replace="fragments/head :: headFragment"></th:block>
+<th:block th:replace="fragments/user/head :: headFragment"></th:block>
 <script>
   $(document).ready(function(){
     select();
@@ -13,11 +13,10 @@
 <body>
 
 
-<th:block th:replace="fragments/header :: headerFragment"></th:block>
+<th:block th:replace="fragments/user/header :: headerFragment"></th:block>
 
   <main id="main">
 
-    <!-- 위치영역 시작 -->
     <section class="breadcrumbs">
       <div class="container">
         <ol>
@@ -25,9 +24,8 @@
         <p class="main-subject">과목 선택하기</p>
 
       </div>
-    </section><!-- 위치영역 끝 -->
+    </section>
 
-    <!-- ======= exam Single Section ======= -->
     <section id="exam" class="exam">
       <div class="container" data-aos="fade-up">
 
@@ -41,11 +39,9 @@
 
               <div class="entry-meta">
                 <div class="select-content d-flex justify-content-center">
-                  <div id="datalist">
-                    <input id="datalist-input" type="text" placeholder="과목 선택">
-                    <i id="datalist-icon" class="icon iconfont icon-arrow"></i>
-                    <ul id="datalist-ul"></ul>
-
+                  <div id="div-datalist">
+                    <input list="subjectList" id="selector" name="browser" placeholder="과목을 선택해주세요." />
+                    <datalist id="subjectList"></datalist>
                   </div>
                 </div>
 
@@ -54,7 +50,7 @@
                 </nav>
               </div>
             </article>
-          </div><!-- End exam entries list -->
+          </div>
 
           <div>
             <a></a>
@@ -62,18 +58,16 @@
           </div>
 
       </div>
-    </section><!-- End exam Single Section -->
+    </section>
 
-  </main><!-- End #main -->
+  </main>
 
-  <th:block th:replace="fragments//footer :: footerFragment"></th:block>
+  <th:block th:replace="fragments/user/footer :: footerFragment"></th:block>
 
-  <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
 </body>
 <script>
-
   function select() {
     $.ajax({
       url: '/api/question-select',
@@ -81,19 +75,16 @@
       contentType: "application/json; charset=utf-8",
       data: {},
       success: function (data) {
-
         console.log(data);
 
         let htmls = '';
         $.each(data, function (index, item) {
           htmls += `
-            <li> ${this.questionSeq} / ${this.questionName} </li>
+            <option value="${this.questionSeq} / ${this.questionName}"></option>
           `;
 
-          $("#datalist-ul").html(htmls);
-
+          $("#subjectList").html(htmls);
         });
-
         console.log(data);
       },
       error: function (err) {
