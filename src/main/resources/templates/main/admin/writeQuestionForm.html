@@ -9,11 +9,10 @@
                   "<div class='row gy-4' id='add'>"+
                     "<div class='col-md-12'>" +
                       "<div class='col-md-12'>"+
-                      "<div class='accordion-item'>"+
-                      "<button class='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#No"+index+"'>"+
-                        "<input type='text' class='form-control' name='subject' placeholder='No. " + index + "'>"+
-                    "</div>"+
-                    "</button>"+
+                      "<div class='accordion-item' id='subject2'>"+
+                            "<input type='text'  id='question_subject' class='form-control' name='subject' placeholder='No. " + index + "'>"+
+                            "<button id='hide_button' class='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#No"+index+"' />"+
+                        "</div>"+
                     "</div>"+
                     "<div id='No"+index+"' class='accordion-collapse collapse' data-bs-parent='#faqlist1'>"+
                     "<div class='col-md-12' id='choice'>"+
@@ -77,7 +76,7 @@ $(function(){
               <p>문항 등록</p>
           </header>
           <div class="row gy-4">
-              <form action="forms/contact.php" method="post" class="php-email-form">
+              <form class="php-email-form">
                   <div class="row gy-4">
                       <div id="select_flex">
                           <div class="col-md-4" id="selects">
@@ -104,11 +103,11 @@ $(function(){
                   <div class="accordion accordion-flush" id="faqlist1">
                       <div class="row gy-4" id="set">
                           <div class="col-md-12">
-                              <div class="accordion-item">
-                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#No1">
-                                      <input type="text" class="form-control" name="subject" placeholder="No 1." required>
+                              <div class="accordion-item" id="subject2">
+                                      <input id="question_subject" type="text" class="form-control" name="subject" placeholder="No 1." required>
+                                  <button id="hide_button" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#No1" />
                               </div>
-                              </button>
+
                           </div>
                           <div id="No1" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
                               <div class="col-md-12" id="choice">

@@ -1137,3 +1137,20 @@ custom
   padding: 0 0 25px 0;
   border: 0;
 }
+#subject2{
+    width: 100%;
+    margin: 10px auto;
+}
+#question_subject{
+    float: left;
+    width:95%;
+    box-sizing: border-box;
+}
+
+#hide_button{
+    float: right;
+    width:5%;
+    box-sizing: border-box;
+}
+
+
