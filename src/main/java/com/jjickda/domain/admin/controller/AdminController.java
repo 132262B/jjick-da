@@ -22,4 +22,19 @@ public class AdminController {
     public String questionWriteForm(Model model){
         return "main/admin/writeQuestionForm";
     }
+
+    @GetMapping("/writemainquestion")
+    public String mainQuestionWriteForm(){
+        return "main/admin/writeMainQuestionForm";
+    }
+
+    @GetMapping("/writesubquestion")
+    public String subQuestionWriteForm(){
+        return "main/admin/writeSubQuestionForm";
+    }
+    @GetMapping("/questionlist")
+    public String questionList(){
+        return "main/admin/questionList";
+    }
+
 }
