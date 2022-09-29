@@ -24,20 +24,7 @@ public class ExamRestController {
         this.examService = examService;
     }
 
-    @ApiOperation(value = "TEST API")
-    @PostMapping("/test")
-    public ResponseEntity<TestDto> test() {
-        TestDto testDto = examService.examService();
-        return ResponseEntity.ok(testDto);
-    }
-
-    @PostMapping("/test1")
-    public ResponseEntity<?> test1(@RequestBody @Validated TestPostDto testPostDto) {
-        return ResponseEntity.ok(testPostDto);
-    }
 
 
-
-    // 햐호호
 
 }

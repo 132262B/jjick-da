@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <!-- 공통 헤더-->
-<th:block th:replace="fragments/head :: headFragment"></th:block>
+<th:block th:replace="fragments/user/head :: headFragment"></th:block>
 <body>
-<th:block th:replace="fragments/header :: headerFragment"></th:block>
+<th:block th:replace="fragments/user/header :: headerFragment"></th:block>
 
   <main id="main">
 
@@ -11,8 +11,11 @@
     <section class="breadcrumbs">
       <div class="container">
         <ol>
+          <li><a th:href="@{/home}">홈</a></li>
+          <li><a th:href="@{/select}">과목선택</a></li>
+          <li>문제풀기</li>
         </ol>
-        <p class="main-subject">하나씩풀기 - 정보처리기사(필기)</p>
+        <p class="main-subject">문제풀기(하나씩) - </p>
 
       </div>
     </section><!-- 위치영역 끝 -->
@@ -21,48 +24,26 @@
     <section id="exam" class="exam">
       <div class="container" data-aos="fade-up">
 
-          <div class="col-lg-8 entries">
-            <article class="entry entry-single">
-              <h2 class="exam-title">
-                문제1. 다음 중 옳지 않은 것은?
-              </h2>
+        <div class="col-lg-8 entries">
+          <article class="entry entry-single">
+            <h2 class="exam-title">
+              문제1. 다음 중 옳지 않은 것은?
+            </h2>
 
-              <div class="entry-meta">
-                <img src="assets/img/hero-img.png" alt=""><br><br><br>
-                <ul>
-                  <li class="d-flex align-items-center"><img src="assets/img/1.gif" alt="" id="img1_1">&nbsp;가</li>
-                  <li class="d-flex align-items-center"><img src="assets/img/2.gif" alt="" id="img1_2">&nbsp;나</li>
-                  <li class="d-flex align-items-center"><img src="assets/img/3.gif" alt="" id="img1_3">&nbsp;다</li>
-                  <li class="d-flex align-items-center"><img src="assets/img/4.gif" alt="" id="img1_4">&nbsp;라</li>
-                </ul>
-              </div>
-            </article>
-          </div><!-- End exam entries list -->
-
-          <div>
-            <a></a>
-            <a></a>
-          </div>
+            <div class="entry-meta">
+              <img src="assets/img/hero-img.png" alt=""><br><br><br>
+              <ul>
+                <li class="d-flex align-items-center"><img src="assets/img/1.gif" alt="" id="img1_1">&nbsp;가</li>
+                <li class="d-flex align-items-center"><img src="assets/img/2.gif" alt="" id="img1_2">&nbsp;나</li>
+                <li class="d-flex align-items-center"><img src="assets/img/3.gif" alt="" id="img1_3">&nbsp;다</li>
+                <li class="d-flex align-items-center"><img src="assets/img/4.gif" alt="" id="img1_4">&nbsp;라</li>
+              </ul>
+            </div>
+          </article>
       </div>
-    </section><!-- End exam Single Section -->
-  </main><!-- End #main -->
-
-  <th:block th:replace="fragments//footer :: footerFragment"></th:block>
-
-<!-- Template Main JS File -->
-<script src="assets/js/main.js"></script>
-
+  <th:block th:replace="fragments/user/footer :: footerFragment"></th:block>
+  <script src="assets/js/main.js"></script>
 </body>
 <style>
-  .entries {
-    margin: 0 auto;
-  }
-  .main-subject {
-    margin-bottom: 8px;
-    color: white;
-    font-size: 17px;
-    font-weight: 700;
-    font-family: "Nunito", sans-serif;
-  }
 </style>
 </html>

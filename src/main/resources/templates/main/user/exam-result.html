@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <!-- 공통 헤더-->
-<th:block th:replace="fragments/head :: headFragment"></th:block>
+<th:block th:replace="fragments/user/head :: headFragment"></th:block>
 <body>
-<th:block th:replace="fragments/header :: headerFragment"></th:block>
+<th:block th:replace="fragments/user/header :: headerFragment"></th:block>
 
   <main id="main">
 
@@ -20,54 +20,26 @@
     <!-- 시험 결과 -->
     <section id="exam" class="exam">
       <div class="container" data-aos="fade-up">
-
           <div class="col-lg-8 entries">
-
-            <article class="entry entry-single">  
-
+            <article class="entry entry-single">
               <h2 class="entry-title">
                 <span class="select-title">시험 결과</span>
               </h2>
 
-              <div class="entry-meta">
-                <img src="assets/img/hero-img.png" alt=""><br><br><br>
+              <div class="entry-meta"><br><br><br>
                 <ul>
-                  <li class="d-flex align-items-center"></li>
-                  <li class="d-flex align-items-center"></li>
+                  <li class="d-flex align-items-center">맞힌 문제 : </li>
+                  <li class="d-flex align-items-center">틀린 문제 : </li>
                   <li class="d-flex align-items-center"></li>
                   <li class="d-flex align-items-center"></li>
                 </ul>
               </div>
             </article>
           </div>
-
-          <div>
-            <a></a>
-            <a></a>
-          </div>
-
       </div>
     </section>
-    <!-- 시험 결과 -->
-
-  </main><!-- End #main -->
-
-  <th:block th:replace="fragments//footer :: footerFragment"></th:block>
-
-  <!-- Template Main JS File -->
+  </main>
+  <th:block th:replace="fragments/user/footer :: footerFragment"></th:block>
   <script src="assets/js/main.js"></script>
-
 </body>
-<style>
-  .entries {
-    margin: 0 auto;
-  }
-  .main-subject {
-    margin-bottom: 8px;
-    color: white;
-    font-size: 17px;
-    font-weight: 700;
-    font-family: "Nunito", sans-serif;
-  }
-</style>
 </html>

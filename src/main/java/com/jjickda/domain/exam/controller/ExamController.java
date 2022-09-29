@@ -8,17 +8,6 @@ import springfox.documentation.annotations.ApiIgnore;
 @ApiIgnore
 @Controller
 public class ExamController {
-
-    @GetMapping("/select")
-    public String Select(Model model) {
-        return "main/user/exam-select";
-    }
-
-    @GetMapping("/selectNext")
-    public String SelectNext(Model model) {
-        return "main/user/exam-select-next";
-    }
-
     @GetMapping("/examSingle")
     public String examSingle(Model model) {
         return "main/user/exam-single";

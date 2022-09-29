@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <!-- 공통 헤더-->
-<th:block th:replace="fragments/head :: headFragment"></th:block>
+<th:block th:replace="fragments/user/head :: headFragment"></th:block>
 <body>
-<th:block th:replace="fragments/header :: headerFragment"></th:block>
+<th:block th:replace="fragments/user/header :: headerFragment"></th:block>
 
   <main id="main">
 
@@ -11,6 +11,8 @@
     <section class="breadcrumbs">
       <div class="container">
         <ol>
+          <li><a th:href="@{/home}">홈</a></li>
+          <li>과목선택</li>
         </ol>
         <p class="main-subject">과목선택</p>
 
@@ -28,17 +30,32 @@
 
             <div class="entry-meta">
               <div class="d-radio">
-                <input type="radio" name="choose" value="1" checked>회차선택 : 지정된 년도의 기출문제를 풉니다. <br>
-                <input type="radio" name="choose" value="2">모의고사 : 지정년도에서 지정년도까지 기출문제를 풉니다.
+                <input type="radio" name="choose" value="1" checked>&nbsp;회차선택 : 지정된 년도의 기출문제를 풉니다. <br>
+                <input type="radio" name="choose" value="2">&nbsp;모의고사 : 지정년도에서 지정년도까지 기출문제를 풉니다.
               </div>
 
-              <div class="d-selectbox d-flex justify-content-center">
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>년도선택</option>
-                  <option value="1">2022년 1회차</option>
-                  <option value="2">2022년 2회차</option>
-                  <option value="3">2022년 3회차</option>
-                </select>
+              <div id="d-select" class="d-flex justify-content-center">
+                <div class="d-selectbox">
+                  <select class="form-select" aria-label="Default select example">
+                    <option>년도선택</option>
+                  </select>
+                </div>
+              </div>
+
+              <div id="d-selects" class="d-flex justify-content-center">
+                <div class="d-selectbox">
+                  <select class="form-select" aria-label="Default select example">
+                    <option>년도선택</option>
+                  </select>
+                </div>
+                <div class="d-selectbox">
+                  &nbsp;~&nbsp;
+                </div>
+                <div class="d-selectbox">
+                  <select class="form-select" aria-label="Default select example">
+                    <option>년도선택</option>
+                  </select>
+                </div>
               </div>
             </div>
 
@@ -49,34 +66,53 @@
 
           </article>
         </div>
-      </div><!-- End exam entries list -->
-          <div>
-            <a></a>
-            <a></a>
-          </div>
-    </section><!-- End exam Single Section -->
+      </div>
+    </section>
 
-  </main><!-- End #main -->
+  </main>
 
-  <th:block th:replace="fragments//footer :: footerFragment"></th:block>
+  <th:block th:replace="fragments/user/footer :: footerFragment"></th:block>
 
-  <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
 </body>
 <script>
+  $(document).ready(function(){
+    var questionSeq = 1;
+    $('input[name=choose]').click(function() {
+      var radioVal = $('input[name=choose]:checked').val();
+      if(radioVal == 1) {
+        $('#d-select').show();
+        $('#d-selects').hide();
+      } else if(radioVal == 2) {
+        $('#d-select').hide();
+        $('#d-selects').show();
+      }
+      $.ajax({
+        url: '/api/term-select/1',
+        type: 'post',
+        contentType: "application/json; charset=utf-8",
+        data: {},
+        success: function (data) {
+          console.log(data);
 
+          let htmls = '';
+          $.each(data, function (index, item) {
+            htmls += `
+              <option value="${this.termName}">${this.termName}</option>
+            `;
+          });
+
+          $(".form-select").html(htmls);
+          console.log(data);
+        },
+        error: function (err) {
+
+        }
+      });
+    });
+  });
 </script>
 <style>
-  .entries {
-    margin: 0 auto;
-  }
-  .main-subject {
-    margin-bottom: 8px;
-    color: white;
-    font-size: 17px;
-    font-weight: 700;
-    font-family: "Nunito", sans-serif;
-  }
 </style>
 </html>
