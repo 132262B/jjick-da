@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class QuestionDto {
+public class QuestionAddDto {
 
     private long main_ctg_seq;
 

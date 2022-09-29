@@ -21,7 +21,6 @@ public class TestPostDto {
     @Size(min = 1, max = 10, message = "길이는 1자리에서 10자리로 해주세요.")
     private String col2;
 
-
     @Min(10)
     @Max(30)
     private int col3;

@@ -24,17 +24,20 @@ public class QuestionRestController {
         this.questionService = questionService;
     }
 
+    // 주소를 select-question 이런 형태로 작성하는게 좀 통일성 있어보이고 좋아보임.
     @ApiOperation("과목을 뿌려주는 api")
     @PostMapping("/question-select")
     public ResponseEntity<List<QuestionListDto>> questionSelect() {
         List<QuestionListDto> questionListDto = questionService.questionSelect();
         return ResponseEntity.ok(questionListDto);
     }
+
+    // 위 참조
     @ApiOperation("시험회차를 뿌려주는 api")
     @PostMapping("/term-select/{questionSeq}")
     public ResponseEntity<List<QuestionListDto>> termSelect(@PathVariable long questionSeq) {
         List<QuestionListDto> questionListDto = questionService.termSelect(questionSeq);
-        return  ResponseEntity.ok(questionListDto);
+        return ResponseEntity.ok(questionListDto);
     }
 
 }

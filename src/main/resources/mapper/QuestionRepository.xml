@@ -4,16 +4,19 @@
 
 <mapper namespace="com.jjickda.domain.question.repository.QuestionRepository">
 
+    <!-- concat 사용하는거 좋았음, 쿼리절은 대문자로 작성하는게 좋음 -->
     <select id="questionSelect" resultType="com.jjickda.domain.question.dto.response.QuestionListDto">
-        select esc.sub_ctg_seq as questionSeq, concat(emc.main_ctg_name,"-",esc.sub_ctg_name) as questionName
-        from exam_main_category emc join exam_sub_category esc
-        on emc.main_ctg_seq = esc.main_ctg_seq
+        SELECT esc.sub_ctg_seq as questionseq
+             , concat(emc.main_ctg_name,"-",esc.sub_ctg_name) as questionname
+          FROM exam_main_category emc
+          JOIN exam_sub_category esc
+            ON emc.main_ctg_seq = esc.main_ctg_seq
     </select>
 
     <select id="termSelect" resultType="com.jjickda.domain.question.dto.response.QuestionListDto">
-        select exam_name as termName
-        from exam
-        where sub_ctg_seq = #{questionSeq}
+        SELECT exam_name AS termName
+          FROM exam
+         WHERE sub_ctg_seq = #{questionSeq}
     </select>
 
 </mapper>
