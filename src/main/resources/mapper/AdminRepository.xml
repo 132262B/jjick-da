@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jjickda.domain.admin.repository.AdminRepository">
+    <insert id="registMain">
+        INSERT INTO exam_main_category(main_ctg_name,use_status,reg_date,reg_seq,udt_date,udt_seq)
+        VALUES(#{main_name},1,now(),0,null,null);
+    </insert>
+
+</mapper>

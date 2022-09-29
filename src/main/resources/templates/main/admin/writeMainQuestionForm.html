@@ -14,8 +14,29 @@
                 <input type="text" class="form-control" name="main_ctg_name" rows="1" placeholder="입력해주세요." required />
             </div>
             <div class="col-md-12 text-center">
-                <button class="main_button" type="submit">등록</button>
+                <button class="main_button" type="button">등록</button>
             </div>
+        <script>
+    $(function(){
+        $(".main_button").on("click",function(){
+        var main_name = $(".form-control").val()
+        alert(main_name);
+            $.ajax({
+                type:"POST",
+                url:"/api/regist-main",
+                data:{"main_name" : main_name}
+            }).done(function(result){
+            alert(result);
+               if(result){
+                alert("성공");
+                location.reload();
+			}
+            }).fail(function(){
+                alert("실패");
+            })
+        });
+    });
+        </script>
         <header class="section-header">
             <p>메인 리스트</p>
         </header>
