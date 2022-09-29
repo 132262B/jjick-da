@@ -4,12 +4,16 @@
 
 <mapper namespace="com.jjickda.domain.question.repository.QuestionRepository">
 
-
     <select id="questionSelect" resultType="com.jjickda.domain.question.dto.response.QuestionListDto">
-        select main_ctg_seq as questionSeq
-             , main_ctg_name as questionName
-          from exam_main_category where 1=1 order by main_ctg_seq DESC;
+        select esc.sub_ctg_seq as questionSeq, concat(emc.main_ctg_name,"-",esc.sub_ctg_name) as questionName
+        from exam_main_category emc join exam_sub_category esc
+        on emc.main_ctg_seq = esc.main_ctg_seq
     </select>
 
+    <select id="termSelect" resultType="com.jjickda.domain.question.dto.response.QuestionListDto">
+        select exam_name as termName
+        from exam
+        where sub_ctg_seq = #{questionSeq}
+    </select>
 
 </mapper>

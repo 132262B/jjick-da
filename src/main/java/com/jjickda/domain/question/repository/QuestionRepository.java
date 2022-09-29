@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface QuestionRepository {
     List<QuestionListDto> questionSelect();
+
+    List<QuestionListDto> termSelect(long questionSeq);
 }

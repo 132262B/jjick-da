@@ -6,6 +6,7 @@ import com.jjickda.global.config.api.ApiResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,11 +24,17 @@ public class QuestionRestController {
         this.questionService = questionService;
     }
 
-    @ApiOperation("시험과목을 뿌려주는 api")
+    @ApiOperation("과목을 뿌려주는 api")
     @PostMapping("/question-select")
     public ResponseEntity<List<QuestionListDto>> questionSelect() {
         List<QuestionListDto> questionListDto = questionService.questionSelect();
         return ResponseEntity.ok(questionListDto);
+    }
+    @ApiOperation("시험회차를 뿌려주는 api")
+    @PostMapping("/term-select/{questionSeq}")
+    public ResponseEntity<List<QuestionListDto>> termSelect(@PathVariable long questionSeq) {
+        List<QuestionListDto> questionListDto = questionService.termSelect(questionSeq);
+        return  ResponseEntity.ok(questionListDto);
     }
 
 }

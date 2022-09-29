@@ -6,31 +6,26 @@
   $(document).ready(function(){
     select();
   });
-
 </script>
-
-
 <body>
-
-
 <th:block th:replace="fragments/user/header :: headerFragment"></th:block>
 
   <main id="main">
-
     <section class="breadcrumbs">
       <div class="container">
+
         <ol>
+          <li><a th:href="@{/home}">홈</a></li>
+          <li>과목선택</li>
         </ol>
-        <p class="main-subject">과목 선택하기</p>
+        <p class="main-subject">과목선택</p>
 
       </div>
     </section>
 
     <section id="exam" class="exam">
       <div class="container" data-aos="fade-up">
-
           <div class="col-lg-8 entries">
-
             <article class="entry entry-single">
 
               <h2 class="entry-title">
@@ -44,19 +39,13 @@
                     <datalist id="subjectList"></datalist>
                   </div>
                 </div>
-
                 <nav class="select-nav">
                   <a class="select-btn" th:href="@{/selectNext}">선택하기</a>
                 </nav>
               </div>
+
             </article>
           </div>
-
-          <div>
-            <a></a>
-            <a></a>
-          </div>
-
       </div>
     </section>
 
@@ -80,11 +69,10 @@
         let htmls = '';
         $.each(data, function (index, item) {
           htmls += `
-            <option value="${this.questionSeq} / ${this.questionName}"></option>
+            <option value="${this.questionName}"></option>
           `;
-
-          $("#subjectList").html(htmls);
         });
+        $("#subjectList").html(htmls);
         console.log(data);
       },
       error: function (err) {
@@ -92,18 +80,5 @@
       }
     });
   }
-
 </script>
-<style>
-  .entries {
-    margin: 0 auto;
-  }
-  .main-subject {
-    margin-bottom: 8px;
-    color: white;
-    font-size: 17px;
-    font-weight: 700;
-    font-family: "Nunito", sans-serif;
-  }
-</style>
 </html>

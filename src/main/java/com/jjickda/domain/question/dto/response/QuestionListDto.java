@@ -9,9 +9,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class QuestionListDto {
-
-    private long questionSeq;
-
-    private String questionName;
+    private long questionSeq; // sub_ctg_seq
+    private String questionName; // main_ctg_name + sub_ctg_name
+    private String termName; // exam_name
 
 }

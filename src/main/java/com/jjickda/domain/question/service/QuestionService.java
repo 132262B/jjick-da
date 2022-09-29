@@ -18,4 +18,8 @@ public class QuestionService {
     public List<QuestionListDto> questionSelect() {
         return questionRepository.questionSelect();
     }
+
+    public List<QuestionListDto> termSelect(long questionSeq) {
+        return questionRepository.termSelect(questionSeq);
+    }
 }
