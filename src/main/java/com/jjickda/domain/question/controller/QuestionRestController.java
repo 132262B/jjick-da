@@ -5,11 +5,9 @@ import com.jjickda.domain.question.service.QuestionService;
 import com.jjickda.global.config.api.ApiResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,6 +36,15 @@ public class QuestionRestController {
     public ResponseEntity<List<QuestionListDto>> termSelect(@PathVariable long questionSeq) {
         List<QuestionListDto> questionListDto = questionService.termSelect(questionSeq);
         return ResponseEntity.ok(questionListDto);
+    }
+
+
+    // 공통 ResponseEntity 이 방식으로 사용할 예정
+    @ApiOperation("예시")
+    @PostMapping("/term-selects/{questionSeq}")
+    public ResponseEntity<ApiResponse<List<QuestionListDto>>> termSelects(@PathVariable long questionSeq) {
+        List<QuestionListDto> questionListDto = questionService.termSelect(questionSeq);
+        return ResponseEntity.ok(new ApiResponse<>(questionListDto));
     }
 
 }

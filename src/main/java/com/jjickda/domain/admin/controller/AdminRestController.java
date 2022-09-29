@@ -2,7 +2,6 @@ package com.jjickda.domain.admin.controller;
 
 
 import com.jjickda.domain.admin.dto.QuestionAddDto;
-import com.jjickda.domain.admin.dto.QuestionDto;
 import com.jjickda.domain.admin.service.AdminService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
