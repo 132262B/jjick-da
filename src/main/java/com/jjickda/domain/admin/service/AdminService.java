@@ -1,5 +1,6 @@
 package com.jjickda.domain.admin.service;
 
+import com.jjickda.domain.admin.dto.QuestionDto;
 import com.jjickda.domain.admin.repository.AdminRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +12,8 @@ public class AdminService {
         this.adminRepository = adminRepository;
     }
 
-    public int registMain(String main_name) {
-        return adminRepository.registMain(main_name);
+    public int registMain(QuestionDto question) {
+        return adminRepository.registMain(question);
 
     }
 

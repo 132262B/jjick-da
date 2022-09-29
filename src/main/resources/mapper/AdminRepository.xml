@@ -5,7 +5,7 @@
 <mapper namespace="com.jjickda.domain.admin.repository.AdminRepository">
     <insert id="registMain">
         INSERT INTO exam_main_category(main_ctg_name,use_status,reg_date,reg_seq,udt_date,udt_seq)
-        VALUES(#{main_name},1,now(),0,null,null);
+        VALUES(#{question.main_ctg_name},1,now(),0,null,null);
     </insert>
 
 </mapper>
