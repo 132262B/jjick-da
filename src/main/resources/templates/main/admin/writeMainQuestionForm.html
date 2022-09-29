@@ -20,20 +20,23 @@
     $(function(){
         $(".main_button").on("click",function(){
         var main_name = $(".form-control").val()
-        alert(main_name);
-            $.ajax({
-                type:"POST",
-                url:"/api/regist-main",
-                data:{"main_name" : main_name}
-            }).done(function(result){
-            alert(result);
-               if(result){
-                alert("성공");
-                location.reload();
-			}
-            }).fail(function(){
-                alert("실패");
-            })
+        if(main_name == null || main_name == "") {
+        alert("이름 입력 필수!")
+        }else{
+                $.ajax({
+                    type:"POST",
+                    url:"/api/regist-main",
+                    data:{"main_ctg_name" : main_name}
+                }).done(function(result){
+                alert(result);
+                   if(result){
+                    alert("등록 성공");
+                    location.reload();
+                }
+                }).fail(function(){
+                    alert("등록 실패");
+                })
+            }
         });
     });
         </script>
