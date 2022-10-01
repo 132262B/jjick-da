@@ -20,5 +20,4 @@ public class QuestionController {
         return "main/user/exam-select-term";
     }
 
-
 }

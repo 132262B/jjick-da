@@ -40,7 +40,7 @@
                   </div>
                 </div>
                 <nav class="select-nav">
-                  <a class="select-btn" th:href="@{/select-term}">선택하기</a>
+                  <a class="select-btn" onclick="nextPage()">선택하기</a>
                 </nav>
               </div>
 
@@ -79,6 +79,13 @@
 
       }
     });
+  }
+
+
+  function nextPage() {
+
+    const path = document.getElementById("selector").value;
+    location.href = `/select-term/${path}`;
   }
 </script>
 </html>
