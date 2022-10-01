@@ -40,7 +40,7 @@
                   </div>
                 </div>
                 <nav class="select-nav">
-                  <a class="select-btn" th:href="@{/selectNext}">선택하기</a>
+                  <a class="select-btn" th:href="@{/select-term}">선택하기</a>
                 </nav>
               </div>
 
@@ -59,7 +59,7 @@
 <script>
   function select() {
     $.ajax({
-      url: '/api/question-select',
+      url: '/api/question',
       type: 'post',
       contentType: "application/json; charset=utf-8",
       data: {},
@@ -67,7 +67,7 @@
         console.log(data);
 
         let htmls = '';
-        $.each(data, function (index, item) {
+        $.each(data.data, function (index, item) {
           htmls += `
             <option value="${this.questionName}"></option>
           `;

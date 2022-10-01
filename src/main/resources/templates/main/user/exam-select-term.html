@@ -60,8 +60,8 @@
             </div>
 
             <nav class="select-nav">
-              <a class="select-btn" th:href="@{/examSingle}">한문제씩 풀기</a>
-              <a class="select-btn" th:href="@{/examAll}">전체풀기</a>
+              <a class="select-btn" th:href="@{/exam-single}">한문제씩 풀기</a>
+              <a class="select-btn" th:href="@{/exam-all}">전체풀기</a>
             </nav>
 
           </article>
@@ -89,7 +89,7 @@
         $('#d-selects').show();
       }
       $.ajax({
-        url: '/api/term-select/1',
+        url: '/api/term/1',
         type: 'post',
         contentType: "application/json; charset=utf-8",
         data: {},
@@ -97,7 +97,7 @@
           console.log(data);
 
           let htmls = '';
-          $.each(data, function (index, item) {
+          $.each(data.data, function (index, item) {
             htmls += `
               <option value="${this.termName}">${this.termName}</option>
             `;
