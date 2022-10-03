@@ -1219,5 +1219,7 @@ custom
 
 #main_lists{
   margin-bottom: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 

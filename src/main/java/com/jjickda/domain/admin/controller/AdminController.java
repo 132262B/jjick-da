@@ -7,43 +7,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import springfox.documentation.annotations.ApiIgnore;
 
 
-// 어드민 컨트롤러들은 앞에 /admin이 붙어야 나중에 aop 등을 사용해서 권한 로직 처리에 편함이 생길꺼 같음.
-// 확인하고 아래 로직 주석풀고 작업 진행.
 @ApiIgnore
 @Controller
-//@RequestMapping("/admin")
+@RequestMapping("/admin")
 public class AdminController {
 
-    // 주소에 구분자마다 하이픈(-) 를 추가하면 좋을꺼같음.
     @GetMapping("/adminpage")
     public String AdminPage() {
         return "main/admin/adminPage";
     }
 
     // write-question
-    @GetMapping("/writequestion")
+    @GetMapping("/write-question")
     public String questionWrite() {
         return "main/admin/writeQuestion";
     }
 
-    @GetMapping("/writequestionform")
+    @GetMapping("/write-question-form")
     public String questionWriteForm() {
         return "main/admin/writeQuestionForm";
     }
 
-    @GetMapping("/writemainquestion")
+    @GetMapping("/write-main-question")
     public String mainQuestionWriteForm() {
         return "main/admin/writeMainQuestionForm";
     }
 
-    @GetMapping("/writesubquestion")
+    @GetMapping("/write-sub-question")
     public String subQuestionWriteForm() {
         return "main/admin/writeSubQuestionForm";
     }
 
-    @GetMapping("/questionlist")
+    @GetMapping("/question-list")
     public String questionList() {
         return "main/admin/questionList";
+    }
+    @GetMapping("/test222")
+    public String test() {
+        return "main/admin/test";
     }
 
 }
