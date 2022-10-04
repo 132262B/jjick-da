@@ -35,7 +35,7 @@
               <div class="entry-meta">
                 <div class="select-content d-flex justify-content-center">
                   <div id="div-datalist">
-                    <input list="subjectList" id="selector" name="browser" placeholder="과목을 선택해주세요." />
+                    <input list="subjectList" id="selector" name="browser" placeholder="과목을 선택해주세요." autocomplete="off" />
                     <datalist id="subjectList"></datalist>
                   </div>
                 </div>
@@ -56,6 +56,8 @@
   <script src="assets/js/main.js"></script>
 
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/datalist-css/dist/datalist-css.min.js"></script>
 <script>
   function select() {
     $.ajax({
@@ -69,7 +71,7 @@
         let htmls = '';
         $.each(data.data, function (index, item) {
           htmls += `
-            <option value="${this.questionName}"></option>
+            <option>${this.questionName}</option>
           `;
         });
         $("#subjectList").html(htmls);
@@ -88,4 +90,30 @@
     location.href = `/select-term/${path}`;
   }
 </script>
+
+<style>
+  #div-datalist datalist {
+    position: absolute;
+    max-height: 20em;
+    border: 0 none;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  #div-datalist datalist option {
+    font-size: 0.8em;
+    padding: 0.3em 1em;
+    background-color: #ffffff;
+    cursor: pointer;
+    color: #000;
+    z-index: 10;
+  }
+
+  /* option active styles */
+  #div-datalist datalist option:hover, datalist option:focus {
+    color: #000;
+    background-color: #036;
+    outline: 0 none;
+  }
+</style>
 </html>
