@@ -4,7 +4,6 @@
 
 <mapper namespace="com.jjickda.domain.admin.repository.AdminRepository">
 
-    <!-- NULL 은 굳이 넣을 필요 없음 -->
     <insert id="registMain">
         INSERT
           INTO exam_main_category
@@ -14,11 +13,40 @@
              , reg_seq
              )
         VALUES
-             ( #{question.main_ctg_name}
+             ( #{main_question.main_ctg_name}
              , 1
              , now()
              , 0
              );
     </insert>
+
+    <insert id="registSub">
+        INSERT INTO exam_sub_category(
+            main_ctg_seq,
+            sub_ctg_name,
+            use_status,
+            reg_date,
+            reg_seq
+        )VALUES(
+            #{sub_question.main_ctg_seq},
+            #{sub_question.sub_ctg_name},
+            1,
+            now(),
+            0
+        );
+
+
+
+
+    </insert>
+
+
+    <select id="getMainList" resultType="com.jjickda.domain.admin.dto.MainQuestionDto">
+        SELECT main_ctg_seq, main_ctg_name, use_status, reg_date, reg_seq, udt_date, udt_seq
+            FROM exam_main_category;
+    </select>
+
+
+
 
 </mapper>

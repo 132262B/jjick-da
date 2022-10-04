@@ -10,8 +10,63 @@
       <h2>문제 등록</h2>
       <p>서브 등록</p>
     </header>
-    <div class="col-md-12">
-      <input type="text" class="form-control" name="main_ctg_name" rows="1" placeholder="입력해주세요." required />
+
+    <script>
+          $(function(){
+            $.ajax({
+                  type:"POST",
+                  url:"/api/admin/get-main-list",
+                  dataType:"json"
+            }).done(function(data){
+              let dataList = "";
+              for(var i of data){
+                dataList += "<option data-value='" + i.main_ctg_seq + "' value='" + i.main_ctg_name + "' />"
+              }
+              $("#data_list").append(dataList);
+            }).fail(function(){
+              alert("데이터 리스트 불러오기 실패");
+            })
+
+
+            $(".main_button").on("click",function(){
+              let sub_ctg_name = $("#sub_ctg_name").val();
+              let main_ctg_name = $("#main_ctg_name").val();
+              let main_ctg_seq = $("#data_list [value='" + main_ctg_name + "']").data("value");
+
+
+              if(sub_ctg_name == null || sub_ctg_name == "") {
+                alert("서브 카테고리 이름 기재 필수");
+              }else if(main_ctg_seq == null || main_ctg_seq == "") {
+                alert("메인 카테고리 선택 필수");
+              }else{
+                    $.ajax({
+                      type:"POST",
+                      url:"/api/admin/regist-sub",
+                      data:{"sub_ctg_name":sub_ctg_name,
+                            "main_ctg_seq":main_ctg_seq}
+                    }).done(function(result){
+                    if(result){
+                      alert("등록 성공");
+                      location.reload();
+                      }
+                    }).fail(function(){
+                      alert("실패");
+                    });
+              };
+          })
+
+
+      })
+    </script>
+    <div class="row">
+      <div class="col-md-6">
+        <input type="text" class="form-control" id="main_ctg_name" list="data_list" placeholder="메인 카테고리 선택">
+        <datalist id="data_list" class="col-md-6">
+        </datalist>
+      </div>
+      <div class="col-md-6">
+        <input type="text" id="sub_ctg_name" class="form-control" name="main_ctg_name" rows="1" placeholder="서브 카테고리를 입력해주세요." required />
+      </div>
     </div>
     <div class="col-md-12 text-center">
       <button class="main_button" type="button">등록</button>
@@ -57,10 +112,10 @@
 
 
 
-<script th:src="@{assets/vendor/aos/aos.js}"></script>
-<script th:src="@{assets/vendor/glightbox/js/glightbox.min.js}"></script>
-<script th:src="@{assets/vendor/swiper/swiper-bundle.min.js}"></script>
-<script th:src="@{assets/js/main.js}"></script>
+<script th:src="@{/assets/vendor/aos/aos.js}"></script>
+<script th:src="@{/assets/vendor/glightbox/js/glightbox.min.js}"></script>
+<script th:src="@{/assets/vendor/swiper/swiper-bundle.min.js}"></script>
+<script th:src="@{/assets/js/main.js}"></script>
 
 </body>
 </html>
