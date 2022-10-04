@@ -10,13 +10,13 @@ import springfox.documentation.annotations.ApiIgnore;
 @Controller
 public class QuestionController {
 
-    @GetMapping("/select-question")
+    @GetMapping("/select-certificate")
     public String SelectQuestion() {
-        return "main/user/exam-select-question";
+        return "main/user/exam-select-certificate";
     }
 
-    @GetMapping("/select-term")
-    public String SelectTerm() {
+    @GetMapping("/select-term/{questionSeq}")
+    public String SelectTerm(@PathVariable long questionSeq) {
         return "main/user/exam-select-term";
     }
 

@@ -828,11 +828,11 @@ section {
 }
 
 .d-radio {
-  width: 60%;
-  margin: 70px auto 20px;
+  text-align: center;
+  margin: 70px 0px 20px;
 }
 
-.d-selectbox {
+.d-selectbox, .d-checkbox {
   margin: 40px 0px;
   text-align: center;
   vertical-align: middle;
@@ -879,6 +879,16 @@ section {
   .exam .entry .entry-meta .select-content {
     margin: 70px 0 50px 0;
   }
+
+   .select-btn, .select-btn:focus {
+     padding: 6px 12px;
+   }
+
+   .exam .entry .entry-meta .form-select {
+     width: 125px;
+     font-size: 12px;
+   }
+
 }
 
 /*--------------------------------------------------------------

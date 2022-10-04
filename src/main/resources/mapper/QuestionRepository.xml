@@ -5,16 +5,28 @@
 <mapper namespace="com.jjickda.domain.question.repository.QuestionRepository">
 
     <select id="questionSelect" resultType="com.jjickda.domain.question.dto.response.QuestionListDto">
-        SELECT esc.sub_ctg_seq as questionSeq
-            , concat(emc.main_ctg_name,"-",esc.sub_ctg_name) as questionName
+        SELECT esc.sub_ctg_seq AS questionSeq
+            , concat(emc.main_ctg_name,"-",esc.sub_ctg_name) AS questionName
         FROM exam_main_category emc
-        JOIN exam_sub_category esc
+            JOIN exam_sub_category esc
         ON emc.main_ctg_seq = esc.main_ctg_seq
     </select>
 
     <select id="termSelect" resultType="com.jjickda.domain.question.dto.response.QuestionListDto">
-        SELECT exam_name AS termName
-          FROM exam
+        SELECT sub_ctg_seq AS questionSeq,
+            exam_seq AS termSeq,
+            exam_name AS termName
+            FROM exam
+        WHERE sub_ctg_seq = #{questionSeq}
+    </select>
+
+    <select id="subjectShow" resultType="com.jjickda.domain.question.dto.response.QuestionListDto">
+        SELECT e.sub_ctg_seq AS questionSeq,
+            esj.subject_seq AS subjectSeq,
+            esj.subject_name AS subjectName
+        FROM exam e
+            JOIN exam_subject esj
+        ON e.exam_seq = esj.exam_seq
         WHERE sub_ctg_seq = #{questionSeq}
     </select>
 

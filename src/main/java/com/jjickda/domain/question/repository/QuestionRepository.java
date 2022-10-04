@@ -10,4 +10,6 @@ public interface QuestionRepository {
     List<QuestionListDto> questionSelect();
 
     List<QuestionListDto> termSelect(long questionSeq);
+
+    List<QuestionListDto> subjectShow(long questionSeq);
 }

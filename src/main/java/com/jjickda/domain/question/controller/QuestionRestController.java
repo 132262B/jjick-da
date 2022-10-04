@@ -22,17 +22,24 @@ public class QuestionRestController {
         this.questionService = questionService;
     }
 
-    @ApiOperation("과목을 뿌려주는 api")
-    @PostMapping("/question")
+    @ApiOperation("자격증을 뿌려주는 api")
+    @PostMapping("/select-certificate")
     public ResponseEntity<ApiResponse<List<QuestionListDto>>> questionSelect() {
         List<QuestionListDto> questionListDto = questionService.questionSelect();
         return ResponseEntity.ok(new ApiResponse<>(questionListDto));
     }
 
     @ApiOperation("시험회차를 뿌려주는 api")
-    @PostMapping("/term/{questionSeq}")
+    @PostMapping("/select-term/{questionSeq}")
     public ResponseEntity<ApiResponse<List<QuestionListDto>>> termSelect(@PathVariable long questionSeq) {
         List<QuestionListDto> questionListDto = questionService.termSelect(questionSeq);
+        return ResponseEntity.ok(new ApiResponse<>(questionListDto));
+    }
+
+    @ApiOperation("시험과목을 뿌려주는 api")
+    @PostMapping("/select-subject/{questionSeq}")
+    public ResponseEntity<ApiResponse<List<QuestionListDto>>> subjectShow(@PathVariable long questionSeq) {
+        List<QuestionListDto> questionListDto = questionService.subjectShow(questionSeq);
         return ResponseEntity.ok(new ApiResponse<>(questionListDto));
     }
 

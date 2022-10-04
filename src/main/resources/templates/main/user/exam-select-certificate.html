@@ -4,7 +4,7 @@
 <th:block th:replace="fragments/user/head :: headFragment"></th:block>
 <script>
   $(document).ready(function(){
-    select();
+    setOptions();
   });
 </script>
 <body>
@@ -40,7 +40,7 @@
                   </div>
                 </div>
                 <nav class="select-nav">
-                  <a class="select-btn" onclick="nextPage()">선택하기</a>
+                  <a class="select-btn" onclick="selectTerm()">선택하기</a>
                 </nav>
               </div>
 
@@ -59,19 +59,18 @@
 
 <script src="https://cdn.jsdelivr.net/npm/datalist-css/dist/datalist-css.min.js"></script>
 <script>
-  function select() {
+  function setOptions() {
     $.ajax({
-      url: '/api/question',
+      url: '/api/select-certificate',
       type: 'post',
       contentType: "application/json; charset=utf-8",
       data: {},
       success: function (data) {
         console.log(data);
-
         let htmls = '';
         $.each(data.data, function (index, item) {
           htmls += `
-            <option>${this.questionName}</option>
+            <option data-value="${this.questionSeq}" value="${this.questionName}">${this.questionName}</option>
           `;
         });
         $("#subjectList").html(htmls);
@@ -83,11 +82,10 @@
     });
   }
 
-
-  function nextPage() {
-
-    const path = document.getElementById("selector").value;
-    location.href = `/select-term/${path}`;
+  function selectTerm() {
+    var selectVal = document.getElementById("selector").value;
+    var dataVal = document.querySelector("#subjectList option[value='" + selectVal + "']").dataset.value;
+    location.href = `/select-term/${dataVal}`;
   }
 </script>
 
@@ -95,14 +93,18 @@
   #div-datalist datalist {
     position: absolute;
     max-height: 20em;
-    border: 0 none;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
     overflow-x: hidden;
     overflow-y: auto;
   }
 
   #div-datalist datalist option {
     font-size: 0.8em;
-    padding: 0.3em 1em;
+    padding: 0.4em 1em;
     background-color: #ffffff;
     cursor: pointer;
     color: #000;
@@ -112,7 +114,7 @@
   /* option active styles */
   #div-datalist datalist option:hover, datalist option:focus {
     color: #000;
-    background-color: #036;
+    background-color: #eeeeee;
     outline: 0 none;
   }
 </style>
