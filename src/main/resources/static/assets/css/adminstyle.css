@@ -1070,33 +1070,15 @@ custom
   display: flex;
 }
 #selects{
-  flex:3
+  flex:4
 }
 #selects:nth-child(2){
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 10px;
+  margin-right: 5px;
 }
-#plus_btn{
-    margin-top: 5px;
-    text-align: right;
-}
-
-#plus_button{
-  display: inline-block;
-  padding: 8px 40px 10px 40px;
-  border-radius: 50px;
-  color: #4154f1;
-  transition: none;
-  font-size: 16px;
-  font-weight: 400;
-  font-family: "Nunito", sans-serif;
-  font-weight: 600;
-  transition: 0.3s;
-  border: 1px solid #4154f1;
-}
-#plus_button:hover {
-  background: #4154f1;
-  color: #fff;
+#selects:nth-child(3){
+  margin-left: 5px;
+  margin-right: 10px;
 }
 
 #add{
@@ -1106,9 +1088,7 @@ custom
   margin-bottom: 20px;
 }
 
-#correct_check{
-  margin-bottom: 3px;
-}
+
 
 .accordion-collapse {
   border: 0;
@@ -1151,6 +1131,31 @@ custom
     float: right;
     width:5%;
     box-sizing: border-box;
+}
+#choice{
+  float:left;
+  width: 100%;
+  margin-top: 10px;
+}
+
+#choice_index{
+text-align: right;
+margin-top: 20px;
+float: left;
+width: 1%;
+box-sizing: border-box;
+}
+
+#correct_check{
+  margin-top: 25px;
+  float: left;
+  width:3%;
+  box-sizing: border-box;
+}
+
+#question{
+  width:92%;
+  box-sizing: border-box;
 }
 
 .main_button{

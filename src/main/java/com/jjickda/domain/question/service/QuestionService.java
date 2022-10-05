@@ -22,4 +22,8 @@ public class QuestionService {
     public List<QuestionListDto> termSelect(long questionSeq) {
         return questionRepository.termSelect(questionSeq);
     }
+
+    public List<QuestionListDto> subjectShow(long questionSeq) {
+        return questionRepository.subjectShow(questionSeq);
+    }
 }
