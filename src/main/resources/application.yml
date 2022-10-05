@@ -10,6 +10,8 @@ spring:
   devtools:
     livereload:
       enabled: true
+  freemarker:
+    cache: false
   thymeleaf:
     prefix: classpath:/templates/
     check-template-location: true
@@ -17,6 +19,12 @@ spring:
     mode: HTML5
     cache: false
     template-resolver-order: 0
+  web:
+    resources:
+      static-locations: file:src/main/resources/static/
 
 mybatis:
   mapper-locations: mapper/*.xml
+
+logging:
+  config: classpath:logback/logback-local.xml
