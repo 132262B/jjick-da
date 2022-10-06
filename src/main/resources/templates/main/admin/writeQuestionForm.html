@@ -6,6 +6,36 @@
 
 
       $(function(){
+
+        $.ajax({
+                  type:"POST",
+                  url:"/api/admin/get-main-list",
+                  dataType:"json"
+            }).done(function(data){
+              let dataList = "";
+              for(var i of data){
+                dataList += "<option data-value='" + i.main_ctg_seq + "' value='" + i.main_ctg_name + "' />"
+              }
+              $("#data_list").append(dataList);
+            }).fail(function(){
+            })
+
+
+        $.ajax({
+              type:"POST",
+              url:"/api/admin/get-sub-list",
+              dataType:"json"
+        }).done(function(data){
+          let dataList = "";
+          for(var i of data){
+            dataList += "<option data-value='" + i.sub_ctg_seq + "' value='" + i.sub_ctg_name + "' />"
+          }
+          $("#data_list2").append(dataList);
+        }).fail(function(){
+        })
+
+
+
         $("#question_count").on("change",function(){
           var count = $("#question_count").val()
           if(count == "5"){
@@ -13,7 +43,7 @@
               $("#No" + i).append(
                 "<div class='col-md-12' id='choice'>"+
                   "<div id='choice_index'>5.</div>"+
-                  "<input type='radio' name='correct_check_1' id='correct_check' value='check_5'>"+
+                  "<input type='radio' name='correct_check_"+i+"' id='correct_check' value='check_5'>"+
                   "<textarea id='question' class='form-control' name='' rows='2' placeholder='보기' required></textarea>"+
                   "</div>"
               )
@@ -34,14 +64,22 @@
             let html_middle = "";
             let html_end = "";
             var question_count = $("#question_count").val()
-            html_first += "<div class='row gy-4' id='add'>"+
+            html_first += "<div class='question_data_" + index + " row gy-4' id='add'>"+
                   "<div class='col-md-12'>"+
                     "<div class='accordion-item'>"+
                       "<input id='question_subject' type='text' class='form-control' name='subject' placeholder='No "+index+".' required>"+
                       "<button id='hide_button' class='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#No"+index+"' />"+
                     "</div>"+
                   "</div>"+
-                  "<div id='No"+index+"' class='accordion-collapse collapse' data-bs-parent='#faqlist1'>"
+                  "<div id='No"+index+"' class='accordion-collapse collapse' data-bs-parent='#faqlist'>"+
+                    "<div class='filebox'>"+
+                      "<input class='upload-name form-control' id='upload_name_"+index+"' readonly placeholder='첨부파일'>"+
+                      "<label for='file"+index+"'>파일찾기</label>"+
+                      "<input type='file' id='file"+index+"'>"+
+                      "</div>"+
+                      "<div class='img_wrap'>"+
+                        "<img class='mt-5' id='img"+index+"' />"+
+                        "</div>"
             for(var i=1; i<=question_count;i++){
           html_middle +=    "<div class='col-md-12' id='choice'>"+
                                 "<div id='choice_index'>"+i+".</div>"+
@@ -67,11 +105,41 @@ $(document).on("click","#minus_icon",function(){
   }
   })
 })
+
+  </script>
+<script>
+    $(document).ready(function() {
+        $(document).on("change", "input[type=file]", function(e){
+          var file_id_name = $(this).attr('id');
+          var file_index = file_id_name.substr(4,4);
+          var fileName = $("#"+file_id_name).val();
+          $("#upload_name_"+file_index).val(fileName);
+          var files = e.target.files;
+          var filesArr = Array.prototype.slice.call(files);
+
+          var reg = /(.*?)\/(jpg|jpeg|png)$/;
+
+          filesArr.forEach(function(f) {
+              if (!f.type.match(reg)) {
+                  alert("이미지 확장자가 아닙니다.");
+                  $("#img").attr("src", null);
+                  return;
+              }
+
+              sel_file = f;
+
+              var reader = new FileReader();
+              reader.onload = function(e) {
+                  $("#img"+file_index).attr("src", e.target.result);
+              }
+              reader.readAsDataURL(f);
+          });
+          })
+      });
   </script>
   <body>
   <th:block th:replace="fragments/admin/header :: adminHeaderFragment"></th:block>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
 
   <section id="contact" class="contact">
       <div class="container" data-aos="fade-up">
@@ -84,20 +152,14 @@ $(document).on("click","#minus_icon",function(){
                   <div class="row gy-4">
                       <div id="select_flex">
                           <div class="col-md-4" id="selects">
-                              <select class="form-control" id="select">
-                                  <option selected disabled value="none">선택</option>
-                                  <option value="기능사">한국산업인력공단-기능사</option>
-                                  <option value="산업기사">한국산업인력공단-산업기사</option>
-                                  <option value="기사">한국산업인력공단-기사</option>
-                                  <option value="기능장">한국산업인력공단-기능장</option>
-                                  <option value="기술사">한국산업인력공단-기술사 </option>
-                              </select>
+                              <input type="text" class="form-control" id="main_ctg_name" list="data_list" placeholder="메인 카테고리 선택">
+                              <datalist id="data_list" class="col-md-6">
+                              </datalist>
                           </div>
                           <div class="col-md-4" id="selects">
-                              <select class="form-control" id="select">
-                                  <option value="">정보처리기사-필기</option>
-                                  <option value="">정보처리기능사-필기</option>
-                              </select>
+                              <input type="text" class="form-control" id="main_ctg_name" list="data_list2" placeholder="서브 카테고리 선택">
+                              <datalist id="data_list2" class="col-md-6">
+                              </datalist>
                           </div>
                           <div class="col-md-4" id="selects">
                               <input type="text" id="select" class="form-control" placeholder="ex) 20220922정보처리기능사">
@@ -110,15 +172,23 @@ $(document).on("click","#minus_icon",function(){
                           </div>
                       </div>
                   </div>
-                  <div class="accordion accordion-flush" id="faqlist1">
-                      <div class="row gy-4" id="add">
+                  <div class="accordion accordion-flush" id="faqlist">
+                      <div class="question_data_1 row gy-4" id="add">
                           <div class="col-md-12">
                               <div class="accordion-item">
                                   <input id="question_subject" type="text" class="form-control" name="subject" placeholder="No 1." required>
                                   <button id="hide_button" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#No1" />
                               </div>
                           </div>
-                          <div id="No1" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
+                          <div id="No1" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                              <div class="filebox">
+                                  <input class="upload-name form-control" id="upload_name_1" readonly placeholder="첨부파일">
+                                  <label for="file1">파일찾기</label>
+                                  <input type="file" id="file1">
+                              </div>
+                              <div class="img_wrap">
+                                  <img class="mt-5" id="img1" />
+                              </div>
                               <div class="col-md-12" id="choice">
                                   <div id="choice_index">1.</div>
                                   <input type="radio" name="correct_check_1" id="correct_check" value="check_1">
@@ -145,7 +215,7 @@ $(document).on("click","#minus_icon",function(){
                       <i id="minus_icon" class="bi bi-folder-minus"></i>
                   </div>
                   <div class="col-md-12 text-center">
-                      <button type="submit">작성</button>
+                      <button type="submit">작성</button><button id="preview_button" type="button">미리보기</button>
                   </div>
               </form>
           </div>

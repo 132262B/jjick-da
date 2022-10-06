@@ -503,6 +503,7 @@ section {
   color: #fff;
   transition: 0.4s;
   border-radius: 4px;
+  margin-right: 10px;
 }
 
 @-webkit-keyframes animate-loading {
@@ -1087,7 +1088,24 @@ custom
 #set{
   margin-bottom: 20px;
 }
-
+#file_button{
+  display: inline-block;
+  padding: 8px 20px 10px 20px;
+  border-radius: 50px;
+  color: #4154f1;
+  transition: none;
+  font-size: 16px;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  transition: 0.3s;
+  border: 1px solid #4154f1;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+#file_button:hover{
+    background: #4154f1;
+    color: #fff;
+}
 
 
 .accordion-collapse {
@@ -1123,14 +1141,16 @@ custom
 }
 #question_subject{
     float: left;
-    width:95%;
+    width:85%;
     box-sizing: border-box;
 }
 
 #hide_button{
-    float: right;
-    width:5%;
+    white-space: nowrap;
+    float: left;
+    width:auto;
     box-sizing: border-box;
+    margin-left: 10px;
 }
 #choice{
   float:left;
@@ -1139,22 +1159,22 @@ custom
 }
 
 #choice_index{
-text-align: right;
+text-align: center;
 margin-top: 20px;
 float: left;
-width: 1%;
+width: 5%;
 box-sizing: border-box;
 }
 
 #correct_check{
   margin-top: 25px;
   float: left;
-  width:3%;
+  width:5%;
   box-sizing: border-box;
 }
 
 #question{
-  width:92%;
+  width:90%;
   box-sizing: border-box;
 }
 
@@ -1167,6 +1187,7 @@ box-sizing: border-box;
     transition: 0.4s;
     border-radius: 4px;
     margin-bottom: 20px;
+
 }
 
 #main_list{
@@ -1228,3 +1249,49 @@ box-sizing: border-box;
   white-space: nowrap;
 }
 
+.filebox{
+  white-space: nowrap;
+  width: 100%;
+  margin-top: 10px;
+}
+.filebox .upload-name {
+  white-space: nowrap;
+  float: left;
+  width: 30%;
+  height: 40px;
+  padding: 0 10px;
+  vertical-align: middle;
+  border: 1px solid #dddddd;
+  color: #999999;
+  background-color: #fff;
+}
+.filebox label {
+  white-space: nowrap;
+  text-align: center;
+  float: left;
+  width: auto;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  color: #fff;
+  vertical-align: middle;
+  background-color: #5b6aed;
+  cursor: pointer;
+  height: 40px;
+  margin-left: 10px;
+}
+.filebox input[type="file"] {
+    position: absolute;
+    width: 0%;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+#preview_button{
+  background: #4154f1;
+  border: 0;
+  padding: 10px 30px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 4px;
+}
