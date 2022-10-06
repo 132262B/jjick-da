@@ -14,4 +14,6 @@ public interface AdminRepository {
     ArrayList<MainQuestionDto> getMainList();
 
     int registSub(@Param(value = "sub_question") SubQuestionDto sub_question);
+
+    ArrayList<MainQuestionDto> getSubList();
 }

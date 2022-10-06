@@ -46,6 +46,10 @@
             FROM exam_main_category;
     </select>
 
+    <select id="getSubList" resultType="com.jjickda.domain.admin.dto.SubQuestionDto">
+        SELECT sub_ctg_seq, sub_ctg_name, use_status, reg_date, reg_seq, udt_date, udt_seq
+        FROM exam_sub_category;
+    </select>
 
 
 

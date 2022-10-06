@@ -39,4 +39,9 @@ public class AdminService {
             return true;
         }
     }
+
+    public ArrayList<MainQuestionDto> getSubList() {
+
+        return adminRepository.getSubList();
+    }
 }

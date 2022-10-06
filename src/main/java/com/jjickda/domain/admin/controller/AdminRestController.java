@@ -45,4 +45,12 @@ public class AdminRestController {
         return ResponseEntity.ok(questionList);
     }
 
+    @ApiOperation("문항등록(datalist) 서브등록(list)에 쓰일 Sub_ctg_getList api")
+    @PostMapping("/get-sub-list")
+    public ResponseEntity<ArrayList<MainQuestionDto>> getSubList() {
+        ArrayList<MainQuestionDto> questionList = adminService.getSubList();
+
+        return ResponseEntity.ok(questionList);
+    }
+
 }
