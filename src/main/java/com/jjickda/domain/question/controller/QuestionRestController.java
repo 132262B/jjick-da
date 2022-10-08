@@ -5,12 +5,13 @@ import com.jjickda.domain.question.service.QuestionService;
 import com.jjickda.global.config.api.ApiResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.http.HttpStatus;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @Api(tags = "시험과목 데이터 처리와 관련된 API.")
 @RestController
 @RequestMapping("/api")
