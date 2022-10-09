@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.jjickda.domain.admin.repository.AdminRepository">
+<mapper namespace="app.jjickda.api.admin.repository.AdminRepository">
 
     <insert id="registMain">
         INSERT
@@ -41,12 +41,12 @@
     </insert>
 
 
-    <select id="getMainList" resultType="com.jjickda.domain.admin.dto.MainQuestionDto">
+    <select id="getMainList" resultType="app.jjickda.api.admin.dto.MainQuestionDto">
         SELECT main_ctg_seq, main_ctg_name, use_status, reg_date, reg_seq, udt_date, udt_seq
             FROM exam_main_category;
     </select>
 
-    <select id="getSubList" resultType="com.jjickda.domain.admin.dto.SubQuestionDto">
+    <select id="getSubList" resultType="app.jjickda.api.admin.dto.SubQuestionDto">
         SELECT sub_ctg_seq, sub_ctg_name, use_status, reg_date, reg_seq, udt_date, udt_seq
         FROM exam_sub_category;
     </select>
