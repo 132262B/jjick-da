@@ -1,12 +1,9 @@
-package app.jjickda.global.config.api;
+package app.jjickda.global.config.model;
 
-import groovyjarjarantlr4.v4.runtime.misc.Nullable;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.time.LocalDateTime;
 

@@ -32,7 +32,7 @@ public class DateUtil {
      * @return 오늘 날짜(YYYYMMDD)
      */
     public String getDate_YYYYMMDD() {
-        LocalDate now = LocalDate.now(ZoneId.of("YYYYmmDD"));
+        LocalDate now = LocalDate.now();
         return now.toString().replaceAll("-","");
     }
 

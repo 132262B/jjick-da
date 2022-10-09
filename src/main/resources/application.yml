@@ -7,6 +7,15 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  web:
+    resources:
+      static-locations: file:src/main/resources/static/
+  servlet:
+    multipart:
+      # 단일 파일 최대 용량, default: 1MB
+      max-file-size: 10MB
+      # 여러 파일 최대 용량, default: 10MB
+      max-request-size: 100MB
   devtools:
     livereload:
       enabled: true
@@ -19,12 +28,13 @@ spring:
     mode: HTML5
     cache: false
     template-resolver-order: 0
-  web:
-    resources:
-      static-locations: file:src/main/resources/static/
 
 mybatis:
   mapper-locations: mapper/*.xml
 
 logging:
   config: classpath:logback/logback-local.xml
+
+
+file:
+  directory: /Users/igor/Desktop/upload/

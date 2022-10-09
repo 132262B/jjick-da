@@ -2,7 +2,7 @@ package app.jjickda.api.question.controller;
 
 import app.jjickda.api.question.dto.response.QuestionListDto;
 import app.jjickda.api.question.service.QuestionService;
-import app.jjickda.global.config.api.ApiResponse;
+import app.jjickda.global.config.model.ApiResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;

@@ -1,7 +1,7 @@
 package app.jjickda.api.test;
 
 
-import app.jjickda.global.config.api.ApiResponse;
+import app.jjickda.global.config.model.ApiResponse;
 import app.jjickda.global.utils.DateUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
