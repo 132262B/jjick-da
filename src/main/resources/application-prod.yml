@@ -1,0 +1,14 @@
+#
+# 운영 서버 설정
+#
+
+# 파일 업로드 경로
+file:
+  directory: /Users/igor/Desktop/upload/
+
+
+# swagger-ui 활성화 유무
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: off

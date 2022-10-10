@@ -1,0 +1,7 @@
+#
+# 개발 서버 설정
+#
+
+# 파일 업로드 경로
+file:
+  directory: /Users/igor/Desktop/upload/

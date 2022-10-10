@@ -12,10 +12,8 @@ spring:
       static-locations: file:src/main/resources/static/
   servlet:
     multipart:
-      # 단일 파일 최대 용량, default: 1MB
-      max-file-size: 10MB
-      # 여러 파일 최대 용량, default: 10MB
-      max-request-size: 100MB
+      max-file-size: 10MB     # 단일 파일 최대 용량, default: 1MB
+      max-request-size: 100MB # 여러 파일 최대 용량, default: 10MB
   devtools:
     livereload:
       enabled: true
@@ -29,12 +27,11 @@ spring:
     cache: false
     template-resolver-order: 0
 
+
+# mybatis sql 경로
 mybatis:
   mapper-locations: mapper/*.xml
 
+# logback 설정 경로
 logging:
   config: classpath:logback/logback-local.xml
-
-
-file:
-  directory: /Users/igor/Desktop/upload/

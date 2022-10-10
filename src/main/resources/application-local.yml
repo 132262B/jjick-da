@@ -1,0 +1,7 @@
+#
+# 로컬 환경 설정
+#
+
+# 파일 업로드 경로
+file:
+  directory: /Users/igor/Desktop/upload/
