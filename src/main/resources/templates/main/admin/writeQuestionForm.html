@@ -6,7 +6,6 @@
 
 
       $(function(){
-
         $.ajax({
                   type:"POST",
                   url:"/api/admin/get-main-list",
@@ -33,8 +32,6 @@
           $("#data_list2").append(dataList);
         }).fail(function(){
         })
-
-
 
         $("#question_count").on("change",function(){
           var count = $("#question_count").val()
@@ -97,15 +94,20 @@
 
       })
 $(function(){
-$(document).on("click","#minus_icon",function(){
-  $(this).prev().prev("#add:not(:first-child)").remove();
-  index--;
-  if(index < 1){
-    index = 1;
-  }
-  })
-})
+    $(".regist_button").on("click",function(){
 
+
+
+    });
+
+    $(document).on("click","#minus_icon",function(){
+      $(this).prev().prev("#add:not(:first-child)").remove();
+      index--;
+      if(index < 1){
+        index = 1;
+      }
+      })
+})
   </script>
 <script>
     $(document).ready(function() {
@@ -188,7 +190,7 @@ $(document).on("click","#minus_icon",function(){
                               </div>
                               <div class="img_wrap">
                                   <img class="mt-5" id="img1" />
-                              </div>
+                                  </div>
                               <div class="col-md-12" id="choice">
                                   <div id="choice_index">1.</div>
                                   <input type="radio" name="correct_check_1" id="correct_check" value="check_1">
@@ -215,7 +217,7 @@ $(document).on("click","#minus_icon",function(){
                       <i id="minus_icon" class="bi bi-folder-minus"></i>
                   </div>
                   <div class="col-md-12 text-center">
-                      <button type="submit">작성</button><button id="preview_button" type="button">미리보기</button>
+                      <button id="button5" class="regist_button m-2" type="button">작성</button><button id="button5" class="preview_button m-2" type="button">미리보기</button>
                   </div>
               </form>
           </div>

@@ -1,7 +1,9 @@
 package app.jjickda.api.admin.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -41,9 +43,11 @@ public class AdminController {
     public String questionList() {
         return "main/admin/questionList";
     }
-    @GetMapping("/test222")
-    public String test() {
-        return "main/admin/test";
+    @GetMapping("/write-sub-question/subject/{sub_ctg_seq}")
+    public String SelectTerm(@PathVariable int sub_ctg_seq, Model model) {
+        model.addAttribute("sub_ctg_seq",sub_ctg_seq);
+        return "main/admin/writeSubjectForm";
     }
+
 
 }

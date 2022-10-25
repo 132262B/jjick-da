@@ -15,11 +15,11 @@
           $(function(){
     $.ajax({
         type:"POST",
-        url:"/api/admin/get-main-list",
+        url:"/api/admin/get-sub-list",
         dataType:"json"
     }).done(function(data){
         let subList = "";
-        for(var i of data){
+        for(let i of data){
         let reg_date = i.reg_date;
         reg_date = reg_date.substr(0,10);
         let udt_date = i.udt_date;
@@ -34,9 +34,9 @@
     }else{
       use_sts = "미사용중";
     }
-    subList +='<div class="col-md-12" id="main_list">' +
-      '<div class="list_1" id="main_lists">' + i.main_ctg_seq + '</div>' +
-      '<div class="list_2" id="main_lists">'+ i.main_ctg_name +'</div>' +
+    subList +='<div onclick="write_subject('+i.sub_ctg_seq+')" class="col-md-12" id="main_list">' +
+      '<div class="list_1" id="main_lists">' + i.sub_ctg_seq + '</div>' +
+      '<div class="list_2" id="main_lists">'+ i.sub_ctg_name +'</div>' +
       '<div class="list_3" id="main_lists">'+ reg_date +'</div>' +
       '<div class="list_4" id="main_lists">'+ udt_date +'</div>' +
       '<div class="list_5" id="main_lists">'+ i.udt_seq +'</div>' +
@@ -93,6 +93,11 @@
 
 
       })
+  function write_subject(ob) {
+    location.href="/admin/write-sub-question/subject/"+ob;
+  }
+
+
     </script>
     <div class="row">
       <div class="col-md-6">
