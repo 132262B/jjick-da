@@ -2,6 +2,15 @@
 # 운영 서버 설정
 #
 
+spring:
+  # DB 설정
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:30000/jjick-da?characterEncoding=UTF-8&useTimezone=true&serverTimezone=Asia/Seoul
+    username: jjick-da
+    password: Welcome1!
+
+
 # 파일 업로드 경로
 file:
   directory: /Users/igor/Desktop/upload/

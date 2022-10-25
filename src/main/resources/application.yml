@@ -1,9 +1,4 @@
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:30000/jjick-da?characterEncoding=UTF-8&useTimezone=true&serverTimezone=Asia/Seoul
-    username: jjick-da
-    password: Welcome1!
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -35,3 +30,11 @@ mybatis:
 # logback 설정 경로
 logging:
   config: classpath:logback/logback-local.xml
+
+# swagger config
+swagger:
+  base-package: app.jjickda.api
+  path: /api/**
+  title: 찍다 API 문서
+  description: API에 대해서 설명해주는 문서입니다.
+  version: 1.0
