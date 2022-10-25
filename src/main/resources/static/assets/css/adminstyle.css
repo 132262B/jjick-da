@@ -447,6 +447,24 @@ section {
   background: #f51f9c;
 }
 
+.services .service-box.blue {
+  border-bottom: 3px solid #2db6fa;
+}
+
+.services .service-box.blue .icon {
+  color: #2db6fa;
+  background: #dbf3fe;
+}
+
+.services .service-box.blue .read-more {
+  color: #2db6fa;
+}
+
+.services .service-box.blue:hover {
+  background: #2db6fa;
+}
+
+
 .services .service-box:hover h3,
 .services .service-box:hover p,
 .services .service-box:hover .read-more {
@@ -1287,7 +1305,7 @@ box-sizing: border-box;
     overflow: hidden;
     border: 0;
 }
-#preview_button{
+#button5{
   background: #4154f1;
   border: 0;
   padding: 10px 30px;
@@ -1295,3 +1313,54 @@ box-sizing: border-box;
   transition: 0.4s;
   border-radius: 4px;
 }
+
+#q_flex{
+    display:flex;
+}
+
+#q_write{
+    flex:4;
+}
+.info{
+   margin: auto;
+   width: 80%;
+   border: 1px;
+   text-align: center;
+ }
+.sub_ctg_info{
+   margin-top: 90px;
+}
+
+ .info_subject{
+   padding-top: 30px;
+   font-size: 40px;
+   line-height: 42px;
+   font-weight: 700;
+   color: #012970;
+ }
+
+ .info_subject>a{
+   color: blue;
+   cursor: pointer;
+ }
+ .info_details{
+   display: flex;
+   margin-top: 50px;
+   padding-bottom: 30px;
+ }
+ .info_details>div{
+   flex:2
+ }
+ #subjects{
+   font-size: 20px;
+   font-weight: 600;
+   margin-top: 10px;
+ }
+ #subjects>span{
+   font-size: 18px;
+   font-weight: 400;
+   padding-left: 20px;
+ }
+
+
+
