@@ -25,5 +25,6 @@ public class SubQuestionDto {
     private long reg_seq;
     private Timestamp udt_date;
     private long udt_seq;
-
+    private String reg_user_name;
+    private String udt_user_name;
 }

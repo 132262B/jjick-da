@@ -29,8 +29,9 @@
                 reg_date = reg_date.substr(0,10);
                 let udt_date = i.udt_date;
                 let use_sts = i.use_status;
+                let udt_seq = i.udt_seq;
                 if(udt_date == null){
-                    udt_date = "수정 없음";
+                    udt_date = "없음";
                 }else{
                     udt_date = udt_date.substr(0,10);
                 }
@@ -39,13 +40,16 @@
                 }else{
                   use_sts = "미사용중";
                 }
+
+
                 dataList +='<div class="col-md-12" id="main_list">' +
                     '<div class="list_1" id="main_lists">' + i.main_ctg_seq + '</div>' +
                     '<div class="list_2" id="main_lists">'+ i.main_ctg_name +'</div>' +
                     '<div class="list_3" id="main_lists">'+ reg_date +'</div>' +
-                    '<div class="list_4" id="main_lists">'+ udt_date +'</div>' +
-                    '<div class="list_5" id="main_lists">'+ i.udt_seq +'</div>' +
-                    '<div class="list_6" id="main_lists">'+ use_sts +'</div>' +
+                    '<div class="list_4" id="main_lists">'+ i.reg_user_name +'</div>' +
+                    '<div class="list_5" id="main_lists">'+ udt_date +'</div>' +
+                    '<div class="list_6" id="main_lists">'+ i.udt_user_name +'</div>' +
+                    '<div class="list_7" id="main_lists">'+ use_sts +'</div>' +
                 '</div>'
             }
         $(".htmls").html(dataList);
@@ -83,9 +87,10 @@
             <div class="list_1">번호</div>
             <div class="list_2">카테고리 이름</div>
             <div class="list_3">등록일</div>
-            <div class="list_4">수정일</div>
-            <div class="list_5">수정자</div>
-            <div class="list_6">사용 유무</div>
+            <div class="list_4">등록자</div>
+            <div class="list_5">수정일</div>
+            <div class="list_6">수정자</div>
+            <div class="list_7">사용 유무</div>
         </div>
             <div class="htmls"></div>
         </div>

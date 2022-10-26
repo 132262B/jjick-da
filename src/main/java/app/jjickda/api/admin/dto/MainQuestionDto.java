@@ -18,6 +18,8 @@ public class MainQuestionDto {
     @NotBlank(message = "main_ctg_name 을 작성해주세요")
     private String main_ctg_name;
     private int use_status;
+    private String reg_user_name;
+    private String udt_user_name;
     private Timestamp reg_date;
     private long reg_seq;
     private Timestamp udt_date;
