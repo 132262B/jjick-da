@@ -1209,9 +1209,11 @@ box-sizing: border-box;
 }
 
 #main_list{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
     width: 100%;
     margin: 10px auto;
-    background-color: black;
     cursor: pointer;
 }
 #main_list>div{
@@ -1237,8 +1239,11 @@ box-sizing: border-box;
 }
 .list_2{
     float: left;
-    width:45%;
+    width:32%;
     text-align:center;
+    overflow:nowrap;
+    white-space:nowrap;
+    text-overflow:nowrap;
 }
 .list_3{
     float: left;
@@ -1256,15 +1261,20 @@ box-sizing: border-box;
     text-align:center;
 }
 .list_6{
+     float: left;
+     width:13%;
+     text-align:center;
+ }
+.list_7{
     float: right;
     width:10%;
     text-align:center;
 }
-
 #main_lists{
-  margin-bottom: 15px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    margin-bottom: 15px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
 }
 
 .filebox{

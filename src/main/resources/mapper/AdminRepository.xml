@@ -34,21 +34,43 @@
             now(),
             0
         );
-
-
-
-
     </insert>
 
 
     <select id="getMainList" resultType="app.jjickda.api.admin.dto.MainQuestionDto">
-        SELECT main_ctg_seq, main_ctg_name, use_status, reg_date, reg_seq, udt_date, udt_seq
-            FROM exam_main_category;
+        SELECT
+        e.main_ctg_seq,
+        e.main_ctg_name,
+        e.use_status,
+        e.reg_date,
+        e.reg_seq,
+        e.udt_date,
+        e.udt_seq,
+        u.user_name as reg_user_name,
+        IFNULL(user.user_name,"없음") as udt_user_name
+        FROM exam_main_category e
+        LEFT JOIN user u
+        ON reg_seq = u.user_seq
+        LEFT JOIN user user
+        ON udt_seq = user.user_seq;
     </select>
 
     <select id="getSubList" resultType="app.jjickda.api.admin.dto.SubQuestionDto">
-        SELECT sub_ctg_seq, sub_ctg_name, use_status, reg_date, reg_seq, udt_date, udt_seq
-        FROM exam_sub_category;
+        select
+        e.sub_ctg_seq,
+        e.sub_ctg_name,
+        e.use_status,
+        e.reg_date,
+        e.reg_seq,
+        e.udt_date,
+        e.udt_seq,
+        u.user_name as reg_user_name,
+        IFNULL(user.user_name,"없음") as udt_user_name
+        FROM exam_sub_category e
+        LEFT JOIN user u
+        ON reg_seq = u.user_seq
+        LEFT JOIN user user
+        ON udt_seq = user.user_seq;
     </select>
 
 
