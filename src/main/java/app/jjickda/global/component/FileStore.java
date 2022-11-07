@@ -43,8 +43,6 @@ public class FileStore {
 
     /**
      * 경로를 던지면 폴더가 없을때 폴더를 생성하는 메서드
-     *
-     * @return 파일 확장자
      */
     private void mkdir(String serverName) {
         String fullPath = getFullFilePath(serverName);

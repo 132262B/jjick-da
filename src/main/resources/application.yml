@@ -21,13 +21,15 @@ spring:
     mode: HTML5
     cache: false
     template-resolver-order: 0
+  session:
+    store-type: redis
 
 
 # mybatis sql 경로
 mybatis:
   mapper-locations: mapper/*.xml
   configuration:
-    map-underscore-to-camel-case: true # snake cast(user_name) to camel cast(userName)
+    map-underscore-to-camel-case: true # snake case(user_name) to camel case(userName)
 
 # logback 설정 경로
 logging:

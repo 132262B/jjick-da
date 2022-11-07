@@ -9,7 +9,10 @@ spring:
     url: jdbc:mysql://localhost:30000/jjick-da?characterEncoding=UTF-8&useTimezone=true&serverTimezone=Asia/Seoul
     username: jjick-da
     password: Welcome1!
-
+  redis:
+    host: 127.0.0.1
+    password: 1111
+    port: 6379
 
 # 파일 업로드 경로
 file:
