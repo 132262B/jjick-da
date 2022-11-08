@@ -3,11 +3,11 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <th:block th:replace="fragments/user/head :: headFragment"></th:block>
-<body>
+<body class="d-flex flex-column min-vh-100">
 <th:block th:replace="fragments/user/header :: headerFragment"></th:block>
 
 <section>
-    <div>
+    <div class="content">
         <p th:text="${status}"/>
     </div>
 </section>
