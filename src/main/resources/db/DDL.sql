@@ -1,26 +1,40 @@
 # 사용자 정보
 CREATE TABLE `TB_USER` (
 	`IDX`         bigint       NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '유저IDX',
-	`ID`          varchar(50)  NOT NULL                            COMMENT '아이디',
+	`EMAIL`       varchar(50)  NOT NULL                            COMMENT '이메일',
 	`PASSWORD`    varchar(500) NOT NULL                            COMMENT '비밀번호',
-	`USER_NAME`   varchar(10)  NOT NULL                            COMMENT '유저이름',
-	`USER_STATUS` bit(1)       NOT NULL                            COMMENT '탈퇴유무(탈퇴1 , 비탈퇴0)',
+	`NAME`        varchar(10)  NOT NULL                            COMMENT '유저이름',
+	`ROLE_IDX`    int          NOT NULL DEFAULT 1                  COMMENT '권한',
+	`STATUS`      bit(1)       NOT NULL                            COMMENT '탈퇴유무(탈퇴1 , 비탈퇴0)',
 	`REG_DATE`    datetime     NOT NULL                            COMMENT '등록일',
 	`UDT_DATE`    datetime     NULL                                COMMENT '수정일'
 );
 
 ALTER TABLE TB_USER COMMENT='사용자 정보';
 
+# 사용자 권한
+CREATE TABLE `TB_ROLE` (
+    `IDX`       int         NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '권한IDX',
+    `ROLE_NAME` varchar(30) NOT NULL                            COMMENT '권한이름',
+    `COMMENT`   varchar(50) NULL                                COMMENT '권한설명'
+);
+
+ALTER TABLE TB_ROLE COMMENT='사용자 권한';
+
+# 권한 2개
+INSERT INTO TB_ROLE (ROLE_NAME, COMMENT) VALUES ('ROLE_USER','유저');
+INSERT INTO TB_ROLE (ROLE_NAME, COMMENT) VALUES ('ROLE_ADMIN','관리자');
+
 
 # 시험문제 메인 카테고리
 CREATE TABLE `TB_EXAM_MAIN_CATEGORY` (
-	`IDX` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '메인카테고리IDX',
-	`MAIN_ CATEGORY_NAME` varchar(30) NOT NULL COMMENT '메인카테고리명',
-	`USE_STATUS` bit(1) NOT NULL COMMENT '사용유무',
-	`REG_DATE` datetime NOT NULL COMMENT '등록일',
-	`REQ_IDX` bigint NOT NULL COMMENT '등록자',
-	`UDT_DATE` datetime NULL COMMENT '수정일',
-	`UDT_IDX` bigint NULL COMMENT '수정자'
+	`IDX`                 bigint       NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '메인카테고리IDX',
+	`MAIN_ CATEGORY_NAME` varchar(30)  NOT NULL                            COMMENT '메인카테고리명',
+	`USE_STATUS`          bit(1)       NOT NULL                            COMMENT '사용유무',
+	`REG_DATE`            datetime     NOT NULL                            COMMENT '등록일',
+	`REQ_IDX`             bigint       NOT NULL                            COMMENT '등록자',
+	`UDT_DATE`            datetime     NULL                                COMMENT '수정일',
+	`UDT_IDX`             bigint       NULL                                COMMENT '수정자'
 );
 
 ALTER TABLE TB_EXAM_MAIN_CATEGORY COMMENT='시험문제 메인 카테고리';
@@ -28,14 +42,14 @@ ALTER TABLE TB_EXAM_MAIN_CATEGORY COMMENT='시험문제 메인 카테고리';
 
 # 시험문제 서브 카테고리
 CREATE TABLE `TB_EXAM_SUB_CATEGORY` (
-	`IDX` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '서브카테고리IDX',
-	`MAIN_CATEGORY_IDX` bigint NOT NULL COMMENT '메인카테고리IDX',
-	`SUB_CATEGORY_NAME` varchar(30) NOT NULL COMMENT '서브카테고리명',
-	`USE_STATUS` bit(1) NOT NULL COMMENT '사용유무',
-	`REG_DATE` datetime NOT NULL COMMENT '등록일',
-	`REQ_IDX` bigint NOT NULL COMMENT '등록자',
-	`UDT_DATE` datetime NULL COMMENT '수정일',
-	`UDT_IDX` bigint NULL COMMENT '수정자'
+	`IDX`               bigint      NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '서브카테고리IDX',
+	`MAIN_CATEGORY_IDX` bigint      NOT NULL                            COMMENT '메인카테고리IDX',
+	`SUB_CATEGORY_NAME` varchar(30) NOT NULL                            COMMENT '서브카테고리명',
+	`USE_STATUS`        bit(1)      NOT NULL                            COMMENT '사용유무',
+	`REG_DATE`          datetime    NOT NULL                            COMMENT '등록일',
+	`REQ_IDX`           bigint      NOT NULL                            COMMENT '등록자',
+	`UDT_DATE`          datetime    NULL                                COMMENT '수정일',
+	`UDT_IDX`           bigint      NULL                                COMMENT '수정자'
 );
 
 ALTER TABLE TB_EXAM_SUB_CATEGORY COMMENT='시험문제 서브 카테고리';
