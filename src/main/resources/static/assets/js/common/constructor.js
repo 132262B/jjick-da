@@ -1,0 +1,2 @@
+
+const httpUtil = new HttpUtil();

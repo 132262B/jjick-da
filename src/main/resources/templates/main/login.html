@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!-- 공통 헤더-->
+<th:block th:replace="fragments/user/head :: headFragment"></th:block>
+<body class="d-flex flex-column min-vh-100">
+<th:block th:replace="fragments/user/header :: headerFragment"></th:block>
+
+<section>
+    <div class="content">
+        <div class="container" style="margin-top: 250px">
+            <div class="row">
+                <div class="col-1 col-md-4"></div>
+                <div class="col-10 col-md-4">
+                    <label for="email" class="form-label" style="font-size: 12px">이메일</label>
+                    <input type="text" class="form-control" id="email">
+                    <div class="invalid-feedback">
+                        에러 내용
+                    </div>
+                </div>
+                <div class="col-1 col-md-4">
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1 col-md-4"></div>
+                <div class="col-10 col-md-4">
+                    <label for="password" class="form-label" style="font-size: 12px">비밀번호</label>
+                    <input type="password" class="form-control" id="password">
+                    <div class="invalid-feedback">
+                        에러 내용
+                    </div>
+                </div>
+                <div class="col-1 col-md-4">
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1 col-md-4"></div>
+                <div class="col-10 col-md-4">
+                    <div class="text-end">
+                        <a style="font-size: 12px">아이디/비밀번호 찾기</a>
+                        <a th:href="@{/sign-up}" style="font-size: 12px">회원가입</a>
+                    </div>
+                    <div class="d-grid gap-2 mt-4">
+                        <button class="btn btn-primary" type="button">로그인</button>
+                    </div>
+                </div>
+                <div class="col-1 col-md-4">
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<th:block th:replace="fragments/user/footer :: footerFragment"></th:block>
+
+</body>
+</html>
