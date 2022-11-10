@@ -36,7 +36,7 @@
 
               <div id="d-select" class="d-flex justify-content-center">
                 <div class="d-selectbox">
-                  <select class="form-select" aria-label="Default select example">
+                  <select id="select-option1" class="form-select" aria-label="Default select example">
                     <option>년도선택</option>
                   </select>
                 </div>
@@ -68,7 +68,7 @@
         $('#d-select').empty();
         $('#d-select').append(
           '<div class="d-selectbox">' +
-            '<select class="form-select" aria-label="Default select example">' +
+            '<select id="select-option1" class="form-select" aria-label="Default select example">' +
               '<option>년도선택</option>' +
             '</select>' +
           '</div>'
@@ -77,7 +77,7 @@
         $('#d-select').empty();
         $('#d-select').append(
           '<div class="d-selectbox">' +
-            '<select class="form-select" aria-label="Default select example">' +
+            '<select id="select-option1" class="form-select" aria-label="Default select example">' +
               '<option>년도선택</option>' +
             '</select>' +
           '</div>' +
@@ -85,7 +85,7 @@
             '&nbsp;~&nbsp;' +
           '</div>' +
           '<div class="d-selectbox">' +
-            '<select class="form-select" aria-label="Default select example">' +
+            '<select id="select-option2" class="form-select" aria-label="Default select example">' +
               '<option>년도선택</option>' +
             '</select>' +
           '</div>'
@@ -158,8 +158,19 @@
   });
 
   function examAll() {
+    var chooseVal = document.getElementsByName('choose');
+    if(chooseVal == 1) {
+      var subjectVal = document.getElementByName("subject").value;
 
-    location.href = `/exam-all/`;
+    } else if(chooseVal == 2) {
+      var option1Val = document.getElementById("select-option1").value;
+      var optio21Val = document.getElementById("select-option2").value;
+      var subjectVal = document.getElementByName("subject").value;
+      location.href = `/exam-all/${subjectVal}/${option1Val}/${option2Val}`;
+    }
+    var option1Val = document.getElementById("select-option1").value;
+
+    location.href = `/exam-all/${subjectVal}/${option1Val}`;
   }
 </script>
 </body>
