@@ -4,7 +4,7 @@
 
 <mapper namespace="app.jjickda.api.question.repository.QuestionRepository">
 
-    <select id="questionSelect" resultType="app.jjickda.api.question.dto.response.QuestionListDto">
+    <select id="questionSelect" resultType="QuestionListDto">
         SELECT esc.sub_ctg_seq AS questionSeq
             , concat(emc.main_ctg_name,"-",esc.sub_ctg_name) AS questionName
         FROM exam_main_category emc
@@ -12,7 +12,7 @@
         ON emc.main_ctg_seq = esc.main_ctg_seq
     </select>
 
-    <select id="termSelect" resultType="app.jjickda.api.question.dto.response.QuestionListDto">
+    <select id="termSelect" resultType="QuestionListDto">
         SELECT sub_ctg_seq AS questionSeq,
             exam_seq AS termSeq,
             exam_name AS termName
@@ -20,7 +20,7 @@
         WHERE sub_ctg_seq = #{questionSeq}
     </select>
 
-    <select id="subjectShow" resultType="app.jjickda.api.question.dto.response.QuestionListDto">
+    <select id="subjectShow" resultType="QuestionListDto">
         SELECT e.sub_ctg_seq AS questionSeq,
             esj.subject_seq AS subjectSeq,
             esj.subject_name AS subjectName
