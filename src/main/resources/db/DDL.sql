@@ -3,7 +3,7 @@ CREATE TABLE `TB_USER` (
 	`IDX`         bigint       NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '유저IDX',
 	`EMAIL`       varchar(50)  NOT NULL                            COMMENT '이메일',
 	`PASSWORD`    varchar(500) NOT NULL                            COMMENT '비밀번호',
-	`NAME`        varchar(10)  NOT NULL                            COMMENT '유저이름',
+	`NAME`        varchar(20)  NOT NULL                            COMMENT '유저이름',
 	`ROLE_IDX`    int          NOT NULL DEFAULT 1                  COMMENT '권한',
 	`STATUS`      bit(1)       NOT NULL                            COMMENT '탈퇴유무(탈퇴1 , 비탈퇴0)',
 	`REG_DATE`    datetime     NOT NULL                            COMMENT '등록일',

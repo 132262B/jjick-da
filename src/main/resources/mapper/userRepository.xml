@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="app.jjickda.domain.user.repository.UserRepository">
+
+    <!-- 이메일 중복 체크 -->
+    <select id="emailDuplicationCheck" resultType="int" parameterType="EmailDuplicationDto">
+        SELECT COUNT(EMAIL) FROM TB_USER WHERE EMAIL = #{email}
+    </select>
+
+
+
+</mapper>
