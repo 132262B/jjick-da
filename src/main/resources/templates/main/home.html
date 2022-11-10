@@ -12,8 +12,8 @@
         <div class="row">
             <div class="col-lg-6 d-flex flex-column justify-content-center">
                 <h1 data-aos="fade-up">풀고 또 풀어서 합격하자!</h1>
-                <h2 data-aos="fade-up" data-aos-delay="400">무료로 기출문제를 풀 수 있습니다.</h2>
-                <div data-aos="fade-up" data-aos-delay="600">
+                <h2 data-aos="fade-up">무료로 기출문제를 풀 수 있습니다.</h2>
+                <div data-aos="fade-up">
                     <div class="text-center text-lg-start">
                         <a th:href="@{/select-certificate}" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
                             <span>시작하기</span>
@@ -22,8 +22,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
-                <img th:src="@{assets/img/main/main_image.svg}" class="img-fluid" alt="">
+            <div class="col-lg-6 hero-img" data-aos="zoom-out">
+                <img th:src="@{assets/img/main/main_image.svg}" class="img-fluid" alt="메인표지">
             </div>
         </div>
     </div>
@@ -100,4 +100,9 @@
 <th:block th:replace="fragments/user/footer :: footerFragment"></th:block>
 
 </body>
+
+<script th:src="@{/assets/vendor/glightbox/js/glightbox.min.js}"></script>
+<script th:src="@{/assets/vendor/swiper/swiper-bundle.min.js}"></script>
+<script th:src="@{/assets/js/main.js}"></script>
+
 </html>
