@@ -30,6 +30,7 @@ mybatis:
   mapper-locations: mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true # snake case(user_name) to camel case(userName)
+  type-aliases-package: app.jjickda.api.*.dto.*, app.jjickda.domain.*.dto.*
 
 # logback 설정 경로
 logging:
