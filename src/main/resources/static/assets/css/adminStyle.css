@@ -1339,6 +1339,8 @@ box-sizing: border-box;
  }
 .sub_ctg_info{
    margin-top: 90px;
+   margin:auto;
+   text-align:center;
 }
 
  .info_subject{
@@ -1348,7 +1350,9 @@ box-sizing: border-box;
    font-weight: 700;
    color: #012970;
  }
-
+#subject_name{
+    margin:auto;
+}
  .info_subject>a{
    color: blue;
    cursor: pointer;

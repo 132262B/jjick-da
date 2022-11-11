@@ -27,16 +27,30 @@
         </div>
 
         <div class="col-md-12" data-aos="fade-up" data-aos-delay="450">
-            <input type="text" class="form-control" name="subject_name" placeholder="과목을 입력해주세요." required />
+            <input type="text" id="subject_name" class="form-control" name="subject_name" placeholder="과목을 입력해주세요." required />
         </div>
         <div class="col-md-12 text-center">
             <button class="main_button" type="button">등록</button>
         </div>
     </div>
 </section>
-<section class="subject_list" data-aos="fade-up" data-aos-delay="500">
-    <div></div>
+<section id="contact" class="contact">
+    <div class="container" data-aos="fade-up">
+        <header class="section-header">
+            <p>메인 리스트</p>
+        </header>
 
+        <div class="col-md-12" id="main_list">
+            <div class="list_1">번호</div>
+            <div class="list_2">카테고리 이름</div>
+            <div class="list_3">등록일</div>
+            <div class="list_4">등록자</div>
+            <div class="list_5">수정일</div>
+            <div class="list_6">수정자</div>
+            <div class="list_7">사용 유무</div>
+        </div>
+        <div class="htmls"></div>
+    </div>
 </section>
 
 <script th:src="@{/assets/vendor/aos/aos.js}"></script>

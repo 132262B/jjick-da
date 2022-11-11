@@ -40,15 +40,14 @@ public class AdminRestController {
     @PostMapping("/get-main-list")
     public ResponseEntity<ArrayList<MainQuestionDto>> getMainList() {
         ArrayList<MainQuestionDto> questionList = adminService.getMainList();
-
-
         return ResponseEntity.ok(questionList);
     }
 
     @ApiOperation("문항등록(datalist) 서브등록(list)에 쓰일 Sub_ctg_getList api")
     @PostMapping("/get-sub-list")
-    public ResponseEntity<ArrayList<MainQuestionDto>> getSubList() {
-        ArrayList<MainQuestionDto> questionList = adminService.getSubList();
+    public ResponseEntity<ArrayList<SubQuestionDto>> getSubList() {
+        ArrayList<SubQuestionDto> questionList = adminService.getSubList();
+        System.out.println(questionList);
 
         return ResponseEntity.ok(questionList);
     }

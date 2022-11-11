@@ -11,74 +11,74 @@
             <p>메인 등록</p>
         </header>
             <div class="col-md-12">
-                <input type="text" class="form-control" name="main_ctg_name" rows="1" placeholder="입력해주세요." required />
+                <input type="text" id="MAIN_CATEGORY_NAME" class="form-control" name="main_ctg_name" rows="1" placeholder="입력해주세요." required />
             </div>
             <div class="col-md-12 text-center">
                 <button class="main_button" type="button">등록</button>
             </div>
         <script>
-    $(function(){
-        $.ajax({
-            type:"POST",
-            url:"/api/admin/get-main-list",
-            dataType:"json"
-        }).done(function(data){
-            let dataList = "";
-            for(var i of data){
-                let reg_date = i.reg_date;
-                reg_date = reg_date.substr(0,10);
-                let udt_date = i.udt_date;
-                let use_sts = i.use_status;
-                let udt_seq = i.udt_seq;
-                if(udt_date == null){
-                    udt_date = "없음";
-                }else{
-                    udt_date = udt_date.substr(0,10);
-                }
-                if(use_sts == 1){
-                  use_sts = "사용중";
-                }else{
-                  use_sts = "미사용중";
-                }
+  $(function(){
+      $.ajax({
+          type:"POST",
+          url:"/api/admin/get-main-list",
+          dataType:"json"
+      }).done(function(data){
+          let dataList = "";
+          alert(data[0].IDX);
+          for(let i of data){
+              let reg_date = i.REG_DATE;
+              let udt_date = i.UDT_DATE;
+              let use_sts = i.USE_STATUS;
+              let udt_seq = i.UDT_IDX;
+              if(udt_date == null){
+                  udt_date = "없음";
+              }else{
+                  udt_date = udt_date.substr(0,10);
+              }
+              if(use_sts == 1){
+                use_sts = "사용중";
+              }else{
+                use_sts = "미사용중";
+              }
 
 
-                dataList +='<div class="col-md-12" id="main_list">' +
-                    '<div class="list_1" id="main_lists">' + i.main_ctg_seq + '</div>' +
-                    '<div class="list_2" id="main_lists">'+ i.main_ctg_name +'</div>' +
-                    '<div class="list_3" id="main_lists">'+ reg_date +'</div>' +
-                    '<div class="list_4" id="main_lists">'+ i.reg_user_name +'</div>' +
-                    '<div class="list_5" id="main_lists">'+ udt_date +'</div>' +
-                    '<div class="list_6" id="main_lists">'+ i.udt_user_name +'</div>' +
-                    '<div class="list_7" id="main_lists">'+ use_sts +'</div>' +
-                '</div>'
-            }
-        $(".htmls").html(dataList);
-        }).fail(function(){
-            alert("메인 카테고리 리스트 불러오기 실패");
-        })
+              dataList +='<div class="col-md-12" id="main_list">' +
+                  '<div class="list_1" id="main_lists">' + i.IDX + '</div>' +
+                  '<div class="list_2" id="main_lists">'+ i.MAIN_CATEGORY_NAME +'</div>' +
+                  '<div class="list_3" id="main_lists">'+ reg_date +'</div>' +
+                  '<div class="list_4" id="main_lists">'+ i.REG_USER_NAME +'</div>' +
+                  '<div class="list_5" id="main_lists">'+ udt_date +'</div>' +
+                  '<div class="list_6" id="main_lists">'+ i.UDT_USER_NAME +'</div>' +
+                  '<div class="list_7" id="main_lists">'+ use_sts +'</div>' +
+              '</div>'
+          }
+      $(".htmls").html(dataList);
+      }).fail(function(){
+          alert("메인 카테고리 리스트 불러오기 실패");
+      })
 
 
-        $(".main_button").on("click",function(){
-        var main_name = $(".form-control").val()
-        if(main_name == null || main_name == "") {
-        alert("이름 입력 필수!")
-        }else{
-                $.ajax({
-                    type:"POST",
-                    url:"/api/admin/regist-main",
-                    data:{"main_ctg_name" : main_name}
-                }).done(function(result){
-                   if(result){
-                    alert("등록 성공");
-                    location.reload();
-                }
-                }).fail(function(){
-                    alert("등록 실패");
-                })
-            }
-        });
-    });
-        </script>
+      $(".main_button").on("click",function(){
+      let main_name = $("#MAIN_CATEGORY_NAME").val()
+      if(main_name == null || main_name == "") {
+      alert("이름 입력 필수!")
+      }else{
+              $.ajax({
+                  type:"POST",
+                  url:"/api/admin/regist-main",
+                  data:{"MAIN_CATEGORY_NAME" : main_name}
+              }).done(function(result){
+                 if(result){
+                  alert("등록 성공");
+                  location.reload();
+              }
+              }).fail(function(){
+                  alert("등록 실패");
+              })
+          }
+      });
+  });
+</script>
         <header class="section-header">
             <p>메인 리스트</p>
         </header>

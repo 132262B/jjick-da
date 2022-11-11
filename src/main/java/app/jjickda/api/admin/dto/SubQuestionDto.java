@@ -14,17 +14,17 @@ import java.sql.Timestamp;
 public class SubQuestionDto {
 
     @NotNull(message = "메인카테고리 선택 필수")
-    private long main_ctg_seq;
+    private long MAIN_CATEGORY_IDX;
 
-    private long sub_ctg_seq;
+    private long IDX;
 
     @NotBlank(message = "sub_ctg_name 을 작성해주세요")
-    private String sub_ctg_name;
-    private int use_status;
-    private Timestamp reg_date;
-    private long reg_seq;
-    private Timestamp udt_date;
-    private long udt_seq;
-    private String reg_user_name;
-    private String udt_user_name;
+    private String SUB_CATEGORY_NAME;
+    private int USE_STATUS;
+    private Timestamp REG_DATE;
+    private long REG_IDX;
+    private Timestamp UDT_DATE;
+    private long UDT_IDX;
+    private String REG_USER_NAME;
+    private String UDT_USER_NAME;
 }

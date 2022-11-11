@@ -29,7 +29,7 @@ INSERT INTO TB_ROLE (ROLE_NAME, COMMENT) VALUES ('ROLE_ADMIN','관리자');
 # 시험문제 메인 카테고리
 CREATE TABLE `TB_EXAM_MAIN_CATEGORY` (
 	`IDX`                 bigint       NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '메인카테고리IDX',
-	`MAIN_ CATEGORY_NAME` varchar(30)  NOT NULL                            COMMENT '메인카테고리명',
+	`MAIN_CATEGORY_NAME` varchar(30)  NOT NULL                            COMMENT '메인카테고리명',
 	`USE_STATUS`          bit(1)       NOT NULL                            COMMENT '사용유무',
 	`REG_DATE`            datetime     NOT NULL                            COMMENT '등록일',
 	`REQ_IDX`             bigint       NOT NULL                            COMMENT '등록자',
@@ -58,7 +58,7 @@ ALTER TABLE TB_EXAM_SUB_CATEGORY COMMENT='시험문제 서브 카테고리';
 # 시험
 CREATE TABLE `TB_EXAM` (
 	`IDX` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '시험IDX',
-	`MAIN_ CATEGORY_IDX` bigint NOT NULL COMMENT '메인카테고리IDX',
+	`MAIN_CATEGORY_IDX` bigint NOT NULL COMMENT '메인카테고리IDX',
 	`SUB_CATEGORY_IDX` bigint NOT NULL COMMENT '서브카테고리IDX',
 	`EXAM_NAME` varchar(128) NOT NULL COMMENT '시험명',
 	`OPTIONS_CNT` int NOT NULL COMMENT '선지 개수',

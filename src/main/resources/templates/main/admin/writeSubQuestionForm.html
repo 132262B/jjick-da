@@ -20,10 +20,10 @@
     }).done(function(data){
         let subList = "";
         for(let i of data){
-        let reg_date = i.reg_date;
+        let reg_date = i.REG_DATE;
         reg_date = reg_date.substr(0,10);
-        let udt_date = i.udt_date;
-        let use_sts = i.use_status;
+        let udt_date = i.UDT_DATE;
+        let use_sts = i.USE_STATUS;
         if(udt_date == null){
           udt_date = "없음";
         }else{
@@ -34,13 +34,13 @@
     }else{
       use_sts = "미사용중";
     }
-    subList +='<div onclick="write_subject('+i.sub_ctg_seq+')" class="col-md-12" id="main_list">' +
-      '<div class="list_1" id="main_lists">' + i.sub_ctg_seq + '</div>' +
-      '<div class="list_2" id="main_lists">'+ i.sub_ctg_name +'</div>' +
+    subList +='<div onclick="write_subject('+i.IDX+')" class="col-md-12" id="main_list">' +
+      '<div class="list_1" id="main_lists">' + i.IDX + '</div>' +
+      '<div class="list_2" id="main_lists">'+ i.SUB_CATEGORY_NAME +'</div>' +
       '<div class="list_3" id="main_lists">'+ reg_date +'</div>' +
-      '<div class="list_4" id="main_lists">'+ i.reg_user_name +'</div>' +
+      '<div class="list_4" id="main_lists">'+ i.REG_USER_NAME +'</div>' +
       '<div class="list_5" id="main_lists">'+ udt_date +'</div>' +
-      '<div class="list_6" id="main_lists">'+ i.udt_user_name +'</div>' +
+      '<div class="list_6" id="main_lists">'+ i.UDT_USER_NAME +'</div>' +
       '<div class="list_7" id="main_lists">'+ use_sts +'</div>' +
     '</div>'
     }
@@ -57,7 +57,7 @@
             }).done(function(data){
               let dataList = "";
               for(let i of data){
-                dataList += "<option data-value='" + i.main_ctg_seq + "' value='" + i.main_ctg_name + "' />"
+                dataList += "<option data-value='" + i.IDX + "' value='" + i.MAIN_CATEGORY_NAME + "' />"
               }
               $("#data_list").append(dataList);
             }).fail(function(){
@@ -66,9 +66,9 @@
 
 
             $(".main_button").on("click",function(){
-              let sub_ctg_name = $("#sub_ctg_name").val();
+              let SUB_CATEGORY_NAME = $("#sub_ctg_name").val();
               let main_ctg_name = $("#main_ctg_name").val();
-              let main_ctg_seq = $("#data_list [value='" + main_ctg_name + "']").data("value");
+              let MAIN_CATEGORY_IDX = $("#data_list [value='" + main_ctg_name + "']").data("value");
 
 
               if(sub_ctg_name == null || sub_ctg_name == "") {
@@ -79,8 +79,8 @@
                     $.ajax({
                       type:"POST",
                       url:"/api/admin/regist-sub",
-                      data:{"sub_ctg_name":sub_ctg_name,
-                            "main_ctg_seq":main_ctg_seq}
+                      data:{"SUB_CATEGORY_NAME":SUB_CATEGORY_NAME,
+                            "MAIN_CATEGORY_IDX":MAIN_CATEGORY_IDX}
                     }).done(function(result){
                     if(result){
                       alert("등록 성공");
@@ -127,7 +127,6 @@
       <div class="list_7">사용 유무</div>
     </div>
     <div class="htmls"></div>
-  </div>
 </section>
 
 

@@ -12,16 +12,15 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MainQuestionDto {
+    @NotBlank(message = "MAIN_CATEGORY_NAME 을 작성해주세요")
+    private String MAIN_CATEGORY_NAME;
 
-    private long main_ctg_seq;
-
-    @NotBlank(message = "main_ctg_name 을 작성해주세요")
-    private String main_ctg_name;
-    private int use_status;
-    private String reg_user_name;
-    private String udt_user_name;
-    private Timestamp reg_date;
-    private long reg_seq;
-    private Timestamp udt_date;
-    private long udt_seq;
+    private long IDX;
+    private int USE_STATUS;
+    private String REG_USER_NAME;
+    private String UDT_USER_NAME;
+    private Timestamp REG_DATE;
+    private long REG_IDX;
+    private Timestamp UDT_DATE;
+    private long UDT_IDX;
 }

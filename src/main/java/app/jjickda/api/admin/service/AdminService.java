@@ -40,7 +40,7 @@ public class AdminService {
         }
     }
 
-    public ArrayList<MainQuestionDto> getSubList() {
+    public ArrayList<SubQuestionDto> getSubList() {
 
         return adminRepository.getSubList();
     }
