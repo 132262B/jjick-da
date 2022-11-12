@@ -11,12 +11,12 @@ public class QuestionController {
 
     @GetMapping("/select-certificate")
     public String SelectQuestion() {
-        return "main/user/exam-select-certificate";
+        return "main/user/examSelectCertificate";
     }
 
     @GetMapping("/select-term/{questionSeq}")
     public String SelectTerm(@PathVariable long questionSeq) {
-        return "main/user/exam-select-term";
+        return "main/user/examSelectTerm";
     }
 
 }

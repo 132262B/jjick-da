@@ -11,17 +11,17 @@ public class ExamController {
 
     @GetMapping("/exam-single")
     public String examSingle(Model model) {
-        return "main/user/exam-single";
+        return "main/user/examSingle";
     }
 
     @GetMapping("/exam-all")
     public String examAll(Model model) {
-        return "main/user/exam-all";
+        return "main/user/examAll";
     }
 
     @GetMapping("/exam-result")
     public String examResult(Model model) {
-        return "main/user/exam-result";
+        return "main/user/examResult";
     }
 
 }
