@@ -9,6 +9,18 @@
         SELECT COUNT(EMAIL) FROM TB_USER WHERE EMAIL = #{email}
     </select>
 
-
+    <!-- 회원가입 -->
+    <insert id="signUp" parameterType="SignUpDto">
+        INSERT
+          INTO TB_USER
+             ( EMAIL
+             , PASSWORD
+             , NAME
+             ) VALUES
+             ( #{email}
+             , #{password}
+             , #{name}
+             )
+    </insert>
 
 </mapper>
