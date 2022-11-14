@@ -4,15 +4,17 @@
 <body>
 <th:block th:replace="fragments/admin/header :: adminHeaderFragment"></th:block>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+
 <section id="contact" class="contact">
-  <div class="container" data-aos="fade-up">
+  <div class="container" data-aos="fade-up" data-aos-duration="1000">
     <header class="section-header">
       <h2>문제 등록</h2>
       <p>서브 등록</p>
     </header>
 
     <script>
-          $(function(){
+  $(function(){
     $.ajax({
         type:"POST",
         url:"/api/admin/get-sub-list",
@@ -128,12 +130,6 @@
     <div class="htmls"></div>
 </section>
 
-
-
-<script th:src="@{/assets/vendor/aos/aos.js}"></script>
-<script th:src="@{/assets/vendor/glightbox/js/glightbox.min.js}"></script>
-<script th:src="@{/assets/vendor/swiper/swiper-bundle.min.js}"></script>
-<script th:src="@{/assets/js/main.js}"></script>
 
 </body>
 </html>
