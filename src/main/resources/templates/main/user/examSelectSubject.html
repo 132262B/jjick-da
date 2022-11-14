@@ -56,7 +56,8 @@
   </main>
 
   <th:block th:replace="fragments/user/footer :: footerFragment"></th:block>
-  <script src="/assets/js/main.js"></script>
+
+</body>
 
 <script>
   $(document).ready(function(){
@@ -173,5 +174,9 @@
     location.href = `/exam-all/${subjectVal}/${option1Val}`;
   }
 </script>
-</body>
+
+<script th:src="@{/assets/vendor/glightbox/js/glightbox.min.js}"></script>
+<script th:src="@{/assets/vendor/swiper/swiper-bundle.min.js}"></script>
+<script th:src="@{/assets/js/main.js}"></script>
+
 </html>

@@ -3,23 +3,21 @@
 <!-- 공통 헤더-->
 <th:block th:replace="fragments/user/head :: headFragment"></th:block>
 <script>
-  $(document).ready(function(){
-    setOptions();
+  $(document).ready(function() {
+    ShowCertificate();
   });
 </script>
-<body>
+<body class="d-flex flex-column min-vh-100">
 <th:block th:replace="fragments/user/header :: headerFragment"></th:block>
 
   <main id="main">
     <section class="breadcrumbs">
       <div class="container">
-
         <ol>
           <li><a th:href="@{/home}">홈</a></li>
           <li>과목선택</li>
         </ol>
         <p class="main-subject">과목선택</p>
-
       </div>
     </section>
 
@@ -27,22 +25,83 @@
       <div class="container" data-aos="fade-up">
           <div class="col-lg-8 entries">
             <article class="entry entry-single">
+              <!-- 탭 시작 -->
+              <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="pills-certificate-tab" data-bs-toggle="pill" data-bs-target="#pills-certificate" type="button" role="tab" aria-controls="pills-certificate" aria-selected="true">자격증선택</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="pills-subject-tab" data-bs-toggle="pill" data-bs-target="#pills-subject" type="button" role="tab" aria-controls="pills-subject" aria-selected="false">과목선택</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="pills-exam-tab" data-bs-toggle="pill" data-bs-target="#pills-exam" type="button" role="tab" aria-controls="pills-exam" aria-selected="false">회차선택</button>
+                </li>
+              </ul>
+              <!-- 탭 끝 -->
 
-              <h2 class="entry-title">
-                <span class="select-title">과목을 선택하여 주십시오.</span>
-              </h2>
+              <!-- 탭 내용 시작 -->
+              <div class="tab-content" id="pills-tabContent">
+                <!-- 자격증선택 시작 -->
+                <div class="tab-pane fade show active" id="pills-certificate" role="tabpanel" aria-labelledby="pills-certificate-tab" tabindex="0">
 
-              <div class="entry-meta">
-                <div class="select-content d-flex justify-content-center">
-                  <div id="div-datalist">
-                    <input list="subjectList" id="selector" name="browser" placeholder="과목을 선택해주세요." autocomplete="off" />
-                    <datalist id="subjectList"></datalist>
+                  <h2 class="entry-title">
+                    <span class="select-title">자격증을 선택하여 주십시오.</span>
+                  </h2>
+
+                  <div class="entry-meta">
+                    <div class="select-content d-flex justify-content-center">
+                      <div id="div-datalist">
+                        <input list="certificateList" id="selector" name="browser" placeholder="과목을 선택해주세요." autocomplete="off" />
+                        <datalist id="certificateList"></datalist>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <!-- 자격증선택 끝 -->
+
+                <!-- 과목선택 시작 -->
+                <div class="tab-pane fade" id="pills-subject" role="tabpanel" aria-labelledby="pills-subject-tab" tabindex="0">
+
+                  <h2 class="entry-title">
+                    <span class="select-title">과목을 선택하여 주십시오.</span>
+                  </h2>
+
+                  <div class="entry-meta">
+                    <div class="d-checkbox">
+
+                    </div>
+                  </div>
+
+                </div>
+                <!-- 과목선택 끝 -->
+
+                <!-- 회차선택 시작 -->
+                <div class="tab-pane fade" id="pills-exam" role="tabpanel" aria-labelledby="pills-exam-tab" tabindex="0">
+
+                  <h2 class="entry-title">
+                    <span class="select-title">회차을 선택하여 주십시오.</span>
+                  </h2>
+
+                  <div class="entry-meta">
+                    <div class="d-radio">
+                      <input type="radio" name="choose" value="1" checked>&nbsp;회차선택 : 지정된 년도의 기출문제를 풉니다.<br>
+                      <input type="radio" name="choose" value="2">&nbsp;모의고사 : 지정년도에서 지정년도까지 기출문제를 풉니다.
+                    </div>
+
+                    <div id="d-select" class="d-flex justify-content-center">
+                      <div class="d-selectbox">
+                        <select id="select-option1" class="form-select" aria-label="Default select example">
+                          <option>년도선택</option>
+                        </select>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <nav class="select-nav">
-                  <a class="select-btn" onclick="selectTerm()">선택하기</a>
-                </nav>
+                <!-- 회차선택 끝 -->
               </div>
+              <!-- 탭 내용 끝 -->
+
 
             </article>
           </div>
@@ -53,40 +112,27 @@
 
   <th:block th:replace="fragments/user/footer :: footerFragment"></th:block>
 
-  <script src="assets/js/main.js"></script>
-
 </body>
 
+<script th:src="@{/assets/vendor/glightbox/js/glightbox.min.js}"></script>
+<script th:src="@{/assets/vendor/swiper/swiper-bundle.min.js}"></script>
+<script th:src="@{/assets/js/main.js}"></script>
 <script src="https://cdn.jsdelivr.net/npm/datalist-css/dist/datalist-css.min.js"></script>
-<script>
-  function setOptions() {
-    $.ajax({
-      url: '/api/select-certificate',
-      type: 'post',
-      contentType: "application/json; charset=utf-8",
-      data: {},
-      success: function (data) {
-        console.log(data);
-        let htmls = '';
-        $.each(data.data, function (index, item) {
-          htmls += `
-            <option data-value="${this.questionSeq}" value="${this.questionName}">${this.questionName}</option>
-          `;
-        });
-        $("#subjectList").html(htmls);
-        console.log(data);
-      },
-      error: function (err) {
 
-      }
+<script>
+  function ShowCertificate() {
+    httpUtil.defaultRequest('/api/select-certificate', 'post', '{}', function(data) {
+      var Certificates = '';
+      $.each(data.data, function (index, item) {
+        Certificates += `
+          <option value="${this.questionName}" id="${this.questionIdx}">${this.questionName}</option>
+        `;
+      });
+      $("#certificateList").append(Certificates);
     });
   }
 
-  function selectTerm() {
-    var selectVal = document.getElementById("selector").value;
-    var dataVal = document.querySelector("#subjectList option[value='" + selectVal + "']").dataset.value;
-    location.href = `/select-term/${dataVal}`;
-  }
+  $
 </script>
 
 <style>
@@ -116,6 +162,10 @@
     color: #000;
     background-color: #eeeeee;
     outline: 0 none;
+  }
+
+  .entry {
+    margin: 80px 0;
   }
 </style>
 </html>

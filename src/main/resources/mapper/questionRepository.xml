@@ -4,30 +4,17 @@
 
 <mapper namespace="app.jjickda.api.question.repository.QuestionRepository">
 
-    <select id="questionSelect" resultType="QuestionListDto">
-        SELECT esc.sub_ctg_seq AS questionSeq
-            , concat(emc.main_ctg_name,"-",esc.sub_ctg_name) AS questionName
-        FROM exam_main_category emc
-            JOIN exam_sub_category esc
-        ON emc.main_ctg_seq = esc.main_ctg_seq
-    </select>
-
-    <select id="termSelect" resultType="QuestionListDto">
-        SELECT sub_ctg_seq AS questionSeq,
-            exam_seq AS termSeq,
-            exam_name AS termName
-            FROM exam
-        WHERE sub_ctg_seq = #{questionSeq}
-    </select>
-
-    <select id="subjectShow" resultType="QuestionListDto">
-        SELECT e.sub_ctg_seq AS questionSeq,
-            esj.subject_seq AS subjectSeq,
-            esj.subject_name AS subjectName
-        FROM exam e
-            JOIN exam_subject esj
-        ON e.exam_seq = esj.exam_seq
-        WHERE sub_ctg_seq = #{questionSeq}
+    <!-- /select-certificate 주소에 자격증 목록 가져오는 구문 -->
+    <select id="questionSelect" resultType="certificateListDto">
+        SELECT
+            TESC.IDX AS QUESTIONIDX,
+            CONCAT(TEMC.MAIN_CATEGORY_NAME, '-' , TESC.SUB_CATEGORY_NAME) AS QUESTIONNAME
+        FROM
+            TB_EXAM_MAIN_CATEGORY AS TEMC
+        JOIN
+            TB_EXAM_SUB_CATEGORY AS TESC
+        ON
+            TEMC.IDX = TESC.MAIN_CATEGORY_IDX
     </select>
 
 </mapper>
