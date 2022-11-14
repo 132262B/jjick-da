@@ -24,7 +24,7 @@ class HttpUtil {
             error: function (err) {
                 // 공통 에러 개발해야함
             },
-            compile: function () {
+            complete: function () {
                 // 공통 컴플리트 개발해야함.
             }
         });
@@ -37,9 +37,9 @@ class HttpUtil {
      * @param type {string}
      * @param data {any[]} json
      * @param successFunction
-     * @param compileFunction
+     * @param completeFunction
      */
-    compileControlRequest(url, type, data, successFunction, compileFunction) {
+    completeControlRequest(url, type, data, successFunction, completeFunction) {
         $.ajax({
             url: url,
             type: type,
@@ -52,8 +52,8 @@ class HttpUtil {
             error: function (err) {
                 // 공통 에러 개발해야함
             },
-            compile: function () {
-                compileFunction();
+            complete: function () {
+                completeFunction();
             }
         });
     }
@@ -66,9 +66,9 @@ class HttpUtil {
      * @param data {any[]} json
      * @param successFunction
      * @param errorFunction
-     * @param compileFunction
+     * @param completeFunction
      */
-    errorControlRequest(url, type, data, successFunction, errorFunction, compileFunction) {
+    errorControlRequest(url, type, data, successFunction, errorFunction, completeFunction) {
         $.ajax({
             url: url,
             type: type,
@@ -81,8 +81,8 @@ class HttpUtil {
             error: function (err) {
                 errorFunction();
             },
-            compile: function () {
-                compileFunction();
+            complete: function () {
+                completeFunction();
             }
         });
     }

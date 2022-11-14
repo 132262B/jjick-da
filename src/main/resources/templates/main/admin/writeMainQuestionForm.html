@@ -24,12 +24,12 @@
           dataType:"json"
       }).done(function(data){
           let dataList = "";
-          alert(data[0].IDX);
-          for(let i of data){
-              let reg_date = i.REG_DATE;
-              let udt_date = i.UDT_DATE;
-              let use_sts = i.USE_STATUS;
-              let udt_seq = i.UDT_IDX;
+          for(let i of data.data){
+              let reg_date = i.regDate;
+              reg_date = reg_date.substr(0,10);
+              let udt_date = i.udtDate;
+              let use_sts = i.useStatus;
+              let udt_seq = i.udtIdx;
               if(udt_date == null){
                   udt_date = "없음";
               }else{
@@ -42,15 +42,15 @@
               }
 
 
-              dataList +='<div class="col-md-12" id="main_list">' +
-                  '<div class="list_1" id="main_lists">' + i.IDX + '</div>' +
-                  '<div class="list_2" id="main_lists">'+ i.MAIN_CATEGORY_NAME +'</div>' +
-                  '<div class="list_3" id="main_lists">'+ reg_date +'</div>' +
-                  '<div class="list_4" id="main_lists">'+ i.REG_USER_NAME +'</div>' +
-                  '<div class="list_5" id="main_lists">'+ udt_date +'</div>' +
-                  '<div class="list_6" id="main_lists">'+ i.UDT_USER_NAME +'</div>' +
-                  '<div class="list_7" id="main_lists">'+ use_sts +'</div>' +
-              '</div>'
+              dataList += `<div class="col-md-12" id="main_list">
+                  <div class="list_1" id="main_lists">${i.idx}</div>
+                  <div class="list_2" id="main_lists">${i.mainCategoryName}</div>
+                  <div class="list_3" id="main_lists">${reg_date}</div>
+                  <div class="list_4" id="main_lists">${i.regUserName}</div>
+                  <div class="list_5" id="main_lists">${udt_date}</div>
+                  <div class="list_6" id="main_lists">${i.udtUserName}</div>
+                  <div class="list_7" id="main_lists">${use_sts}</div>
+              </div>`
           }
       $(".htmls").html(dataList);
       }).fail(function(){
@@ -66,7 +66,7 @@
               $.ajax({
                   type:"POST",
                   url:"/api/admin/regist-main",
-                  data:{"MAIN_CATEGORY_NAME" : main_name}
+                  data:{"mainCategoryName" : main_name}
               }).done(function(result){
                  if(result){
                   alert("등록 성공");

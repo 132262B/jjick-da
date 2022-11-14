@@ -1,11 +1,14 @@
 package app.jjickda.api.admin.service;
 
-import app.jjickda.api.admin.dto.SubQuestionDto;
+import app.jjickda.api.admin.dto.request.AddSubCategoryDto;
+import app.jjickda.api.admin.dto.response.GetMainCategoryDto;
+import app.jjickda.api.admin.dto.response.GetSubCategoryDto;
 import app.jjickda.api.admin.repository.AdminRepository;
-import app.jjickda.api.admin.dto.MainQuestionDto;
+import app.jjickda.api.admin.dto.request.AddMainCategoryDto;
+import app.jjickda.domain.common.dto.response.DefaultResultDto;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class AdminService {
@@ -15,33 +18,29 @@ public class AdminService {
         this.adminRepository = adminRepository;
     }
 
-    public Boolean registMain(MainQuestionDto main_question) {
-
-        int isSuccess = adminRepository.registMain(main_question);
-        if(isSuccess == 0) {
-            return false;
-        }else{
-            return true;
-        }
+    public DefaultResultDto registMain(AddMainCategoryDto main_question) {
+        adminRepository.registMain(main_question);
+        return DefaultResultDto.builder()
+                .message("1건이 등록 되었습니다.")
+                .success(true)
+                .build();
     }
 
 
-    public ArrayList<MainQuestionDto> getMainList() {
+    public List<GetMainCategoryDto> getMainList() {
         return adminRepository.getMainList();
     }
 
-    public Boolean registSub(SubQuestionDto sub_question) {
+    public DefaultResultDto registSub(AddSubCategoryDto sub_question) {
 
-        int isSuccess = adminRepository.registSub(sub_question);
-        if(isSuccess == 0) {
-            return false;
-        }else{
-            return true;
+        adminRepository.registSub(sub_question);
+        return DefaultResultDto.builder()
+                .message("1건이 등록 되었습니다.")
+                .success(true)
+                .build();
         }
-    }
 
-    public ArrayList<SubQuestionDto> getSubList() {
-
+    public List<GetSubCategoryDto> getSubList() {
         return adminRepository.getSubList();
     }
 }

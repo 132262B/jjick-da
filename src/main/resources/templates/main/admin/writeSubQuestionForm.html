@@ -19,11 +19,11 @@
         dataType:"json"
     }).done(function(data){
         let subList = "";
-        for(let i of data){
-        let reg_date = i.REG_DATE;
+        for(let i of data.data){
+        let reg_date = i.regDate;
         reg_date = reg_date.substr(0,10);
-        let udt_date = i.UDT_DATE;
-        let use_sts = i.USE_STATUS;
+        let udt_date = i.udtDate;
+        let use_sts = i.useStatus;
         if(udt_date == null){
           udt_date = "없음";
         }else{
@@ -34,17 +34,17 @@
     }else{
       use_sts = "미사용중";
     }
-    subList +='<div onclick="write_subject('+i.IDX+')" class="col-md-12" id="main_list">' +
-      '<div class="list_1" id="main_lists">' + i.IDX + '</div>' +
-      '<div class="list_2" id="main_lists">'+ i.SUB_CATEGORY_NAME +'</div>' +
-      '<div class="list_3" id="main_lists">'+ reg_date +'</div>' +
-      '<div class="list_4" id="main_lists">'+ i.REG_USER_NAME +'</div>' +
-      '<div class="list_5" id="main_lists">'+ udt_date +'</div>' +
-      '<div class="list_6" id="main_lists">'+ i.UDT_USER_NAME +'</div>' +
-      '<div class="list_7" id="main_lists">'+ use_sts +'</div>' +
-    '</div>'
-    }
+    subList += `<div onclick="write_subject(${i.idx})" class="col-md-12" id="main_list">
+              <div class="list_1" id="main_lists">${i.idx}</div>
+              <div class="list_2" id="main_lists">${i.subCategoryName}</div>
+              <div class="list_3" id="main_lists">${reg_date}</div>
+              <div class="list_4" id="main_lists">${i.regUserName}</div>
+              <div class="list_5" id="main_lists">${udt_date}</div>
+              <div class="list_6" id="main_lists">${i.udtUserName}</div>
+              <div class="list_7" id="main_lists">${use_sts}</div>
+              </div>`
     $(".htmls").html(subList);
+    }
     }).fail(function(){
     alert("메인 카테고리 리스트 불러오기 실패");
     })
@@ -56,8 +56,8 @@
                   dataType:"json"
             }).done(function(data){
               let dataList = "";
-              for(let i of data){
-                dataList += "<option data-value='" + i.IDX + "' value='" + i.MAIN_CATEGORY_NAME + "' />"
+              for(let i of data.data){
+                dataList += `<option data-value = "${i.idx}" value ="{i.mainCategoryName}" />`
               }
               $("#data_list").append(dataList);
             }).fail(function(){
@@ -70,17 +70,16 @@
               let main_ctg_name = $("#main_ctg_name").val();
               let MAIN_CATEGORY_IDX = $("#data_list [value='" + main_ctg_name + "']").data("value");
 
-
               if(sub_ctg_name == null || sub_ctg_name == "") {
                 alert("서브 카테고리 이름 기재 필수");
-              }else if(main_ctg_seq == null || main_ctg_seq == "") {
+              }else if(MAIN_CATEGORY_IDX == null || MAIN_CATEGORY_IDX == "") {
                 alert("메인 카테고리 선택 필수");
               }else{
                     $.ajax({
                       type:"POST",
                       url:"/api/admin/regist-sub",
-                      data:{"SUB_CATEGORY_NAME":SUB_CATEGORY_NAME,
-                            "MAIN_CATEGORY_IDX":MAIN_CATEGORY_IDX}
+                      data:{"subCategoryName":SUB_CATEGORY_NAME,
+                            "mainCategoryIdx":MAIN_CATEGORY_IDX}
                     }).done(function(result){
                     if(result){
                       alert("등록 성공");

@@ -1,3 +1,3 @@
 
 const httpUtil = new HttpUtil();
-const messageUtil = new MessageUtil()
+const messageUtil = new MessageUtil();

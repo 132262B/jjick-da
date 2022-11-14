@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="app.jjickda.api.admin.repository.AdminRepository">
+
+    <insert id="registMain" parameterType="addMainCategoryDto">
+        INSERT
+          INTO TB_EXAM_MAIN_CATEGORY
+             ( MAIN_CATEGORY_NAME
+             , USE_STATUS
+             , REG_DATE
+             , REG_IDX
+             )
+        VALUES
+             ( #{main_question.MAIN_CATEGORY_NAME}
+             , 1
+             , now()
+             , 1
+             );
+    </insert>
+
+    <insert id="registSub" parameterType="addSubCategoryDto">
+        INSERT INTO TB_EXAM_SUB_CATEGORY(
+        MAIN_CATEGORY_IDX,
+        SUB_CATEGORY_NAME,
+        USE_STATUS,
+        REG_DATE,
+        REG_IDX
+        )VALUES(
+            #{sub_question.MAIN_CATEGORY_IDX},
+            #{sub_question.SUB_CATEGORY_NAME},
+            1,
+            now(),
+            0
+        );
+    </insert>
+
+
+    <select id="getMainList" resultType="getMainCategoryDto">
+        SELECT
+        e.MAIN_CATEGORY_NAME,
+        e.IDX,
+        e.USE_STATUS,
+        e.REG_DATE,
+        e.REG_IDX,
+        e.UDT_DATE,
+        e.UDT_IDX,
+        u.NAME as regUserName,
+        IFNULL(user.NAME,"없음") as udtUserName
+        FROM TB_EXAM_MAIN_CATEGORY e
+        LEFT JOIN TB_USER u
+        ON REG_IDX = u.IDX
+        LEFT JOIN TB_USER user
+        ON UDT_IDX = user.IDX;
+    </select>
+
+    <select id="getSubList" resultType="getSubCategoryDto">
+        select
+        e.IDX,
+        e.SUB_CATEGORY_NAME,
+        e.USE_STATUS,
+        e.REG_DATE,
+        e.REG_IDX,
+        e.UDT_DATE,
+        e.UDT_IDX,
+        u.NAME as regUserName,
+        IFNULL(user.NAME,"없음") as udtUserName
+        FROM TB_EXAM_SUB_CATEGORY e
+        LEFT JOIN TB_USER u
+        ON REG_IDX = u.IDX
+        LEFT JOIN TB_USER user
+        ON UDT_IDX = user.IDX;
+    </select>
+
+
+
+</mapper>

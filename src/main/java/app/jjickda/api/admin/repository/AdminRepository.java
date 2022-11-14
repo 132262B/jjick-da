@@ -1,19 +1,20 @@
 package app.jjickda.api.admin.repository;
 
-import app.jjickda.api.admin.dto.MainQuestionDto;
-import app.jjickda.api.admin.dto.SubQuestionDto;
+import app.jjickda.api.admin.dto.request.AddMainCategoryDto;
+import app.jjickda.api.admin.dto.request.AddSubCategoryDto;
+import app.jjickda.api.admin.dto.response.GetMainCategoryDto;
+import app.jjickda.api.admin.dto.response.GetSubCategoryDto;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Mapper
 public interface AdminRepository {
-    int registMain(@Param(value = "main_question") MainQuestionDto main_question);
+    int registMain(AddMainCategoryDto main_question);
 
-    ArrayList<MainQuestionDto> getMainList();
+    List<GetMainCategoryDto> getMainList();
 
-    int registSub(@Param(value = "sub_question") SubQuestionDto sub_question);
+    int registSub(AddSubCategoryDto sub_question);
 
-    ArrayList<SubQuestionDto> getSubList();
+    List<GetSubCategoryDto> getSubList();
 }
