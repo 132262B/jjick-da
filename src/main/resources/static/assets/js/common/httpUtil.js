@@ -10,9 +10,36 @@ class HttpUtil {
      * @param type {string}
      * @param data {any[]} json
      * @param successFunction
+     */
+    defaultRequest(url, type, data, successFunction) {
+        $.ajax({
+            url: url,
+            type: type,
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: 'application/json',
+            success: function (data) {
+                successFunction(data);
+            },
+            error: function (err) {
+                // 공통 에러 개발해야함
+            },
+            compile: function () {
+                // 공통 컴플리트 개발해야함.
+            }
+        });
+    }
+
+    /**
+     * http 기본 요청시 사용하는 메서드
+     *
+     * @param url {string}
+     * @param type {string}
+     * @param data {any[]} json
+     * @param successFunction
      * @param compileFunction
      */
-    defaultRequest(url, type, data, successFunction, compileFunction) {
+    compileControlRequest(url, type, data, successFunction, compileFunction) {
         $.ajax({
             url: url,
             type: type,
