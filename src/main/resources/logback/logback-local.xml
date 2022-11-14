@@ -24,4 +24,12 @@
         <appender-ref ref="STDOUT"/>
     </logger>
 
+    <logger name="com.zaxxer.hikari" level="OFF" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <logger name="com.zaxxer.hikari.HikariConfig" level="OFF" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
 </configuration>
