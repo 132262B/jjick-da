@@ -1,30 +1,29 @@
 package app.jjickda.domain.user.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.apache.ibatis.type.Alias;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
+@Setter
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@Alias("SignUpDto")
-public class SignUpDto {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Alias("loginDto")
+public class LoginDto {
 
-    @NotBlank
     @Email
+    @NotBlank
     private String email;
 
     @NotBlank
     @Length(min = 64, max = 65, message = "패스워드가 SHA-256 형태가 아닙니다.")
     private String password;
 
-    @NotBlank
-    @Length(min = 2, max = 20)
-    private String name;
+    @Builder
+    public LoginDto(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 }

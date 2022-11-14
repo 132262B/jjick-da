@@ -1,4 +1,4 @@
-package app.jjickda.domain.user.dto.request;
+package app.jjickda.domain.user.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,17 +6,21 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.ibatis.type.Alias;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Alias("emailDuplicationDto")
-public class EmailDuplicationDto {
+@Alias("user")
+public class User implements Serializable {
 
-    @Email
-    @NotBlank
+    private long idx;
+
     private String email;
+
+    private String name;
+
+    private String userRole;
+
 }

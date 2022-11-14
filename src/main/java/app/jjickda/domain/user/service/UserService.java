@@ -2,15 +2,17 @@ package app.jjickda.domain.user.service;
 
 import app.jjickda.domain.common.dto.response.DefaultResultDto;
 import app.jjickda.domain.user.dto.request.EmailDuplicationDto;
+import app.jjickda.domain.user.dto.request.LoginDto;
 import app.jjickda.domain.user.dto.request.SignUpDto;
+import app.jjickda.domain.user.dto.response.User;
 import app.jjickda.domain.user.repository.UserRepository;
 import app.jjickda.global.config.exception.CustomException;
 import app.jjickda.global.config.exception.ErrorCode;
+import app.jjickda.global.utils.SessionUtil;
+import ch.qos.logback.classic.Logger;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
-
-import java.sql.SQLException;
 
 @Slf4j
 @Service
@@ -51,8 +53,47 @@ public class UserService {
 
         return DefaultResultDto.builder()
                 .success(true)
-                .message("회원가입 성공")
+                .message("회원가입 성공!")
                 .build();
     }
 
+    // 로그인
+    public DefaultResultDto login(LoginDto loginDto) {
+
+        User user = userRepository.getUser(loginDto);
+
+        if (user == null) {
+            return DefaultResultDto.builder()
+                    .success(false)
+                    .message("아이디가 존재하지 않거나, 틀린 비밀번호 입니다.")
+                    .build();
+        } else {
+
+            SessionUtil.setAttribute("user", user);
+
+            return DefaultResultDto.builder()
+                    .success(true)
+                    .message("로그인 성공!")
+                    .build();
+        }
+    }
+
+    // 로그아웃
+    public DefaultResultDto logout() {
+        log.debug("11111111 현재 세션 아이디 : {}",SessionUtil.getSessionId());
+
+        SessionUtil.invalidate();
+
+        log.debug("22222222 현재 세션 아이디 : {}",SessionUtil.getSessionId());
+
+        return DefaultResultDto.builder()
+                .success(true)
+                .message("로그아웃 성공!")
+                .build();
+    }
+
+    public User myInfo() {
+        User user = (User) SessionUtil.getAttribute("user");
+        return user;
+    }
 }

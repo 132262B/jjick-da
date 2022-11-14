@@ -5,12 +5,12 @@
 <mapper namespace="app.jjickda.domain.user.repository.UserRepository">
 
     <!-- 이메일 중복 체크 -->
-    <select id="emailDuplicationCheck" resultType="int" parameterType="EmailDuplicationDto">
+    <select id="emailDuplicationCheck" resultType="int" parameterType="emailDuplicationDto">
         SELECT COUNT(EMAIL) FROM TB_USER WHERE EMAIL = #{email}
     </select>
 
     <!-- 회원가입 -->
-    <insert id="signUp" parameterType="SignUpDto">
+    <insert id="signUp" parameterType="signUpDto">
         INSERT
           INTO TB_USER
              ( EMAIL
@@ -22,5 +22,21 @@
              , #{name}
              )
     </insert>
+
+    <!-- 로그인, 회원정보 불러옴 -->
+    <select id="getUser" resultType="user" parameterType="loginDto">
+        SELECT USR.IDX
+             , USR.EMAIL
+             , USR.NAME
+             , USR.ROLE_IDX
+             , RLE.ROLE_NAME
+          FROM TB_USER USR
+         INNER JOIN TB_ROLE RLE
+            ON USR.ROLE_IDX = RLE.IDX
+         WHERE 1=1
+           AND USR.EMAIL = #{email}
+           AND USR.PASSWORD = #{password}
+
+    </select>
 
 </mapper>
