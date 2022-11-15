@@ -1,11 +1,13 @@
 package app.jjickda.domain.user.controller;
 
 import app.jjickda.domain.common.dto.response.DefaultResultDto;
+import app.jjickda.domain.role.Role;
 import app.jjickda.domain.user.dto.request.EmailDuplicationDto;
 import app.jjickda.domain.user.dto.request.LoginDto;
 import app.jjickda.domain.user.dto.request.SignUpDto;
 import app.jjickda.domain.user.dto.response.User;
 import app.jjickda.domain.user.service.UserService;
+import app.jjickda.global.annotation.LoginCheck;
 import app.jjickda.global.config.model.ApiResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -51,8 +53,9 @@ public class UserRestController {
         return ResponseEntity.ok(new ApiResponse<>(userService.logout()));
     }
 
+    @LoginCheck(auth = Role.USER)
     @ApiOperation("내 정보 조회 API")
-    @PostMapping("/my-info")
+    @GetMapping("/my-info")
     public ResponseEntity<ApiResponse<User>> myInfo() {
         return ResponseEntity.ok(new ApiResponse<>(userService.myInfo()));
     }

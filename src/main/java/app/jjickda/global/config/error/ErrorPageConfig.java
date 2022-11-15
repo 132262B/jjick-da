@@ -15,6 +15,7 @@ public class ErrorPageConfig {
             @Override
             public void addErrorPages(ErrorPage... errorPages) {
                 super.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/error"));
+                super.addErrorPages(new ErrorPage(HttpStatus.FORBIDDEN, "/error"));
             }
 
         };

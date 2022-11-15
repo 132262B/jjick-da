@@ -26,6 +26,8 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // aop
     implementation 'org.springframework.boot:spring-boot-starter-aop'
 
     // spring boot dev tools
