@@ -2,6 +2,7 @@ package app.jjickda.api.admin.controller;
 
 import app.jjickda.domain.role.Role;
 import app.jjickda.global.annotation.LoginCheck;
+import app.jjickda.global.config.exception.Type;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @RequestMapping("/admin")
 public class AdminController {
 
-    @LoginCheck(auth = Role.ADMIN)
+    @LoginCheck(auth = Role.ADMIN, type = Type.PAGE)
     @GetMapping("/home")
     public String AdminPage() {
         return "main/admin/home";

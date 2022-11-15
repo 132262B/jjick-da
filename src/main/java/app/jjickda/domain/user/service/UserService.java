@@ -9,7 +9,6 @@ import app.jjickda.domain.user.repository.UserRepository;
 import app.jjickda.global.config.exception.CustomException;
 import app.jjickda.global.config.exception.ErrorCode;
 import app.jjickda.global.utils.SessionUtil;
-import ch.qos.logback.classic.Logger;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;

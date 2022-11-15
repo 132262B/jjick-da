@@ -16,4 +16,4 @@ public enum Role {
         this.roleIdx = roleIdx;
         this.roleName = roleName;
     }
-    }
+}

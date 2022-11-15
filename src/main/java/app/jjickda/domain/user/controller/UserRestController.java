@@ -8,6 +8,7 @@ import app.jjickda.domain.user.dto.request.SignUpDto;
 import app.jjickda.domain.user.dto.response.User;
 import app.jjickda.domain.user.service.UserService;
 import app.jjickda.global.annotation.LoginCheck;
+import app.jjickda.global.config.exception.Type;
 import app.jjickda.global.config.model.ApiResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -53,7 +54,7 @@ public class UserRestController {
         return ResponseEntity.ok(new ApiResponse<>(userService.logout()));
     }
 
-    @LoginCheck(auth = Role.USER)
+    @LoginCheck(auth = Role.USER, type = Type.API)
     @ApiOperation("내 정보 조회 API")
     @GetMapping("/my-info")
     public ResponseEntity<ApiResponse<User>> myInfo() {

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<th:block th:replace="fragments/user/head :: headFragment"></th:block>
+<body class="d-flex flex-column min-vh-100">
+<th:block th:replace="fragments/user/header :: headerFragment"></th:block>
+
+<section>
+    <div class="content">
+        <div class="container" style="text-align: center; margin-top: 250px">
+            <div class="row">
+                <div class="col-sm-6">
+                    <img th:src="@{/assets/img/error/error.svg}" class="img-fluid" alt="에러페이지 일러스트" width="300px">
+                </div>
+                <div class="col-sm-6">
+
+                    <h1 style="font-size: 40px">접근할 수 없는 페이지입니다!</h1>
+                    <p class="mb-1">That’s an error.</p>
+                    <p style="color: gray">That’s all we know.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<th:block th:replace="fragments/user/footer :: footerFragment"></th:block>
+
+</body>
+</html>
