@@ -5,26 +5,44 @@
 <th:block th:replace="fragments/admin/header :: adminHeaderFragment"></th:block>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script>
+    let subIdx = [[${sub_ctg_seq}]];
+    function getSubCategory() {
+        httpUtil.defaultRequest('/api/admin/get-sub-detail','post', '{"subIdx" : subIdx}', function(data) {
+            $(".info").prepend(
+
+        <div class="info">
+            <div class="info_subject">
+                <a href="">산업인력공단-기사</a>-정보처리기사(필기)
+            </div>
+            <div class="info_details">
+                <div class="info_right">
+                    <div id="subjects" class="">No : <span> 1.</span></div>
+                    <div id="subjects" class="">사용 유무 : <span> 사용중 </span></div>
+                    <div id="subjects" class="">등록자 : <span> 황정민</span></div>
+                    <div id="subjects" class="">등록일 :<span> 2022-10-25</span></div>
+                </div>
+                <div class="info_left">
+                    <div id="subjects" class="">과목 갯수 :<span> 0개</span></div>
+                    <div id="subjects" class="">수정일 : <span> 수정 없음</span></div>
+                    <div id="subjects" class="">수정자 : <span> 수정 없음</span></div>
+                    <div id="subjects" class=""><a href="">수정</a></div>
+            </div>
+        </div>
+
+
+
+            )
+
+        })
+    }
+
+
+</script>
+
 
 <section class="sub_ctg_info" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
-    <div class="info">
-        <div class="info_subject">
-            <a href="">산업인력공단-기사</a>-정보처리기사(필기)
-        </div>
-        <div class="info_details">
-            <div class="info_right">
-                <div id="subjects" class="">No : <span> 1.</span></div>
-                <div id="subjects" class="">사용 유무 : <span> 사용중 </span></div>
-                <div id="subjects" class="">등록자 : <span> 황정민</span></div>
-                <div id="subjects" class="">등록일 :<span> 2022-10-25</span></div>
-            </div>
-            <div class="info_left">
-                <div id="subjects" class="">과목 갯수 :<span> 0개</span></div>
-                <div id="subjects" class="">수정일 : <span> 수정 없음</span></div>
-                <div id="subjects" class="">수정자 : <span> 수정 없음</span></div>
-                <div id="subjects" class=""><a href="">수정</a></div>
-            </div>
-        </div>
+
 
         <div class="col-md-12" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="450">
             <input type="text" id="subject_name" class="form-control" name="subject_name" placeholder="과목을 입력해주세요." required />
@@ -55,11 +73,16 @@
 
 <script>
     let data = {};
-    data.ergheh = "";
 
-    function test() {
-        httpUtil.defaultRequest('/api/admin/sfgeg','post', data, function(data) {
 
+    $(".main_button").on("click",function(){
+        data.subCategoryIdx = subIdx;
+        data.subjectName = $("#subject_name").val();
+    })
+
+
+    function addSubject() {
+        httpUtil.defaultRequest('/api/admin/addSubject','post', data, function(data) {
         })
     }
 </script>

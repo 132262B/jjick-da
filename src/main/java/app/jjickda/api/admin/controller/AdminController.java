@@ -13,9 +13,9 @@ import springfox.documentation.annotations.ApiIgnore;
 @RequestMapping("/admin")
 public class AdminController {
 
-    @GetMapping("/adminpage")
+    @GetMapping("/home")
     public String AdminPage() {
-        return "main/admin/adminPage";
+        return "main/admin/home";
     }
 
     // write-question

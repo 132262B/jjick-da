@@ -43,4 +43,8 @@ public class AdminService {
     public List<GetSubCategoryDto> getSubList() {
         return adminRepository.getSubList();
     }
+
+    public GetSubCategoryDto getSubDetail(long subIdx) {
+        return adminRepository.getSubDetail(subIdx);
+    }
 }

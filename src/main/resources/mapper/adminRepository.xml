@@ -72,4 +72,9 @@
         LEFT JOIN TB_USER user
         ON UDT_IDX = user.IDX;
     </select>
+
+    <select id="getSubDetail" resultType="getSubCategoryDto">
+
+
+    </select>
 </mapper>

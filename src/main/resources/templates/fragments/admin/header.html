@@ -1,8 +1,5 @@
 <th:block th:fragment="adminHeaderFragment" xmlns:th="http://www.w3.org/1999/xhtml">
 <header id="header" class="header fixed-top">
-    <script>
-        AOS.init();
-    </script>
   <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
     <a href="/home" class="logo d-flex align-items-center">
@@ -27,7 +24,7 @@
       </ul>
       <i class="bi bi-list mobile-nav-toggle"></i>
     </nav>
-
   </div>
+  <script th:src="@{/assets/js/main.js}"></script>
 </header>
 </th:block>

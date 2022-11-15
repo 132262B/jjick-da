@@ -17,4 +17,6 @@ public interface AdminRepository {
     int registSub(AddSubCategoryDto sub_question);
 
     List<GetSubCategoryDto> getSubList();
+
+    GetSubCategoryDto getSubDetail(long subIdx);
 }
