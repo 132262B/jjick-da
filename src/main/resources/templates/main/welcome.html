@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<th:block th:replace="fragments/user/head :: headFragment"></th:block>
+<body class="d-flex flex-column min-vh-100">
+<th:block th:replace="fragments/user/header :: headerFragment"></th:block>
+
+<section>
+    <div class="content">
+        <div class="container" style="text-align: center; margin-top: 250px">
+            <div class="row">
+                <div class="col">
+                    <img th:src="@{assets/img/welcome.svg}" class="img-fluid" alt="환영인사 일러스트" width="400px">
+
+                    <p>
+                        환영합니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<th:block th:replace="fragments/user/footer :: footerFragment"></th:block>
+
+</body>
+</html>

@@ -50,16 +50,18 @@ function signUp() {
 
     const data = {};
     data.email = email.value;
-    data.password = password.value;
+    data.password = sha256(password.value);
     data.name = name.value;
 
     httpUtil.defaultRequest('/api/user/sign-up', 'post', data,
         function (data) {
-
-        },
-        function () {
-
-        })
+            if(data.data.success) {
+                location.href = '/welcome'
+            } else {
+                email.classList.add('is-invalid');
+                existId('invalidEmail').innerText = data.data.message;
+            }
+        });
 
 }
 
@@ -91,10 +93,7 @@ function emailCheck() {
                 resetEmail();
             }
 
-        },
-        function () {
-
-        })
+        });
 
 }
 

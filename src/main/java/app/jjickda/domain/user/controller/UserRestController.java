@@ -11,10 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -42,7 +39,7 @@ public class UserRestController {
 
     @ApiOperation("로그인 API")
     @PostMapping("/login")
-        public ResponseEntity<ApiResponse<DefaultResultDto>> login(@Validated @RequestBody LoginDto loginDto) {
+    public ResponseEntity<ApiResponse<DefaultResultDto>> login(@Validated @RequestBody LoginDto loginDto) {
         return ResponseEntity.ok(new ApiResponse<>(userService.login(loginDto)));
     }
 
@@ -52,7 +49,7 @@ public class UserRestController {
         return ResponseEntity.ok(new ApiResponse<>(userService.logout()));
     }
 
-    @ApiOperation("내 정보 조회")
+    @ApiOperation("내 정보 조회 API")
     @PostMapping("/my-info")
     public ResponseEntity<ApiResponse<User>> myInfo() {
         return ResponseEntity.ok(new ApiResponse<>(userService.myInfo()));

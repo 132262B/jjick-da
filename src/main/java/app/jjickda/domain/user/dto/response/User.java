@@ -21,6 +21,8 @@ public class User implements Serializable {
 
     private String name;
 
-    private String userRole;
+    private int roleIdx;
+
+    private String roleName;
 
 }

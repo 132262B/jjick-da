@@ -4,6 +4,12 @@
     <!-- 헤더 시작 -->
     <script>
         AOS.init();
+
+        function logout() {
+            httpUtil.defaultRequest('/api/user/logout', 'post', {}, function () {
+                location.replace(location.href);
+            })
+        }
     </script>
     <header id="header" class="header fixed-top">
         <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
@@ -16,7 +22,8 @@
                 <ul>
                     <li><a class="nav-link scrollto active" th:href="@{/select-certificate}">시작하기</a></li>
                     <li><a class="nav-link scrollto" href="#services">서비스</a></li>
-                    <li><a class="getstarted scrollto" th:href="@{/login}">로그인</a></li>
+                    <li><a class="getstarted scrollto" th:if="${session.user != null}" onclick="logout()">로그아웃</a></li>
+                    <li><a class="getstarted scrollto" th:if="${session.user == null}" th:href="@{/login}">로그인</a></li>
                 </ul>
             </nav>
             <i class="bi bi-list mobile-nav-toggle"></i>
