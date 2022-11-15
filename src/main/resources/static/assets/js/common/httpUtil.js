@@ -22,7 +22,7 @@ class HttpUtil {
                 successFunction(data);
             },
             error: function (err) {
-                // 공통 에러 개발해야함
+                errorMessageToast(err.message);
             },
             complete: function () {
                 // 공통 컴플리트 개발해야함.
@@ -50,7 +50,7 @@ class HttpUtil {
                 successFunction(data);
             },
             error: function (err) {
-                // 공통 에러 개발해야함
+                errorMessageToast(err.message);
             },
             complete: function () {
                 completeFunction();

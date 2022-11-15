@@ -46,3 +46,16 @@ function nvl(str, defaultStr) {
 
     return str;
 }
+
+/**
+ * ErrorMessageToast 출력
+ * @param errorMessage - 에러 메시지
+ */
+function errorMessageToast(errorMessage) {
+    const errorMessageToast = existId('errorMessageToast')
+    const errorMessageElem = existId('errorMessage');
+
+    errorMessageElem.innerText = errorMessage;
+    const toast = new bootstrap.Toast(errorMessageToast);
+    toast.show();
+}
