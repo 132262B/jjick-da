@@ -24,6 +24,7 @@
                     <li><a class="nav-link scrollto" href="#services">서비스</a></li>
                     <li><a class="getstarted scrollto" th:if="${session.user != null}" onclick="logout()">로그아웃</a></li>
                     <li><a class="getstarted scrollto" th:if="${session.user == null}" th:href="@{/login}">로그인</a></li>
+                    <li><a class="getstarted scrollto" th:if="${session.user?.roleIdx == 2}" th:href="@{/admin/home}">관리페이지</a></li>
                 </ul>
             </nav>
             <i class="bi bi-list mobile-nav-toggle"></i>

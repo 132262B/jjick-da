@@ -7,6 +7,7 @@ import app.jjickda.domain.user.dto.request.SignUpDto;
 import app.jjickda.domain.user.dto.response.User;
 import app.jjickda.domain.user.service.UserService;
 import app.jjickda.global.config.model.ApiResponse;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
+@Api(tags = "사용자 관리 Controller")
 @RequestMapping("/api/user")
 public class UserRestController {
 
