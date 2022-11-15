@@ -1,5 +1,6 @@
 package app.jjickda.domain.user.dto.request;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,5 +19,6 @@ public class EmailDuplicationDto {
 
     @Email
     @NotBlank
+    @ApiModelProperty(value = "사용자 이메일", example = "user@gmail.com", required = true)
     private String email;
 }

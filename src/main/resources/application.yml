@@ -39,7 +39,7 @@ logging:
 
 # swagger config
 swagger:
-  base-package: app.jjickda.api
+  base-package: app.jjickda
   path: /api/**
   title: 찍다 API 문서
   description: API에 대해서 설명해주는 문서입니다.
