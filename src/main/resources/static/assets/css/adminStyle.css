@@ -1089,7 +1089,7 @@ custom
   display: flex;
 }
 #selects{
-  flex:4
+  flex:5
 }
 #selects:nth-child(2){
   margin-left: 10px;
@@ -1097,8 +1097,13 @@ custom
 }
 #selects:nth-child(3){
   margin-left: 5px;
+  margin-right: 5px;
+}#selects:nth-child(4){
+  margin-left: 5px;
   margin-right: 10px;
-}
+  text-overflow:ellipsis;
+  white-space:nowrap;
+ }
 
 #add{
   margin-bottom: 20px;

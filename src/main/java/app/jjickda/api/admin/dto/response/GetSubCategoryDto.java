@@ -24,4 +24,7 @@ public class GetSubCategoryDto {
     private long udtIdx;
     private String regUserName;
     private String udtUserName;
+    private String mainCategoryName;
+    private int subjectCount;
+    private long mainCategoryIdx;
 }
