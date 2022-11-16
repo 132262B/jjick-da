@@ -1,3 +1,5 @@
+
+// 로그인
 function login() {
     const email = existId('email');
     const password = existId('password');
@@ -19,9 +21,16 @@ function login() {
                 location.href = '/home'
             } else {
                 email.classList.add('is-invalid');
+                existId('invalidEmail').innerText = '';
                 password.classList.add('is-invalid');
                 existId('invalidPassword').innerText = data.data.message;
             }
         });
+}
 
+// 엔터키 누를시
+function enter() {
+    if (window.event.keyCode === 13) {
+        login();
+    }
 }

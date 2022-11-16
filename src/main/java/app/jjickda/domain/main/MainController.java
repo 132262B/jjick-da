@@ -1,4 +1,4 @@
-package app.jjickda.api.main;
+package app.jjickda.domain.main;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
