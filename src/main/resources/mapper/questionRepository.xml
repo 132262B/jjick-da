@@ -17,4 +17,15 @@
             TEMC.IDX = TESC.MAIN_CATEGORY_IDX
     </select>
 
+    <!-- -->
+    <select id="subjectSelect" resultType="subjectListDto">
+        SELECT
+            IDX AS SUBJECT_IDX,
+            SUBJECT_NAME
+        FROM
+            TB_EXAM_SUBJECT
+        WHERE
+            SUB_CATEGORY_IDX = #{questionIdx}
+    </select>
+
 </mapper>

@@ -26,17 +26,17 @@
           <div class="col-lg-8 entries">
             <article class="entry entry-single">
               <!-- 탭 시작 -->
-              <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="pills-certificate-tab" data-bs-toggle="pill" data-bs-target="#pills-certificate" type="button" role="tab" aria-controls="pills-certificate" aria-selected="true">자격증선택</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="pills-subject-tab" data-bs-toggle="pill" data-bs-target="#pills-subject" type="button" role="tab" aria-controls="pills-subject" aria-selected="false">과목선택</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="pills-exam-tab" data-bs-toggle="pill" data-bs-target="#pills-exam" type="button" role="tab" aria-controls="pills-exam" aria-selected="false">회차선택</button>
-                </li>
-              </ul>
+                <ul id="myTab" role="tablist" class="nav nav-tabs nav-pills flex-column flex-sm-row text-center bg-dark bg-opacity-10 border-0 rounded-pill show-list">
+                  <li class="nav-item flex-sm-fill">
+                    <a id="pills-certificate-tab" data-bs-toggle="tab" role="tab" data-bs-target="#pills-certificate" aria-controls="pills-certificate" aria-selected="true" class="nav-link rounded-pill border-0 text-uppercase font-weight-bold active">자격증선택</a>
+                  </li>
+                  <li class="nav-item flex-sm-fill">
+                    <a id="pills-subject-tab" data-bs-toggle="tab" role="tab" data-bs-target="#pills-subject" aria-controls="pills-subject" aria-selected="false" class="nav-link rounded-pill border-0 text-uppercase font-weight-bold">과목선택</a>
+                  </li>
+                  <li class="nav-item flex-sm-fill">
+                    <a id="pills-exam-tab" data-bs-toggle="tab" role="tab" data-bs-target="#pills-exam" aria-controls="pills-exam" aria-selected="false" class="nav-link rounded-pill border-0 text-uppercase font-weight-bold">회차선택</a>
+                  </li>
+                </ul>
               <!-- 탭 끝 -->
 
               <!-- 탭 내용 시작 -->
@@ -113,26 +113,37 @@
   <th:block th:replace="fragments/user/footer :: footerFragment"></th:block>
 
 </body>
-
-<script th:src="@{/assets/vendor/glightbox/js/glightbox.min.js}"></script>
-<script th:src="@{/assets/vendor/swiper/swiper-bundle.min.js}"></script>
-<script th:src="@{/assets/js/main.js}"></script>
 <script src="https://cdn.jsdelivr.net/npm/datalist-css/dist/datalist-css.min.js"></script>
 
 <script>
   function ShowCertificate() {
-    httpUtil.defaultRequest('/api/select-certificate', 'post', '{}', function(data) {
-      var Certificates = '';
+    const data = {};
+    httpUtil.defaultRequest('/api/select-certificate', 'post', data, function(data) {
+      var certificates = '';
       $.each(data.data, function (index, item) {
-        Certificates += `
-          <option value="${this.questionName}" id="${this.questionIdx}">${this.questionName}</option>
+        certificates += `
+          <option value='${this.questionName}' data-value='${this.questionIdx}'>${this.questionName}</option>
         `;
       });
-      $("#certificateList").append(Certificates);
+      $("#certificateList").append(certificates);
     });
   }
 
-  $
+  $('#selector').change(function() {
+    const data = {};
+    var questionName = document.getElementById("selector").value;
+    var questionIdx = document.querySelector("#certificate option[value='" + questionName + "']").dataset.value;
+    var url = '/api/select-subject/' + questionIdx;
+    httpUtil.defaultRequest(url, 'post', data, function() {
+      var subjects = '';
+      $.each(data.data, function (index, item) {
+        subjects += `
+          <input type="checkbox" name="subject" value="${this.subjectIdx}" checked>&nbsp;${this.subjectName}<br>
+        `;
+      });
+      $(".d-checkbox").append(subjects);
+    });
+  });
 </script>
 
 <style>
@@ -140,7 +151,7 @@
     position: absolute;
     max-height: 20em;
     border-left: 1px solid #000000;
-    border-right: 1px solid #000000;
+    border-right: 1px solid #000000;z
     border-bottom: 1px solid #000000;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -164,8 +175,5 @@
     outline: 0 none;
   }
 
-  .entry {
-    margin: 80px 0;
-  }
 </style>
 </html>
