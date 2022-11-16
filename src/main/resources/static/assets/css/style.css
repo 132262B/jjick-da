@@ -596,9 +596,10 @@ section {
 }
 
 .exam .entry {
-  padding: 30px;
-  margin-bottom: 60px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    height: 500px;
+    padding: 30px;
+    margin: 40px 0;
+     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 .exam .entry .entry-img {
@@ -616,7 +617,8 @@ section {
 }
 
 .exam .entry .entry-title {
-  margin-top: 30px;
+  margin-top: 100px;
+  margin-bottom: 80px;
   text-align: center;
 }
 
@@ -630,7 +632,7 @@ section {
 }
 
 .exam .entry .entry-meta .select-content {
-  margin: 100px 0 100px 0;
+  margin: 70px 0 100px 0;
 }
 
 .entry-meta > img {
@@ -761,6 +763,7 @@ section {
 }
 
 .exam .entry-single {
+    border-radius: 1.5rem;
   margin-bottom: 30px;
 }
 
@@ -846,6 +849,21 @@ section {
 .exam .entry .entry-meta .form-select option:hover {
   color: #fff;
   background-color: #012970;
+}
+
+.show-list {
+    color: #012790;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.nav-pills .nav-link.active {
+    color: white;
+    background-color: #012790;
+}
+
+.nav-link {
+    color: #012790;
 }
 
 #selector {
