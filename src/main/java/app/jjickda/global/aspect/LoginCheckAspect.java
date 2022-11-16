@@ -25,7 +25,7 @@ public class LoginCheckAspect {
         MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
         LoginCheck loginCheck = methodSignature.getMethod().getAnnotation(LoginCheck.class);
 
-        User user = (User) SessionUtil.getAttribute("user");
+        User user = SessionUtil.getUserAttribute();
         Type type = loginCheck.type();
 
         if (user != null) {

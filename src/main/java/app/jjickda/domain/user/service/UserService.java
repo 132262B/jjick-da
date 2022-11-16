@@ -68,7 +68,7 @@ public class UserService {
                     .build();
         } else {
 
-            SessionUtil.setAttribute("user", user);
+            SessionUtil.setUserAttribute(user);
 
             return DefaultResultDto.builder()
                     .success(true)
@@ -79,11 +79,7 @@ public class UserService {
 
     // 로그아웃
     public DefaultResultDto logout() {
-        log.debug("11111111 현재 세션 아이디 : {}",SessionUtil.getSessionId());
-
         SessionUtil.invalidate();
-
-        log.debug("22222222 현재 세션 아이디 : {}",SessionUtil.getSessionId());
 
         return DefaultResultDto.builder()
                 .success(true)
@@ -92,7 +88,6 @@ public class UserService {
     }
 
     public User myInfo() {
-        User user = (User) SessionUtil.getAttribute("user");
-        return user;
+        return SessionUtil.getUserAttribute();
     }
 }

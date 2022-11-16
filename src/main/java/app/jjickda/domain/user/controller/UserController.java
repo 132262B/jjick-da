@@ -13,10 +13,9 @@ public class UserController {
     // 로그인 페이지
     @GetMapping("/login")
     public String login() {
-        User user = (User) SessionUtil.getAttribute("user");
-        if(user != null) {
+        User user = SessionUtil.getUserAttribute();
+        if (user != null)
             throw new PagePermissionException("로그인 상태로 로그인 페이지 방문", ErrorCode.HANDLE_ACCESS_DENIED);
-        }
 
         return "main/login";
     }
@@ -24,10 +23,9 @@ public class UserController {
     // 회원가입 페이지
     @GetMapping("/sign-up")
     public String signUp() {
-        User user = (User) SessionUtil.getAttribute("user");
-        if(user != null) {
+        User user = SessionUtil.getUserAttribute();
+        if (user != null)
             throw new PagePermissionException("로그인 상태로 로그인 페이지 방문", ErrorCode.HANDLE_ACCESS_DENIED);
-        }
 
         return "main/signUp";
     }
