@@ -835,7 +835,7 @@ section {
   margin: 70px 0px 20px;
 }
 
-.d-selectbox, .d-checkbox {
+#d-selectbox {
   margin: 40px 0px;
   text-align: center;
   vertical-align: middle;
@@ -871,42 +871,50 @@ section {
     height: 40px;
 }
 
-@media screen and (max-width: 992px) {
-    .exam .entry .entry-title {
-    font-size: 25px;
-  }
+#div-datalist datalist {
+        position: absolute;
+        max-height: 20em;
+        border-left: 1px solid #000000;
+        border-right: 1px solid #000000;
+        border-bottom: 1px solid #000000;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
 
-  .exam .sidebar {
-    margin: 0 0 60px 0;
-  }
-
-  .exam .entry .entry-meta .select-content {
-    margin: 70px 0 50px 0;
-  }
+#div-datalist datalist option {
+    font-size: 0.8em;
+    padding: 0.4em 1em;
+    background-color: #ffffff;
+    cursor: pointer;
+    color: #000;
+    z-index: 10;
 }
 
-@media screen and (max-width: 450px) {
-  .exam .entry .entry-title {
-    font-size: 20px;
-  }
+#div-datalist datalist option:hover, datalist option:focus {
+    color: #000;
+    background-color: #eeeeee;
+    outline: 0 none;
+}
 
-  .exam .sidebar {
-    margin: 0 0 60px 0;
-  }
+@media screen and (max-width: 884px) {
+    .exam .entry .entry-title {
+        font-size: 20px;
+    }
 
-  .exam .entry .entry-meta .select-content {
-    margin: 70px 0 50px 0;
-  }
+    .exam .sidebar {
+        margin: 0 0 60px 0;
+    }
 
-   .select-btn, .select-btn:focus {
-     padding: 6px 12px;
-   }
+    .exam .entry .entry-meta .select-content {
+        margin: 70px 0 50px 0;
+    }
 
-   .exam .entry .entry-meta .form-select {
-     width: 125px;
-     font-size: 12px;
-   }
-
+    .show-list {
+        font-size: 15px;
+        border-radius: 20px!important;
+    }
 }
 
 /*--------------------------------------------------------------

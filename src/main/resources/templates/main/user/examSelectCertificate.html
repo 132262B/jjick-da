@@ -80,7 +80,7 @@
                             </h2>
 
                             <div class="entry-meta">
-                                <div class="d-checkbox">
+                                <div id="d-selectbox">
 
                                 </div>
                             </div>
@@ -131,66 +131,41 @@
 <script src="https://cdn.jsdelivr.net/npm/datalist-css/dist/datalist-css.min.js"></script>
 
 <script>
-
     function ShowCertificate() {
         const data = {};
         httpUtil.defaultRequest('/api/select-certificate', 'post', data, function (data) {
+            console.log(data);
+            console.log(data.data);
             let certificates = '';
             $.each(data.data, function () {
                 certificates += `
-          <option value='${this.questionName}' onclick="test(${this.questionIdx})">${this.questionName}</option>
-        `;
+                    <option value='${this.questionName}' onclick="ShowSubject(${this.questionIdx})">${this.questionName}</option>
+                `;
             });
-            $("#certificateList").append(certificates);
+            existId('certificateList').innerHTML = certificates;
         });
     }
 
-    function test(idx) {
-        console.log(idx);
-        console.log("ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ");
-
+    function ShowSubject(questionIdx) {
         const data = {};
-        let url = `/api/select-subject/${idx}`;
-        httpUtil.defaultRequest(url, 'post', data, function () {
+        let url = `/api/select-subject/${questionIdx}`;
+        httpUtil.defaultRequest(url, 'post', data, function (data) {
+            console.log(data);
+            console.log(data.data);
             let subjects = '';
             $.each(data.data, function () {
                 subjects += `
-          <input type="checkbox" name="subject" value="${this.subjectIdx}" checked>&nbsp;${this.subjectName}<br>
-        `;
+                    <input type="checkbox" name="subject" value="${this.subjectIdx}" checked>&nbsp;${this.subjectName}<br>
+                `;
             });
-            $(".d-checkbox").append(subjects);
+            console.log(subjects);
+            existId('d-selectbox').innerHTML = subjects;
         });
     }
 </script>
 
 <style>
-    #div-datalist datalist {
-        position: absolute;
-        max-height: 20em;
-        border-left: 1px solid #000000;
-        border-right: 1px solid #000000;
-        border-bottom: 1px solid #000000;
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
-        overflow-x: hidden;
-        overflow-y: auto;
-    }
 
-    #div-datalist datalist option {
-        font-size: 0.8em;
-        padding: 0.4em 1em;
-        background-color: #ffffff;
-        cursor: pointer;
-        color: #000;
-        z-index: 10;
-    }
-
-    /* option active styles */
-    #div-datalist datalist option:hover, datalist option:focus {
-        color: #000;
-        background-color: #eeeeee;
-        outline: 0 none;
-    }
 
 </style>
 </html>
