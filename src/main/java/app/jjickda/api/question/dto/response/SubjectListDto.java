@@ -1,5 +1,6 @@
 package app.jjickda.api.question.dto.response;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.apache.ibatis.type.Alias;
 
@@ -11,8 +12,10 @@ import org.apache.ibatis.type.Alias;
 @Alias("subjectListDto")
 public class SubjectListDto {
 
+    @ApiModelProperty(value = "과목 IDX")
     private long subjectIdx;
 
+    @ApiModelProperty(value = "과목명")
     private String subjectName;
 
 }

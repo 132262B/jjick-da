@@ -17,7 +17,7 @@
             TEMC.IDX = TESC.MAIN_CATEGORY_IDX
     </select>
 
-    <!-- -->
+    <!-- /select-subject/{questionIdx} 주소에 과목 목록 가져오는 구문 -->
     <select id="subjectSelect" resultType="subjectListDto">
         SELECT
             IDX AS SUBJECT_IDX,

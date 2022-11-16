@@ -1,6 +1,7 @@
 package app.jjickda.api.question.dto.response;
 
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.apache.ibatis.type.Alias;
 
@@ -12,8 +13,10 @@ import org.apache.ibatis.type.Alias;
 @Alias("certificateListDto")
 public class CertificateListDto {
 
-    private long questionIdx; // 서브 카테고리 IDX
+    @ApiModelProperty(value = "서브 카테고리 IDX")
+    private long questionIdx;
 
-    private String questionName; // 메인 카테고리명 + 서브 카테고리명
+    @ApiModelProperty(value = "메인 카테고리명 + 서브 카테고리명")
+    private String questionName;
 
 }
