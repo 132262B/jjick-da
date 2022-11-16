@@ -22,34 +22,40 @@ public class AdminController {
         return "main/admin/home";
     }
 
-    // write-question
+    @LoginCheck(auth = Role.ADMIN, type = Type.PAGE)
     @GetMapping("/write-question")
     public String questionWrite() {
         return "main/admin/writeQuestion";
     }
 
+    @LoginCheck(auth = Role.ADMIN, type = Type.PAGE)
     @GetMapping("/write-question-form")
     public String questionWriteForm() {
         return "main/admin/writeQuestionForm";
     }
 
+    @LoginCheck(auth = Role.ADMIN, type = Type.PAGE)
     @GetMapping("/write-main-question")
     public String mainQuestionWriteForm() {
         return "main/admin/writeMainQuestionForm";
     }
 
+    @LoginCheck(auth = Role.ADMIN, type = Type.PAGE)
     @GetMapping("/write-sub-question")
     public String subQuestionWriteForm() {
         return "main/admin/writeSubQuestionForm";
     }
 
+    @LoginCheck(auth = Role.ADMIN, type = Type.PAGE)
     @GetMapping("/question-list")
     public String questionList() {
         return "main/admin/questionList";
     }
+
+    @LoginCheck(auth = Role.ADMIN, type = Type.PAGE)
     @GetMapping("/write-sub-question/subject/{sub_ctg_seq}")
     public String SelectTerm(@PathVariable int sub_ctg_seq, Model model) {
-        model.addAttribute("sub_ctg_seq",sub_ctg_seq);
+        model.addAttribute("sub_ctg_seq", sub_ctg_seq);
         return "main/admin/writeSubjectForm";
     }
 

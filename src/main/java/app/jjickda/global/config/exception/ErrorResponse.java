@@ -15,7 +15,6 @@ import org.springframework.validation.BindingResult;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ErrorResponse {
 
-
     private final LocalDateTime timestamp = LocalDateTime.now();
     private int status;
     private String message;
@@ -28,7 +27,6 @@ public class ErrorResponse {
     public static ErrorResponse of(ErrorCode code, String message) {
         return new ErrorResponse(code.getStatus().value(), message, null);
     }
-
 
     public static ErrorResponse of(ErrorCode code, BindingResult bindingResult) {
         return new ErrorResponse(code.getStatus().value(), code.getMessage(), FieldError.of(bindingResult));
