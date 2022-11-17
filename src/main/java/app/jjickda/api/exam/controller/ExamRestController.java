@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
-@Api(tags = "시험 데이터 처리와 관련된 API")
+@Api(tags = "시험 페이지 데이터 처리와 관련된 API")
 @RestController
 @RequestMapping("/api")
 public class ExamRestController {

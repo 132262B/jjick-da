@@ -267,11 +267,6 @@ section {
   margin-top: 30px;
 }
 
-.select-nav {
-  text-align: center;
-  margin: 40px 0px;
-}
-
 .navbar .getstarted:hover,
 .navbar .getstarted:focus:hover {
   color: #fff;
@@ -596,39 +591,36 @@ section {
 }
 
 .exam .entry {
-    height: 500px;
+    height: auto;
+    min-height: 500px;
     padding: 30px;
-    margin: 40px 0;
-     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    margin: 50px 0;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 .exam .entry .entry-img {
-  max-height: 440px;
-  margin: -30px -30px 20px -30px;
-  overflow: hidden;
+    max-height: 440px;
+    margin: -30px -30px 20px -30px;
+    overflow: hidden;
 }
 
 .exam .entry .entry-title, .exam .entry .exam-title {
-  color: #012970;
-  font-size: 28px;
-  font-weight: bold;
-  padding: 0;
-  margin: 0 0 20px 0;
+    color: #012970;
+    font-size: 28px;
+    font-weight: bold;
+    padding: 0;
+    margin: 0 0 20px 0;
 }
 
 .exam .entry .entry-title {
-  margin-top: 100px;
-  margin-bottom: 80px;
+  margin-top: 80px;
+  margin-bottom: 50px;
   text-align: center;
 }
 
 .exam .entry .entry-meta {
   margin-bottom: 15px;
   color: #000;
-}
-
-.exam .entry .entry-meta #d-selects {
-    vertical-align: middle;
 }
 
 .exam .entry .entry-meta .select-content {
@@ -764,7 +756,6 @@ section {
 
 .exam .entry-single {
     border-radius: 1.5rem;
-  margin-bottom: 30px;
 }
 
 .exam .sidebar {
@@ -821,24 +812,13 @@ section {
   color: #fff;
   background: #4154f1;
   padding: 10px 20px;
-  margin: 20px auto;
+  margin: 40px auto;
   border-radius: 4px;
 }
 
 .select-btn:hover, .select-btn:focus:hover {
   color: #fff;
   background: #5969f3;
-}
-
-.d-radio {
-  text-align: center;
-  margin: 70px 0px 20px;
-}
-
-#d-selectbox {
-  margin: 40px 0px;
-  text-align: center;
-  vertical-align: middle;
 }
 
 .exam .entry .entry-meta .form-select {
@@ -898,8 +878,14 @@ section {
     outline: 0 none;
 }
 
-@media screen and (max-width: 884px) {
+@media screen and (max-width: 390px) {
+    .exam .entry {
+        margin: 50px 0!important;
+    }
+
     .exam .entry .entry-title {
+        margin-top: 50px;
+        margin-bottom: 30px;
         font-size: 20px;
     }
 
@@ -907,13 +893,23 @@ section {
         margin: 0 0 60px 0;
     }
 
-    .exam .entry .entry-meta .select-content {
-        margin: 70px 0 50px 0;
+    .exam .entry .entry-meta #d-exams {
+        font-size: 13px;
+    }
+
+    .exam .entry .entry-meta #d-subjects {
+        font-size: 13px;
     }
 
     .show-list {
         font-size: 15px;
         border-radius: 20px!important;
+    }
+}
+
+@media screen and (max-width: 820px) {
+    .exam .entry {
+        margin: 150px 0;
     }
 }
 
