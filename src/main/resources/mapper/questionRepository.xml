@@ -7,8 +7,8 @@
     <!-- /select-certificate 주소에 자격증 목록 가져오는 구문 -->
     <select id="questionSelect" resultType="certificateListDto">
         SELECT
-            TESC.IDX AS QUESTIONIDX,
-            CONCAT(TEMC.MAIN_CATEGORY_NAME, '-' , TESC.SUB_CATEGORY_NAME) AS QUESTIONNAME
+            TESC.IDX AS QUESTION_IDX,
+            CONCAT(TEMC.MAIN_CATEGORY_NAME, '-' , TESC.SUB_CATEGORY_NAME) AS QUESTION_NAME
         FROM
             TB_EXAM_MAIN_CATEGORY AS TEMC
         JOIN
@@ -24,6 +24,16 @@
             SUBJECT_NAME
         FROM
             TB_EXAM_SUBJECT
+        WHERE
+            SUB_CATEGORY_IDX = #{questionIdx}
+    </select>
+
+    <select id="examSelect" resultType="examListDto">
+        SELECT
+            IDX AS EXAM_IDX,
+            EXAM_NAME
+        FROM
+            TB_EXAM
         WHERE
             SUB_CATEGORY_IDX = #{questionIdx}
     </select>

@@ -5,10 +5,5 @@
 <mapper namespace="app.jjickda.api.exam.repository.ExamRepository">
 
 
-    <select id="select" resultType="app.jjickda.api.exam.dto.response.TestDto">
-        select * from testTable where 1=1 limit 1
-
-    </select>
-
 
 </mapper>

@@ -1,6 +1,7 @@
 package app.jjickda.api.question.controller;
 
 import app.jjickda.api.question.dto.response.CertificateListDto;
+import app.jjickda.api.question.dto.response.ExamListDto;
 import app.jjickda.api.question.dto.response.SubjectListDto;
 import app.jjickda.api.question.service.QuestionService;
 import app.jjickda.domain.user.dto.request.SignUpDto;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Slf4j
-@Api(tags = "자격증 데이터 처리와 관련된 API.")
+@Api(tags = "자격증선택 페이지 데이터 처리와 관련된 API.")
 @RestController
 @RequestMapping("/api")
 public class QuestionRestController {
@@ -36,6 +37,13 @@ public class QuestionRestController {
     public ResponseEntity<ApiResponse<List<SubjectListDto>>> subjectSelect(@PathVariable long questionIdx) {
         List<SubjectListDto> subjectListDto = questionService.subjectSelect(questionIdx);
         return ResponseEntity.ok(new ApiResponse<>(subjectListDto));
+    }
+
+    @ApiOperation("회차를 선택하기 위한 api")
+    @PostMapping("/select-exam/{questionIdx}")
+    public ResponseEntity<ApiResponse<List<ExamListDto>>> examSelect(@PathVariable long questionIdx) {
+        List<ExamListDto> examListDto = questionService.examSelect(questionIdx);
+        return ResponseEntity.ok(new ApiResponse<>(examListDto));
     }
 
 }
