@@ -2,41 +2,74 @@
 <html lang="kr">
 <th:block th:replace="fragments/admin/head :: adminHeadFragment"></th:block>
 <script>
-      var index = 1;
-
+      let index = 1;
 
       $(function(){
         $.ajax({
-                  type:"POST",
-                  url:"/api/admin/get-main-list",
-                  dataType:"json"
+              type:"POST",
+              url:"/api/admin/get-main-category",
+              dataType:"json"
             }).done(function(data){
               let dataList = "";
-              for(var i of data){
-                dataList += "<option data-value='" + i.main_ctg_seq + "' value='" + i.main_ctg_name + "' />"
+              for(let i of data.data){
+                dataList += "<option data-value='" + i.idx + "' value='" + i.mainCategoryName + "' />"
               }
               $("#data_list").append(dataList);
             }).fail(function(){
             })
 
+      $("#main_ctg_name").on("change",function(){
+      let main_ctg_name = $("#main_ctg_name").val();
+      let mainIdx = $("#data_list [value='" + main_ctg_name + "']").data("value");
+      if(mainIdx == "" || mainIdx == null){
+        $("#data_list2").html("");
+        $("#data_list3").html("");
+        $("#sub_ctg_name").val("");
+        $("#subject_name").val("");
+      }else{
+            $.ajax({
+                  type:"POST",
+                  url:"/api/admin/get-sub-category",
+                  data:{"mainIdx":mainIdx},
+                  dataType:"json"
+            }).done(function(data){
+              let subDataList = "";
+              for(let i of data.data){
+                subDataList += "<option data-value='" + i.idx + "' value='" + i.subCategoryName + "' />"
+              }
+              $("#data_list2").html(subDataList);
+            }).fail(function(){
+            })
+      }
+    })
 
-        $.ajax({
-              type:"POST",
-              url:"/api/admin/get-sub-list",
-              dataType:"json"
-        }).done(function(data){
-          let dataList = "";
-          for(var i of data){
-            dataList += "<option data-value='" + i.sub_ctg_seq + "' value='" + i.sub_ctg_name + "' />"
-          }
-          $("#data_list2").append(dataList);
-        }).fail(function(){
-        })
+  $("#sub_ctg_name").on("change",function(){
+      let sub_ctg_name = $("#sub_ctg_name").val();
+      let subIdx = $("#data_list2 [value='" + sub_ctg_name + "']").data("value");
+      if(subIdx == "" || subIdx == null){
+        $("#data_list3").html("");
+        $("#subject_name").val("");
+      }else{
+            $.ajax({
+                  type:"POST",
+                  url:"/api/admin/get-subject-category",
+                  data:{"subIdx":subIdx},
+                  dataType:"json"
+            }).done(function(data){
+              let subjectDataList = "";
+              for(let i of data.data){
+                subjectDataList += "<option data-value='" + i.idx + "' value='" + i.subjectName + "' />"
+              }
+              $("#data_list3").html(subjectDataList);
+            }).fail(function(){
+            })
+      }
+    })
 
         $("#question_count").on("change",function(){
-          var count = $("#question_count").val()
+          let count = $("#question_count").val()
           if(count == "5"){
-            for(var i = 1; i<=index; i++){
+            for(let i = 1; i<=index; i++){
               $("#No" + i).append(
                 "<div class='col-md-12' id='choice'>"+
                   "<div id='choice_index'>5.</div>"+
@@ -47,7 +80,7 @@
             }
           }
           if(count == "4"){
-            for(var i = 1; i<=index; i++){
+            for(let i = 1; i<=index; i++){
               $("#No" + i).children("#choice").last().remove();
             }
           }
@@ -94,12 +127,6 @@
 
       })
 $(function(){
-    $(".regist_button").on("click",function(){
-
-
-
-    });
-
     $(document).on("click","#minus_icon",function(){
       $(this).prev().prev("#add:not(:first-child)").remove();
       index--;
@@ -150,7 +177,6 @@ $(function(){
               <p>문항 등록</p>
           </header>
           <div class="row gy-4">
-              <form class="php-email-form">
                   <div class="row gy-4">
                       <div id="select_flex">
                           <div class="col-md-4" id="selects">
@@ -159,12 +185,17 @@ $(function(){
                               </datalist>
                           </div>
                           <div class="col-md-4" id="selects">
-                              <input type="text" class="form-control" id="main_ctg_name" list="data_list2" placeholder="서브 카테고리 선택">
+                              <input type="text" class="form-control" id="sub_ctg_name" list="data_list2" placeholder="서브 카테고리 선택">
                               <datalist id="data_list2" class="col-md-6">
                               </datalist>
                           </div>
                           <div class="col-md-4" id="selects">
-                              <input type="text" id="select" class="form-control" placeholder="ex) 20220922정보처리기능사">
+                              <input type="text" class="form-control" id="subject_name" list="data_list3" placeholder="과목 선택">
+                              <datalist id="data_list3" class="col-md-6">
+                              </datalist>
+                          </div>
+                          <div class="col-md-4" id="selects">
+                              <input type="text" id="select" class="form-control" placeholder="문항 제목">
                           </div>
                           <div class="col-md-4" id="selects">
                               <select class="form-control" id="question_count">
@@ -219,11 +250,18 @@ $(function(){
                   <div class="col-md-12 text-center">
                       <button id="button5" class="regist_button m-2" type="button">작성</button><button id="button5" class="preview_button m-2" type="button">미리보기</button>
                   </div>
-              </form>
           </div>
       </div>
   </section>
+<script>
+$(function(){
+    let data = {};
 
+
+
+
+})
+</script>
 
 
   </body>

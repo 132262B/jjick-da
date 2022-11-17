@@ -13,10 +13,10 @@
              , REG_IDX
              )
         VALUES
-             ( #{main_question.MAIN_CATEGORY_NAME}
+             ( #{mainQuestion.mainCategoryName}
              , 1
              , now()
-             , 1
+             , #{user.idx}
              );
     </insert>
 
@@ -28,13 +28,30 @@
         REG_DATE,
         REG_IDX
         )VALUES(
-            #{sub_question.MAIN_CATEGORY_IDX},
-            #{sub_question.SUB_CATEGORY_NAME},
-            1,
-            now(),
-            0
+             #{subQuestion.mainCategoryIdx}
+           , #{subQuestion.subCategoryName}
+           , 1
+           , now()
+           , #{user.idx}
         );
     </insert>
+
+    <insert id="registSubject" parameterType="addSubjectDto">
+        INSERT INTO TB_EXAM_SUBJECT(
+          SUB_CATEGORY_IDX
+        , SUBJECT_NAME
+        , USE_STATUS
+        , REG_DATE
+        , REG_IDX
+        ) VALUES(
+          #{subject.subCategoryIdx}
+        , #{subject.subjectName}
+        , 1
+        , now()
+        , #{user.idx}
+        );
+    </insert>
+
 
 
     <select id="getMainList" resultType="getMainCategoryDto">
@@ -73,8 +90,41 @@
         ON UDT_IDX = user.IDX;
     </select>
 
+    <select id="getSubCategory" resultType="getSubCategoryDto">
+        select
+         IDX
+        ,SUB_CATEGORY_NAME
+        FROM TB_EXAM_SUB_CATEGORY
+        WHERE MAIN_CATEGORY_IDX = #{mainIdx};
+    </select>
+
     <select id="getSubDetail" resultType="getSubCategoryDto">
+        SELECT E.IDX
+        , E.USE_STATUS
+        , E.REG_DATE
+        , E.UDT_DATE
+        , U.NAME AS REG_USER_NAME
+        , IFNULL(USER.NAME,"수정 없음") AS UDT_USER_NAME
+        , COUNT(TES.IDX) AS SUBJECT_COUNT
+        , M.MAIN_CATEGORY_NAME
+        , E.SUB_CATEGORY_NAME
+        FROM TB_EXAM_SUB_CATEGORY E
+        LEFT JOIN TB_USER U
+        ON REG_IDX = U.IDX
+        LEFT JOIN TB_USER USER
+        ON UDT_IDX = USER.IDX
+        LEFT JOIN TB_EXAM_MAIN_CATEGORY M
+        ON MAIN_CATEGORY_IDX = M.IDX
+        LEFT JOIN TB_EXAM_SUBJECT TES
+        ON E.IDX = TES.SUB_CATEGORY_IDX
+        WHERE E.IDX = #{idx};
+    </select>
 
-
+    <select id="getSubjectCategory" resultType="GetSubjectDto">
+        SELECT
+        IDX
+        ,SUBJECT_NAME
+        FROM TB_EXAM_SUBJECT
+        WHERE SUB_CATEGORY_IDX = #{subIdx}
     </select>
 </mapper>

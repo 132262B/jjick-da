@@ -17,4 +17,6 @@ public class AddMainCategoryDto {
     @NotBlank(message = "MAIN_CATEGORY_NAME 을 작성해주세요")
     private String mainCategoryName;
 
+
+
 }

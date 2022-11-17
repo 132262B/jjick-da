@@ -53,9 +53,9 @@ public class AdminController {
     }
 
     @LoginCheck(auth = Role.ADMIN, type = Type.PAGE)
-    @GetMapping("/write-sub-question/subject/{sub_ctg_seq}")
-    public String SelectTerm(@PathVariable int sub_ctg_seq, Model model) {
-        model.addAttribute("sub_ctg_seq", sub_ctg_seq);
+    @GetMapping("/write-sub-question/subject/{subIdx}")
+    public String SelectTerm(@PathVariable long subIdx, Model model) {
+        model.addAttribute("subIdx", subIdx);
         return "main/admin/writeSubjectForm";
     }
 

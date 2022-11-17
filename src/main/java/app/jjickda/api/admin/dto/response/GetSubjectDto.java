@@ -1,6 +1,7 @@
 package app.jjickda.api.admin.dto.response;
 
 import lombok.*;
+import org.apache.ibatis.type.Alias;
 
 import javax.validation.constraints.NotNull;
 
@@ -9,9 +10,9 @@ import javax.validation.constraints.NotNull;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Alias("GetSubjectDto")
 public class GetSubjectDto {
-    @NotNull(message = "서브카테고리 선택 필수")
     private long subCategoryIdx;
-    @NotNull(message = "과목명 입력 필수")
     private String subjectName;
+    private long idx;
 }
