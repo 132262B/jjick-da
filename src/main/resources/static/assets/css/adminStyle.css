@@ -1089,7 +1089,7 @@ custom
   display: flex;
 }
 #selects{
-  flex:5
+  flex:4
 }
 #selects:nth-child(2){
   margin-left: 10px;
@@ -1097,13 +1097,8 @@ custom
 }
 #selects:nth-child(3){
   margin-left: 5px;
-  margin-right: 5px;
-}#selects:nth-child(4){
-  margin-left: 5px;
   margin-right: 10px;
-  text-overflow:ellipsis;
-  white-space:nowrap;
- }
+}
 
 #add{
   margin-bottom: 20px;
@@ -1286,6 +1281,16 @@ box-sizing: border-box;
   white-space: nowrap;
   width: 100%;
   margin-top: 10px;
+  float: left;
+}
+
+
+#select_subject{
+  overflow: nowrap;
+  white-space: nowrap;
+  margin-left:10px;
+  float:left;
+  width:30%;
 }
 .filebox .upload-name {
   white-space: nowrap;

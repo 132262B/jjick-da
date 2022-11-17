@@ -24,13 +24,13 @@ public class AdminRestController {
     private final AdminService adminService;
 
     public AdminRestController(AdminService adminService) {
-            this.adminService = adminService;
-        }
+        this.adminService = adminService;
+    }
 
-        @ApiOperation("메인카테고리 등록 API")
-        @PostMapping("/regist-main")
-        public ResponseEntity<ApiResponse<DefaultResultDto>> registerMain(@Validated AddMainCategoryDto main_question) {
-            return ResponseEntity.ok(new ApiResponse<>(adminService.registMain(main_question)));
+    @ApiOperation("메인카테고리 등록 API")
+    @PostMapping("/regist-main")
+    public ResponseEntity<ApiResponse<DefaultResultDto>> registerMain(@Validated @RequestBody AddMainCategoryDto main_question) {
+        return ResponseEntity.ok(new ApiResponse<>(adminService.registMain(main_question)));
     }
 
     @ApiOperation("서브카테고리 등록 API")
@@ -52,12 +52,14 @@ public class AdminRestController {
         List<GetSubCategoryDto> questionList = adminService.getSubList();
         return ResponseEntity.ok(new ApiResponse<>(questionList));
     }
+
     @ApiOperation("문항등록(datalist) 에 쓰일 서브 카테고리 리스트 API")
     @PostMapping("/get-sub-category")
     public ResponseEntity<ApiResponse<List<GetSubCategoryDto>>> getSubCategory(long mainIdx) {
         List<GetSubCategoryDto> questionList = adminService.getSubList(mainIdx);
         return ResponseEntity.ok(new ApiResponse<>(questionList));
     }
+
     @ApiOperation("문항등록(datalist) 에 쓰일 서브 카테고리 리스트 API")
     @PostMapping("/get-subject-category")
     public ResponseEntity<ApiResponse<List<GetSubjectDto>>> getSubjectCategory(long subIdx) {
@@ -66,14 +68,13 @@ public class AdminRestController {
         return ResponseEntity.ok(new ApiResponse<>(subjectList));
     }
 
-
-
     @ApiOperation("과목등록에 쓰일 Sub detail API")
     @PostMapping("/get-sub-detail")
     public ResponseEntity<ApiResponse<GetSubCategoryDto>> getSubDetail(@RequestBody long subIdx) {
         GetSubCategoryDto subDetail = adminService.getSubDetail(subIdx);
         return ResponseEntity.ok(new ApiResponse<>(subDetail));
     }
+
     @ApiOperation("서브카테고리 등록 API")
     @PostMapping("/regist-subject")
     public ResponseEntity<ApiResponse<DefaultResultDto>> registerSubject(@Validated @RequestBody AddSubjectDto subject) {
