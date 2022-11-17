@@ -1,12 +1,11 @@
 <img width="100%" alt="찍다 메인 화면" src="https://user-images.githubusercontent.com/75984011/202119283-ffa74ca2-28f8-45d0-aeeb-13d66703b84a.png">
 
-# 프로젝트 소개
+# ⌨️ 프로젝트 소개
 기사, 산업기사, 기능사 등 다양한 문제 풀이, 결과, 해설 등을 확인하며 시험 합격을 돕는 프로젝트.
 
-# 팀원 소개
+# 👥 팀원 소개
 <table>
     <tr>
-        <th><th>
         <td>
             <img width="100px" alt="igor_profile" src="https://avatars.githubusercontent.com/u/75984011?v=4">
         </td>
@@ -18,20 +17,18 @@
         </td>
     </tr>
     <tr>
-        <th>이름<th>
         <td>권준호(igor)</td>
         <td>이지철(AKANY99)</td>
         <td>황정민(realomadia)</td>
     </tr>
     <tr>
-        <th>담당역활<th>
         <td>공통모듈개발,PM</td>
         <td>사용자 페이지 개발</td>
         <td>어드민 페이지 개발</td>
     </tr>
 </table>
 
-# 기술 스텍
+# 🛠 기술 스텍
 <table>
     <tr>
         <td rowspan="2"> BackEnd </td>
