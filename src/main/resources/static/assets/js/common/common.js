@@ -59,3 +59,29 @@ function errorMessageToast(errorMessage) {
     const toast = new bootstrap.Toast(errorMessageToast);
     toast.show();
 }
+
+/**
+ * WarningMessageToast 출력
+ * @param warningMessage - 경고 메시지
+ */
+function warningMessageToast(warningMessage) {
+    const warningMessageToast = existId('warningMessageToast')
+    const warningMessageElem = existId('warningMessage');
+
+    warningMessageElem.innerText = warningMessage;
+    const toast = new bootstrap.Toast(warningMessageToast);
+    toast.show();
+}
+
+/**
+ * SuccessMessageToast 출력
+ * @param successMessage - 성공 메시지
+ */
+function successMessageToast(successMessage) {
+    const successMessageToast = existId('successMessageToast')
+    const successMessageElem = existId('successMessage');
+
+    successMessageElem.innerText = successMessage;
+    const toast = new bootstrap.Toast(successMessageToast);
+    toast.show();
+}
