@@ -6,6 +6,7 @@
 # 팀원 소개
 <table>
     <tr>
+        <th><th>
         <td>
             <img width="100px" alt="igor_profile" src="https://avatars.githubusercontent.com/u/75984011?v=4">
         </td>
@@ -17,11 +18,13 @@
         </td>
     </tr>
     <tr>
+        <th>이름<th>
         <td>권준호(igor)</td>
         <td>이지철(AKANY99)</td>
         <td>황정민(realomadia)</td>
     </tr>
     <tr>
+        <th>담당역활<th>
         <td>공통모듈개발,PM</td>
         <td>사용자 페이지 개발</td>
         <td>어드민 페이지 개발</td>
