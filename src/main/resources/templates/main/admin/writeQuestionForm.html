@@ -175,114 +175,108 @@ $(function(){
           })
       });
   </script>
-  <body>
-  <th:block th:replace="fragments/admin/header :: adminHeaderFragment"></th:block>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-  <section id="contact" class="contact">
-      <div class="container" data-aos="fade-up" data-aos-duration="1000">
-          <header class="section-header">
-              <h2>문제 등록</h2>
-              <p>문항 등록</p>
-          </header>
-          <div class="row gy-4">
-                  <div class="row gy-4">
-                      <div id="select_flex">
-                          <div class="col-md-4" id="selects">
-                              <input type="text" class="form-control" id="main_ctg_name" list="data_list" placeholder="메인 카테고리 선택">
-                              <datalist id="data_list" class="col-md-6">
-                              </datalist>
-                          </div>
-                          <div class="col-md-4" id="selects">
-                              <input type="text" class="form-control" id="sub_ctg_name" list="data_list2" placeholder="서브 카테고리 선택">
-                              <datalist id="data_list2" class="col-md-6">
-                              </datalist>
-                          </div>
-                          <div class="col-md-4" id="selects">
-                              <input type="text" id="select" class="form-control" placeholder="문항 제목">
-                          </div>
-                          <div class="col-md-4" id="selects">
-                              <select class="form-control" id="question_count">
-                                  <option value="4" selected>4</option>
-                                  <option value="5">5</option>
-                              </select>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="accordion accordion-flush" id="faqlist">
-                      <div class="question_data_1 row gy-4" id="add">
-                          <div class="col-md-12">
-                              <div class="accordion-item">
-                                  <input id="question_subject" type="text" class="form-control" name="subject" placeholder="No 1." required>
-                                  <button id="hide_button" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#No1" />
-                              </div>
-                          </div>
-                          <div id="No1" class="accordion-collapse collapse" data-bs-parent="#faqlist">
-                              <div class="filebox">
-                                  <input class="upload-name form-control" id="upload_name_1" readonly placeholder="첨부파일">
-                                  <label for="file1">파일찾기</label>
-                                  <input type="file" id="file1">
-                                  <div class="" id="select_subject">
-                                      <input type="text" class="subject_1 form-control" id="subject_name" list="data_list3" placeholder="과목 선택">
-                                      <datalist id="data_list3" class="subject_datalist_1 col-md-6">
-                                      </datalist>
-                                  </div>
-                              </div>
-                              <div class="img_wrap">
-                                  <img class="mt-5" id="img1" />
-                                  </div>
-                              <div class="col-md-12" id="choice">
-                                  <div id="choice_index">1.</div>
-                                  <input type="radio" name="correct_check_1" id="correct_check" value="check_1">
-                                  <textarea id="question" class="form-control" name="" rows="2" placeholder="보기" required></textarea>
-                              </div>
-                              <div class="col-md-12" id="choice">
-                                  <div id="choice_index">2.</div>
-                                  <input type="radio" name="correct_check_1" id="correct_check" value="check_2">
-                                  <textarea id="question" class="form-control" name="" rows="2" placeholder="보기" required></textarea>
-                              </div>
-                              <div class="col-md-12" id="choice">
-                                  <div id="choice_index">3.</div>
-                                  <input type="radio" name="correct_check_1" id="correct_check" value="check_3">
-                                  <textarea id="question" class="form-control" name="" rows="2" placeholder="보기" required></textarea>
-                              </div>
-                              <div class="col-md-12" id="choice">
-                                  <div id="choice_index">4.</div>
-                                  <input type="radio" name="correct_check_1" id="correct_check" value="check_4">
-                                  <textarea id="question" class="form-control" name="" rows="2" placeholder="보기" required></textarea>
-                              </div>
-                          </div>
-                      </div>
-                      <i id="plus_icon" class="bi bi-folder-plus"></i>
-                      <i id="minus_icon" class="bi bi-folder-minus"></i>
-                  </div>
-                  <div class="col-md-12 text-center">
-                      <button id="button5" class="regist_button m-2" type="button">작성</button><button id="button5" class="preview_button m-2" type="button">미리보기</button>
-                  </div>
-          </div>
-      </div>
-  </section>
+<body>
+<th:block th:replace="fragments/admin/header :: adminHeaderFragment"></th:block>
+<section id="contact" class="contact">
+    <div class="container" data-aos="fade-up" data-aos-duration="1000">
+        <header class="section-header">
+            <h2>문제 등록</h2>
+            <p>문항 등록</p>
+        </header>
+        <div class="row gy-4">
+            <div class="row gy-4">
+                <div id="select_flex">
+                    <div class="col-md-4" id="selects">
+                        <input type="text" class="form-control" id="main_ctg_name" list="data_list" placeholder="메인 카테고리 선택">
+                        <datalist id="data_list" class="col-md-6">
+                        </datalist>
+                    </div>
+                    <div class="col-md-4" id="selects">
+                        <input type="text" class="form-control" id="sub_ctg_name" list="data_list2" placeholder="서브 카테고리 선택">
+                        <datalist id="data_list2" class="col-md-6">
+                        </datalist>
+                    </div>
+                    <div class="col-md-4" id="selects">
+                        <input type="text" id="select" class="form-control" placeholder="문항 제목">
+                    </div>
+                    <div class="col-md-4" id="selects">
+                        <select class="form-control" id="question_count">
+                            <option value="4" selected>4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion accordion-flush" id="faqlist">
+                <div class="question_data_1 row gy-4" id="add">
+                    <div class="col-md-12">
+                        <div class="accordion-item">
+                            <input id="question_subject" type="text" class="form-control" name="subject" placeholder="No 1." required>
+                            <button id="hide_button" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#No1" />
+                        </div>
+                    </div>
+                    <div id="No1" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                        <div class="filebox">
+                            <input class="upload-name form-control" id="upload_name_1" readonly placeholder="첨부파일">
+                            <label for="file1">파일찾기</label>
+                            <input type="file" id="file1">
+                            <div class="" id="select_subject">
+                                <input type="text" class="subject_1 form-control" id="subject_name" list="data_list3" placeholder="과목 선택">
+                                <datalist id="data_list3" class="subject_datalist_1 col-md-6">
+                                </datalist>
+                            </div>
+                        </div>
+                        <div class="col-md-12" id="choice">
+                            <div id="choice_index">1.</div>
+                            <input type="radio" name="correct_check_1" id="correct_check" value="check_1">
+                            <textarea id="question" class="form-control" name="" rows="2" placeholder="보기" required></textarea>
+                        </div>
+                        <div class="col-md-12" id="choice">
+                            <div id="choice_index">2.</div>
+                            <input type="radio" name="correct_check_1" id="correct_check" value="check_2">
+                            <textarea id="question" class="form-control" name="" rows="2" placeholder="보기" required></textarea>
+                        </div>
+                        <div class="col-md-12" id="choice">
+                            <div id="choice_index">3.</div>
+                            <input type="radio" name="correct_check_1" id="correct_check" value="check_3">
+                            <textarea id="question" class="form-control" name="" rows="2" placeholder="보기" required></textarea>
+                        </div>
+                        <div class="col-md-12" id="choice">
+                            <div id="choice_index">4.</div>
+                            <input type="radio" name="correct_check_1" id="correct_check" value="check_4">
+                            <textarea id="question" class="form-control" name="" rows="2" placeholder="보기" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <i id="plus_icon" class="bi bi-folder-plus"></i>
+                <i id="minus_icon" class="bi bi-folder-minus"></i>
+            </div>
+            <div class="col-md-12 text-center">
+                <button id="button5" class="regist_button m-2" type="button">작성</button><button id="button5" class="preview_button m-2" type="button">미리보기</button>
+            </div>
+        </div>
+    </div>
+</section>
 <script>
-$(function(){
-    let data = {};
-    let info = {"mainCategoryIdx":${mainIdx},
-                "subCategoryIdx":${subIdx},
-                "ExamName":$("#select").val,
-                "optionsCnt":$("#question_count").val(),
-                "questionCnt":${index}};
-    data.question_info = info;
-    console(data.question_info);
-    let questions = [];
-    for(let i = 1; i <= index; i++){
-        questions.push(
-            {}
-        );
-    data.questions = questions;
+<!--$(function(){-->
+<!--    let data = {};-->
+<!--    let info = {"mainCategoryIdx":${mainIdx},-->
+<!--                "subCategoryIdx":${subIdx},-->
+<!--                "ExamName":$("#select").val,-->
+<!--                "optionsCnt":$("#question_count").val(),-->
+<!--                "questionCnt":${index}};-->
+<!--    data.question_info = info;-->
+<!--    console(data.question_info);-->
+<!--    let questions = [];-->
+<!--    for(let i = 1; i <= index; i++){-->
+<!--        questions.push(-->
+<!--            {}-->
+<!--        );-->
+<!--    data.questions = questions;-->
 
-    }
-})
+<!--    }-->
+<!--})-->
 </script>
-
-
-  </body>
+<th:block th:replace="fragments/admin/footer :: adminFooterFragment"></th:block>
+</body>
 </html>
