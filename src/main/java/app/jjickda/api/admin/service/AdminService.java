@@ -37,7 +37,7 @@ public class AdminService {
         return adminRepository.getMainList();
     }
 
-
+    // 서브 카테고리 등록
     public DefaultResultDto registSub(AddSubCategoryDto sub_question) {
         User user = SessionUtil.getUserAttribute();
         adminRepository.registSub(sub_question, user);
@@ -46,7 +46,7 @@ public class AdminService {
                 .success(true)
                 .build();
     }
-
+    // 과목 등록
     public DefaultResultDto registSubject(AddSubjectDto subject) {
         User user = SessionUtil.getUserAttribute();
         adminRepository.registSubject(subject, user);
@@ -55,19 +55,22 @@ public class AdminService {
                 .success(true)
                 .build();
     }
-
+    // 서브 카테고리 리스트
     public List<GetSubCategoryDto> getSubList() {
         return adminRepository.getSubList();
     }
 
+    // mainCategoryIdx를 상속받는 서브 카테고리 리스트
     public List<GetSubCategoryDto> getSubList(long mainIdx) {
         return adminRepository.getSubCategory(mainIdx);
     }
 
+    // 서브 카테고리 디테일
     public GetSubCategoryDto getSubDetail(long idx) {
         return adminRepository.getSubDetail(idx);
     }
 
+    // subCategoryIdx를 상속받는 과목 리스트
     public List<GetSubjectDto> getSubjectCategory(long subIdx) {
         return adminRepository.getSubjectCategory(subIdx);
     }

@@ -1,181 +1,14 @@
 <!doctype html>
 <html lang="kr">
 <th:block th:replace="fragments/admin/head :: adminHeadFragment"></th:block>
-<script>
-      let index = 1;
 
-      $(function(){
-        $.ajax({
-              type:"POST",
-              url:"/api/admin/get-main-category",
-              dataType:"json"
-            }).done(function(data){
-              let dataList = "";
-              for(let i of data.data){
-                dataList += `<option data-value='${i.idx}' value='${i.mainCategoryName}' />`
-              }
-              $("#data_list").append(dataList);
-            }).fail(function(){
-            })
-
-      $("#main_ctg_name").on("change",function(){
-      let main_ctg_name = $("#main_ctg_name").val();
-      let mainIdx = $("#data_list [value='" + main_ctg_name + "']").data("value");
-      if(mainIdx == "" || mainIdx == null){
-        $("#data_list2").html("");
-        $("#data_list3").html("");
-        $("#sub_ctg_name").val("");
-        for(let i=1; i<=index; i++){
-            $(".subject_"+i).val("");
-        }
-      }else{
-            $.ajax({
-                  type:"POST",
-                  url:"/api/admin/get-sub-category",
-                  data:{"mainIdx":mainIdx},
-                  dataType:"json"
-            }).done(function(data){
-              let subDataList = "";
-              for(let i of data.data){
-                subDataList += `<option data-value='${i.idx}' value='${i.subCategoryName}' />`
-              }
-              $("#data_list2").html(subDataList);
-            }).fail(function(){
-            })
-      }
-    })
-
-  $("#sub_ctg_name").on("change",function(){
-      let sub_ctg_name = $("#sub_ctg_name").val();
-      let subIdx = $("#data_list2 [value='" + sub_ctg_name + "']").data("value");
-      if(subIdx == "" || subIdx == null){
-        for(let i=1; i<=index; i++){
-            $(".subject_"+i).val("");
-        }
-        $("#data_list3").html("");
-      }else{
-            $.ajax({
-                  type:"POST",
-                  url:"/api/admin/get-subject-category",
-                  data:{"subIdx":subIdx},
-                  dataType:"json"
-            }).done(function(data){
-              let subjectDataList = "";
-              for(let i of data.data){
-                subjectDataList += "<option data-value='" + i.idx + "' value='" + i.subjectName + "' />"
-              }
-              $("#data_list3").html(subjectDataList);
-            }).fail(function(){
-            })
-      }
-    })
-
-        $("#question_count").on("change",function(){
-          let count = $("#question_count").val()
-          if(count == "5"){
-            for(let i = 1; i<=index; i++){
-              $("#No" + i).append(
-                `<div class='col-md-12' id='choice'>
-                  <div id='choice_index'>5.</div>
-                  <input type='radio' name='correct_check_"+i+"' id='correct_check' value='check_5'>
-                  <textarea id='question' class='form-control' name='' rows='2' placeholder='보기' required></textarea>
-                  </div>`
-              )
-            }
-          }
-          if(count == "4"){
-            for(let i = 1; i<=index; i++){
-              $("#No" + i).children("#choice").last().remove();
-            }
-          }
-
-        })
-
-
-          $("#plus_icon").on("click",function(){
-            index++;
-            let html_first = "";
-            let html_middle = "";
-            let html_end = "";
-            let question_count = $("#question_count").val()
-            html_first += `<div class='question_data_${index} row gy-4' id='add'>
-                  <div class='col-md-12'>
-                    <div class='accordion-item'>
-                      <input id='question_subject' type='text' class='form-control' name='subject' placeholder='No ${index}.' required>
-                      <button id='hide_button' class='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#No${index}' />
-                    </div>
-                  </div>
-                  <div id='No${index}' class='accordion-collapse collapse' data-bs-parent='#faqlist'>
-                    <div class='filebox'>
-                      <input class='upload-name form-control' id='upload_name_${index}' readonly placeholder='첨부파일'>
-                      <label for='file${index}'>파일찾기</label>
-                      <input type='file' id='file${index}'>
-                      <div class="" id="select_subject">
-                          <input type="text" class="subject_${index} form-control" id="subject_name" list="data_list3" placeholder="과목 선택">
-                          <datalist id="data_list3" class="subject_datalist_${index} col-md-6">
-                          </datalist>
-                      </div>
-                      </div>
-                      <div class='img_wrap'>
-                        <img class='mt-5' id='img${index}' />
-                        </div>`
-            for(let i=1; i<=question_count;i++){
-          html_middle +=    `<div class='col-md-12' id='choice'>
-                                <div id='choice_index'>${i}.</div>
-                                <input type='radio' name='correct_check_${index}' id='correct_check' value='check_${i}'>
-                                <textarea id='question' class='form-control' name='' rows='2' placeholder='보기' required></textarea>
-                            </div>`
-
-        }
-        html_end ="</div></div>"
-
-        let html = html_first+html_middle+html_end;
-        $("#plus_icon").before(html);
-
-          })
-
-      })
-$(function(){
-    $(document).on("click","#minus_icon",function(){
-      $(this).prev().prev("#add:not(:first-child)").remove();
-      index--;
-      if(index < 1){
-        index = 1;
-      }
-      })
-})
-  </script>
-<script>
-    $(document).ready(function() {
-        $(document).on("change", "input[type=file]", function(e){
-          let file_id_name = $(this).attr('id');
-          let file_index = file_id_name.substr(4,4);
-          let fileName = $("#"+file_id_name).val();
-          $("#upload_name_"+file_index).val(fileName);
-          let files = e.target.files;
-          let filesArr = Array.prototype.slice.call(files);
-
-          let reg = /(.*?)\/(jpg|jpeg|png)$/;
-
-          filesArr.forEach(function(f) {
-              if (!f.type.match(reg)) {
-                  alert("이미지 확장자가 아닙니다.");
-                  $("#img").attr("src", null);
-                  return;
-              }
-
-              sel_file = f;
-
-              let reader = new FileReader();
-              reader.onload = function(e) {
-                  $("#img"+file_index).attr("src", e.target.result);
-              }
-              reader.readAsDataURL(f);
-          });
-          })
-      });
-  </script>
+<script th:src="@{/assets/js/main/admin/writeQuestion.js}"></script>
 <body>
+<script>
+    $(document).ready(function(){
+      getMainDataList();
+    });
+</script>
 <th:block th:replace="fragments/admin/header :: adminHeaderFragment"></th:block>
 <section id="contact" class="contact">
     <div class="container" data-aos="fade-up" data-aos-duration="1000">
@@ -187,12 +20,12 @@ $(function(){
             <div class="row gy-4">
                 <div id="select_flex">
                     <div class="col-md-4" id="selects">
-                        <input type="text" class="form-control" id="main_ctg_name" list="data_list" placeholder="메인 카테고리 선택">
+                        <input type="text" class="form-control" id="main_ctg_name" list="data_list" placeholder="메인 카테고리 선택" onchange="getSubDataList();">
                         <datalist id="data_list" class="col-md-6">
                         </datalist>
                     </div>
                     <div class="col-md-4" id="selects">
-                        <input type="text" class="form-control" id="sub_ctg_name" list="data_list2" placeholder="서브 카테고리 선택">
+                        <input type="text" class="form-control" id="sub_ctg_name" list="data_list2" placeholder="서브 카테고리 선택" onchange="getSubjectDataList();">
                         <datalist id="data_list2" class="col-md-6">
                         </datalist>
                     </div>
@@ -200,7 +33,7 @@ $(function(){
                         <input type="text" id="select" class="form-control" placeholder="문항 제목">
                     </div>
                     <div class="col-md-4" id="selects">
-                        <select class="form-control" id="question_count">
+                        <select class="form-control" id="option_count">
                             <option value="4" selected>4</option>
                             <option value="5">5</option>
                         </select>
@@ -248,8 +81,8 @@ $(function(){
                         </div>
                     </div>
                 </div>
-                <i id="plus_icon" class="bi bi-folder-plus"></i>
-                <i id="minus_icon" class="bi bi-folder-minus"></i>
+                <i id="plus_icon" class="bi bi-folder-plus" onclick="plusIcon();"></i>
+                <i id="minus_icon" class="bi bi-folder-minus" onclick="minusIcon();"></i>
             </div>
             <div class="col-md-12 text-center">
                 <button id="button5" class="regist_button m-2" type="button">작성</button><button id="button5" class="preview_button m-2" type="button">미리보기</button>
@@ -257,26 +90,6 @@ $(function(){
         </div>
     </div>
 </section>
-<script>
-<!--$(function(){-->
-<!--    let data = {};-->
-<!--    let info = {"mainCategoryIdx":${mainIdx},-->
-<!--                "subCategoryIdx":${subIdx},-->
-<!--                "ExamName":$("#select").val,-->
-<!--                "optionsCnt":$("#question_count").val(),-->
-<!--                "questionCnt":${index}};-->
-<!--    data.question_info = info;-->
-<!--    console(data.question_info);-->
-<!--    let questions = [];-->
-<!--    for(let i = 1; i <= index; i++){-->
-<!--        questions.push(-->
-<!--            {}-->
-<!--        );-->
-<!--    data.questions = questions;-->
-
-<!--    }-->
-<!--})-->
-</script>
 <th:block th:replace="fragments/admin/footer :: adminFooterFragment"></th:block>
 </body>
 </html>

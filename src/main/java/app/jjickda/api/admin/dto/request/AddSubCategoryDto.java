@@ -1,5 +1,6 @@
 package app.jjickda.api.admin.dto.request;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.apache.ibatis.type.Alias;
 
@@ -18,5 +19,6 @@ public class AddSubCategoryDto {
     private long mainCategoryIdx;
 
     @NotBlank(message = "sub_ctg_name 을 작성해주세요")
+    @ApiModelProperty(value = "서브 카테고리 이름", example = "정보처리기사(필기)", required = true)
     private String subCategoryName;
 }
