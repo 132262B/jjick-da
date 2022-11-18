@@ -35,7 +35,7 @@ public class AdminRestController {
 
     @ApiOperation("서브카테고리 등록 API")
     @PostMapping("/regist-sub")
-    public ResponseEntity<ApiResponse<DefaultResultDto>> registerSub(@Validated AddSubCategoryDto sub_question) {
+    public ResponseEntity<ApiResponse<DefaultResultDto>> registerSub(@Validated @RequestBody AddSubCategoryDto sub_question) {
         return ResponseEntity.ok(new ApiResponse<>(adminService.registSub(sub_question)));
     }
 

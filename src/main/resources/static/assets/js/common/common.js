@@ -85,3 +85,7 @@ function successMessageToast(successMessage) {
     const toast = new bootstrap.Toast(successMessageToast);
     toast.show();
 }
+
+function cutTime(date) {
+    return date.substr(0,10);
+}

@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <th:block th:replace="fragments/admin/head :: adminHeadFragment"></th:block>
+<script th:src="@{/assets/js/main/admin/writeSubQuestion.js}"></script>
 <body>
+<script>
+    $(document).ready(function(){
+      getMainDataList();
+      getSubList();
+    });
+</script>
 <th:block th:replace="fragments/admin/header :: adminHeaderFragment"></th:block>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
@@ -14,104 +21,20 @@
     </header>
 
     <script>
-  $(function(){
-    $.ajax({
-        type:"POST",
-        url:"/api/admin/get-sub-list",
-        dataType:"json"
-    }).done(function(data){
-        let subList = "";
-        for(let i of data.data){
-        let reg_date = i.regDate;
-        reg_date = reg_date.substr(0,10);
-        let udt_date = i.udtDate;
-        let use_sts = i.useStatus;
-        if(udt_date == null){
-          udt_date = "없음";
-        }else{
-          udt_date = udt_date.substr(0,10);
-        }
-    if(use_sts == 1){
-      use_sts = "사용중";
-    }else{
-      use_sts = "미사용중";
-    }
-    subList += `<div onclick="write_subject(${i.idx})" class="col-md-12" id="main_list">
-              <div class="list_1" id="main_lists">${i.idx}</div>
-              <div class="list_2" id="main_lists">${i.subCategoryName}</div>
-              <div class="list_3" id="main_lists">${reg_date}</div>
-              <div class="list_4" id="main_lists">${i.regUserName}</div>
-              <div class="list_5" id="main_lists">${udt_date}</div>
-              <div class="list_6" id="main_lists">${i.udtUserName}</div>
-              <div class="list_7" id="main_lists">${use_sts}</div>
-              </div>`
-    $(".htmls").html(subList);
-    }
-    }).fail(function(){
-    alert("메인 카테고리 리스트 불러오기 실패");
-    })
-
-
-            $.ajax({
-                  type:"POST",
-                  url:"/api/admin/get-main-category",
-                  dataType:"json"
-            }).done(function(data){
-              let dataList = "";
-              for(let i of data.data){
-                dataList += `<option data-value = "${i.idx}" value ="${i.mainCategoryName}" />`
-              }
-              $("#data_list").append(dataList);
-            }).fail(function(){
-              alert("데이터 리스트 불러오기 실패");
-            })
-
-            $(".main_button").on("click",function(){
-              let SUB_CATEGORY_NAME = $("#sub_ctg_name").val();
-              let main_ctg_name = $("#main_ctg_name").val();
-              let MAIN_CATEGORY_IDX = $("#data_list [value='" + main_ctg_name + "']").data("value");
-
-              if(sub_ctg_name == null || sub_ctg_name == "") {
-                alert("서브 카테고리 이름 기재 필수");
-              }else if(MAIN_CATEGORY_IDX == null || MAIN_CATEGORY_IDX == "") {
-                alert("메인 카테고리 선택 필수");
-              }else{
-                    $.ajax({
-                      type:"POST",
-                      url:"/api/admin/regist-sub",
-                      data:{"subCategoryName":SUB_CATEGORY_NAME,
-                            "mainCategoryIdx":MAIN_CATEGORY_IDX}
-                    }).done(function(result){
-                    if(result){
-                      alert("등록 성공");
-                      location.reload();
-                      }
-                    }).fail(function(){
-                      alert("실패");
-                    });
-              };
-          })
-
-
-      })
-  function write_subject(ob) {
-    location.href="/admin/write-sub-question/subject/"+ob;
-  }
-
 
     </script>
     <div class="row">
       <div class="col-md-6">
-        <input type="text" class="form-control" id="main_ctg_name" list="data_list" placeholder="메인 카테고리 선택">
+        <input type="text" class="form-control" id="mainCategoryName" list="data_list" placeholder="메인 카테고리 선택">
         <datalist id="data_list" class="col-md-6">
         </datalist>
       </div>
       <div class="col-md-6">
-        <input type="text" id="sub_ctg_name" class="form-control" name="main_ctg_name" rows="1" placeholder="서브 카테고리를 입력해주세요." required />
+        <input type="text" id="subCategoryName" class="form-control" rows="1" placeholder="서브 카테고리를 입력해주세요." required />
       </div>
     </div>
     <div class="col-md-12 text-center">
-      <button class="main_button" type="button">등록</button>
+      <button class="main_button" type="button" onclick="registSub();">등록</button>
     </div>
     <header class="section-header">
       <p>서브 리스트</p>

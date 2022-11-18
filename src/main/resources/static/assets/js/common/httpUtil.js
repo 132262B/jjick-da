@@ -57,6 +57,24 @@ class HttpUtil {
             }
         });
     }
+        asyncRequest(url, type, data, successFunction) {
+            $.ajax({
+                url: url,
+                type: type,
+                data: JSON.stringify(data),
+                async: false,
+                dataType: "json",
+                contentType: 'application/json',
+                success: function (data) {
+                    successFunction(data);
+                },
+                error: function (err) {
+                    errorMessageToast(err.message);
+                },
+                complete: function () {
+                }
+            });
+        }
 
     /**
      * 에러 발생시 특정 error function을 작동하게 해줌.

@@ -1,51 +1,18 @@
 <!doctype html>
 <html lang="kr" xmlns:th="http://www.w3.org/1999/xhtml">
 <th:block th:replace="fragments/admin/head :: adminHeadFragment"></th:block>
+<script th:src="@{/assets/js/main/admin/writeSubject.js}"></script>
 <body>
+<script>
+    $(document).ready(function () {
+        getSubDetail();
+    });
+</script>
+<input type="hidden" id="subIdx" th:value="${subIdx}">
 <th:block th:replace="fragments/admin/header :: adminHeaderFragment"></th:block>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script>
-    $(function(){
-        let data = [[${subIdx}]];
-        let htmls = "";
-        httpUtil.defaultRequest(`/api/admin/get-sub-detail`, 'post', data,
-        function (data) {
-        let useStatus = data.data.useStatus;
-        if(useStatus == 1){
-           useStatus = "사용중";
-        }else{
-           useStatus = "사용안함";
-        }
-        let regDate = data.data.regDate.substr(0,10);
-        let udtDate = data.data.udtDate;
-        if(udtDate == null || udtDate == "없음"){
-            udtDate = "수정 없음"
-        }else{
-            udtDate = udtDate.substr(0,10);
-        }
-
-
-        htmls += `<div class="info_subject">
-                    <a href="">${data.data.mainCategoryName}</a>-${data.data.subCategoryName}
-                  </div>
-                  <div class="info_details">
-                  <div class="info_right">
-                      <div id="subjects" class="">No : <span> ${data.data.idx}.</span></div>
-                      <div id="subjects" class="">사용 유무 : <span> ${useStatus} </span></div>
-                      <div id="subjects" class="">등록자 : <span> ${data.data.regUserName}</span></div>
-                      <div id="subjects" class="">등록일 :<span> ${regDate}</span></div>
-                  </div>
-                  <div class="info_left">
-                      <div id="subjects" class="">과목 개수 :<span> ${data.data.subjectCount}개</span></div>
-                      <div id="subjects" class="">수정일 : <span> ${udtDate}</span></div>
-                      <div id="subjects" class="">수정자 : <span> ${data.data.udtUserName}</span></div>
-                      <div id="subjects" class=""><a href="">수정</a></div>
-                  </div>
-              </div>`
-            $("#htmls").html(htmls)
-        });
-    })
 </script>
 <section class="sub_ctg_info" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
    <div class="info">
@@ -54,7 +21,7 @@
             <input type="text" id="subject_name" class="form-control" name="subject_name" placeholder="과목을 입력해주세요." required />
         </div>
         <div class="col-md-12 text-center">
-            <button class="main_button" type="button">등록</button>
+            <button class="main_button" type="button" onclick="registSubject()">등록</button>
         </div>
     </div>
 </section>
@@ -76,28 +43,6 @@
         <div class="htmls"></div>
     </div>
 </section>
-
-<script>
-    let subjectData = {};
-
-
-    $(".main_button").on("click",function(){
-        subjectData.subCategoryIdx = [[${subIdx}]];
-        subjectData.subjectName = $("#subject_name").val();
-        addSubject(subjectData);
-    })
-
-
-    function addSubject(registData) {
-        httpUtil.defaultRequest('/api/admin/regist-subject','post', registData, function(result) {
-            if(result){
-                alert("등록 성공");
-                location.reload();
-            }
-        })
-    }
-</script>
-
 <th:block th:replace="fragments/admin/footer :: adminFooterFragment"></th:block>
 </body>
 </html>
