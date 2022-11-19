@@ -19,11 +19,11 @@ import java.util.List;
 public class AddQuestionDto {
     @Valid
     @NotNull(message = "문항 옵션을 모두 선택해야 합니다.")
-    private QuestionInfoDto questionInfoDto;
+    private QuestionInfo questionInfoDto;
 
     @Valid
     @NotNull(message = "문항은 1개 이상 등록해야 합니다.")
-    private List<QuestionsDto> questionsDto;
+    private List<Questions> questionsDto;
 
 }
 @Getter
@@ -31,8 +31,8 @@ public class AddQuestionDto {
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Alias("questionInfoDto")
-class QuestionInfoDto {
+@Alias("questionInfo")
+class QuestionInfo {
     @NotBlank(message = "메인 카테고리를 선택해야 합니다.")
     private long mainCategoryIdx;
     @NotBlank(message = "서브 카테고리를 선택해야 합니다.")
@@ -51,8 +51,8 @@ class QuestionInfoDto {
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Alias("questionsDto")
-class QuestionsDto {
+@Alias("questions")
+class Questions {
     @NotBlank(message = "모든 문항에 제목을 입력해야 합니다.")
     private String questionName;
     @Positive
@@ -66,4 +66,17 @@ class QuestionsDto {
     private long SubjectIdx;
 
     private long multiMediaIdx;
+
+    @Positive
+    @NotBlank
+    private int optionCnt;
+
+    @Valid
+    @NotNull(message = "문항 선지를 모두 입력해야 합니다.")
+    private Options options;
+}
+
+class Options {
+
+
 }

@@ -30,10 +30,10 @@
                         </datalist>
                     </div>
                     <div class="col-md-4" id="selects">
-                        <input type="text" id="select" class="form-control" placeholder="문항 제목">
+                        <input type="text" id="examName" class="form-control" placeholder="문항 제목">
                     </div>
                     <div class="col-md-4" id="selects">
-                        <select class="form-control" id="option_count">
+                        <select class="form-control" id="option_count" onchange="changeOptionCnt();">
                             <option value="4" selected>4</option>
                             <option value="5">5</option>
                         </select>
@@ -44,7 +44,7 @@
                 <div class="question_data_1 row gy-4" id="add">
                     <div class="col-md-12">
                         <div class="accordion-item">
-                            <input id="question_subject" type="text" class="form-control" name="subject" placeholder="No 1." required>
+                            <input id="question_subject" type="text" class="question1 form-control" name="subject" placeholder="No 1." required>
                             <button id="hide_button" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#No1" />
                         </div>
                     </div>
@@ -61,23 +61,23 @@
                         </div>
                         <div class="col-md-12" id="choice">
                             <div id="choice_index">1.</div>
-                            <input type="radio" name="correct_check_1" id="correct_check" value="check_1">
-                            <textarea id="question" class="form-control" name="" rows="2" placeholder="보기" required></textarea>
+                            <input type="radio" name="correct_check_1" id="correct_check" value="1">
+                            <textarea id="question" class="choice_content_1 form-control" name="" rows="2" placeholder="보기" required></textarea>
                         </div>
                         <div class="col-md-12" id="choice">
                             <div id="choice_index">2.</div>
-                            <input type="radio" name="correct_check_1" id="correct_check" value="check_2">
-                            <textarea id="question" class="form-control" name="" rows="2" placeholder="보기" required></textarea>
+                            <input type="radio" name="correct_check_1" id="correct_check" value="2">
+                            <textarea id="question" class="choice_content_2 form-control" name="" rows="2" placeholder="보기" required></textarea>
                         </div>
                         <div class="col-md-12" id="choice">
                             <div id="choice_index">3.</div>
-                            <input type="radio" name="correct_check_1" id="correct_check" value="check_3">
-                            <textarea id="question" class="form-control" name="" rows="2" placeholder="보기" required></textarea>
+                            <input type="radio" name="correct_check_1" id="correct_check" value="3">
+                            <textarea id="question" class="choice_content_3 form-control" name="" rows="2" placeholder="보기" required></textarea>
                         </div>
                         <div class="col-md-12" id="choice">
                             <div id="choice_index">4.</div>
-                            <input type="radio" name="correct_check_1" id="correct_check" value="check_4">
-                            <textarea id="question" class="form-control" name="" rows="2" placeholder="보기" required></textarea>
+                            <input type="radio" name="correct_check_1" id="correct_check" value="4">
+                            <textarea id="question" class="choice_content_4 form-control" name="" rows="2" placeholder="보기" required></textarea>
                         </div>
                     </div>
                 </div>
@@ -85,7 +85,8 @@
                 <i id="minus_icon" class="bi bi-folder-minus" onclick="minusIcon();"></i>
             </div>
             <div class="col-md-12 text-center">
-                <button id="button5" class="regist_button m-2" type="button">작성</button><button id="button5" class="preview_button m-2" type="button">미리보기</button>
+                <button id="button5" class="regist_button m-2" type="button" onclick="registQuestion();">작성</button>
+                <button id="button5" class="preview_button m-2" type="button">미리보기</button>
             </div>
         </div>
     </div>

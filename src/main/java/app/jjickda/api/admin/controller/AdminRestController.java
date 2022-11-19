@@ -55,14 +55,14 @@ public class AdminRestController {
 
     @ApiOperation("문항등록(datalist) 에 쓰일 서브 카테고리 리스트 API")
     @PostMapping("/get-sub-category")
-    public ResponseEntity<ApiResponse<List<GetSubCategoryDto>>> getSubCategory(long mainIdx) {
+    public ResponseEntity<ApiResponse<List<GetSubCategoryDto>>> getSubCategory(@RequestBody long mainIdx) {
         List<GetSubCategoryDto> questionList = adminService.getSubList(mainIdx);
         return ResponseEntity.ok(new ApiResponse<>(questionList));
     }
 
     @ApiOperation("문항등록(datalist) 에 쓰일 서브 카테고리 리스트 API")
     @PostMapping("/get-subject-category")
-    public ResponseEntity<ApiResponse<List<GetSubjectDto>>> getSubjectCategory(long subIdx) {
+    public ResponseEntity<ApiResponse<List<GetSubjectDto>>> getSubjectCategory(@RequestBody long subIdx) {
         List<GetSubjectDto> subjectList = adminService.getSubjectCategory(subIdx);
         System.out.println(subjectList);
         return ResponseEntity.ok(new ApiResponse<>(subjectList));

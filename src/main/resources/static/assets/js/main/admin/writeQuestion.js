@@ -20,19 +20,14 @@ function getSubDataList() {
             $(".subject_"+i).val("");
         }
       }else{
-            $.ajax({
-                  type:"POST",
-                  url:"/api/admin/get-sub-category",
-                  data:{"mainIdx":mainIdx},
-                  dataType:"json"
-            }).done(function(data){
-              let subDataList = "";
-              for(let i of data.data){
-                subDataList += `<option data-value='${i.idx}' value='${i.subCategoryName}' />`
-              }
-              $("#data_list2").html(subDataList);
-            }).fail(function(){
-            })
+            let subDataList = "";
+            let data = mainIdx;
+            httpUtil.defaultRequest('/api/admin/get-sub-category','post', data, function(data) {
+                for(let i of data.data){
+                  subDataList += `<option data-value='${i.idx}' value='${i.subCategoryName}' />`
+                }
+            $("#data_list2").html(subDataList);
+          })
       }
 }
 
@@ -45,19 +40,15 @@ function getSubjectDataList() {
         }
         $("#data_list3").html("");
       }else{
-            $.ajax({
-                  type:"POST",
-                  url:"/api/admin/get-subject-category",
-                  data:{"subIdx":subIdx},
-                  dataType:"json"
-            }).done(function(data){
-              let subjectDataList = "";
-              for(let i of data.data){
+            let data = subIdx;
+            httpUtil.defaultRequest('/api/admin/get-subject-category','post', data, function(data) {
+                let subjectDataList = "";
+                for(let i of data.data){
                 subjectDataList += "<option data-value='" + i.idx + "' value='" + i.subjectName + "' />"
-              }
-              $("#data_list3").html(subjectDataList);
-            }).fail(function(){
+                }
+                $("#data_list3").html(subjectDataList);
             })
+
       }
 }
 
@@ -68,8 +59,8 @@ function changeOptionCnt() {
           $("#No" + i).append(
             `<div class='col-md-12' id='choice'>
               <div id='choice_index'>5.</div>
-              <input type='radio' name='correct_check_"+i+"' id='correct_check' value='check_5'>
-              <textarea id='question' class='form-control' name='' rows='2' placeholder='보기' required></textarea>
+              <input type='radio' name='correct_check_${i}' id='correct_check' value='5'>
+              <textarea id='question' class='choice_content_5 form-control' name='' rows='2' placeholder='보기' required></textarea>
               </div>`
           )
         }
@@ -90,7 +81,7 @@ function plusIcon() {
                 html_first += `<div class='question_data_${index} row gy-4' id='add'>
                       <div class='col-md-12'>
                         <div class='accordion-item'>
-                          <input id='question_subject' type='text' class='form-control' name='subject' placeholder='No ${index}.' required>
+                          <input id='question_subject' type='text' class='question${index} form-control' name='subject' placeholder='No ${index}.' required>
                           <button id='hide_button' class='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#No${index}' />
                         </div>
                       </div>
@@ -111,8 +102,8 @@ function plusIcon() {
                 for(let i=1; i<=option_count;i++){
               html_middle +=    `<div class='col-md-12' id='choice'>
                                     <div id='choice_index'>${i}.</div>
-                                    <input type='radio' name='correct_check_${index}' id='correct_check' value='check_${i}'>
-                                    <textarea id='question' class='form-control' name='' rows='2' placeholder='보기' required></textarea>
+                                    <input type='radio' name='correct_check_${index}' id='correct_check' value='${i}'>
+                                    <textarea id='question' class='choice_content_${i} form-control' name='' rows='2' placeholder='보기' required></textarea>
                                 </div>`
             }
             html_end ="</div></div>"
@@ -122,10 +113,80 @@ function plusIcon() {
 }
 
 function minusIcon() {
-      $(this).prev().prev("#add:not(:first-child)").remove();
+      $("#minus_icon").prev().prev("#add:not(:first-child)").remove();
       index--;
       if(index < 1){
         index = 1;
       }
 }
+
+function registQuestion() {
+        let data = {};
+        let questionInfo = {};
+        let mainCategoryName = existIdValue("main_ctg_name");
+        let mainCategoryIdx = $("#data_list [value='" + mainCategoryName + "']").data("value");
+        if(isEmptyStr(mainCategoryIdx)){
+           warningMessageToast("메인 카테고리를 선택해야 합니다.");
+           return false;
+        }
+        let subCategoryName = existIdValue("sub_ctg_name");
+        let subCategoryIdx = $("#data_list2 [value='" + subCategoryName + "']").data("value");
+        if(isEmptyStr(subCategoryIdx)){
+           warningMessageToast("서브 카테고리를 선택해야 합니다.");
+           return false;
+        }
+        let examName = existIdValue("examName");
+        if(isEmptyStr(examName)){
+           warningMessageToast("문항 제목을 입력해야 합니다.");
+           return false;
+        }
+        let optionCnt = existIdValue("option_count");
+        let questionCnt = index;
+
+        questionInfo.mainCategoryIdx = mainCategoryIdx;
+        questionInfo.subCategoryIdx = subCategoryIdx;
+        questionInfo.examName = examName;
+        questionInfo.optionCnt = optionCnt;
+        questionInfo.questionCnt = questionCnt;
+
+        let questions = [];
+        for(let i = 1; i <= index; i++){
+            let question = {};
+            question.questionNumber = i;
+            question.questionName = $(".question"+i).val();
+
+            let subjectName = $(".subject_"+i).val();
+            let subjectIdx = $("#data_list3 [value='" + subjectName + "']").data("value");
+            question.SubjectIdx = subjectIdx;
+
+            const getAnswerNumber = document.getElementsByName("correct_check_"+i);
+            getAnswerNumber.forEach((answer) => {
+                if(answer.checked) {
+                    question.answerNumber = answer.value;
+                }
+            })
+            if(isEmptyStr(question.answerNumber)){
+                warningMessageToast(i+"번 문항의 정답을 체크해야 합니다.");
+                return false;
+            }
+
+            question.multiMediaIdx = null;
+            let options = [];
+            let no1 = $("#No"+i).find(".choice_content_1").val();
+            let no2 = $("#No"+i).find(".choice_content_2").val();
+            let no3 = $("#No"+i).find(".choice_content_3").val();
+            let no4 = $("#No"+i).find(".choice_content_4").val();
+            options.push(no1, no2, no3, no4)
+            if(optionCnt == 5){
+                let no5 = $("#No"+i).find(".choice_content_5").val();
+                options.push(no5);
+            }
+            question.options = options;
+            questions.push(question);
+        }
+        data.questionInfo = questionInfo;
+        data.questions = questions;
+        console.log(data);
+}
+
 
