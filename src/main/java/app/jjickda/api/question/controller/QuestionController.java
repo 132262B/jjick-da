@@ -9,7 +9,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @Controller
 public class QuestionController {
 
-    @GetMapping("/select-certificate")
-    public String SelectQuestion() { return "main/user/examSelectCertificate"; }
+    @GetMapping("/choice")
+    public String SelectQuestion() { return "main/user/examChoice"; }
 
 }

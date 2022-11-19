@@ -25,22 +25,22 @@ public class QuestionRestController {
 
     public QuestionRestController(QuestionService questionService) { this.questionService = questionService; }
 
-    @ApiOperation("자격증데이터를 가져오는 api")
-    @PostMapping("/select-certificate")
+    @ApiOperation("자격증데이터를 가져오는 API")
+    @PostMapping("/certificate")
     public ResponseEntity<ApiResponse<List<CertificateListDto>>> questionSelect() {
         List<CertificateListDto> certificateListDto = questionService.questionSelect();
         return ResponseEntity.ok(new ApiResponse<>(certificateListDto));
     }
 
-    @ApiOperation("과목을 선택하기 위한 api")
-    @PostMapping("/select-subject/{questionIdx}")
+    @ApiOperation("과목을 선택하기 위한 API")
+    @PostMapping("/subject/{questionIdx}")
     public ResponseEntity<ApiResponse<List<SubjectListDto>>> subjectSelect(@PathVariable long questionIdx) {
         List<SubjectListDto> subjectListDto = questionService.subjectSelect(questionIdx);
         return ResponseEntity.ok(new ApiResponse<>(subjectListDto));
     }
 
-    @ApiOperation("회차를 선택하기 위한 api")
-    @PostMapping("/select-exam/{questionIdx}")
+    @ApiOperation("회차를 선택하기 위한 API")
+    @PostMapping("/exam/{questionIdx}")
     public ResponseEntity<ApiResponse<List<ExamListDto>>> examSelect(@PathVariable long questionIdx) {
         List<ExamListDto> examListDto = questionService.examSelect(questionIdx);
         return ResponseEntity.ok(new ApiResponse<>(examListDto));
