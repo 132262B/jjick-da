@@ -3,9 +3,13 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <!-- 공통 헤더-->
 <th:block th:replace="fragments/user/head :: headFragment"></th:block>
+
+<!-- 해당 페이지 js -->
+<script th:src="@{/assets/js/main/user/examChoice.js}"></script>
+
 <script>
     $(document).ready(function () {
-        ShowCertificate();
+        selectCertificate();
     });
 </script>
 <body class="d-flex flex-column min-vh-100">
@@ -102,8 +106,8 @@
                                 </div>
 
                                 <div class="select-nav text-center">
-                                    <a class="select-btn" name="all" onclick="CheckTerm(this.name)">전체 풀기</a>
-                                    <a class="select-btn" name="singly" onclick="CheckTerm(this.name)">한 문제씩 풀기</a>
+                                    <a class="select-btn" name="all" onclick="checkTerm(this.name)">전체 풀기</a>
+                                    <a class="select-btn" name="singly" onclick="checkTerm(this.name)">한 문제씩 풀기</a>
                                 </div>
                             </div>
                         </div>
@@ -123,90 +127,4 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/datalist-css/dist/datalist-css.min.js"></script>
 
-<script>
-    function ShowCertificate() {
-        const data = {};
-        httpUtil.defaultRequest('/api/select-certificate', 'post', data, function (data) {
-            console.log(data);
-            console.log(data.data);
-            let certificates = '';
-            $.each(data.data, function () {
-                certificates += `
-                    <option value='${this.questionName}' onclick="CertificateTerm(${this.questionIdx})">${this.questionName}</option>
-                `;
-            });
-            existId('certificateList').innerHTML = certificates;
-        });
-    }
-
-    function CertificateTerm(questionIdx) {
-        const data = {};
-        let url = `/api/select-subject/${questionIdx}`;
-        httpUtil.defaultRequest(url, 'post', data, function (data) {
-            console.log(data);
-            console.log(data.data);
-            let subjects = '';
-            $.each(data.data, function () {
-                subjects += `
-                    <input type="checkbox" name="subject" value="${this.subjectIdx}" checked>&nbsp;${this.subjectName}<br>
-                `;
-            });
-            console.log(subjects);
-            existId('d-subjects').innerHTML = subjects;
-        });
-
-        url = `/api/select-exam/${questionIdx}`;
-        httpUtil.defaultRequest(url, 'post', data, function (data) {
-            console.log(data);
-            console.log(data.data);
-            let exams = '';
-            $.each(data.data, function() {
-                exams += `
-                    <input type="checkbox" name="exam" value="${this.examIdx}">&nbsp;${this.examName}<br>
-                `;
-            });
-            console.log(exams);
-            existId('d-exams').innerHTML = exams;
-        });
-    }
-
-    function CheckTerm(name) {
-        // 자격증을 선택했는지 검사할 변수 checkCertificate
-        let checkCertificate = document.getElementById('selector').value;
-
-        // 과목을 선택했는지 검사할 코드들
-        let checkSubject = document.getElementsByName('subject');
-        let subjectLength = checkSubject.length;
-        let subjectChecked = 0;
-        for(i=0; i<subjectLength; i++) {
-            if(checkSubject[i].checked) {
-                subjectChecked += 1;
-            }
-        }
-
-        // 회차를 선택했는지 검사할 코드들
-        let checkExam = document.getElementsByName('exam');
-        let examLength = checkExam.length;
-        let examChecked = 0;
-        for(i=0; i<examLength; i++) {
-            if(checkExam[i].checked) {
-                examChecked += 1;
-            }
-        }
-
-        if(checkCertificate == null || checkCertificate == '') {
-            warningMessageToast('자격증을 선택하여 주십시오.');
-        } else if(subjectChecked == 0) {
-            warningMessageToast('과목을 하나이상 선택하여 주십시오.');
-        } else if(examChecked == 0) {
-            warningMessageToast('회차를 하나이상 선택하여 주십시오.');
-        } else {
-            if(name == 'all') {
-                location.href = '/exam-all';
-            } else if(name == 'singly') {
-                location.href = '/exam-single';
-            }
-        }
-    }
-</script>
 </html>

@@ -92,9 +92,7 @@ function emailCheck() {
             } else {
                 resetEmail();
             }
-
         });
-
 }
 
 /**

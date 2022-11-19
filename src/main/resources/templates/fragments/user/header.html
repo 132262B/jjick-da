@@ -20,7 +20,7 @@
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a class="nav-link scrollto active" th:href="@{/select-certificate}">시작하기</a></li>
+                    <li><a class="nav-link scrollto active" th:href="@{/choice}">시작하기</a></li>
                     <li><a class="nav-link scrollto" href="#services">서비스</a></li>
                     <li><a class="getstarted scrollto" th:if="${session.user != null}" onclick="logout()">로그아웃</a></li>
                     <li><a class="getstarted scrollto" th:if="${session.user == null}" th:href="@{/login}">로그인</a></li>
