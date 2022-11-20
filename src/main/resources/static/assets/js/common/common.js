@@ -89,3 +89,11 @@ function successMessageToast(successMessage) {
 function cutTime(date) {
     return date.substr(0,10);
 }
+
+/**
+ * 숫자만 입력가능하게 막아줌.
+ */
+function onchangeNum(target){
+    const regex = /[^0-9]/g;
+    target.value = target.value.replace(regex,"");
+}
