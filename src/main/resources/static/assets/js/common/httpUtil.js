@@ -22,7 +22,7 @@ class HttpUtil {
                 successFunction(data);
             },
             error: function (err) {
-                errorMessageToast(err.message);
+                errorMessageToast(err.responseJSON.message);
             },
             complete: function () {
                 // 공통 컴플리트 개발해야함.
@@ -50,31 +50,13 @@ class HttpUtil {
                 successFunction(data);
             },
             error: function (err) {
-                errorMessageToast(err.message);
+                errorMessageToast(err.responseJSON.message);
             },
             complete: function () {
                 completeFunction();
             }
         });
     }
-        asyncRequest(url, type, data, successFunction) {
-            $.ajax({
-                url: url,
-                type: type,
-                data: JSON.stringify(data),
-                async: false,
-                dataType: "json",
-                contentType: 'application/json',
-                success: function (data) {
-                    successFunction(data);
-                },
-                error: function (err) {
-                    errorMessageToast(err.message);
-                },
-                complete: function () {
-                }
-            });
-        }
 
     /**
      * 에러 발생시 특정 error function을 작동하게 해줌.
@@ -97,7 +79,7 @@ class HttpUtil {
                 successFunction(data);
             },
             error: function (err) {
-                errorFunction();
+                errorMessageToast(err.responseJSON.message);
             },
             complete: function () {
                 completeFunction();

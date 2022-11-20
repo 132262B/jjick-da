@@ -17,7 +17,6 @@ function getSubDetail() {
     }else{
         udtDate = cutTime(udtDate);
     }
-
     htmls += `<div class="info_subject">
                 <a href="">${data.data.mainCategoryName}</a>-${data.data.subCategoryName}
               </div>
@@ -41,7 +40,8 @@ function getSubDetail() {
 function registSubject() {
     let subjectData = {};
     subjectData.subCategoryIdx = existId("subIdx").value;
-    subjectData.subjectName = existId("subject_name").value;
+    subjectData.subjectName = existId("subjectName").value;
+    subjectData.subjectCutOffScore = existId("subjectCutOffScore").value;
     httpUtil.defaultRequest('/api/admin/regist-subject','post', subjectData, function(data) {
         if(data.data.success){
             getSubDetail();

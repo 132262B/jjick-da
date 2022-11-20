@@ -4,7 +4,7 @@
 
 <mapper namespace="app.jjickda.api.admin.repository.AdminRepository">
 
-    <insert id="registMain" parameterType="addMainCategoryDto">
+    <insert id="registMain">
         INSERT
           INTO TB_EXAM_MAIN_CATEGORY
              ( MAIN_CATEGORY_NAME
@@ -20,7 +20,7 @@
              );
     </insert>
 
-    <insert id="registSub" parameterType="addSubCategoryDto">
+    <insert id="registSub">
         INSERT INTO TB_EXAM_SUB_CATEGORY(
         MAIN_CATEGORY_IDX,
         SUB_CATEGORY_NAME,
@@ -36,19 +36,21 @@
         );
     </insert>
 
-    <insert id="registSubject" parameterType="addSubjectDto">
+    <insert id="registSubject">
         INSERT INTO TB_EXAM_SUBJECT(
           SUB_CATEGORY_IDX
         , SUBJECT_NAME
         , USE_STATUS
         , REG_DATE
         , REG_IDX
+        , SUBJECT_CUT_OFF_SCORE
         ) VALUES(
           #{subject.subCategoryIdx}
         , #{subject.subjectName}
         , 1
         , now()
         , #{user.idx}
+        , #{subject.subjectCutOffScore}
         );
     </insert>
 

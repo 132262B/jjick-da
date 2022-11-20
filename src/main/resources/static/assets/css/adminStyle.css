@@ -260,6 +260,77 @@ section {
   .mobile-nav-toggle {
     display: block;
   }
+  .filebox{
+    white-space: nowrap;
+    display:flex;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .select_subject{
+    flex:2;
+    overflow: nowrap;
+    white-space: nowrap;
+    margin-left:10px;
+    float:left;
+    width:30%;
+  }
+  .filebox .upload-name {
+    flex:2;
+    white-space: nowrap;
+    width: 50%;
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    color: #999999;
+    background-color: #fff;
+  }
+  .score{
+      flex:2;
+      width: 50%;
+      height: 40px;
+      padding: 0 10px;
+      margin-left: 10px;
+      overflow:nowrap;
+      white-space:nowrap;
+  }
+  .remnantScore{
+      flex:2;
+      line-height:40px;
+      width: 50%;
+      height: 40px;
+      padding: 0 10px;
+      margin-left: 10px;
+      overflow:nowrap;
+      white-space:nowrap;
+  }
+
+  .filebox label {
+    flex:2;
+    white-space: nowrap;
+    text-align: center;
+    width: auto;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #5b6aed;
+    cursor: pointer;
+    height: 40px;
+    margin-left: 10px;
+  }
+  .filebox input[type="file"] {
+      position: absolute;
+      width: 0%;
+      height: 0;
+      padding: 0;
+      overflow: hidden;
+      border: 0;
+  }
+
+
+
 
   .navbar ul {
     display: none;
@@ -1088,19 +1159,19 @@ custom
 #select_flex{
   display: flex;
 }
-#selects{
+.selects{
   flex:4
 }
-#selects:nth-child(2){
+.selects:nth-child(2){
   margin-left: 10px;
   margin-right: 5px;
 }
-#selects:nth-child(3){
+.selects:nth-child(3){
   margin-left: 5px;
   margin-right: 10px;
 }
 
-#add{
+.add{
   margin-bottom: 20px;
 }
 #set{
@@ -1157,26 +1228,36 @@ custom
     width: 100%;
     margin: 10px auto;
 }
-#question_subject{
+.info_wrap{
+    width:98%;
+}
+
+.question_subject{
+    margin-left:1%;
     float: left;
-    width:85%;
+    width:78%;
     box-sizing: border-box;
 }
 
-#hide_button{
-    white-space: nowrap;
+.subject_name{
     float: left;
-    width:auto;
+    width:15%;
     box-sizing: border-box;
-    margin-left: 10px;
 }
-#choice{
+
+.hide_button{
+    text-align:right;
+    float: right;
+    width:3%;
+    box-sizing: border-box;
+}
+.choice{
   float:left;
   width: 100%;
   margin-top: 10px;
 }
 
-#choice_index{
+.choice_index{
 text-align: center;
 margin-top: 20px;
 float: left;
@@ -1184,14 +1265,14 @@ width: 5%;
 box-sizing: border-box;
 }
 
-#correct_check{
+.correct_check{
   margin-top: 25px;
   float: left;
   width:5%;
   box-sizing: border-box;
 }
 
-#question{
+.question{
   width:90%;
   box-sizing: border-box;
 }
@@ -1285,7 +1366,7 @@ box-sizing: border-box;
 }
 
 
-#select_subject{
+.select_subject{
   overflow: nowrap;
   white-space: nowrap;
   margin-left:10px;
@@ -1303,6 +1384,26 @@ box-sizing: border-box;
   color: #999999;
   background-color: #fff;
 }
+.score{
+    float:left;
+    width: 10%;
+    height: 40px;
+    padding: 0 10px;
+    margin-left: 10px;
+    overflow:nowrap;
+    white-space:nowrap;
+}
+.remnantScore{
+    line-height:40px;
+    float:left;
+    width: 20%;
+    height: 40px;
+    padding: 0 10px;
+    margin-left: 10px;
+    overflow:nowrap;
+    white-space:nowrap;
+}
+
 .filebox label {
   white-space: nowrap;
   text-align: center;
@@ -1362,7 +1463,7 @@ box-sizing: border-box;
    font-weight: 700;
    color: #012970;
  }
-#subject_name{
+#data_list3{
     margin:auto;
 }
  .info_subject>a{
@@ -1388,6 +1489,13 @@ box-sizing: border-box;
    font-weight: 400;
    padding-left: 10px;
  }
-
-
+.flex{
+    display:flex;
+}
+.flex_child{
+    flex:2;
+}
+.flex_child:nth-child(1){
+    margin-right: 10px;
+}
 

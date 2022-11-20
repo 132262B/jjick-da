@@ -97,3 +97,15 @@ function onchangeNum(target){
     const regex = /[^0-9]/g;
     target.value = target.value.replace(regex,"");
 }
+/**
+ * 1~100 입력가능하게 막아줌.
+ */
+function positiveNumber(target) {
+    if(target.value < 1){
+        target.value = 1;
+    }
+    if(target.value > 100){
+        target.value = 100;
+    }
+
+}
