@@ -1,6 +1,7 @@
 package app.jjickda.api.admin.controller;
 
 
+import app.jjickda.api.admin.dto.request.AddExamDto;
 import app.jjickda.api.admin.dto.request.AddSubCategoryDto;
 import app.jjickda.api.admin.dto.request.AddSubjectDto;
 import app.jjickda.api.admin.dto.response.GetMainCategoryDto;
@@ -9,6 +10,9 @@ import app.jjickda.api.admin.dto.response.GetSubjectDto;
 import app.jjickda.api.admin.service.AdminService;
 import app.jjickda.api.admin.dto.request.AddMainCategoryDto;
 import app.jjickda.domain.common.dto.response.DefaultResultDto;
+import app.jjickda.domain.role.Role;
+import app.jjickda.global.annotation.LoginCheck;
+import app.jjickda.global.config.exception.Type;
 import app.jjickda.global.config.model.ApiResponse;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
@@ -79,5 +83,12 @@ public class AdminRestController {
     @PostMapping("/regist-subject")
     public ResponseEntity<ApiResponse<DefaultResultDto>> registerSubject(@Validated @RequestBody AddSubjectDto subject) {
         return ResponseEntity.ok(new ApiResponse<>(adminService.registSubject(subject)));
+    }
+
+    @ApiOperation("문항 등록 API")
+    //@LoginCheck(auth = Role.ADMIN, type = Type.API)
+    @PostMapping("/add-exam")
+    public ResponseEntity<ApiResponse<?>> addExam(@Validated @RequestBody AddExamDto addExamDto) {
+        return ResponseEntity.ok(new ApiResponse<>(adminService.addExam(addExamDto)));
     }
 }

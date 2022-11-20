@@ -1,17 +1,17 @@
 package app.jjickda.api.admin.service;
 
-import app.jjickda.api.admin.dto.request.AddSubCategoryDto;
-import app.jjickda.api.admin.dto.request.AddSubjectDto;
+import app.jjickda.api.admin.dto.request.*;
 import app.jjickda.api.admin.dto.response.GetMainCategoryDto;
 import app.jjickda.api.admin.dto.response.GetSubCategoryDto;
 import app.jjickda.api.admin.dto.response.GetSubjectDto;
 import app.jjickda.api.admin.repository.AdminRepository;
-import app.jjickda.api.admin.dto.request.AddMainCategoryDto;
 import app.jjickda.domain.common.dto.response.DefaultResultDto;
 import app.jjickda.domain.user.dto.response.User;
 import app.jjickda.global.utils.SessionUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -23,7 +23,7 @@ public class AdminService {
     }
 
     // 메인 카테고리 등록
-     public DefaultResultDto registMain(AddMainCategoryDto main_question) {
+    public DefaultResultDto registMain(AddMainCategoryDto main_question) {
         User user = SessionUtil.getUserAttribute();
         adminRepository.registMain(main_question, user);
         return DefaultResultDto.builder()
@@ -46,6 +46,7 @@ public class AdminService {
                 .success(true)
                 .build();
     }
+
     // 과목 등록
     public DefaultResultDto registSubject(AddSubjectDto subject) {
         User user = SessionUtil.getUserAttribute();
@@ -55,6 +56,7 @@ public class AdminService {
                 .success(true)
                 .build();
     }
+
     // 서브 카테고리 리스트
     public List<GetSubCategoryDto> getSubList() {
         return adminRepository.getSubList();
@@ -73,5 +75,33 @@ public class AdminService {
     // subCategoryIdx를 상속받는 과목 리스트
     public List<GetSubjectDto> getSubjectCategory(long subIdx) {
         return adminRepository.getSubjectCategory(subIdx);
+    }
+
+
+    // 문제 등록
+    @Transactional
+    public DefaultResultDto addExam(AddExamDto addExamDto) {
+
+        ExamInfo examInfo = addExamDto.getExamInfo();
+        User user = SessionUtil.getUserAttribute();
+        // 시험 정보 등록(TB_EXAM)
+        adminRepository.insertExamInfo(examInfo, user);
+
+        List<Question> questions = addExamDto.getQuestions();
+
+        for (Question question : questions) {
+
+            // 시험 문항 등록(TB_EXAM_QUESTION)
+            adminRepository.insertExamQuestions(examInfo, question);
+
+            // 시험 선지 등록(TB_EXAM_OPTIONS)
+            List<Options> options = question.getOptions();
+            adminRepository.insertExamOptions(question, options);
+        }
+
+        return DefaultResultDto.builder()
+                .message("1건의 문항이 등록되었습니다.")
+                .success(true)
+                .build();
     }
 }

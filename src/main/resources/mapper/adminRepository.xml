@@ -127,4 +127,65 @@
         FROM TB_EXAM_SUBJECT
         WHERE SUB_CATEGORY_IDX = #{subIdx}
     </select>
+
+
+    <!-- 시험 정보 등록 -->
+    <insert id="insertExamInfo" useGeneratedKeys="true" keyProperty="examInfo.examIdx">
+        INSERT
+          INTO TB_EXAM
+             ( MAIN_CATEGORY_IDX
+             , SUB_CATEGORY_IDX
+             , EXAM_NAME
+             , OPTIONS_CNT
+             , QUESTION_CNT
+             , EXAM_CUT_OFF_SCORE
+             , REG_IDX
+             ) VALUES
+             ( #{examInfo.mainCategoryIdx}
+             , #{examInfo.subCategoryIdx}
+             , #{examInfo.examName}
+             , #{examInfo.optionCnt}
+             , #{examInfo.questionCnt}
+             , #{examInfo.examCutOffScore}
+             , #{user.idx}
+             )
+    </insert>
+
+    <!-- 시험문항 등록 -->
+    <insert id="insertExamQuestions" useGeneratedKeys="true" keyProperty="question.questionIdx">
+        INSERT
+          INTO TB_EXAM_QUESTION
+             ( EXAM_IDX
+             , SUBJECT_IDX
+             , MULTIMEDIA_IDX
+             , QUESTION_NUMBER
+             , QUESTION_NAME
+             , ANSWER_NUMBER
+             , SCORE
+             ) VALUES
+             ( #{examInfo.mainCategoryIdx}
+             , #{question.subjectIdx}
+             , #{question.multiMediaIdx}
+             , #{question.questionNumber}
+             , #{question.questionName}
+             , #{question.answerNumber}
+             , #{question.score}
+             )
+    </insert>
+
+    <!-- 문항선지 등록 -->
+    <insert id="insertExamOptions">
+        INSERT
+          INTO TB_EXAM_OPTIONS
+             ( QUESTION_IDX
+             , OPTIONS_NUMBER
+             , OPTIONS_CONTENT
+             ) VALUES
+            <foreach collection="options" item="item" index="index" separator=" , ">
+             ( #{question.questionIdx}
+             , #{item.optionNumber}
+             , #{item.optionContent}
+             )
+            </foreach>
+    </insert>
 </mapper>
