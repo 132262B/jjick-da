@@ -19,7 +19,10 @@ public enum ErrorCode {
     METHOD_NOT_ALLOWED(HttpStatus.METHOD_NOT_ALLOWED, "메소드를 사용할 수 없습니다."),
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버에 문제가 발생하였습니다. 관리자에게 문의 부탁드립니다."),
     INVALID_TYPE_VALUE(HttpStatus.BAD_REQUEST, "입력 값 타입이 잘못되었습니다."),
-    HANDLE_ACCESS_DENIED(HttpStatus.FORBIDDEN, "접근 권한이 없습니다.");
+    HANDLE_ACCESS_DENIED(HttpStatus.FORBIDDEN, "접근 권한이 없습니다."),
+
+    // EXAM_ADD
+    NO_MATCH_OPTION_CNT_ERROR(HttpStatus.BAD_REQUEST, "선지갯수가 모두 일치하지 않습니다.");
 
 
     private final HttpStatus status;

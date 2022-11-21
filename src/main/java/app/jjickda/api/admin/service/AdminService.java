@@ -7,11 +7,12 @@ import app.jjickda.api.admin.dto.response.GetSubjectDto;
 import app.jjickda.api.admin.repository.AdminRepository;
 import app.jjickda.domain.common.dto.response.DefaultResultDto;
 import app.jjickda.domain.user.dto.response.User;
+import app.jjickda.global.config.exception.CustomException;
+import app.jjickda.global.config.exception.ErrorCode;
 import app.jjickda.global.utils.SessionUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -84,10 +85,16 @@ public class AdminService {
 
         ExamInfo examInfo = addExamDto.getExamInfo();
         User user = SessionUtil.getUserAttribute();
+
         // 시험 정보 등록(TB_EXAM)
         adminRepository.insertExamInfo(examInfo, user);
 
         List<Question> questions = addExamDto.getQuestions();
+
+
+        // 선치개수가 모두 일치하는지 검증하는 데이터
+        int beforeOptionsCnt = 0;
+        boolean optionsFlag = true;
 
         for (Question question : questions) {
 
@@ -96,6 +103,18 @@ public class AdminService {
 
             // 시험 선지 등록(TB_EXAM_OPTIONS)
             List<Options> options = question.getOptions();
+
+            // 선치개수가 모두 일치하는지 검증하는 로직
+            if (optionsFlag) {
+                beforeOptionsCnt = options.size();
+                optionsFlag = false;
+            } else {
+                int currentOptionsCnt = options.size();
+                if (beforeOptionsCnt != currentOptionsCnt)
+                    throw new CustomException("선지갯수가 모두 일치하지 않습니다.", ErrorCode.NO_MATCH_OPTION_CNT_ERROR);
+
+            }
+
             adminRepository.insertExamOptions(question, options);
         }
 
