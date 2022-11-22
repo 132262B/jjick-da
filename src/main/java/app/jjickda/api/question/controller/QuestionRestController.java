@@ -6,6 +6,7 @@ import app.jjickda.api.question.dto.response.SubjectListDto;
 import app.jjickda.api.question.service.QuestionService;
 import app.jjickda.domain.user.dto.request.SignUpDto;
 import app.jjickda.global.config.model.ApiResponse;
+import app.jjickda.global.utils.SessionUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -32,17 +33,17 @@ public class QuestionRestController {
         return ResponseEntity.ok(new ApiResponse<>(certificateListDto));
     }
 
-    @ApiOperation("과목을 선택하기 위한 API")
-    @PostMapping("/subject/{questionIdx}")
-    public ResponseEntity<ApiResponse<List<SubjectListDto>>> subjectSelect(@PathVariable long questionIdx) {
-        List<SubjectListDto> subjectListDto = questionService.subjectSelect(questionIdx);
+    @ApiOperation("과목데이터를 가져오는 API")
+    @PostMapping("/subject/{subIdx}")
+    public ResponseEntity<ApiResponse<List<SubjectListDto>>> subjectSelect(@PathVariable long subIdx) {
+        List<SubjectListDto> subjectListDto = questionService.subjectSelect(subIdx);
         return ResponseEntity.ok(new ApiResponse<>(subjectListDto));
     }
 
-    @ApiOperation("회차를 선택하기 위한 API")
-    @PostMapping("/exam/{questionIdx}")
-    public ResponseEntity<ApiResponse<List<ExamListDto>>> examSelect(@PathVariable long questionIdx) {
-        List<ExamListDto> examListDto = questionService.examSelect(questionIdx);
+    @ApiOperation("회차데이터를 가져오는 API")
+    @PostMapping("/exam/{subIdx}")
+    public ResponseEntity<ApiResponse<List<ExamListDto>>> examSelect(@PathVariable long subIdx) {
+        List<ExamListDto> examListDto = questionService.examSelect(subIdx);
         return ResponseEntity.ok(new ApiResponse<>(examListDto));
     }
 

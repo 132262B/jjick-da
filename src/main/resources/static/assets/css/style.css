@@ -908,6 +908,17 @@ section {
         font-size: 15px;
         border-radius: 20px !important;
     }
+
+    #selector {
+        width: 250px;
+        height: 35px;
+        border-radius: 7px;
+        font-size: 0.7em;
+    }
+
+    #div-datalist datalist option {
+        font-size: 0.6em;
+    }
 }
 
 @media screen and (max-width: 820px) {
@@ -922,7 +933,7 @@ section {
 .footer {
     background: #f6f9ff;
     padding: 0 0 30px 0;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .footer .copyright {
@@ -934,6 +945,6 @@ section {
 .footer .credits {
     padding-top: 10px;
     text-align: center;
-    font-size: 13px;
+    font-size: 12px;
     color: #012970;
 }

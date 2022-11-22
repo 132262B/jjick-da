@@ -4,11 +4,12 @@
 
 <mapper namespace="app.jjickda.api.question.repository.QuestionRepository">
 
-    <!-- /select-certificate 주소에 자격증 목록 가져오는 구문 -->
+    <!-- /certificate 주소에 자격증 목록 가져오는 구문 -->
     <select id="questionSelect" resultType="certificateListDto">
         SELECT
-            TESC.IDX AS QUESTION_IDX,
-            CONCAT(TEMC.MAIN_CATEGORY_NAME, '-' , TESC.SUB_CATEGORY_NAME) AS QUESTION_NAME
+            TEMC.IDX AS MAIN_IDX,
+            TESC.IDX AS SUB_IDX,
+            CONCAT(TEMC.MAIN_CATEGORY_NAME, '-', TESC.SUB_CATEGORY_NAME) AS CERTIFICATE_NAME
         FROM
             TB_EXAM_MAIN_CATEGORY AS TEMC
         JOIN
@@ -17,7 +18,7 @@
             TEMC.IDX = TESC.MAIN_CATEGORY_IDX
     </select>
 
-    <!-- /select-subject/{questionIdx} 주소에 과목 목록 가져오는 구문 -->
+    <!-- subject/{subIdx} 주소에 과목 목록 가져오는 구문 -->
     <select id="subjectSelect" resultType="subjectListDto">
         SELECT
             IDX AS SUBJECT_IDX,
@@ -25,9 +26,10 @@
         FROM
             TB_EXAM_SUBJECT
         WHERE
-            SUB_CATEGORY_IDX = #{questionIdx}
+            SUB_CATEGORY_IDX = #{subIdx}
     </select>
 
+    <!-- exam/{subIdx} 주소에 과목 목록 가져오는 구문 -->
     <select id="examSelect" resultType="examListDto">
         SELECT
             IDX AS EXAM_IDX,
@@ -35,7 +37,7 @@
         FROM
             TB_EXAM
         WHERE
-            SUB_CATEGORY_IDX = #{questionIdx}
+            SUB_CATEGORY_IDX = #{subIdx}
     </select>
 
 </mapper>
