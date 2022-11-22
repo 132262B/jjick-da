@@ -78,9 +78,6 @@ function changeScore(target) {
         $("#leftScore_"+target).html("");
     }
 }
-
-
-
 function changeOptionCnt() {
       let count = $("#option_count").val();
       if(count == "5"){
@@ -100,7 +97,6 @@ function changeOptionCnt() {
         }
       }
 }
-
 function plusIcon() {
                 index++;
                 let html_first = "";
@@ -137,7 +133,6 @@ function plusIcon() {
             let html = html_first+html_middle+html_end;
             $("#plus_icon").before(html);
 }
-
 function minusIcon() {
       $("#minus_icon").prev().prev(".add:not(:first-child)").remove();
       index--;
@@ -145,7 +140,6 @@ function minusIcon() {
         index = 1;
       }
 }
-
 function registQuestion() {
         let data = {};
         let examInfo = {};
