@@ -120,4 +120,4 @@
 <img width="100%" alt="tomcat" src="https://user-images.githubusercontent.com/75984011/202645481-196874ff-6e38-4574-a1a2-44c5d9518190.png">
 
 ## ERD
-<img width="100%" alt="tomcat" src="https://user-images.githubusercontent.com/75984011/203234392-96598d6e-8a01-4638-9ae1-d1c200936f65.png">
+<img width="100%" alt="tomcat" src="https://user-images.githubusercontent.com/75984011/203290836-97117ec5-832f-4719-b43d-12fae3e59e18.png">
