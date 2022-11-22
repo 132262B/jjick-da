@@ -37,13 +37,16 @@
                             <option value="5">5</option>
                         </select>
                     </div>
+                    <div class="selects col-md-4">
+                        <input type="number" id="examCutOffScore" class="form-control" placeholder="과목 합격 기준" onkeyup="positiveNumber(this); onchangeNum(this);">
+                    </div>
                 </div>
             </div>
             <div class="accordion accordion-flush" id="faqlist">
                 <div class="add question_data_1 row gy-4">
                     <div class="col-md-12">
                         <div class="info_wrap accordion-item">
-                            <input type="text" class="subject_name form-control" id="subject_1" list="data_list3" placeholder="과목 선택">
+                            <input type="text" onchange="changeSubject(1);" class="subject_name form-control" id="subject_1" list="data_list3" placeholder="과목 선택">
                             <datalist id="data_list3" class="subject_datalist_1 col-md-6">
                             </datalist>
                             <input id="question1" type="text" class="question_subject form-control" name="subject" placeholder="No 1." required>
@@ -55,28 +58,28 @@
                             <input class="upload-name form-control" id="upload_name_1" readonly placeholder="첨부파일">
                             <label for="file1">파일찾기</label>
                             <input type="file" id="file1">
-                            <input type="number" class="score form-control" placeholder="점수" onkeyup="onchangeNum(this); positiveNumber(this);" onchange="onchangeNum(this); checkNumber(this);">
-                            <div class="score remnantScore form-control">남은 점수 : </div>
+                            <input type="number" id="th_1" class="score form-control" placeholder="점수" onkeyup="onchangeNum(this); positiveNumber(this); changeScore(1);">
+                            <div class="score remnantScore form-control"><span>남은 점수 : </span><span id="leftScore_1"></span></div>
                         </div>
                         <div class="choice col-md-12" id="">
                             <div class="choice_index">1.</div>
                             <input type="radio" name="correct_check_1" class="correct_check" value="1">
-                            <textarea id="" class="question choice_content_1 form-control" name="" rows="2" placeholder="보기" required></textarea>
+                            <textarea id="" class="question choice_content_1 form-control" rows="2" placeholder="보기" required></textarea>
                         </div>
                         <div class="choice col-md-12" id="">
                             <div class="choice_index">2.</div>
                             <input type="radio" name="correct_check_1" class="correct_check" value="2">
-                            <textarea id="" class="question choice_content_2 form-control" name="" rows="2" placeholder="보기" required></textarea>
+                            <textarea id="" class="question choice_content_2 form-control" rows="2" placeholder="보기" required></textarea>
                         </div>
                         <div class="choice col-md-12" id="">
                             <div class="choice_index">3.</div>
                             <input type="radio" name="correct_check_1" class="correct_check" value="3">
-                            <textarea id="" class="question choice_content_3 form-control" name="" rows="2" placeholder="보기" required></textarea>
+                            <textarea id="" class="question choice_content_3 form-control" rows="2" placeholder="보기" required></textarea>
                         </div>
                         <div class="choice col-md-12" id="">
                             <div class="choice_index">4.</div>
                             <input type="radio" name="correct_check_1" class="correct_check" value="4">
-                            <textarea id="" class="question choice_content_4 form-control" name="" rows="2" placeholder="보기" required></textarea>
+                            <textarea id="" class="question choice_content_4 form-control" rows="2" placeholder="보기" required></textarea>
                         </div>
                     </div>
                 </div>

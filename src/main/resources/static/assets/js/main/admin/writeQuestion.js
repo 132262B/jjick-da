@@ -1,9 +1,7 @@
 let emptyData = {};
 let index = 1;
-
-let subjectScore = {};
+let totalScore = 0;
 function getMainDataList() {
-    subjectScore = {};
     let dataList = `<option disabled selected>메인 카테고리 선택</option>`;
     httpUtil.defaultRequest('/api/admin/get-main-category','post', emptyData, function(data) {
         for(let i of data.data){
@@ -18,8 +16,9 @@ function getSubDataList() {
       $("#sub_ctg_name").val("");
       for(let i=1; i<=index; i++){
       $("#subject_"+i).val("");
+      $("#th_"+i).val("");
+      $("#leftScore_"+i).html("");
       }
-      subjectScore = {};
       let mainIdx = existIdValue("main_ctg_name");
       if(mainIdx == "" || mainIdx == null){
       }else{
@@ -38,25 +37,49 @@ function getSubjectDataList() {
       $("#data_list3").html("");
       for(let i=1; i<=index; i++){
           $("#subject_"+i).val("");
+          $("#th_"+i).val("");
+          $("#leftScore_"+i).html("");
       }
-      subjectScore = {};
       let subIdx = existIdValue("sub_ctg_name");
       if(subIdx == "" || subIdx == null){
       }else{
             let data = subIdx;
             httpUtil.defaultRequest('/api/admin/get-subject-category','post', data, function(data) {
-                for(let i of data.data){
-                    subjectScore += `{subjectScore${i.idx} : 100}`;
-                }
-
                 let subjectDataList = "";
+                totalScore = 0;
                 for(let i of data.data){
+                    totalScore += 100;
                     subjectDataList += `<option data-value='${i.idx}' value='${i.subjectName}' />`
                 }
                 $("#data_list3").html(subjectDataList);
             })
       }
 }
+function changeSubject(target) {
+    $("#th_"+target).val("")
+    changeScore(target);
+}
+function changeScore(target) {
+    let subjectName = $("#subject_"+target).val();
+    let subjectIdx = $("#data_list3 [value='" + subjectName + "']").data("value");
+    let plusScore = 100;
+
+    for(let i = 1; i <= index; i++){
+        if($("#subject_"+i).val() == subjectName){
+            plusScore -= $("#th_"+i).val();
+        }
+    }
+    for(let i = 1; i <= index; i++){
+        if($("#subject_"+i).val() == subjectName){
+            $("#leftScore_"+i).html(plusScore);
+        }
+    }
+    if(isEmptyStr(subjectIdx)){
+        $("#leftScore_"+target).html("");
+    }
+}
+
+
 
 function changeOptionCnt() {
       let count = $("#option_count").val();
@@ -87,8 +110,8 @@ function plusIcon() {
                 html_first += `<div class='add question_data_${index} row gy-4'>
                     <div class="col-md-12">
                         <div class="info_wrap accordion-item">
-                            <input type="text" class="subject_name form-control" id="subject_${index}" list="data_list3" placeholder="과목 선택">
-                            <datalist id="data_list3" class="subject_datalist_1 col-md-6">
+                            <input type="text" onchange="changeSubject(${index});" class="subject_name form-control" id="subject_${index}" list="data_list3" placeholder="과목 선택">
+                            <datalist id="data_list3" class="subject_datalist_${index} col-md-6">
                             </datalist>
                             <input id="question${index}" type="text" class="question_subject form-control" name="subject" placeholder="No ${index}." required>
                             <button class="hide_button accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#No${index}" />
@@ -99,6 +122,8 @@ function plusIcon() {
                           <input class='upload-name form-control' id='upload_name_${index}' readonly placeholder='첨부파일'>
                           <label for='file${index}'>파일찾기</label>
                           <input type='file' id='file${index}'>
+                          <input type="number" id="th_${index}" class="score form-control" placeholder="점수" onkeyup="onchangeNum(this); positiveNumber(this); changeScore(${index})">
+                          <div class="score remnantScore form-control"><span>남은 점수 : </span><span id="leftScore_${index}"></span></div>
                           </div>`
                 for(let i=1; i<=option_count;i++){
               html_middle +=    `<div class="choice col-md-12" id="">
@@ -114,7 +139,7 @@ function plusIcon() {
 }
 
 function minusIcon() {
-      $("#minus_icon").prev().prev("#add:not(:first-child)").remove();
+      $("#minus_icon").prev().prev(".add:not(:first-child)").remove();
       index--;
       if(index < 1){
         index = 1;
@@ -141,6 +166,26 @@ function registQuestion() {
            warningMessageToast("문항 제목을 입력해야 합니다.");
            return false;
         }
+        let examCutOffScore = existIdValue("examCutOffScore");
+        if(isEmptyStr(examCutOffScore) || examCutOffScore < 1 || examCutOffScore > 100){
+            warningMessageToast("과목 합격 기준을 입력해야 합니다.")
+            return false;
+        }
+        let score = 0;
+        for(let i = 1; i <= index; i++){
+            let inputScore = $("#th_"+i).val();
+            score = parseInt(inputScore) + parseInt(score);
+            if($("#leftScore_"+i).text()< 0){
+                warningMessageToast("남은 점수가 음수일 수 없습니다.");
+                return false;
+            }
+        }
+        if(score != totalScore){
+            warningMessageToast("총 점수("+totalScore+")점을 맞춰야 합니다.");
+            return false;
+        }
+
+
         let optionCnt = existIdValue("option_count");
         optionCnt = parseInt(optionCnt);
         let questionCnt = index;
@@ -151,16 +196,24 @@ function registQuestion() {
         examInfo.examName = examName;
         examInfo.optionCnt = optionCnt;
         examInfo.questionCnt = questionCnt;
-
+        examInfo.examCutOffScore = examCutOffScore;
         let questions = [];
         for(let i = 1; i <= index; i++){
             let question = {};
             question.questionNumber = i;
             question.questionName = $("#question"+i).val();
+            if(isEmptyStr(question.questionName)){
+                warningMessageToast(i+"번 문항의 제목을 입력해야 합니다.");
+                return false;
+            }
 
             let subjectName = $("#subject_"+i).val();
             let subjectIdx = $("#data_list3 [value='" + subjectName + "']").data("value");
             question.subjectIdx = subjectIdx;
+            if(isEmptyStr(question.subjectIdx)){
+                warningMessageToast(i+"번 문항의 과목을 선택해야 합니다.");
+                return false;
+            }
 
             const getAnswerNumber = document.getElementsByName("correct_check_"+i);
             getAnswerNumber.forEach((answer) => {
@@ -172,28 +225,66 @@ function registQuestion() {
                 warningMessageToast(i+"번 문항의 정답을 체크해야 합니다.");
                 return false;
             }
+            question.score = $("#th_"+i).val();
+            if(isEmptyStr(question.score)){
+                warningMessageToast(i+"번 문항의 점수를 입력해야 합니다.");
+                return false;
+            }
+            question.score = parseInt(question.score);
             question.answerNumber = parseInt(question.answerNumber);
 
            question.multiMediaIdx = null;
             let options = [];
             let option = {};
             let no1 = $("#No"+i).find(".choice_content_1").val();
+            if(isEmptyStr(no1)){
+                warningMessageToast(i+"번 문항의 1번 선지를 입력해야 합니다.");
+                return false;
+            }
             let no2 = $("#No"+i).find(".choice_content_2").val();
+            if(isEmptyStr(no2)){
+                warningMessageToast(i+"번 문항의 2번 선지를 입력해야 합니다.");
+                return false;
+            }
             let no3 = $("#No"+i).find(".choice_content_3").val();
+            if(isEmptyStr(no3)){
+                 warningMessageToast(i+"번 문항의 3번 선지를 입력해야 합니다.");
+                 return false;
+            }
             let no4 = $("#No"+i).find(".choice_content_4").val();
-            option.option1 = no1;
-            option.option2 = no2;
-            option.option3 = no3;
-            option.option4 = no4;
+            if(isEmptyStr(no4)){
+              warningMessageToast(i+"번 문항의 4번 선지를 입력해야 합니다.");
+              return false;
+            }
+            option.optionNumber = 1;
+            option.optionContent = no1
+            options.push(option);
+            option.optionNumber = 2;
+            option.optionContent = no2
+            options.push(option);
+            option.optionNumber = 3;
+            option.optionContent = no3
+            options.push(option);
+            option.optionNumber = 4;
+            option.optionContent = no4
+            options.push(option);
             if(optionCnt == 5){
                 let no5 = $("#No"+i).find(".choice_content_5").val();
-            option.option5 = no5;
+                option.optionNumber = 5;
+                option.optionContent = no5
+                if(isEmptyStr(no5)){
+                    warningMessageToast(i+"번 문항의 5번 선지를 입력해야 합니다.");
+                }
+                options.push(option);
             }
-            options.push(option);
             question.options = options;
             questions.push(question);
         }
         data.examInfo = examInfo;
         data.questions = questions;
-        console.log(data);
+    console.log(JSON.stringify(data));
+    httpUtil.defaultRequest('/api/admin/add-exam','post', data, function(data) {
+        successMessageToast(data.data.message);
+    })
+
 }

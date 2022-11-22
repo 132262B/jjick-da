@@ -27,6 +27,12 @@ h6 {
   font-family: "Nunito", sans-serif;
 }
 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 /*--------------------------------------------------------------
 # Sections
 --------------------------------------------------------------*/
@@ -286,6 +292,7 @@ section {
     color: #999999;
     background-color: #fff;
   }
+
   .score{
       flex:2;
       width: 50%;
@@ -1171,6 +1178,10 @@ custom
   margin-right: 10px;
 }
 
+.selects:nth-child(4){
+  margin-right: 10px;
+}
+
 .add{
   margin-bottom: 20px;
 }
@@ -1384,6 +1395,8 @@ box-sizing: border-box;
   color: #999999;
   background-color: #fff;
 }
+
+
 .score{
     float:left;
     width: 10%;

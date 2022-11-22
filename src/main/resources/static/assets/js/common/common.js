@@ -102,7 +102,7 @@ function onchangeNum(target){
  */
 function positiveNumber(target) {
     if(target.value < 1){
-        target.value = 1;
+        target.value = "";
     }
     if(target.value > 100){
         target.value = 100;
