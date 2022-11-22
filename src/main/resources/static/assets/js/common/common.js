@@ -1,10 +1,19 @@
 
 /**
- * Element 를 던지면 해당 Element 를 리턴한다. 존재하지 않다면 null 을 리턴한다.
+ * id 를 던지면 해당 Element 를 리턴한다. 존재하지 않다면 null 을 리턴한다.
  * @param id
  */
 function existId(id) {
     const elem = document.getElementById(id);
+    return (!isEmpty(elem) ? elem : null);
+}
+
+/**
+ * name 을 던지면 해당 Element 를 리턴한다. 존재하지 않다면 null 을 리턴한다.
+ * @param name
+ */
+function existName(name) {
+    const elem = document.getElementsByName(name);
     return (!isEmpty(elem) ? elem : null);
 }
 

@@ -19,7 +19,7 @@ public class QuestionService {
 
     public List<CertificateListDto> questionSelect() { return questionRepository.questionSelect(); }
 
-    public List<SubjectListDto> subjectSelect(long questionIdx) { return questionRepository.subjectSelect(questionIdx); }
+    public List<SubjectListDto> subjectSelect(long subIdx) { return questionRepository.subjectSelect(subIdx); }
 
-    public List<ExamListDto> examSelect(long questionIdx) { return questionRepository.examSelect(questionIdx); }
+    public List<ExamListDto> examSelect(long subIdx) { return questionRepository.examSelect(subIdx); }
 }

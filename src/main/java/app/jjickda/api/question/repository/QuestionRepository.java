@@ -12,7 +12,7 @@ public interface QuestionRepository {
 
     List<CertificateListDto> questionSelect();
 
-    List<SubjectListDto> subjectSelect(long questionIdx);
+    List<SubjectListDto> subjectSelect(long subIdx);
 
-    List<ExamListDto> examSelect(long questionIdx);
+    List<ExamListDto> examSelect(long subIdx);
 }
