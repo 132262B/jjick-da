@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@Api(tags = "사용자 관리 Controller")
+@Api(tags = "사용자 관련 API")
 @RequestMapping("/api/user")
 public class UserRestController {
 

@@ -1,7 +1,8 @@
 package app.jjickda.api.admin.dto.request;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.ibatis.type.Alias;
 
 import javax.validation.Valid;

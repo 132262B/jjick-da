@@ -1,0 +1,48 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<th:block th:replace="fragments/admin/head :: adminHeadFragment"></th:block>
+<style>
+    .box {
+        box-shadow: 0px 1px 22px -12px #607D8B;
+        background-color: #fff;
+        padding: 25px 35px 25px 30px;
+    }
+
+</style>
+
+<body class="d-flex flex-column min-vh-100">
+<th:block th:replace="fragments/admin/header :: adminHeaderFragment"></th:block>
+
+<section>
+    <div class="content">
+        <div class="container">
+            <div class="row mt-4 mb-4">
+                <div class="col-md-4">
+                    <div class="box box1">
+                        <div id="newUser"></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="box box2">
+                        <div id="examResultSubmitNumber"></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="box box3">
+                        <div id="spark3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<th:block th:replace="fragments/admin/footer :: adminFooterFragment"></th:block>
+<th:block th:replace="fragments/user/layout :: layoutFragment"></th:block>
+</body>
+
+<!-- 차트 -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script th:src="@{/assets/js/main/admin/dashBoard.js}"></script>
+
+</html>

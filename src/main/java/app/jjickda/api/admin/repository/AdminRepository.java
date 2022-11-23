@@ -1,9 +1,7 @@
 package app.jjickda.api.admin.repository;
 
 import app.jjickda.api.admin.dto.request.*;
-import app.jjickda.api.admin.dto.response.GetMainCategoryDto;
-import app.jjickda.api.admin.dto.response.GetSubCategoryDto;
-import app.jjickda.api.admin.dto.response.GetSubjectDto;
+import app.jjickda.api.admin.dto.response.*;
 import app.jjickda.domain.user.dto.response.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -35,4 +33,6 @@ public interface AdminRepository {
     void insertExamQuestions(ExamInfo examInfo, Question question);
 
     void insertExamOptions(Question question, List<Options> options);
+
+    List<NewUserDto> selectNewUser();
 }

@@ -4,6 +4,7 @@ package app.jjickda.api.admin.controller;
 import app.jjickda.api.admin.dto.request.AddExamDto;
 import app.jjickda.api.admin.dto.request.AddSubCategoryDto;
 import app.jjickda.api.admin.dto.request.AddSubjectDto;
+import app.jjickda.api.admin.dto.response.DashBoardDto;
 import app.jjickda.api.admin.dto.response.GetMainCategoryDto;
 import app.jjickda.api.admin.dto.response.GetSubCategoryDto;
 import app.jjickda.api.admin.dto.response.GetSubjectDto;
@@ -14,6 +15,7 @@ import app.jjickda.domain.role.Role;
 import app.jjickda.global.annotation.LoginCheck;
 import app.jjickda.global.config.exception.Type;
 import app.jjickda.global.config.model.ApiResponse;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -23,6 +25,7 @@ import java.util.List;
 
 
 @RestController
+@Api(tags = "어드민 관련 API")
 @RequestMapping("/api/admin")
 public class AdminRestController {
     private final AdminService adminService;
@@ -32,18 +35,21 @@ public class AdminRestController {
     }
 
     @ApiOperation("메인카테고리 등록 API")
+    @LoginCheck(auth = Role.ADMIN, type = Type.API)
     @PostMapping("/regist-main")
     public ResponseEntity<ApiResponse<DefaultResultDto>> registerMain(@Validated @RequestBody AddMainCategoryDto main_question) {
         return ResponseEntity.ok(new ApiResponse<>(adminService.registMain(main_question)));
     }
 
     @ApiOperation("서브카테고리 등록 API")
+    @LoginCheck(auth = Role.ADMIN, type = Type.API)
     @PostMapping("/regist-sub")
     public ResponseEntity<ApiResponse<DefaultResultDto>> registerSub(@Validated @RequestBody AddSubCategoryDto sub_question) {
         return ResponseEntity.ok(new ApiResponse<>(adminService.registSub(sub_question)));
     }
 
     @ApiOperation("서브등록(datalist) 메인등록(list) 에서 쓰일 Main_ctg_getList API")
+    @LoginCheck(auth = Role.ADMIN, type = Type.API)
     @PostMapping("/get-main-category")
     public ResponseEntity<ApiResponse<List<GetMainCategoryDto>>> getMainList() {
         List<GetMainCategoryDto> questionList = adminService.getMainList();
@@ -51,6 +57,7 @@ public class AdminRestController {
     }
 
     @ApiOperation("문항등록(datalist) 에 쓰일 서브 카테고리 리스트 API")
+    @LoginCheck(auth = Role.ADMIN, type = Type.API)
     @PostMapping("/get-sub-list")
     public ResponseEntity<ApiResponse<List<GetSubCategoryDto>>> getSubList() {
         List<GetSubCategoryDto> questionList = adminService.getSubList();
@@ -58,6 +65,7 @@ public class AdminRestController {
     }
 
     @ApiOperation("문항등록(datalist) 에 쓰일 서브 카테고리 리스트 API")
+    @LoginCheck(auth = Role.ADMIN, type = Type.API)
     @PostMapping("/get-sub-category")
     public ResponseEntity<ApiResponse<List<GetSubCategoryDto>>> getSubCategory(@RequestBody long mainIdx) {
         List<GetSubCategoryDto> questionList = adminService.getSubList(mainIdx);
@@ -65,6 +73,7 @@ public class AdminRestController {
     }
 
     @ApiOperation("문항등록(datalist) 에 쓰일 서브 카테고리 리스트 API")
+    @LoginCheck(auth = Role.ADMIN, type = Type.API)
     @PostMapping("/get-subject-category")
     public ResponseEntity<ApiResponse<List<GetSubjectDto>>> getSubjectCategory(@RequestBody long subIdx) {
         List<GetSubjectDto> subjectList = adminService.getSubjectCategory(subIdx);
@@ -73,6 +82,7 @@ public class AdminRestController {
     }
 
     @ApiOperation("과목등록에 쓰일 Sub detail API")
+    @LoginCheck(auth = Role.ADMIN, type = Type.API)
     @PostMapping("/get-sub-detail")
     public ResponseEntity<ApiResponse<GetSubCategoryDto>> getSubDetail(@RequestBody long subIdx) {
         GetSubCategoryDto subDetail = adminService.getSubDetail(subIdx);
@@ -80,15 +90,24 @@ public class AdminRestController {
     }
 
     @ApiOperation("서브카테고리 등록 API")
+    @LoginCheck(auth = Role.ADMIN, type = Type.API)
     @PostMapping("/regist-subject")
     public ResponseEntity<ApiResponse<DefaultResultDto>> registerSubject(@Validated @RequestBody AddSubjectDto subject) {
         return ResponseEntity.ok(new ApiResponse<>(adminService.registSubject(subject)));
     }
 
     @ApiOperation("문항 등록 API")
-    //@LoginCheck(auth = Role.ADMIN, type = Type.API)
+    @LoginCheck(auth = Role.ADMIN, type = Type.API)
     @PostMapping("/add-exam")
-    public ResponseEntity<ApiResponse<?>> addExam(@Validated @RequestBody AddExamDto addExamDto) {
+    public ResponseEntity<ApiResponse<DefaultResultDto>> addExam(@Validated @RequestBody AddExamDto addExamDto) {
         return ResponseEntity.ok(new ApiResponse<>(adminService.addExam(addExamDto)));
     }
+
+    @ApiOperation("대시보드(통계) 데이터 출력 API")
+    @LoginCheck(auth = Role.ADMIN, type = Type.API)
+    @GetMapping("/dashBoard")
+    public ResponseEntity<ApiResponse<DashBoardDto>> dashBoard() {
+        return ResponseEntity.ok(new ApiResponse<>(adminService.dashBoard()));
+    }
+
 }

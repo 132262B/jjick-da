@@ -17,9 +17,9 @@ import springfox.documentation.annotations.ApiIgnore;
 public class AdminController {
 
     @LoginCheck(auth = Role.ADMIN, type = Type.PAGE)
-    @GetMapping("/home")
+    @GetMapping("/dash-board")
     public String AdminPage() {
-        return "main/admin/home";
+        return "main/admin/dashBoard";
     }
 
     @LoginCheck(auth = Role.ADMIN, type = Type.PAGE)
