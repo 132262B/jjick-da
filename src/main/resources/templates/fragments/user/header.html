@@ -5,11 +5,13 @@
     <script>
         AOS.init();
 
+        // 로그아웃
         function logout() {
-            httpUtil.defaultRequest('/api/user/logout', 'post', {}, function () {
+            httpUtil.defaultRequest('/api/user/logout', 'GET', null, function () {
                 location.replace(location.href);
             })
         }
+
     </script>
     <header id="header" class="header fixed-top">
         <div class="container-fluid container-xl d-flex align-items-center justify-content-between">

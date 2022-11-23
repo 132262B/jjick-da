@@ -4,9 +4,19 @@
 <th:block th:replace="fragments/admin/head :: adminHeadFragment"></th:block>
 <style>
     .box {
-        box-shadow: 0px 1px 22px -12px #607D8B;
+        box-shadow: 0px 1px 18px -12px #607D8B;
         background-color: #fff;
         padding: 25px 35px 25px 30px;
+    }
+
+    .box dt {
+        font-size: 22px;
+        color: #495057;
+    }
+
+    .box dd {
+        font-size: 18px;
+        color: #868e96;
     }
 
 </style>
@@ -18,18 +28,43 @@
     <div class="content">
         <div class="container">
             <div class="row mt-4 mb-4">
-                <div class="col-md-4">
-                    <div class="box box1">
+                <div class="col-md-3 mb-4">
+                    <div class="box">
+                        <dt>총 이용자</dt>
+                        <dd class="text-end">1,111명</dd>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="box">
+                        <dt>총 시험 수</dt>
+                        <dd class="text-end">1,111건</dd>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="box">
+                        <dt>총 문항 수</dt>
+                        <dd class="text-end">1,111건</dd>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="box">
+                        <dt>총 결과제출 수</dt>
+                        <dd class="text-end">1,111건</dd>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <div class="box">
                         <div id="newUser"></div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="box box2">
+                <div class="col-md-4 mb-4">
+                    <div class="box">
                         <div id="examResultSubmitNumber"></div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="box box3">
+                <div class="col-md-4 mb-4">
+                    <div class="box">
                         <div id="spark3"></div>
                     </div>
                 </div>

@@ -86,8 +86,4 @@ public class UserService {
                 .message("로그아웃 성공!")
                 .build();
     }
-
-    public User myInfo() {
-        return SessionUtil.getUserAttribute();
-    }
 }
