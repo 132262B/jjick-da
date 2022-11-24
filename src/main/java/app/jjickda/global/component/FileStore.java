@@ -1,5 +1,7 @@
 package app.jjickda.global.component;
 
+import app.jjickda.global.config.exception.CustomException;
+import app.jjickda.global.config.exception.ErrorCode;
 import app.jjickda.global.config.model.UpLoadFileInfo;
 import app.jjickda.global.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Slf4j
 @Component
@@ -30,12 +34,16 @@ public class FileStore {
         String serverName = createStoreFileName();
         String fileExtension = this.getExtension(originalFileName);
 
+        if(!checkFileName(originalFileName)){
+            throw new CustomException("파일 업로도중 서버에서 허용하지 않는 확장자라서 에러발생", ErrorCode.FILE_UPLOAD_DENIED_EXTENSION_ERROR);
+        }
+
         this.mkdir(serverName);
 
         multipartFile.transferTo(new File(getFullFilePath(serverName)));
         return UpLoadFileInfo.builder()
                              .originalName(originalFileName)
-                             .serverName(serverName)
+                             .fileId(serverName)
                              .extension(fileExtension)
                              .size(fileSize)
                              .build();
@@ -139,4 +147,15 @@ public class FileStore {
 
         return fileDate.substring(0, 4) + "/" + fileDate.substring(4, 6) + "/" + fileDate.substring(6) + "/";
     }
+
+    /**
+     * 이미지 확장자인지 체크하는 메서드
+     */
+    public boolean checkFileName(String originalFileName){
+        Pattern pattern = Pattern.compile("\\.(jpg|jpeg|png)$", Pattern.CASE_INSENSITIVE);
+        Matcher match = pattern.matcher(originalFileName);
+        return match.find();
+    }
+
+
 }

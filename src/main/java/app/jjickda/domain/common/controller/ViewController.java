@@ -1,5 +1,7 @@
 package app.jjickda.domain.common.controller;
 
+import app.jjickda.domain.common.dto.response.DefaultResultDto;
+import app.jjickda.domain.common.service.CommonService;
 import app.jjickda.global.component.FileStore;
 import app.jjickda.global.config.model.ApiResponse;
 import app.jjickda.global.config.model.UpLoadFileInfo;
@@ -17,23 +19,23 @@ import java.net.MalformedURLException;
 @RestController
 @RequestMapping("/api")
 public class ViewController {
-
+    private final CommonService service;
     private final FileStore fileStore;
 
-    public ViewController(FileStore fileStore) {
+    public ViewController(CommonService service, FileStore fileStore) {
+        this.service = service;
         this.fileStore = fileStore;
     }
 
     @PostMapping("/upload/file")
-    public ResponseEntity<ApiResponse<UpLoadFileInfo>> uploadFile(@RequestParam("file") MultipartFile multipartFile) throws IOException {
+    public ResponseEntity<ApiResponse> uploadFile(@RequestParam("file") MultipartFile multipartFile) throws IOException {
         UpLoadFileInfo upLoadFileInfo = fileStore.uploadFile(multipartFile);
 
-        return ResponseEntity.ok(new ApiResponse<>(upLoadFileInfo));
+        return ResponseEntity.ok(new ApiResponse<>(service.addMultiMedia(upLoadFileInfo)));
     }
 
     @GetMapping("/image/{filename}")
     public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
         return new UrlResource("file:" + fileStore.getFullFilePath(filename));
     }
-
 }

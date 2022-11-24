@@ -18,4 +18,5 @@ spring:
 
 # 파일 업로드 경로
 file:
-  directory: /Users/igor/Desktop/upload/
+#  directory: /Users/igor/Desktop/upload/
+  directory: C:/upload/

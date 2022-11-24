@@ -21,6 +21,9 @@ public enum ErrorCode {
     INVALID_TYPE_VALUE(HttpStatus.BAD_REQUEST, "입력 값 타입이 잘못되었습니다."),
     HANDLE_ACCESS_DENIED(HttpStatus.FORBIDDEN, "접근 권한이 없습니다."),
 
+    // File Upload
+    FILE_UPLOAD_DENIED_EXTENSION_ERROR(HttpStatus.BAD_REQUEST, "파일 확장자가 올바르지 않습니다."),
+
     // EXAM_ADD
     NO_MATCH_OPTION_CNT_ERROR(HttpStatus.BAD_REQUEST, "선지갯수가 모두 일치하지 않습니다.");
 

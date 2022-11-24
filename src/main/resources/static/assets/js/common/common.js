@@ -116,5 +116,21 @@ function positiveNumber(target) {
     if(target.value > 100){
         target.value = 100;
     }
+}
 
+function extensionValidation(target) {
+    let extensionValid = /(.*?)\.(jpg|jpeg|png|gif|bmp|pdf)$/;
+    let maxSize = 3 * 1024 * 1024;
+    let imgFile = $(target).val();
+    let fileSize = $(target)[0].files[0].size;
+
+    if(!imgFile.match(extensionValid)) {
+        errorMessageToast("이미지 파일만 업로드 가능")
+        return false;
+    } else if(fileSize > maxSize) {
+        errorMessageToast("3MB 이하 업로드 가능")
+        return false;
+    }else{
+        return true;
+    }
 }

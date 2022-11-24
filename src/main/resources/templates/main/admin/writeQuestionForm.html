@@ -46,6 +46,7 @@
                 <div class="add question_data_1 row gy-4">
                     <div class="col-md-12">
                         <div class="info_wrap accordion-item">
+                            <div id='hidden_html1'></div>
                             <input type="text" onchange="changeSubject(1);" class="subject_name form-control" id="subject_1" list="data_list3" placeholder="과목 선택">
                             <datalist id="data_list3" class="subject_datalist_1 col-md-6">
                             </datalist>
@@ -57,7 +58,7 @@
                         <div class="filebox">
                             <input class="upload-name form-control" id="upload_name_1" readonly placeholder="첨부파일">
                             <label for="file1">파일찾기</label>
-                            <input type="file" id="file1">
+                            <input type="file" id="file1" name="file1" onchange="uploadFile(this);">
                             <input type="number" id="th_1" class="score form-control" placeholder="점수" onkeyup="onchangeNum(this); positiveNumber(this); changeScore(1);">
                             <div class="score remnantScore form-control"><span>남은 점수 : </span><span id="leftScore_1"></span></div>
                         </div>
