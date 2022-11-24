@@ -8,18 +8,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import springfox.documentation.annotations.ApiIgnore;
 
 
-@ApiIgnore
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 
     @LoginCheck(auth = Role.ADMIN, type = Type.PAGE)
-    @GetMapping("/dash-board")
+    @GetMapping("/dashboard")
     public String AdminPage() {
-        return "main/admin/dashBoard";
+        return "main/admin/dashboard";
     }
 
     @LoginCheck(auth = Role.ADMIN, type = Type.PAGE)

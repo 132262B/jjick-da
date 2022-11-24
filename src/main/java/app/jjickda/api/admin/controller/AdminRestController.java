@@ -2,14 +2,13 @@ package app.jjickda.api.admin.controller;
 
 
 import app.jjickda.api.admin.dto.request.AddExamDto;
+import app.jjickda.api.admin.dto.request.AddMainCategoryDto;
 import app.jjickda.api.admin.dto.request.AddSubCategoryDto;
 import app.jjickda.api.admin.dto.request.AddSubjectDto;
-import app.jjickda.api.admin.dto.response.DashBoardDto;
 import app.jjickda.api.admin.dto.response.GetMainCategoryDto;
 import app.jjickda.api.admin.dto.response.GetSubCategoryDto;
 import app.jjickda.api.admin.dto.response.GetSubjectDto;
 import app.jjickda.api.admin.service.AdminService;
-import app.jjickda.api.admin.dto.request.AddMainCategoryDto;
 import app.jjickda.domain.common.dto.response.DefaultResultDto;
 import app.jjickda.domain.role.Role;
 import app.jjickda.global.annotation.LoginCheck;
@@ -101,13 +100,6 @@ public class AdminRestController {
     @PostMapping("/add-exam")
     public ResponseEntity<ApiResponse<DefaultResultDto>> addExam(@Validated @RequestBody AddExamDto addExamDto) {
         return ResponseEntity.ok(new ApiResponse<>(adminService.addExam(addExamDto)));
-    }
-
-    @ApiOperation("대시보드(통계) 데이터 출력 API")
-    @LoginCheck(auth = Role.ADMIN, type = Type.API)
-    @GetMapping("/dashBoard")
-    public ResponseEntity<ApiResponse<DashBoardDto>> dashBoard() {
-        return ResponseEntity.ok(new ApiResponse<>(adminService.dashBoard()));
     }
 
 }
