@@ -1,14 +1,16 @@
+let examInfo = {}
+
 /**
  * 자격증 조회
  */
 function selectCertificate() {
     const data = {};
 
-    httpUtil.defaultRequest('/api/certificate', 'POST', data, function (data) {
+    httpUtil.defaultRequest('/api/certificate', 'POST', data, (data) => {
         let certificates = '';
         $.each(data.data, function () {
             certificates += `
-            <option value='${this.questionName}' onclick="selectSubjectAndExam(${this.questionIdx})">${this.questionName}</option>
+            <option value='${this.certificateName}' onclick="selectSubjectAndExam(${this.mainIdx}, ${this.subIdx})">${this.certificateName}</option>
             `;
         });
         existId('certificateList').innerHTML = certificates;
@@ -17,57 +19,70 @@ function selectCertificate() {
 
 /**
  * 과목 및 회차 조회
- * @param questionIdx
+ * @param mainIdx
+ * @param subIdx
  */
-function selectSubjectAndExam(questionIdx) {
+function selectSubjectAndExam(mainIdx, subIdx) {
+    examInfo.mainCtgIdx = mainIdx;
+    examInfo.subCtgIdx = subIdx;
     const data = {};
-    let url = `/api/subject/${questionIdx}`;
-    httpUtil.defaultRequest(url, 'POST', data, function (data) {
+    let url = `/api/subject/${subIdx}`;
+    httpUtil.defaultRequest(url, 'POST', data, (data) => {
         let subjects = '';
         $.each(data.data, function () {
             subjects += `
-                    <input type="checkbox" name="subject" value="${this.subjectIdx}" checked>&nbsp;${this.subjectName}<br>
-                `;
+                <input type="checkbox" name="subject" value="${this.subjectIdx}" checked>&nbsp;${this.subjectName}<br>
+            `;
         });
         existId('d-subjects').innerHTML = subjects;
     });
 
-    url = `/api/exam/${questionIdx}`;
-    httpUtil.defaultRequest(url, 'post', data, function (data) {
+    url = `/api/exam/${subIdx}`;
+    httpUtil.defaultRequest(url, 'post', data, (data) => {
         let exams = '';
         $.each(data.data, function () {
             exams += `
-                    <input type="checkbox" name="exam" value="${this.examIdx}">&nbsp;${this.examName}<br>
-                `;
+                <input type="checkbox" name="exam" value="${this.examIdx}">&nbsp;${this.examName}<br>
+            `;
         });
         existId('d-exams').innerHTML = exams;
     });
 }
 
+/**
+ * 선택 유무 확인, 선택 조건들 저장
+ * @param name
+ */
 function checkTerm(name) {
-    // 자격증을 선택했는지 검사할 변수 checkCertificate
+    // 자격증 선택유무 판별하는 코드
     let checkCertificate = existId('selector').value;
-
-    // 과목을 선택했는지 검사할 코드들
-    let checkSubject = document.getElementsByName('subject');
-    let subjectLength = checkSubject.length;
+    // 과목 선택유무 판별코드
+    let subjectIdxArray = [];
+    let checkSubject = existName('subject');
     let subjectChecked = 0;
-    for (let i = 0; i < subjectLength; i++) {
+    for (let i = 0; i < checkSubject.length; i++) {
         if (checkSubject[i].checked) {
-            subjectChecked += 1;
+            subjectChecked++;
+            // 선택되어 있는 과목 value 를 가져와 subjectIdxArray 배열에 추가
+            subjectIdxArray.push(checkSubject[i].value);
         }
     }
-
-    // 회차를 선택했는지 검사할 코드들
-    let checkExam = document.getElementsByName('exam');
-    let examLength = checkExam.length;
+    // 회차 선택유무 판별코드
+    let examIdxArray = [];
+    let checkExam = existName('exam');
     let examChecked = 0;
-    for (let i = 0; i < examLength; i++) {
+    for (let i = 0; i < checkExam.length; i++) {
         if (checkExam[i].checked) {
-            examChecked += 1;
+            examChecked++;
+            // 선택되어 있는 회차 value 를 가져와 examIdxArray 배열에 추가
+            examIdxArray.push(checkExam[i].value);
         }
     }
-
+    // 각 배열에 추가된 과목, 회차를 json 형태인 examInfo 에 추가
+    examInfo.subjectIdxArray = subjectIdxArray;
+    examInfo.examIdxArray = examIdxArray;
+    console.log(examInfo);
+    window.name = 'examChoice';
     if (isEmptyStr(checkCertificate)) {
         warningMessageToast('자격증을 선택하여 주십시오.');
     } else if (subjectChecked === 0) {
@@ -76,9 +91,11 @@ function checkTerm(name) {
         warningMessageToast('회차를 하나이상 선택하여 주십시오.');
     } else {
         if (name === 'all') {
-            location.href = '/exam-all';
+            let examAll = window.open('/exam-all', 'exam-all', 'menubar=0, resizable=0, width=1200, height=1000');
+            examAll.opener.examInfo = examInfo;
         } else if (name === 'singly') {
-            location.href = '/exam-single';
+            let examSingle = window.open('/exam-single', 'exam-single', 'menubar=0, resizable=0, width=1200, height=1000');
+            examSingle.opener.examInfo = examInfo;
         }
     }
 }
