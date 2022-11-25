@@ -107,17 +107,19 @@ function onchangeNum(target){
     target.value = target.value.replace(regex,"");
 }
 /**
- * 1~100 입력가능하게 막아줌.
+ * minNum 이상 maxNum 이하 까지 입력가능하게 막아줌.
  */
-function positiveNumber(target) {
-    if(target.value < 1){
+function positiveNumber(target,minNum,maxNum) {
+    if(target.value < minNum){
         target.value = "";
     }
-    if(target.value > 100){
-        target.value = 100;
+    if(target.value > maxNum){
+        target.value = maxNum;
     }
 }
-
+/**
+ * 이미지 확장자인지 체크후 boolean 리턴
+ */
 function extensionValidation(target) {
     let extensionValid = /(.*?)\.(jpg|jpeg|png|gif|bmp|pdf)$/;
     let maxSize = 3 * 1024 * 1024;

@@ -17,10 +17,17 @@
 <section class="sub_ctg_info" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
    <div class="info">
        <div id="htmls"></div>
-        <div class="flex col-md-12" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="450">
-            <input type="text" id="subjectName" class="flex_child form-control" placeholder="과목을 입력해주세요." required />
-            <input type="number" placeholder="과목 합격 기준 점수" id="subjectCutOffScore" class="flex_child form-control" onkeyup="onchangeNum(this); positiveNumber(this);" onchange="onchangeNum(this); checkNumber(this);" required />
+        <div class="col-md-12" id="m_b">
+            <input type="text" id="subjectName" class="form-control" placeholder="과목을 입력해주세요." required />
         </div>
+       <div class="row media_flex">
+           <div class="media_flex_child col-md-6">
+               <input id="subjectQuestionCnt" type="number" placeholder="문항 개수" class=" form-control" onkeyup="onchangeNum(this); positiveNumber(this,1,50);" required />
+           </div>
+           <div class="media_flex_child col-md-6">
+               <input id="subjectCutOffScore" type="number" placeholder="과목 합격 기준" class=" form-control" onkeyup="onchangeNum(this); positiveNumber(this,1,100);" required />
+           </div>
+       </div>
         <div class="col-md-12 text-center">
             <button class="main_button" type="button" onclick="registSubject();">등록</button>
         </div>

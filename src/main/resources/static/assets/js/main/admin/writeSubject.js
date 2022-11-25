@@ -41,11 +41,17 @@ function registSubject() {
     let subjectData = {};
     subjectData.subCategoryIdx = existId("subIdx").value;
     subjectData.subjectName = existId("subjectName").value;
+    subjectData.subjectQuestionCnt = existId("subjectQuestionCnt").value;
     subjectData.subjectCutOffScore = existId("subjectCutOffScore").value;
     httpUtil.defaultRequest('/api/admin/regist-subject','post', subjectData, function(data) {
         if(data.data.success){
             getSubDetail();
             successMessageToast(data.data.message);
+            $("#subIdx").val("");
+            $("#subjectName").val("");
+            $("#subjectQuestionCnt").val("");
+            $("#subjectCutOffScore").val("");
+            $("#subjectName").focus();
         }
     })
 }

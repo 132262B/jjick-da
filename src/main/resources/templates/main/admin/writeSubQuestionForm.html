@@ -16,23 +16,32 @@
       <h2>문제 등록</h2>
       <p>서브 등록</p>
     </header>
-
-    <script>
-
-    </script>
     <div class="row">
-      <div class="col-md-6">
+      <div id="m_b" class="col-md-6">
         <input type="text" class="form-control" id="mainCategoryName" list="data_list" placeholder="메인 카테고리 선택">
         <datalist id="data_list" class="col-md-6">
         </datalist>
       </div>
-      <div class="col-md-6">
-        <input type="text" id="subCategoryName" class="form-control" rows="1" placeholder="서브 카테고리를 입력해주세요." required />
+      <div id="m_b" class="col-md-6">
+        <input type="text" id="subCategoryName" class="form-control" placeholder="서브 카테고리를 입력해주세요." required />
+      </div>
+    </div>
+    <div class="row media_flex">
+      <div class="media_flex_child col-md-6">
+        <input id="examCutOffScore" type="number" placeholder="시험 합격 기준 점수" class=" form-control" onkeyup="onchangeNum(this); positiveNumber(this,1,100);" required />
+      </div>
+      <div class="media_flex_child col-md-6">
+        <select id="optionsCnt" class="form-control">
+          <optionselected disabled value="0">선지 개수</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
       </div>
     </div>
     <div class="col-md-12 text-center">
       <button class="main_button" type="button" onclick="registSub();">등록</button>
     </div>
+
     <header class="section-header">
       <p>서브 리스트</p>
     </header>
