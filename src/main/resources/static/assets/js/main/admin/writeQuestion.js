@@ -88,11 +88,12 @@ function changeOptionCnt() {
       if(count == "5"){
         for(let i = 1; i<=index; i++){
           $("#No" + i).append(
-            `<div class='col-md-12' id='choice'>
-              <div id='choice_index'>5.</div>
-              <input type='radio' name='correct_check_${i}' class='correct_check' value='5'>
-              <textarea id='' class='question choice_content_5 form-control' name='' rows='2' placeholder='보기' required></textarea>
-              </div>`
+            `<div class="choice col-md-12" id="">
+                  <div class="choice_index">5.</div>
+                  <input type="radio" name="correct_check_${i}" class="correct_check" value="5">
+                  <textarea id="" class="question choice_content_5 form-control" name="" rows="2" placeholder="보기" required></textarea>
+             </div>`
+
           )
         }
       }
@@ -126,7 +127,8 @@ function plusIcon() {
                           <input type='file' id='file${index}' onchange='uploadFile(this);'>
                           <input type="number" id="th_${index}" class="score form-control" placeholder="점수" onkeyup="onchangeNum(this); positiveNumber(this); changeScore(${index})">
                           <div class="score remnantScore form-control"><span>남은 점수 : </span><span id="leftScore_${index}"></span></div>
-                          </div>`
+                          </div>
+                          <div class="img_div" id="img${index}"></div>`
                 for(let i=1; i<=option_count;i++){
               html_middle +=    `<div class="choice col-md-12" id="">
                                       <div class="choice_index">${i}.</div>
@@ -147,19 +149,22 @@ function minusIcon() {
       }
 }
 function uploadFile(target) {
-    let file = document.getElementById("file1");
     let file_id_name = $(target).attr('id');
     let file_index = file_id_name.substr(4,4);
+    let file = document.getElementById("file"+file_index);
+
     let fileName = $("#"+file_id_name).val();
     let hidden = "";
     if(file.files.length != 1) {
         $("#upload_name_"+file_index).val("");
         $("#hidden_html"+file_index).html(hidden);
+        $("#img"+file_index).html("");
         return false;
     }
     if(!extensionValidation(target)){
         $("#upload_name_"+file_index).val("");
         $("#hidden_html"+file_index).html(hidden);
+        $("#img"+file_index).html("");
         return false;
     }
     $("#upload_name_"+file_index).val(fileName);
@@ -171,6 +176,8 @@ function uploadFile(target) {
         successMessageToast("1건의 파일이 등록 되었습니다.");
         hidden = `<input type='hidden' id='multimedia${file_index}' value='${data.data.multiMediaIdx}'>`
         $("#hidden_html"+file_index).html(hidden);
+        let img = `<img class='img_file' src='/api/image/${data.data.fileId}'>`
+        $("#img"+file_index).html(img);
     })
 }
 
@@ -308,9 +315,8 @@ function registQuestion() {
         }
         data.examInfo = examInfo;
         data.questions = questions;
-    console.log(JSON.stringify(data));
-    httpUtil.defaultRequest('/api/admin/add-exam','post', data, (data) => {
-        successMessageToast(data.data.message);
-    })
+//    httpUtil.defaultRequest('/api/admin/add-exam','post', data, (data) => {
+//        successMessageToast(data.data.message);
+//    })
 
 }
