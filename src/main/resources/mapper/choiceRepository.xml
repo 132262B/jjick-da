@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="app.jjickda.api.question.repository.TermRepository">
+<mapper namespace="app.jjickda.api.choice.repository.ChoiceRepository">
 
     <!-- /certificate 주소에 자격증 목록 가져오는 구문 -->
-    <select id="questionSelect" resultType="certificateListDto">
+    <select id="questionChoice" resultType="certificateListDto">
         SELECT
             TEMC.IDX AS MAIN_IDX,
             TESC.IDX AS SUB_IDX,
@@ -21,7 +21,7 @@
     </select>
 
     <!-- subject/{subIdx} 주소에 과목 목록 가져오는 구문 -->
-    <select id="subjectSelect" resultType="subjectListDto">
+    <select id="subjectChoice" resultType="subjectListDto">
         SELECT
             IDX AS SUBJECT_IDX,
             SUBJECT_NAME
@@ -32,7 +32,7 @@
     </select>
 
     <!-- exam/{subIdx} 주소에 과목 목록 가져오는 구문 -->
-    <select id="examSelect" resultType="examListDto">
+    <select id="examChoice" resultType="examListDto">
         SELECT
             IDX AS EXAM_IDX,
             EXAM_NAME

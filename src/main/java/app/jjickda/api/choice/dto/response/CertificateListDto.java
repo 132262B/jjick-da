@@ -1,4 +1,4 @@
-package app.jjickda.api.question.dto.response;
+package app.jjickda.api.choice.dto.response;
 
 
 import io.swagger.annotations.ApiModelProperty;
