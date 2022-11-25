@@ -48,6 +48,7 @@
         , REG_DATE
         , REG_IDX
         , SUBJECT_CUT_OFF_SCORE
+        , SUBJECT_QUESTION_CNT
         ) VALUES(
           #{subject.subCategoryIdx}
         , #{subject.subjectName}
@@ -55,6 +56,7 @@
         , now()
         , #{user.idx}
         , #{subject.subjectCutOffScore}
+        , #{subject.subjectQuestionCnt}
         );
     </insert>
 
