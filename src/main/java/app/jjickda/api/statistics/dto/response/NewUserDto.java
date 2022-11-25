@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.ibatis.type.Alias;
 
-import java.sql.Timestamp;
-
 @Getter
 @Setter
 @Alias("newUserDto")

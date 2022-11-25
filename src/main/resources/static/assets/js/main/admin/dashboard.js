@@ -79,13 +79,18 @@ let dashboardData = {
 
 function loadDashboard() {
 
-    httpUtil.defaultRequest('/api/statistics/admin-dashboard', 'GET', null, (data) => {
+    httpUtil.loadingRequest('/api/statistics/admin-dashboard', 'GET', null, (data) => {
 
         // 신규 사용자(일일) 통계
         data.data.newUser.forEach((i) => {
             dashboardData.newUser.series[0].data.push(i.count);
             dashboardData.newUser.labels.push(i.date);
         })
+
+        counter('userTotalCount',data.data.userTotalCount);
+        counter('examTotalCount',data.data.examTotalCount);
+        counter('questionTotalCount',776);
+        counter('resultTotalCount',9999);
 
         const newUser = new ApexCharts(existId('newUser'), dashboardData.newUser);
         newUser.render();

@@ -18,14 +18,44 @@ class HttpUtil {
             data: JSON.stringify(data),
             dataType: "json",
             contentType: 'application/json',
-            success: function (data) {
+            success: (data) => {
                 successFunction(data);
             },
-            error: function (err) {
+            error: (err) => {
                 errorMessageToast(err.responseJSON.message);
             },
-            complete: function () {
+            complete: () => {
                 // 공통 컴플리트 개발해야함.
+            }
+        });
+    }
+
+    /**
+     * http 요청시 로딩바가 필요할때 사용하는 메서드
+     *
+     * @param url {string}
+     * @param type {string}
+     * @param data {any[]} json
+     * @param successFunction
+     */
+    loadingRequest(url, type, data, successFunction) {
+        $.ajax({
+            url: url,
+            type: type,
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: 'application/json',
+            success: (data) => {
+                successFunction(data);
+            },
+            error: (err) => {
+                errorMessageToast(err.responseJSON.message);
+            },
+            complete: () => {
+                closeLoadingBar();
+            },
+            beforeSend: () => {
+                openLoadingBar();
             }
         });
     }
@@ -46,13 +76,13 @@ class HttpUtil {
             data: JSON.stringify(data),
             dataType: "json",
             contentType: 'application/json',
-            success: function (data) {
+            success: (data) => {
                 successFunction(data);
             },
-            error: function (err) {
+            error: (err) => {
                 errorMessageToast(err.responseJSON.message);
             },
-            complete: function () {
+            complete: () => {
                 completeFunction();
             }
         });
@@ -75,13 +105,13 @@ class HttpUtil {
             data: JSON.stringify(data),
             dataType: "json",
             contentType: 'application/json',
-            success: function (data) {
+            success: (data) => {
                 successFunction(data);
             },
-            error: function (err) {
+            error: (err) => {
                 errorMessageToast(err.responseJSON.message);
             },
-            complete: function () {
+            complete: () => {
                 completeFunction();
             }
         });
@@ -105,13 +135,13 @@ class HttpUtil {
             type: type,
             data: data,
             dataType: "json",
-            success: function (data) {
+            success: (data) => {
                 successFunction(data);
             },
-            error: function (err) {
+            error: (err) => {
                 errorMessageToast(err.responseJSON.message);
             },
-            complete: function () {
+            complete: () => {
                 // 공통 컴플리트 개발해야함.
             }
         });

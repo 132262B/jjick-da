@@ -110,6 +110,29 @@ function closeLoadingBar() {
     existId('loading-bar').style.display = 'none';
 }
 
+/**
+ * 숫자 카운트 애니메이션 function
+ * @param counterId - 카운트 적용대상 ID
+ * @param max - 적용할 숫자
+ */
+function counter(counterId, max) {
+    let now = max;
+
+    const handle = setInterval(() => {
+        let elem = existId(counterId);
+        elem.innerText = Math.ceil(max - now).toLocaleString();
+
+        // 목표에 도달하면 정지
+        if (now < 1) {
+            clearInterval(handle);
+        }
+
+        // 적용될 수치, 점점 줄어듬
+        const step = now / 10;
+
+        now -= step;
+    }, 50);
+}
 
 function cutTime(date) {
     return date.substr(0,10);
