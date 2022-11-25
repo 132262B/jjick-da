@@ -34,7 +34,7 @@ CREATE TABLE `TB_EXAM_MAIN_CATEGORY` (
 	`MAIN_CATEGORY_NAME`  varchar(30)  NOT NULL                            COMMENT '메인카테고리명',
 	`USE_STATUS`          bit(1)       NOT NULL DEFAULT 1                  COMMENT '사용유무',
 	`REG_DATE`            datetime     NOT NULL DEFAULT now()              COMMENT '등록일',
-	`REQ_IDX`             bigint       NOT NULL                            COMMENT '등록자',
+	`REG_IDX`             bigint       NOT NULL                            COMMENT '등록자',
 	`UDT_DATE`            datetime     NULL                                COMMENT '수정일',
 	`UDT_IDX`             bigint       NULL                                COMMENT '수정자'
 );
@@ -44,14 +44,16 @@ ALTER TABLE TB_EXAM_MAIN_CATEGORY COMMENT='시험문제 메인 카테고리';
 
 # 시험문제 서브 카테고리
 CREATE TABLE `TB_EXAM_SUB_CATEGORY` (
-	`IDX`               bigint      NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '서브카테고리IDX',
-	`MAIN_CATEGORY_IDX` bigint      NOT NULL                            COMMENT '메인카테고리IDX',
-	`SUB_CATEGORY_NAME` varchar(30) NOT NULL                            COMMENT '서브카테고리명',
-	`USE_STATUS`        bit(1)      NOT NULL DEFAULT 1                  COMMENT '사용유무',
-	`REG_DATE`          datetime    NOT NULL DEFAULT now()              COMMENT '등록일',
-	`REQ_IDX`           bigint      NOT NULL                            COMMENT '등록자',
-	`UDT_DATE`          datetime    NULL                                COMMENT '수정일',
-	`UDT_IDX`           bigint      NULL                                COMMENT '수정자'
+    `IDX`                bigint      NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '서브카테고리IDX',
+    `MAIN_CATEGORY_IDX`  bigint      NOT NULL                            COMMENT '메인카테고리IDX',
+    `SUB_CATEGORY_NAME`  varchar(30) NOT NULL                            COMMENT '서브카테고리명',
+    `OPTIONS_CNT`        int         NOT NULL                            COMMENT '선지 개수',
+    `EXAM_CUT_OFF_SCORE` float       NOT NULL                            COMMENT '시험합격점수',
+    `USE_STATUS`         bit(1)      NOT NULL DEFAULT 1                  COMMENT '사용유무',
+    `REG_DATE`           datetime    NOT NULL DEFAULT now()              COMMENT '등록일',
+    `REG_IDX`            bigint      NOT NULL                            COMMENT '등록자',
+    `UDT_DATE`           datetime    NULL                                COMMENT '수정일',
+    `UDT_IDX`            bigint      NULL                                COMMENT '수정자'
 );
 
 ALTER TABLE TB_EXAM_SUB_CATEGORY COMMENT='시험문제 서브 카테고리';
@@ -63,9 +65,6 @@ CREATE TABLE `TB_EXAM` (
 	`MAIN_CATEGORY_IDX`  bigint       NOT NULL                            COMMENT '메인카테고리IDX',
 	`SUB_CATEGORY_IDX`   bigint       NOT NULL                            COMMENT '서브카테고리IDX',
 	`EXAM_NAME`          varchar(128) NOT NULL                            COMMENT '시험명',
-	`OPTIONS_CNT`        int          NOT NULL                            COMMENT '선지 개수',
-	`QUESTION_CNT`       int          NOT NULL                            COMMENT '문항개수',
-    `EXAM_CUT_OFF_SCORE` float        NOT NULL                            COMMENT '시험합격기준',
 	`CONFIRM_STATUS`     bit(1)       NOT NULL DEFAULT 0                  COMMENT '확정유무(1=확정,0,확정대기)',
 	`USE_STATUS`         bit(1)       NOT NULL DEFAULT 1                  COMMENT '사용유무',
 	`REG_DATE`           datetime     NOT NULL DEFAULT now()              COMMENT '등록일',
@@ -85,25 +84,24 @@ CREATE TABLE `TB_EXAM_QUESTION` (
 	`MULTIMEDIA_IDX`  bigint        NULL                                COMMENT '멀티미디어SEQ',
 	`QUESTION_NUMBER` int           NOT NULL                            COMMENT '문항번호',
 	`QUESTION_NAME`   varchar(2048) NOT NULL                            COMMENT '문항명',
-	`ANSWER_NUMBER`   int           NOT NULL                            COMMENT '정답번호',
-	`SCORE`           float         NOT NULL                            COMMENT '점수'
+	`ANSWER_NUMBER`   int           NOT NULL                            COMMENT '정답번호'
 );
 
 ALTER TABLE TB_EXAM_QUESTION COMMENT='시험문항';
 
 # 시험과목
 CREATE TABLE `TB_EXAM_SUBJECT` (
-	`IDX`                   bigint       NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '과목IDX',
-	`SUB_CATEGORY_IDX`      bigint       NOT NULL                            COMMENT '서브카테고리IDX',
-	`SUBJECT_NAME`          varchar(100) NOT NULL                            COMMENT '과목명',
-	`SUBJECT_CUT_OFF_SCORE` float        NOT NULL                            COMMENT '과목합격기준',
-	`USE_STATUS`            bit(1)       NOT NULL DEFAULT 1                  COMMENT '사용유무',
-	`REG_DATE`              datetime     NOT NULL DEFAULT now()              COMMENT '등록일',
-	`REG_IDX`               bigint       NOT NULL                            COMMENT '등록자',
-	`UDT_DATE`              datetime     NULL                                COMMENT '수정일',
-	`UDT_IDX`               bigint       NULL                                COMMENT '수정자'
+    `IDX`                   bigint       NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '과목IDX',
+    `SUB_CATEGORY_IDX`      bigint       NOT NULL                            COMMENT '서브카테고리IDX',
+    `SUBJECT_NAME`          varchar(100) NOT NULL                            COMMENT '과목명',
+    `SUBJECT_CUT_OFF_SCORE` float        NOT NULL                            COMMENT '과목합격기준',
+    `SUBJECT_QUESTION_CNT`  int          NOT NULL                            COMMENT '과목 별 문항 개수',
+    `USE_STATUS`            bit(1)       NOT NULL DEFAULT 1                  COMMENT '사용유무',
+    `REG_DATE`              datetime     NOT NULL DEFAULT now()              COMMENT '등록일',
+    `REG_IDX`               bigint       NOT NULL                            COMMENT '등록자',
+    `UDT_DATE`              datetime     NULL                                COMMENT '수정일',
+    `UDT_IDX`               bigint       NULL                                COMMENT '수정자'
 );
-
 ALTER TABLE TB_EXAM_SUBJECT COMMENT='시험과목';
 
 
@@ -127,9 +125,7 @@ CREATE TABLE `TB_EXAM_MULTIMEDIA` (
 	`FILE_SIZE`          bigint       NOT NULL                            COMMENT '파일 용량',
 	`USE_STATUS`         bit(1)       NOT NULL DEFAULT 1                  COMMENT '사용유무',
 	`REG_DATE`           datetime     NOT NULL DEFAULT now()              COMMENT '등록일',
-	`REG_IDX`            bigint       NOT NULL                            COMMENT '등록자',
-	`UDT_DATE`           datetime     NULL                                COMMENT '수정일',
-	`UDT_IDX`            bigint       NULL                                COMMENT '수정자'
+	`REG_IDX`            bigint       NOT NULL                            COMMENT '등록자'
 );
 
 ALTER TABLE TB_EXAM_MULTIMEDIA COMMENT='시험 멀티미디어';
