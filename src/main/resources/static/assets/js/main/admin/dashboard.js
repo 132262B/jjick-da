@@ -1,6 +1,6 @@
 let b = ["2022-10-01", "2022-10-02", "2022-10-03", "2022-10-04", "2022-10-05", "2022-10-06", "2022-10-07", "2022-10-08", "2022-10-09", "2022-10-10"];
 
-let dashBoardData = {
+let dashboardData = {
     "newUser": {
         chart: {
             id: 'sparkline1',
@@ -77,28 +77,27 @@ let dashBoardData = {
     }
 }
 
-function loadDashBoard() {
+function loadDashboard() {
 
-
-    httpUtil.defaultRequest(`/api/admin/dashBoard`, 'GET', null, function (data) {
+    httpUtil.defaultRequest('/api/statistics/admin-dashboard', 'GET', null, (data) => {
 
         // 신규 사용자(일일) 통계
         data.data.newUser.forEach((i) => {
-            dashBoardData.newUser.series[0].data.push(i.count);
-            dashBoardData.newUser.labels.push(i.date);
+            dashboardData.newUser.series[0].data.push(i.count);
+            dashboardData.newUser.labels.push(i.date);
         })
 
-        const newUser = new ApexCharts(existId('newUser'), dashBoardData.newUser);
+        const newUser = new ApexCharts(existId('newUser'), dashboardData.newUser);
         newUser.render();
 
     });
 
 
-    const examResultSubmitNumber = new ApexCharts(existId('examResultSubmitNumber'), dashBoardData.examResultSubmitNumber);
+    const examResultSubmitNumber = new ApexCharts(existId('examResultSubmitNumber'), dashboardData.examResultSubmitNumber);
     examResultSubmitNumber.render();
 
 }
 
 $(document).ready(function () {
-    loadDashBoard();
+    loadDashboard();
 });

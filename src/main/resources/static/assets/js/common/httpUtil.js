@@ -87,4 +87,34 @@ class HttpUtil {
         });
     }
 
+    /**
+     * 업로드 요청시 사용하는 메서드
+     *
+     * @param url {string}
+     * @param type {string}
+     * @param data {object} formData
+     * @param successFunction
+     * @param completeFunction
+     */
+    uploadRequest(url, type, data, successFunction) {
+        $.ajax({
+            enctype: 'multipart/form-data',
+            processData: false,
+            contentType: false,
+            url: url,
+            type: type,
+            data: data,
+            dataType: "json",
+            success: function (data) {
+                successFunction(data);
+            },
+            error: function (err) {
+                errorMessageToast(err.responseJSON.message);
+            },
+            complete: function () {
+                // 공통 컴플리트 개발해야함.
+            }
+        });
+    }
+
 }

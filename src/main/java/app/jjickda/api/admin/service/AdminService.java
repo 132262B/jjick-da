@@ -1,7 +1,6 @@
 package app.jjickda.api.admin.service;
 
 import app.jjickda.api.admin.dto.request.*;
-import app.jjickda.api.admin.dto.response.DashBoardDto;
 import app.jjickda.api.admin.dto.response.GetMainCategoryDto;
 import app.jjickda.api.admin.dto.response.GetSubCategoryDto;
 import app.jjickda.api.admin.dto.response.GetSubjectDto;
@@ -122,16 +121,5 @@ public class AdminService {
                 .message("1건의 문항이 등록되었습니다.")
                 .success(true)
                 .build();
-    }
-
-    // 대시보드 데이터 조회
-    public DashBoardDto dashBoard() {
-        DashBoardDto dashBoardDto = new DashBoardDto();
-
-        dashBoardDto.setNewUser(adminRepository.selectNewUser());
-
-
-
-        return dashBoardDto;
     }
 }

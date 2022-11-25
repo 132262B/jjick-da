@@ -1,4 +1,4 @@
-package app.jjickda.api.admin.dto.response;
+package app.jjickda.api.statistics.dto.response;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,8 +8,8 @@ import java.util.List;
 
 @Getter
 @Setter
-@Alias("dashBoardDto")
-public class DashBoardDto {
+@Alias("dashboardDto")
+public class AdminDashboardDto {
 
     private List<NewUserDto> newUser;
 

@@ -190,25 +190,4 @@
              )
             </foreach>
     </insert>
-
-    <!-- 일일 신규 사용자 리스트 출력 -->
-    <select id="selectNewUser" resultType="newUserDto"><![CDATA[
-        WITH RECURSIVE CTE AS (
-            SELECT DATE_ADD(DATE_FORMAT(NOW(), '%Y-%m-%d'), INTERVAL -2 WEEK) + INTERVAL 1 DAY AS ALL_DATE
-            UNION ALL
-            SELECT ALL_DATE + INTERVAL 1 DAY FROM CTE WHERE ALL_DATE < NOW()
-        )
-        SELECT CTE.ALL_DATE AS `date`
-             , IFNULL(B.COUNT, 0) as `count`
-          FROM CTE
-          LEFT JOIN ( SELECT DATE_FORMAT(TU.REG_DATE, '%Y-%m-%d') AS NEW_USER_DATE
-                           , COUNT(TU.REG_DATE) AS COUNT
-                        FROM TB_USER TU
-                       WHERE TU.REG_DATE BETWEEN DATE_ADD(DATE_FORMAT(NOW(), '%Y-%m-%d'), INTERVAL -2 WEEK) AND DATE_FORMAT(NOW(), '%Y-%m-%d')
-                       GROUP BY DATE_FORMAT(TU.REG_DATE, '%Y-%m-%d')
-                    ) B
-            ON CTE.ALL_DATE = B.NEW_USER_DATE
-    ]]></select>
-
-
 </mapper>

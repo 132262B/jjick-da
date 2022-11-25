@@ -1,9 +1,14 @@
 let emptyData = {};
 let index = 1;
 let totalScore = 0;
+
+var form = new FormData();
+
+console.log(typeof form)
+
 function getMainDataList() {
     let dataList = `<option disabled selected>메인 카테고리 선택</option>`;
-    httpUtil.defaultRequest('/api/admin/get-main-category','post', emptyData, function(data) {
+    httpUtil.defaultRequest('/api/admin/get-main-category','post', emptyData, (data) => {
         for(let i of data.data){
             dataList += `<option value = "${i.idx}"/>${i.mainCategoryName}</option>`
         }
@@ -24,7 +29,7 @@ function getSubDataList() {
       }else{
             let subDataList = `<option disabled selected>서브 카테고리 선택</option>`;
             let data = mainIdx;
-            httpUtil.defaultRequest('/api/admin/get-sub-category','post', data, function(data) {
+            httpUtil.defaultRequest('/api/admin/get-sub-category','post', data, (data) => {
                 for(let i of data.data){
                   subDataList += `<option value='${i.idx}'>${i.subCategoryName}</option>`
                 }
@@ -44,7 +49,7 @@ function getSubjectDataList() {
       if(subIdx == "" || subIdx == null){
       }else{
             let data = subIdx;
-            httpUtil.defaultRequest('/api/admin/get-subject-category','post', data, function(data) {
+            httpUtil.defaultRequest('/api/admin/get-subject-category','post', data, (data) => {
                 let subjectDataList = "";
                 totalScore = 0;
                 for(let i of data.data){
@@ -106,6 +111,7 @@ function plusIcon() {
                 html_first += `<div class='add question_data_${index} row gy-4'>
                     <div class="col-md-12">
                         <div class="info_wrap accordion-item">
+                            <div id='hidden_html${index}'></div>
                             <input type="text" onchange="changeSubject(${index});" class="subject_name form-control" id="subject_${index}" list="data_list3" placeholder="과목 선택">
                             <datalist id="data_list3" class="subject_datalist_${index} col-md-6">
                             </datalist>
@@ -117,7 +123,7 @@ function plusIcon() {
                         <div class='filebox'>
                           <input class='upload-name form-control' id='upload_name_${index}' readonly placeholder='첨부파일'>
                           <label for='file${index}'>파일찾기</label>
-                          <input type='file' id='file${index}'>
+                          <input type='file' id='file${index}' onchange='uploadFile(this);'>
                           <input type="number" id="th_${index}" class="score form-control" placeholder="점수" onkeyup="onchangeNum(this); positiveNumber(this); changeScore(${index})">
                           <div class="score remnantScore form-control"><span>남은 점수 : </span><span id="leftScore_${index}"></span></div>
                           </div>`
@@ -140,6 +146,36 @@ function minusIcon() {
         index = 1;
       }
 }
+function uploadFile(target) {
+    let file = document.getElementById("file1");
+    let file_id_name = $(target).attr('id');
+    let file_index = file_id_name.substr(4,4);
+    let fileName = $("#"+file_id_name).val();
+    let hidden = "";
+    if(file.files.length != 1) {
+        $("#upload_name_"+file_index).val("");
+        $("#hidden_html"+file_index).html(hidden);
+        return false;
+    }
+    if(!extensionValidation(target)){
+        $("#upload_name_"+file_index).val("");
+        $("#hidden_html"+file_index).html(hidden);
+        return false;
+    }
+    $("#upload_name_"+file_index).val(fileName);
+
+    var fileData = new FormData();
+    fileData.append("file", $("#file"+file_index)[0].files[0]);
+
+    httpUtil.uploadRequest('/api/upload/file','post', fileData, (data) => {
+        successMessageToast("1건의 파일이 등록 되었습니다.");
+        alert(data.data.multiMediaIdx);
+        hidden = `<input type='text' id='multimedia${file_index}' value='${data.data.multiMediaIdx}'>`
+        $("#hidden_html"+file_index).html(hidden);
+    })
+}
+
+
 function registQuestion() {
         let data = {};
         let examInfo = {};
@@ -226,8 +262,13 @@ function registQuestion() {
             }
             question.score = parseInt(question.score);
             question.answerNumber = parseInt(question.answerNumber);
+            if($("#multimedia"+i).length < 1){
+                question.multiMediaIdx = null;
+            }else{
+                question.multiMediaIdx = $("#multimedia"+i).val();
+            }
 
-           question.multiMediaIdx = null;
+
             let options = [];
             let option = {};
             let no1 = $("#No"+i).find(".choice_content_1").val();
@@ -277,7 +318,7 @@ function registQuestion() {
         data.examInfo = examInfo;
         data.questions = questions;
     console.log(JSON.stringify(data));
-    httpUtil.defaultRequest('/api/admin/add-exam','post', data, function(data) {
+    httpUtil.defaultRequest('/api/admin/add-exam','post', data, (data) => {
         successMessageToast(data.data.message);
     })
 
