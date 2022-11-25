@@ -56,6 +56,7 @@ function nvl(str, defaultStr) {
     return str;
 }
 
+
 /**
  * ErrorMessageToast 출력
  * @param errorMessage - 에러 메시지
@@ -94,6 +95,21 @@ function successMessageToast(successMessage) {
     const toast = new bootstrap.Toast(successMessageToast);
     toast.show();
 }
+
+/**
+ * 로딩바 출력
+ */
+function openLoadingBar() {
+    existId('loading-bar').style.display = '';
+}
+
+/**
+ * 로딩바 출력
+ */
+function closeLoadingBar() {
+    existId('loading-bar').style.display = 'none';
+}
+
 
 function cutTime(date) {
     return date.substr(0,10);

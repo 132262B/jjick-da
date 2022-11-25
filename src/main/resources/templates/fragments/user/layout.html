@@ -2,6 +2,13 @@
 <!--footerFragment 선언-->
 <th:block th:fragment="layoutFragment">
 
+    <!-- 로딩 메뉴 -->
+    <div id="loading-bar" class="position-fixed w-100 h-100" style="background-color: rgba(255, 255, 255, 0.827); z-index: 9000; display: none;">
+        <div class="position-fixed top-50 start-50 translate-middle" style="z-index: 9001;">
+            <img th:src="@{/assets/img/loading_bar.svg}" alt="로딩">
+        </div>
+    </div>
+
     <!-- 에러 메세지 출력 Toast -->
     <div class="toast-container position-fixed top-100 start-50 translate-middle p-3">
         <div class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true" id="errorMessageToast" style="margin-bottom: 60px">
