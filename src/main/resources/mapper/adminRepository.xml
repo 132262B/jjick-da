@@ -24,12 +24,16 @@
         INSERT INTO TB_EXAM_SUB_CATEGORY(
         MAIN_CATEGORY_IDX,
         SUB_CATEGORY_NAME,
+        OPTIONS_CNT,
+        EXAM_CUT_OFF_SCORE,
         USE_STATUS,
         REG_DATE,
         REG_IDX
         )VALUES(
              #{subQuestion.mainCategoryIdx}
            , #{subQuestion.subCategoryName}
+           , #{subQuestion.optionsCnt}
+           , #{subQuestion.examCutOffScore}
            , 1
            , now()
            , #{user.idx}

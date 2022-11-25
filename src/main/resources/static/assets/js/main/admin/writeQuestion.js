@@ -2,9 +2,6 @@ let emptyData = {};
 let index = 1;
 let totalScore = 0;
 
-var form = new FormData();
-
-console.log(typeof form)
 
 function getMainDataList() {
     let dataList = `<option disabled selected>메인 카테고리 선택</option>`;

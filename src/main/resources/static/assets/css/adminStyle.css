@@ -65,6 +65,17 @@ section {
 }
 
 @media (max-width: 768px) {
+.category_option{
+    margin-top:10px;
+}
+.media_flex{
+    display: flex;
+}
+.media_flex_child{
+    margin-top:10px;
+    flex:2
+}
+
   .section-header p {
     font-size: 28px;
     line-height: 32px;
@@ -263,6 +274,7 @@ section {
 }
 
 @media (max-width: 991px) {
+
   .mobile-nav-toggle {
     display: block;
   }
@@ -1519,4 +1531,6 @@ box-sizing: border-box;
     height:300px;
 }
 
-
+.category_option{
+    margin-bottom:10px;
+}

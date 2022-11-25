@@ -43,14 +43,26 @@ function registSub() {
     let subCategoryName = $("#subCategoryName").val();
     let mainCategoryName = $("#mainCategoryName").val();
     let mainCategoryIdx = $("#data_list [value='" + mainCategoryName + "']").data("value");
+    let optionsCnt = $("#optionsCnt").val();
+    let examCutOffScore = $("#examCutOffScore").val();
     if(subCategoryName == null || subCategoryName == "") {
         warningMessageToast("서브 카테고리 이름 기재 필수");
+        return false;
     }else if(mainCategoryIdx == null || mainCategoryIdx == "") {
         warningMessageToast("메인 카테고리 선택 필수");
+        return false;
+    }else if(optionsCnt == 0){
+        warningMessageToast("선지 개수 선택 필수");
+        return false;
+    }else if(examCutOffScore == null || examCutOffScore == "") {
+        warningMessageToast("시험 합격 기준 점수 필수");
+        return false;
     }else{
     let data = {};
     data.subCategoryName = subCategoryName;
     data.mainCategoryIdx = mainCategoryIdx;
+    data.optionsCnt = optionsCnt;
+    data.examCutOffScore = examCutOffScore;
         httpUtil.defaultRequest('/api/admin/regist-sub','post', data, function(data) {
             if(data.data.success){
                 getSubList();
