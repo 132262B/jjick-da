@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="app.jjickda.api.question.repository.QuestionRepository">
+<mapper namespace="app.jjickda.api.question.repository.TermRepository">
 
     <!-- /certificate 주소에 자격증 목록 가져오는 구문 -->
     <select id="questionSelect" resultType="certificateListDto">
@@ -16,6 +16,8 @@
             TB_EXAM_SUB_CATEGORY AS TESC
         ON
             TEMC.IDX = TESC.MAIN_CATEGORY_IDX
+        WHERE
+            TEMC.USE_STATUS = 1 AND TESC.USE_STATUS = 1
     </select>
 
     <!-- subject/{subIdx} 주소에 과목 목록 가져오는 구문 -->
@@ -26,7 +28,7 @@
         FROM
             TB_EXAM_SUBJECT
         WHERE
-            SUB_CATEGORY_IDX = #{subIdx}
+            SUB_CATEGORY_IDX = #{subIdx} AND USE_STATUS = 1
     </select>
 
     <!-- exam/{subIdx} 주소에 과목 목록 가져오는 구문 -->
@@ -37,7 +39,7 @@
         FROM
             TB_EXAM
         WHERE
-            SUB_CATEGORY_IDX = #{subIdx}
+            SUB_CATEGORY_IDX = #{subIdx} AND USE_STATUS = 1
     </select>
 
 </mapper>
