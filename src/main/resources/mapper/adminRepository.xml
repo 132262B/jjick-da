@@ -165,7 +165,7 @@
              , ANSWER_NUMBER
              , SCORE
              ) VALUES
-             ( #{examInfo.mainCategoryIdx}
+             ( #{examInfo.examIdx}
              , #{question.subjectIdx}
              , #{question.multiMediaIdx}
              , #{question.questionNumber}

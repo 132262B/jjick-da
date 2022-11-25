@@ -169,8 +169,7 @@ function uploadFile(target) {
 
     httpUtil.uploadRequest('/api/upload/file','post', fileData, (data) => {
         successMessageToast("1건의 파일이 등록 되었습니다.");
-        alert(data.data.multiMediaIdx);
-        hidden = `<input type='text' id='multimedia${file_index}' value='${data.data.multiMediaIdx}'>`
+        hidden = `<input type='hidden' id='multimedia${file_index}' value='${data.data.multiMediaIdx}'>`
         $("#hidden_html"+file_index).html(hidden);
     })
 }
@@ -291,25 +290,17 @@ function registQuestion() {
               warningMessageToast(i+"번 문항의 4번 선지를 입력해야 합니다.");
               return false;
             }
-            option.optionNumber = 1;
-            option.optionContent = no1
-            options.push(option);
-            option.optionNumber = 2;
-            option.optionContent = no2
-            options.push(option);
-            option.optionNumber = 3;
-            option.optionContent = no3
-            options.push(option);
-            option.optionNumber = 4;
-            option.optionContent = no4
-            options.push(option);
             if(optionCnt == 5){
                 let no5 = $("#No"+i).find(".choice_content_5").val();
-                option.optionNumber = 5;
-                option.optionContent = no5
                 if(isEmptyStr(no5)){
                     warningMessageToast(i+"번 문항의 5번 선지를 입력해야 합니다.");
+                    return false;
                 }
+            }
+            for(let k = 1;k <= optionCnt; k++){
+                option = {};
+                option.optionNumber = k;
+                option.optionContent = $("#No"+i).find(".choice_content_"+k).val();
                 options.push(option);
             }
             question.options = options;
