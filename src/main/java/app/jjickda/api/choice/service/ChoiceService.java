@@ -15,9 +15,12 @@ public class ChoiceService {
 
     public ChoiceService(ChoiceRepository termsRepository) { this.termRepository = termsRepository; }
 
+    // 자격증 리스트 조회
     public List<CertificateListDto> questionSelect() { return termRepository.questionChoice(); }
 
+    // 과목 리스트 조회
     public List<SubjectListDto> subjectSelect(long subIdx) { return termRepository.subjectChoice(subIdx); }
 
+    // 회차 리스트 조회
     public List<ExamListDto> examSelect(long subIdx) { return termRepository.examChoice(subIdx); }
 }

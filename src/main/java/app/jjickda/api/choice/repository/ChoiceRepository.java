@@ -10,9 +10,12 @@ import java.util.List;
 @Mapper
 public interface ChoiceRepository {
 
+    // 자격증 리스트 조회
     List<CertificateListDto> questionChoice();
 
+    // 과목 리스트 조회
     List<SubjectListDto> subjectChoice(long subIdx);
 
+    // 과목 리스트 조회
     List<ExamListDto> examChoice(long subIdx);
 }

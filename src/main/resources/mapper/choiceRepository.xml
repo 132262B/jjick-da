@@ -4,7 +4,7 @@
 
 <mapper namespace="app.jjickda.api.choice.repository.ChoiceRepository">
 
-    <!-- /certificate 주소에 자격증 목록 가져오는 구문 -->
+    <!-- 자격증 리스트 가져오는 구문 -->
     <select id="questionChoice" resultType="certificateListDto">
         SELECT
             TEMC.IDX AS MAIN_IDX,
@@ -20,7 +20,7 @@
             TEMC.USE_STATUS = 1 AND TESC.USE_STATUS = 1
     </select>
 
-    <!-- subject/{subIdx} 주소에 과목 목록 가져오는 구문 -->
+    <!-- 과목 리스트 가져오는 구문 -->
     <select id="subjectChoice" resultType="subjectListDto">
         SELECT
             IDX AS SUBJECT_IDX,
@@ -31,7 +31,7 @@
             SUB_CATEGORY_IDX = #{subIdx} AND USE_STATUS = 1
     </select>
 
-    <!-- exam/{subIdx} 주소에 과목 목록 가져오는 구문 -->
+    <!-- 회차 리스트 가져오는 구문 -->
     <select id="examChoice" resultType="examListDto">
         SELECT
             IDX AS EXAM_IDX,
