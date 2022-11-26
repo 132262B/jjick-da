@@ -1,6 +1,7 @@
 package app.jjickda.api.admin.service;
 
 import app.jjickda.api.admin.dto.request.*;
+import app.jjickda.api.admin.dto.response.ExamInformationDto;
 import app.jjickda.api.admin.dto.response.GetMainCategoryDto;
 import app.jjickda.api.admin.dto.response.GetSubCategoryDto;
 import app.jjickda.api.admin.dto.response.GetSubjectDto;
@@ -96,7 +97,26 @@ public class AdminService {
         int beforeOptionsCnt = 0;
         boolean optionsFlag = true;
 
+
         for (Question question : questions) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             // 시험 문항 등록(TB_EXAM_QUESTION)
             adminRepository.insertExamQuestions(examInfo, question);
@@ -121,5 +141,13 @@ public class AdminService {
                 .message("1건의 문항이 등록되었습니다.")
                 .success(true)
                 .build();
+    }
+
+    public ExamInformationDto getExamInformation(long subIdx) {
+    ExamInformationDto examInfo = new ExamInformationDto();
+    examInfo.setOptionsCnt(adminRepository.getOptionsCnt(subIdx));
+    examInfo.setSubjectInformation(adminRepository.getSubjectInfo(subIdx));
+
+        return examInfo;
     }
 }

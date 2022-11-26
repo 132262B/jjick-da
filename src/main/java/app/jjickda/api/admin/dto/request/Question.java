@@ -35,11 +35,6 @@ public class Question {
     @ApiModelProperty(value = "정답번호", example = "4", required = true)
     private int answerNumber;
 
-    @Positive
-    @NotNull
-    @ApiModelProperty(value = "점수", example = "4", required = true)
-    private float score;
-
     @Valid
     @ApiModelProperty(value = "시험문항선지", required = true)
     private List<Options> options;

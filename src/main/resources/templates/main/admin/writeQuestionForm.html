@@ -3,6 +3,7 @@
 <th:block th:replace="fragments/admin/head :: adminHeadFragment"></th:block>
 
 <script th:src="@{/assets/js/main/admin/writeQuestion.js}"></script>
+
 <body>
 <script>
     $(document).ready(function(){
@@ -24,77 +25,25 @@
                         </select>
                     </div>
                     <div class="selects col-md-4">
-                        <select class="form-control" id="sub_ctg_name" list="data_list2" onchange="getSubjectDataList();">
+                        <select class="form-control" id="sub_ctg_name" list="data_list2" onchange="getExamInfo();">
                             <option selected disabled>서브 카테고리 선택</option>
                         </select>
                     </div>
                     <div class="selects col-md-4">
                         <input type="text" id="examName" class="form-control" placeholder="문항 제목">
                     </div>
-                    <div class="selects col-md-4">
-                        <select class="form-control" id="option_count" onchange="changeOptionCnt();">
-                            <option value="4" selected>4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </div>
-                    <div class="selects col-md-4">
-                        <input type="number" id="examCutOffScore" class="form-control" placeholder="과목 합격 기준" onkeyup="positiveNumber(this); onchangeNum(this);">
+                </div>
+            </div>
+            <di\ class="row gy-4">
+                <div id="faqlist" class="accordion accordion-flush">
+                    <div id="question_html"></div>
+                    <div class="col-md-12 text-center">
+                        <button id="button5" class="regist_button m-2" type="button" onclick="registQuestion();">작성</button><button id="button5" class="preview_button m-2" type="button">미리보기</button>
                     </div>
                 </div>
             </div>
-            <div class="accordion accordion-flush" id="faqlist">
-                <div class="add question_data_1 row gy-4">
-                    <div class="col-md-12">
-                        <div class="info_wrap accordion-item">
-                            <div id='hidden_html1'></div>
-                            <input type="text" onchange="changeSubject(1);" class="subject_name form-control" id="subject_1" list="data_list3" placeholder="과목 선택">
-                            <datalist id="data_list3" class="subject_datalist_1 col-md-6">
-                            </datalist>
-                            <input id="question1" type="text" class="question_subject form-control" name="subject" placeholder="No 1." required>
-                            <button class="hide_button accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#No1" />
-                        </div>
-                    </div>
-                    <div id="No1" class="accordion-collapse collapse" data-bs-parent="#faqlist">
-                        <div class="filebox">
-                            <input class="upload-name form-control" id="upload_name_1" readonly placeholder="첨부파일">
-                            <label for="file1">파일찾기</label>
-                            <input type="file" id="file1" name="file1" onchange="uploadFile(this);">
-                            <input type="number" id="th_1" class="score form-control" placeholder="점수" onkeyup="onchangeNum(this); positiveNumber(this); changeScore(1);">
-                            <div class="score remnantScore form-control"><span>남은 점수 : </span><span id="leftScore_1"></span></div>
-                        </div>
-                        <div class="img_div" id="img1"></div>
-                        <div class="choice col-md-12" id="">
-                            <div class="choice_index">1.</div>
-                            <input type="radio" name="correct_check_1" class="correct_check" value="1">
-                            <textarea id="" class="question choice_content_1 form-control" rows="2" placeholder="보기" required></textarea>
-                        </div>
-                        <div class="choice col-md-12" id="">
-                            <div class="choice_index">2.</div>
-                            <input type="radio" name="correct_check_1" class="correct_check" value="2">
-                            <textarea id="" class="question choice_content_2 form-control" rows="2" placeholder="보기" required></textarea>
-                        </div>
-                        <div class="choice col-md-12" id="">
-                            <div class="choice_index">3.</div>
-                            <input type="radio" name="correct_check_1" class="correct_check" value="3">
-                            <textarea id="" class="question choice_content_3 form-control" rows="2" placeholder="보기" required></textarea>
-                        </div>
-                        <div class="choice col-md-12" id="">
-                            <div class="choice_index">4.</div>
-                            <input type="radio" name="correct_check_1" class="correct_check" value="4">
-                            <textarea id="" class="question choice_content_4 form-control" rows="2" placeholder="보기" required></textarea>
-                        </div>
-                    </div>
-                </div>
-                <i id="plus_icon" class="bi bi-folder-plus" onclick="plusIcon();"></i>
-                <i id="minus_icon" class="bi bi-folder-minus" onclick="minusIcon();"></i>
-            </div>
-            <div class="col-md-12 text-center">
-                <button id="button5" class="regist_button m-2" type="button" onclick="registQuestion();">작성</button>
-                <button id="button5" class="preview_button m-2" type="button">미리보기</button>
-            </div>
-        </div>
     </div>
 </section>
-<th:block th:replace="fragments/admin/footer :: adminFooterFragment"></th:block>
+<th:block th:replace="fragments/user/layout :: layoutFragment"></th:block>
 </body>
 </html>
