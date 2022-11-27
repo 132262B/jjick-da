@@ -28,17 +28,4 @@ public class ExamInfo {
     @ApiModelProperty(value = "시험명", example = "2022년 3회차 정보처리기사(필기)", required = true)
     private String examName;
 
-    @Max(value = 5)
-    @ApiModelProperty(value = "선지개수", example = "5", required = true)
-    private int optionCnt;
-
-    @Max(value = 200)
-    @ApiModelProperty(value = "문항개수", example = "100", required = true)
-    private int questionCnt;
-
-    @Positive
-    @NotNull
-    @ApiModelProperty(value = "시험합격점수", example = "5", required = true)
-    private float examCutOffScore;
-
 }

@@ -144,18 +144,16 @@
              ( MAIN_CATEGORY_IDX
              , SUB_CATEGORY_IDX
              , EXAM_NAME
-             , OPTIONS_CNT
-             , QUESTION_CNT
-             , EXAM_CUT_OFF_SCORE
              , REG_IDX
+             , REG_DATE
+             , CONFIRM_STATUS
              ) VALUES
              ( #{examInfo.mainCategoryIdx}
              , #{examInfo.subCategoryIdx}
              , #{examInfo.examName}
-             , #{examInfo.optionCnt}
-             , #{examInfo.questionCnt}
-             , #{examInfo.examCutOffScore}
              , #{user.idx}
+             , now()
+             , 0
              )
     </insert>
 
@@ -169,7 +167,6 @@
              , QUESTION_NUMBER
              , QUESTION_NAME
              , ANSWER_NUMBER
-             , SCORE
              ) VALUES
              ( #{examInfo.examIdx}
              , #{question.subjectIdx}
@@ -177,7 +174,6 @@
              , #{question.questionNumber}
              , #{question.questionName}
              , #{question.answerNumber}
-             , #{question.score}
              )
     </insert>
 
@@ -196,4 +192,20 @@
              )
             </foreach>
     </insert>
+
+    <select id="getOptionsCnt" resultType="int">
+        SELECT OPTIONS_CNT
+        FROM TB_EXAM_SUB_CATEGORY
+        WHERE IDX = #{subIdx}
+    </select>
+
+    <select id="getSubjectInfo" resultType="subjectInformationDto">
+        SELECT
+         IDX
+        ,SUBJECT_NAME
+        ,SUBJECT_QUESTION_CNT
+        FROM TB_EXAM_SUBJECT
+        WHERE SUB_CATEGORY_IDX = #{subIdx}
+    </select>
+
 </mapper>
