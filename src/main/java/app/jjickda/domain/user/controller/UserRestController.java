@@ -4,6 +4,7 @@ import app.jjickda.domain.common.dto.response.DefaultResultDto;
 import app.jjickda.domain.user.dto.request.EmailDuplicationDto;
 import app.jjickda.domain.user.dto.request.LoginDto;
 import app.jjickda.domain.user.dto.request.SignUpDto;
+import app.jjickda.domain.user.dto.response.User;
 import app.jjickda.domain.user.service.UserService;
 import app.jjickda.global.config.model.ApiResponse;
 import io.swagger.annotations.Api;
@@ -41,7 +42,8 @@ public class UserRestController {
     @ApiOperation("로그인 API")
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<DefaultResultDto>> login(@Validated @RequestBody LoginDto loginDto) {
-        return ResponseEntity.ok(new ApiResponse<>(userService.login(loginDto)));
+        User user = userService.getUser(loginDto);
+        return ResponseEntity.ok(new ApiResponse<>(userService.login(user)));
     }
 
     @ApiOperation("로그아웃 API")

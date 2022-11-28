@@ -58,10 +58,13 @@ public class UserService {
                 .build();
     }
 
-    // 로그인
-    public DefaultResultDto login(LoginDto loginDto) {
+    // 사용자 정보 조회
+    public User getUser(LoginDto loginDto) {
+        return userRepository.getUser(loginDto);
+    }
 
-        User user = userRepository.getUser(loginDto);
+    // 로그인
+    public DefaultResultDto login(User user) {
 
         if (user == null) {
             return DefaultResultDto.builder()
@@ -69,7 +72,6 @@ public class UserService {
                     .message("아이디가 존재하지 않거나, 틀린 비밀번호 입니다.")
                     .build();
         } else {
-
             SessionUtil.setUserAttribute(user);
 
             return DefaultResultDto.builder()
