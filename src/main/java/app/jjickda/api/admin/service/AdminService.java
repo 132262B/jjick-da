@@ -100,24 +100,6 @@ public class AdminService {
 
         for (Question question : questions) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             // 시험 문항 등록(TB_EXAM_QUESTION)
             adminRepository.insertExamQuestions(examInfo, question);
 

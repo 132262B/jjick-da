@@ -108,6 +108,13 @@ function uploadFile(target) {
     })
 }
 
+function loadData() {
+
+}
+
+function saveData() {
+}
+
 
 function registQuestion() {
         let data = {};
