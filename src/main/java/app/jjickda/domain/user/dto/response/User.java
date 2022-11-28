@@ -1,17 +1,13 @@
 package app.jjickda.domain.user.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.apache.ibatis.type.Alias;
 
 import java.io.Serializable;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Alias("user")
 public class User implements Serializable {
 
@@ -25,4 +21,12 @@ public class User implements Serializable {
 
     private String roleName;
 
+    @Builder
+    public User(long idx, String email, String name, int roleIdx, String roleName) {
+        this.idx = idx;
+        this.email = email;
+        this.name = name;
+        this.roleIdx = roleIdx;
+        this.roleName = roleName;
+    }
 }
