@@ -1,14 +1,17 @@
 package app.jjickda.api.exam.dto.response;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.apache.ibatis.type.Alias;
+
+import java.util.List;
+
 
 @Getter
 @Setter
-@Alias("examInfoDto")
-public class ExamInfoDto {
+@ToString
+@Alias("questionDto")
+public class QuestionDto {
 
     @ApiModelProperty(value = "문항 IDX")
     private long questionIdx;
@@ -21,5 +24,8 @@ public class ExamInfoDto {
 
     @ApiModelProperty(value = "문항명")
     private String questionName;
+
+    @ApiModelProperty(value = "선지 리스트")
+    private List<OptionsDto> questionsList;
 
 }

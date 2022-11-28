@@ -5,25 +5,38 @@
 <mapper namespace="app.jjickda.api.exam.repository.ExamRepository">
 
     <!-- 시험문제 조회  -->
-    <select id="examQuestion" resultType="examInfoDto">
-        SELECT
-            TEQ.IDX AS QUESTION_IDX,
-            TEM.FILE_ID,
-            TEQ.QUESTION_NUMBER,
-            TEQ.QUESTION_NAME
-        FROM
-            TB_EXAM_QUESTION AS TEQ
-        LEFT JOIN
-            TB_EXAM_MULTIMEDIA AS TEM
-        ON
-            TEQ.MULTIMEDIA_IDX = TEM.IDX
-        WHERE
-            TEQ.EXAM_IDX IN (
-            <foreach collection="examIdxArray" item="item" index="index" separator=",">
-                #{item}
-            </foreach>
-            )
-            AND TEQ.SUBJECT_IDX = 4
+    <select id="selectQuestionList" resultType="questionDto">
+        SELECT TEQ.IDX AS QUESTION_IDX
+             , TEM.FILE_ID
+             , TEQ.QUESTION_NUMBER
+             , TEQ.QUESTION_NAME
+          FROM TB_EXAM_QUESTION AS TEQ
+          LEFT JOIN TB_EXAM_MULTIMEDIA AS TEM
+            ON TEQ.MULTIMEDIA_IDX = TEM.IDX
+         WHERE TEQ.EXAM_IDX IN ( <foreach collection="choiceInfoDto.examIdxArray" item="item" index="index" separator=",">
+                                  #{item}
+                                 </foreach>
+                               )
+           AND TEQ.SUBJECT_IDX = #{subjectIdx}
     </select>
+
+    <!-- 시험과목 테이블에서 과목 별 문항 개수 조회 -->
+    <select id="selectSubjectQuestionCnt" resultType="long">
+        SELECT TES.SUBJECT_QUESTION_CNT
+          FROM TB_EXAM_SUBJECT TES
+         WHERE USE_STATUS = 1
+           AND TES.IDX = #{subjectIdx}
+    </select>
+
+    <select id="selectOptionsList" resultType="optionsDto">
+        SELECT * FROM TB_EXAM_OPTIONS TEO
+        WHERE TEO.QUESTION_IDX  IN (
+                <foreach collection="questionListDto" item="item" index="index" separator=",">
+                    #{item.questionIdx}
+                </foreach>
+        )
+        ORDER BY QUESTION_IDX,OPTIONS_NUMBER ASC
+    </select>
+
 
 </mapper>

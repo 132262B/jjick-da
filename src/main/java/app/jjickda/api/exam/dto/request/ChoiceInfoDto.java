@@ -5,11 +5,9 @@ import org.apache.ibatis.type.Alias;
 
 import java.util.List;
 
-@ToString
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@ToString
 @Alias("choiceInfoDto")
 public class ChoiceInfoDto {
 

@@ -1,7 +1,7 @@
 package app.jjickda.api.exam.controller;
 
 import app.jjickda.api.exam.dto.request.ChoiceInfoDto;
-import app.jjickda.api.exam.dto.response.QuestionListDto;
+import app.jjickda.api.exam.dto.response.ExamInfoAndQuestionListDto;
 import app.jjickda.api.exam.service.ExamService;
 import app.jjickda.global.config.model.ApiResponse;
 import io.swagger.annotations.Api;
@@ -27,7 +27,7 @@ public class ExamRestController {
 
     @ApiOperation("문제를 가져오는 API")
     @PostMapping("/exam-question")
-    public ResponseEntity<ApiResponse<QuestionListDto>> examQuestion(@RequestBody ChoiceInfoDto choiceInfoDto) {
+    public ResponseEntity<ApiResponse<ExamInfoAndQuestionListDto>> examQuestion(@RequestBody ChoiceInfoDto choiceInfoDto) {
         return ResponseEntity.ok(new ApiResponse<>(ExamService.examQuestion(choiceInfoDto)));
     }
 
