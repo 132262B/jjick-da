@@ -10,7 +10,7 @@ import java.security.NoSuchAlgorithmException;
 @Slf4j
 public class SHA256Util {
 
-    public String encrypt(String str) {
+    public static String encrypt(String str) {
         String sha;
 
         try {

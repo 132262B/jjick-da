@@ -46,6 +46,8 @@ public class UserService {
 
         try {
             userRepository.signUp(signUpDto);
+
+            // 현재 찍다 프로젝트에서 idx가 pk, email은 uk 로 등록되어 있는데, insert 도중 uk 값이 충돌되는 경우 DuplicateKeyException 이 발생함.
         } catch (DuplicateKeyException e) {
             throw new CustomException("회원가입 도중 이메일 중복문제 발생", ErrorCode.SIGN_UP_EMAIL_DUPLICATE);
         }
