@@ -25,8 +25,8 @@
                         </select>
                     </div>
                     <div class="selects col-md-4">
-                        <select class="form-control" id="sub_ctg_name" list="data_list2" onchange="getExamInfo();">
-                            <option selected disabled>서브 카테고리 선택</option>
+                        <select class="form-control" id="sub_ctg_name" onchange="loadData();">
+                            <option selected disabled value="">서브 카테고리 선택</option>
                         </select>
                     </div>
                     <div class="selects col-md-4">
@@ -38,7 +38,8 @@
                 <div id="faqlist" class="accordion accordion-flush">
                     <div id="question_html"></div>
                     <div class="col-md-12 text-center">
-                        <button id="button5" class="regist_button m-2" type="button" onclick="registQuestion();">작성</button><button id="button5" class="preview_button m-2" type="button">미리보기</button>
+                        <button id="button5" class="regist_button m-2" type="button" onclick="registQuestion();">작성</button>
+                        <button id="button5" class="preview_button m-2" type="button" onclick="saveData();">임시저장</button>
                     </div>
                 </div>
             </div>
