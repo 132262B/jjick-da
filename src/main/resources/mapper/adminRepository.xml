@@ -201,7 +201,7 @@
 
     <select id="getSubjectInfo" resultType="subjectInformationDto">
         SELECT
-         IDX
+         IDX as subjectIdx
         ,SUBJECT_NAME
         ,SUBJECT_QUESTION_CNT
         FROM TB_EXAM_SUBJECT

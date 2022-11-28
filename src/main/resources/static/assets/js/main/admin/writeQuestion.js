@@ -28,7 +28,7 @@ function getExamInfo(){
                                           <label for='file${index}'>파일찾기</label>
                                           <input type='file' id='file${index}' onchange='uploadFile(this);'>
                                           <input type="text" id="th_${index}" class="subjects_name form-control" value="${i.subjectName}" readonly>
-                                          <input type="hidden" id="subjectIdx${index}" value="${i.idx}">
+                                          <input type="hidden" id="subjectIdx${index}" value="${i.subjectIdx}">
                                           </div>
                                           <div class="img_div" id="img${index}"></div>`
                                 for(let j=1; j<=optionCnt;j++){
@@ -141,7 +141,7 @@ function registQuestion() {
             let question = {};
             question.questionNumber = i;
             question.questionName = $("#question"+i).val();
-            question.subjectIdx = $("subjectIdx"+i).val();
+            question.subjectIdx = $("#subjectIdx"+i).val();
             if(isEmptyStr($("#multimedia"+i).val)){
                 question.multimediaIdx = null;
             }else{
