@@ -2,7 +2,7 @@ let emptyData = {};
 let index = 0;
 let totalScore = 0;
 let optionCnt = 0;
-function getExamInfo(){
+function getExamInfo(callback){
     index = 0;
     $("#question_html").html("");
     let subData = $("#sub_ctg_name").val();
@@ -34,7 +34,7 @@ function getExamInfo(){
                                 for(let j=1; j<=optionCnt;j++){
                               html_middle +=    `<div class="choice col-md-12" id="">
                                                       <div class="choice_index">${j}.</div>
-                                                      <input type="radio" name="correct_check_${index}" class="correct_check" value="${j}">
+                                                      <input type="radio" name="correct_check_${index}" class="correct_check correct_check_${j}" value="${j}">
                                                       <textarea id="" class="question choice_content_${j} form-control" name="" rows="2" placeholder="보기" required></textarea>
                                                   </div>`
                             }
@@ -44,12 +44,12 @@ function getExamInfo(){
                             $("#question_html").append(html);
             }
         }
-
+        callback(data.data);
     })
 }
 
 function getMainDataList() {
-    let dataList = `<option disabled selected>메인 카테고리 선택</option>`;
+    let dataList = `<option disabled selected value=''>메인 카테고리 선택</option>`;
     httpUtil.defaultRequest('/api/admin/get-main-category','post', emptyData, (data) => {
         for(let i of data.data){
             dataList += `<option value = "${i.idx}"/>${i.mainCategoryName}</option>`
@@ -66,7 +66,7 @@ function getSubDataList() {
       let mainIdx = existIdValue("main_ctg_name");
       if(mainIdx == "" || mainIdx == null){
       }else{
-            let subDataList = `<option disabled selected>서브 카테고리 선택</option>`;
+            let subDataList = `<option disabled selected value=''>서브 카테고리 선택</option>`;
             let data = mainIdx;
             httpUtil.defaultRequest('/api/admin/get-sub-category','post', data, (data) => {
                 for(let i of data.data){
@@ -101,7 +101,8 @@ function uploadFile(target) {
 
     httpUtil.uploadRequest('/api/upload/file','post', fileData, (data) => {
         successMessageToast("1건의 파일이 등록 되었습니다.");
-        hidden = `<input type='hidden' id='multimedia${file_index}' value='${data.data.multiMediaIdx}'>`
+        hidden = `<input type='hidden' id='multiMedia${file_index}' value='${data.data.multiMediaIdx}'>
+                  <input type='hidden' id='multiMediaName${file_index}' value='${data.data.fileId}'>`
         $("#hidden_html"+file_index).html(hidden);
         let img = `<img class='img_file' src='/api/image/${data.data.fileId}'>`
         $("#img"+file_index).html(img);
@@ -109,10 +110,89 @@ function uploadFile(target) {
 }
 
 function loadData() {
+        getExamInfo(function(subData) {
 
+                    let mainCategoryIdx = existIdValue("main_ctg_name");
+                    let subCategoryIdx = existIdValue("sub_ctg_name");
+                    let saveData = window.localStorage.getItem(`saveData_${mainCategoryIdx}_${subCategoryIdx}`);
+                    console.log(saveData);
+                    saveData = JSON.parse(saveData);
+                    if(!isEmptyStr(saveData)){
+                        let loadData = confirm("이전에 작성하신 데이터를 가져옵니까?(취소시 삭제)");
+                        if(loadData){
+                            $("#examName").val(saveData.examInfo.examName);
+                            for(let i of saveData.questions){
+                            let hidden = "";
+                            if(!isEmptyStr(i.multiMediaName)){
+                                hidden = `<input type='hidden' id='multiMedia${i.questionNumber}' value='${i.multiMediaIdx}'>
+                                          <input type='hidden' id='multiMediaName${i.questionNumber}' value='${i.multiMediaName}'>`
+                                    $("#hidden_html"+i.questionNumber).html(hidden);
+                                    let img = `<img class='img_file' src='/api/image/${i.multiMediaName}'>`
+                                    $("#img"+i.questionNumber).html(img);
+                            }else{
+                                    $("#hidden_html"+i.questionNumber).html(hidden);
+                            }
+                                $("#question"+i.questionNumber).val(i.questionName);
+                                $("#No"+i.questionNumber).find(".correct_check_"+i.answerNumber).prop("checked",true)
+                                for(let k of i.options){
+                                    $("#No"+i.questionNumber).find(".choice_content_"+k.optionNumber).val(k.optionContent);
+                                }
+                            }
+                        }else{
+                            window.localStorage.removeItem(`saveData_${mainCategoryIdx}_${subCategoryIdx}`);
+                        }
+                    }
+        });
 }
 
 function saveData() {
+        let data = {};
+        let examInfo = {};
+        let mainCategoryIdx = existIdValue("main_ctg_name");
+        let subCategoryIdx = existIdValue("sub_ctg_name");
+        let examName = existIdValue("examName");
+        let questionCnt = index;
+        examInfo.mainCategoryIdx = mainCategoryIdx;
+        examInfo.subCategoryIdx = subCategoryIdx;
+        examInfo.examName = examName;
+        examInfo.questionCnt = questionCnt;
+        let questions = [];
+
+        for(let i = 1; i <= index; i++){
+            let question = {};
+            question.questionNumber = i;
+            question.questionName = $("#question"+i).val();
+            question.subjectIdx = $("#subjectIdx"+i).val();
+            if(isEmptyStr($("#multiMedia"+i).val)){
+                question.multiMediaIdx = null;
+                question.multiMediaName = null;
+            }else{
+                question.multiMediaName = $("#multiMediaName"+i).val();
+                question.multiMediaIdx = $("#multiMedia"+i).val();
+            }
+            const getAnswerNumber = document.getElementsByName("correct_check_"+i);
+            getAnswerNumber.forEach((answer) => {
+                if(answer.checked) {
+                    question.answerNumber = answer.value;
+                }
+            })
+
+            let options = [];
+            let option = {};
+            for(let k = 1;k <= optionCnt; k++){
+                option = {};
+                option.optionNumber = k;
+                option.optionContent = $("#No"+i).find(".choice_content_"+k).val();
+                options.push(option);
+            }
+            question.options = options;
+            questions.push(question);
+        }
+        data.examInfo = examInfo;
+        data.questions = questions;
+        data = JSON.stringify(data);
+        console.log(data);
+        window.localStorage.setItem(`saveData_${mainCategoryIdx}_${subCategoryIdx}`,data);
 }
 
 
@@ -149,10 +229,10 @@ function registQuestion() {
             question.questionNumber = i;
             question.questionName = $("#question"+i).val();
             question.subjectIdx = $("#subjectIdx"+i).val();
-            if(isEmptyStr($("#multimedia"+i).val)){
-                question.multimediaIdx = null;
+            if(isEmptyStr($("#multiMedia"+i).val)){
+                question.multiMediaIdx = null;
             }else{
-                question.multimediaIdx = $("#multimedia"+i).val();
+                question.multiMediaIdx = $("#multiMedia"+i).val();
             }
             if(isEmptyStr(question.questionName)){
                 warningMessageToast(i+"번 문항의 제목을 입력해야 합니다.");
