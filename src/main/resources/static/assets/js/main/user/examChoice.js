@@ -1,4 +1,4 @@
-let examInfo = {}
+let choiceInfo = {}
 
 /**
  * 자격증 조회
@@ -23,8 +23,8 @@ function selectCertificate() {
  * @param subIdx
  */
 function selectSubjectAndExam(mainIdx, subIdx) {
-    examInfo.mainCtgIdx = mainIdx;
-    examInfo.subCtgIdx = subIdx;
+    choiceInfo.mainCtgIdx = mainIdx;
+    choiceInfo.subCtgIdx = subIdx;
     const data = {};
     let url = `/api/subject/${subIdx}`;
     httpUtil.defaultRequest(url, 'POST', data, (data) => {
@@ -78,10 +78,10 @@ function checkTerm(name) {
             examIdxArray.push(checkExam[i].value);
         }
     }
-    // 각 배열에 추가된 과목, 회차를 json 형태인 examInfo 에 추가
-    examInfo.subjectIdxArray = subjectIdxArray;
-    examInfo.examIdxArray = examIdxArray;
-    console.log(examInfo);
+    // 각 배열에 추가된 과목, 회차를 json 형태인 choiceInfo 에 추가
+    choiceInfo.subjectIdxArray = subjectIdxArray;
+    choiceInfo.examIdxArray = examIdxArray;
+    console.log(choiceInfo);
     window.name = 'examChoice';
     if (isEmptyStr(checkCertificate)) {
         warningMessageToast('자격증을 선택하여 주십시오.');
@@ -92,10 +92,10 @@ function checkTerm(name) {
     } else {
         if (name === 'all') {
             let examAll = window.open('/exam-all', 'exam-all', 'menubar=0, resizable=0, width=1200, height=1000');
-            examAll.opener.examInfo = examInfo;
+            examAll.opener.choiceInfo = choiceInfo;
         } else if (name === 'singly') {
             let examSingle = window.open('/exam-single', 'exam-single', 'menubar=0, resizable=0, width=1200, height=1000');
-            examSingle.opener.examInfo = examInfo;
+            examSingle.opener.choiceInfo = choiceInfo;
         }
     }
 }

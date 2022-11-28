@@ -3,7 +3,17 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <!-- 공통 헤더-->
 <th:block th:replace="fragments/user/head :: headFragment"></th:block>
-<body>
+
+<!-- 해당 페이지 js -->
+<script th:src="@{/assets/js/main/user/exam.js}"></script>
+
+<script>
+    $(document).ready(function () {
+        Terms();
+    });
+</script>
+
+<body class="d-flex flex-column min-vh-100">
 <th:block th:replace="fragments/user/header :: headerFragment"></th:block>
 
 <main id="main">
@@ -46,8 +56,15 @@
                     </div>
                 </article>
             </div>
-            <th:block th:replace="fragments/user/footer :: footerFragment"></th:block>
-          <script th:src="@{/assets/js/main.js}"></script>
+        </div>
+    </section>
+</main>
+
+<th:block th:replace="fragments/user/footer :: footerFragment"></th:block>
+<th:block th:replace="fragments/user/layout :: layoutFragment"></th:block>
+
+<script th:src="@{/assets/js/main.js}"></script>
+
 </body>
 <style>
 </style>
