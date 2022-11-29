@@ -22,8 +22,8 @@ public class StatisticsService {
 
         adminDashboardDto.setUserTotalCount(statisticsRepository.selectUserTotalCount());
         adminDashboardDto.setExamTotalCount(statisticsRepository.selectExamTotalCount());
+        adminDashboardDto.setQuestionTotalCount(statisticsRepository.selectQuestionTotalCount());
         //adminDashboardDto.setResulTotaltCount(statisticsRepository.selectResultCount());
-        //adminDashboardDto.setQuestionTotalCount(statisticsRepository.selectQuestionCount());
 
         return adminDashboardDto;
     }
@@ -32,6 +32,10 @@ public class StatisticsService {
     public UserDashboardDto userDashboard() {
         UserDashboardDto userDashboardDto = new UserDashboardDto();
 
+        userDashboardDto.setUserTotalCount(statisticsRepository.selectUserTotalCount());
+        userDashboardDto.setExamTotalCount(statisticsRepository.selectExamTotalCount());
+        userDashboardDto.setQuestionTotalCount(statisticsRepository.selectQuestionTotalCount());
+        //adminDashboardDto.setResulTotaltCount(statisticsRepository.selectResultCount());
 
         return userDashboardDto;
     }

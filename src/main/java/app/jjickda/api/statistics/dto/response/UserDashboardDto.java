@@ -6,4 +6,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserDashboardDto {
+
+    private long userTotalCount;
+
+    private long examTotalCount;
+
+    private long questionTotalCount;
+
+    private long resultTotalCount;
 }

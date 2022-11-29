@@ -87,10 +87,10 @@ function loadDashboard() {
             dashboardData.newUser.labels.push(i.date);
         })
 
-        counter('userTotalCount',data.data.userTotalCount);
-        counter('examTotalCount',data.data.examTotalCount);
-        counter('questionTotalCount',776);
-        counter('resultTotalCount',9999);
+        counter('userTotalCount', data.data.userTotalCount);
+        counter('examTotalCount', data.data.examTotalCount);
+        counter('questionTotalCount', data.data.questionTotalCount);
+        counter('resultTotalCount', 9999);
 
         const newUser = new ApexCharts(existId('newUser'), dashboardData.newUser);
         newUser.render();

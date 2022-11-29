@@ -2,6 +2,7 @@ package app.jjickda.api.exam.service;
 
 import app.jjickda.api.exam.dto.request.ChoiceInfoDto;
 import app.jjickda.api.exam.dto.response.ExamInfoAndQuestionListDto;
+import app.jjickda.api.exam.dto.response.OngoingExamInfoDto;
 import app.jjickda.api.exam.dto.response.OptionsDto;
 import app.jjickda.api.exam.dto.response.QuestionDto;
 import app.jjickda.api.exam.repository.ExamRepository;
@@ -27,7 +28,9 @@ public class ExamService {
 
         ExamInfoAndQuestionListDto examInfoAndQuestionListDto = new ExamInfoAndQuestionListDto();
 
-        examInfoAndQuestionListDto.setOngoingExamInfoDto(examRepository.selectOngoingExamInfo(choiceInfoDto));
+        OngoingExamInfoDto ongoingExamInfoDto = examRepository.selectOngoingExamInfo(choiceInfoDto);
+        ongoingExamInfoDto.setSubjectCnt(choiceInfoDto.getSubjectIdxArray().size());
+        examInfoAndQuestionListDto.setOngoingExamInfoDto(ongoingExamInfoDto);
 
         int questionNumber = 1;
         for (long subjectIdx : choiceInfoDto.getSubjectIdxArray()) {

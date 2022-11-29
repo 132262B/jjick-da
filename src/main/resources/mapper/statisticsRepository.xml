@@ -17,7 +17,8 @@
           LEFT JOIN ( SELECT DATE_FORMAT(TU.REG_DATE, '%Y-%m-%d') AS NEW_USER_DATE
                            , COUNT(TU.REG_DATE) AS COUNT
                         FROM TB_USER TU
-                       WHERE TU.REG_DATE BETWEEN DATE_ADD(DATE_FORMAT(NOW(), '%Y-%m-%d'), INTERVAL -2 WEEK) AND DATE_FORMAT(NOW(), '%Y-%m-%d')
+                       WHERE TU.REG_DATE BETWEEN DATE_ADD(DATE_FORMAT(NOW(), '%Y-%m-%d'), INTERVAL -2 WEEK)
+                                             AND DATE_ADD(DATE_FORMAT(NOW(), '%Y-%m-%d'), INTERVAL +1 DAY)
                        GROUP BY DATE_FORMAT(TU.REG_DATE, '%Y-%m-%d')
                     ) B
             ON CTE.ALL_DATE = B.NEW_USER_DATE
@@ -30,7 +31,10 @@
 
     <!-- 총 시험 수 조회 -->
     <select id="selectExamTotalCount" resultType="long">
-        SELECT COUNT(IDX) FROM TB_EXAM WHERE USE_STATUS = 1 AND CONFIRM_STATUS = 1;
+        SELECT COUNT(TE.IDX)
+          FROM TB_EXAM TE
+         WHERE TE.USE_STATUS = 1
+           AND TE.CONFIRM_STATUS = 1;
     </select>
 
     <!-- 총 결과 수 조회 -->
@@ -40,6 +44,12 @@
 
     <!-- 총 문항 수 조회 -->
     <select id="selectQuestionTotalCount" resultType="long">
-
+        SELECT COUNT(TEQ.IDX)
+          FROM TB_EXAM_QUESTION TEQ
+          LEFT JOIN TB_EXAM TE
+            ON TEQ.EXAM_IDX = TE.IDX
+         WHERE TE.USE_STATUS = 1
+           AND TE.CONFIRM_STATUS = 1
     </select>
+
 </mapper>
