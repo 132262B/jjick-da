@@ -12,6 +12,8 @@ import java.util.List;
 @Slf4j
 public class ExamInfoAndQuestionListDto {
 
+    private OngoingExamInfoDto ongoingExamInfoDto;
+
     private List<QuestionDto> questionList = new ArrayList<>();
 
     public void addQuestionList(QuestionDto list) {

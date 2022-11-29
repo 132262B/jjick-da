@@ -30,6 +30,7 @@
            AND TES.IDX = #{subjectIdx}
     </select>
 
+    <!-- 선지 정보 조회 -->
     <select id="selectOptionsList" resultType="optionsDto">
         SELECT * FROM TB_EXAM_OPTIONS TEO
         WHERE TEO.QUESTION_IDX  IN (
@@ -40,5 +41,13 @@
         ORDER BY QUESTION_IDX,OPTIONS_NUMBER ASC
     </select>
 
+    <!-- 진행중인 시험 정보 조회 -->
+    <select id="selectOngoingExamInfo" resultType="ongoingExamInfoDto">
+        SELECT SUB_CATEGORY_NAME
+             , OPTIONS_CNT
+          FROM TB_EXAM_SUB_CATEGORY TESC
+         WHERE USE_STATUS = 1
+           AND IDX = #{subCtgIdx}
+    </select>
 
 </mapper>

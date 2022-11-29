@@ -27,6 +27,8 @@ public class ExamService {
 
         ExamInfoAndQuestionListDto examInfoAndQuestionListDto = new ExamInfoAndQuestionListDto();
 
+        examInfoAndQuestionListDto.setOngoingExamInfoDto(examRepository.selectOngoingExamInfo(choiceInfoDto));
+
         int questionNumber = 1;
         for (long subjectIdx : choiceInfoDto.getSubjectIdxArray()) {
             List<QuestionDto> questionListDto = examRepository.selectQuestionList(choiceInfoDto, subjectIdx);
