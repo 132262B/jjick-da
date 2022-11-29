@@ -5,10 +5,7 @@ import app.jjickda.api.admin.dto.request.AddExamDto;
 import app.jjickda.api.admin.dto.request.AddMainCategoryDto;
 import app.jjickda.api.admin.dto.request.AddSubCategoryDto;
 import app.jjickda.api.admin.dto.request.AddSubjectDto;
-import app.jjickda.api.admin.dto.response.ExamInformationDto;
-import app.jjickda.api.admin.dto.response.GetMainCategoryDto;
-import app.jjickda.api.admin.dto.response.GetSubCategoryDto;
-import app.jjickda.api.admin.dto.response.GetSubjectDto;
+import app.jjickda.api.admin.dto.response.*;
 import app.jjickda.api.admin.service.AdminService;
 import app.jjickda.domain.common.dto.response.DefaultResultDto;
 import app.jjickda.domain.role.Role;
@@ -102,11 +99,19 @@ public class AdminRestController {
     public ResponseEntity<ApiResponse<DefaultResultDto>> addExam(@Validated @RequestBody AddExamDto addExamDto) {
         return ResponseEntity.ok(new ApiResponse<>(adminService.addExam(addExamDto)));
     }
+    @ApiOperation("문항 등록 API")
+    @LoginCheck(auth = Role.ADMIN, type = Type.API)
     @PostMapping("/get-exam-information")
     public ResponseEntity<ApiResponse<ExamInformationDto>> getExamInformation(@RequestBody long subIdx) {
         ExamInformationDto examInfo = adminService.getExamInformation(subIdx);
-
         return ResponseEntity.ok(new ApiResponse<>(examInfo));
     }
 
+    @ApiOperation("문항등록(datalist) 에 쓰일 서브 카테고리 리스트 API")
+    @LoginCheck(auth = Role.ADMIN, type = Type.API)
+    @PostMapping("/getUnconfirmedExamData")
+    public ResponseEntity<ApiResponse<List<UnconfirmedExamDto>>> unconfirmedExamData() {
+        List<UnconfirmedExamDto> unconfirmedExamDataList = adminService.getUnconfirmedExamData();
+        return ResponseEntity.ok(new ApiResponse<>(unconfirmedExamDataList));
+    }
 }

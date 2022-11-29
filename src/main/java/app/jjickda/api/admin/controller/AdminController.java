@@ -57,5 +57,9 @@ public class AdminController {
         return "main/admin/writeSubjectForm";
     }
 
-
+    @LoginCheck(auth = Role.ADMIN, type = Type.PAGE)
+    @GetMapping("/confirm-exam")
+    public String confirmExam() {
+        return "main/admin/confirm";
+    }
 }

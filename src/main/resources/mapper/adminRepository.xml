@@ -208,4 +208,17 @@
         WHERE SUB_CATEGORY_IDX = #{subIdx}
     </select>
 
+    <select id="getUnconfirmedExamData" resultType="UnconfirmedExamDto">
+        SELECT
+         e.IDX
+        ,e.EXAM_NAME
+        ,date_format(e.REG_DATE, '%Y-%m-%d') AS regDate
+        ,e.REG_IDX
+        ,u.NAME AS regName
+        FROM TB_EXAM e
+        LEFT JOIN TB_USER u
+        ON REG_IDX = u.IDX
+        WHERE CONFIRM_STATUS = 0;
+    </select>
+
 </mapper>

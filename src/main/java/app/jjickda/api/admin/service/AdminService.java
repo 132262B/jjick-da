@@ -1,10 +1,7 @@
 package app.jjickda.api.admin.service;
 
 import app.jjickda.api.admin.dto.request.*;
-import app.jjickda.api.admin.dto.response.ExamInformationDto;
-import app.jjickda.api.admin.dto.response.GetMainCategoryDto;
-import app.jjickda.api.admin.dto.response.GetSubCategoryDto;
-import app.jjickda.api.admin.dto.response.GetSubjectDto;
+import app.jjickda.api.admin.dto.response.*;
 import app.jjickda.api.admin.repository.AdminRepository;
 import app.jjickda.domain.common.dto.response.DefaultResultDto;
 import app.jjickda.domain.user.dto.response.User;
@@ -131,5 +128,9 @@ public class AdminService {
     examInfo.setSubjectInformation(adminRepository.getSubjectInfo(subIdx));
 
         return examInfo;
+    }
+
+    public List<UnconfirmedExamDto> getUnconfirmedExamData() {
+        return adminRepository.getUnconfirmedExamData();
     }
 }

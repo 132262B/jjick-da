@@ -65,6 +65,10 @@ section {
 }
 
 @media (max-width: 768px) {
+
+ .confirm_list_subject{
+     font-size: 20px;
+ }
 .category_option{
     margin-top:10px;
 }
@@ -274,7 +278,9 @@ section {
 }
 
 @media (max-width: 991px) {
-
+ .confirm_list_subject{
+     font-size: 20px;
+ }
   .mobile-nav-toggle {
     display: block;
   }
@@ -1443,7 +1449,7 @@ box-sizing: border-box;
     overflow: hidden;
     border: 0;
 }
-#button5{
+.button5{
   background: #4154f1;
   border: 0;
   padding: 10px 30px;
@@ -1526,3 +1532,96 @@ box-sizing: border-box;
 #m_b{
     margin-bottom:10px;
 }
+
+.wrapper{
+     margin-top: 40px;
+     width:100%;
+     height: 800px;
+ }
+ .search_bar{
+     width: 100%;
+     height: auto;
+ }
+ .search_button, .search_object{
+     float: right;
+     margin-bottom: 10px;
+
+ }
+ .search_object{
+     width: 200px;
+     margin-right:10px;
+ }
+ .confirm_button{
+     float:right;
+     margin-top: 10px;
+ }
+ .main_wrapper{
+     width: 80%;
+     height: 80%;
+     margin: auto;
+
+ }
+ .main_content{
+     padding-top:10px;
+     clear: both;
+     box-shadow: 0px 1px 18px -12px #607D8B;
+     background-color: #fff;
+     padding: 25px 35px 25px 30px;
+     height: 100%;
+ }
+ .confirm_list{
+     padding-top: 10px;
+     clear:both;
+     width: 100%;
+     height: auto;
+ }
+ .scroll{
+    overflow-y:scroll;
+    clear:both;
+    height:90%;
+ }
+
+ .confirm_list_subject{
+     font-size: 24px;
+ }
+
+ .confirm_checkbox{
+     float: left;
+     width: 5%;
+     text-align: center;
+ }
+ .confirm_number{
+     float: left;
+     width: 10%;
+     text-align: center;
+ }
+ .confirm_name{
+     float: left;
+     width: 50%;
+     text-align: center;
+ }
+ .confirm_reg_date{
+     float: left;
+     width: 20%;
+     text-align: center;
+ }
+ .confirm_reg_name{
+     float: left;
+     width: 10%;
+     text-align: center;
+ }
+
+ .scroll::-webkit-scrollbar {
+     width: 10px;
+ }
+
+ .scroll::-webkit-scrollbar-thumb {
+     height: 30%;
+     background: #217af4;
+
+     border-radius: 10px;
+ }
+
+ .scroll::-webkit-scrollbar-track {
+     background: rgba(33, 122, 244, .1);
+ }

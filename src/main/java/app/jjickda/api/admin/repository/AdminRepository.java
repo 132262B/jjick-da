@@ -36,4 +36,6 @@ public interface AdminRepository {
     int getOptionsCnt(long subIdx);
 
     List<SubjectInformationDto> getSubjectInfo(long subIdx);
+
+    List<UnconfirmedExamDto> getUnconfirmedExamData();
 }
