@@ -8,11 +8,13 @@
     <select id="selectQuestionList" resultType="questionDto">
         SELECT TEQ.IDX AS QUESTION_IDX
              , TEM.FILE_ID
-             , TEQ.QUESTION_NUMBER
+             , TES.SUBJECT_NAME
              , TEQ.QUESTION_NAME
           FROM TB_EXAM_QUESTION AS TEQ
           LEFT JOIN TB_EXAM_MULTIMEDIA AS TEM
             ON TEQ.MULTIMEDIA_IDX = TEM.IDX
+          LEFT JOIN TB_EXAM_SUBJECT TES
+            ON TEQ.SUBJECT_IDX = TES.IDX
          WHERE TEQ.EXAM_IDX IN ( <foreach collection="choiceInfoDto.examIdxArray" item="item" index="index" separator=",">
                                   #{item}
                                  </foreach>

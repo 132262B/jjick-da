@@ -27,6 +27,7 @@ public class ExamService {
 
         ExamInfoAndQuestionListDto examInfoAndQuestionListDto = new ExamInfoAndQuestionListDto();
 
+        int questionNumber = 1;
         for (long subjectIdx : choiceInfoDto.getSubjectIdxArray()) {
             List<QuestionDto> questionListDto = examRepository.selectQuestionList(choiceInfoDto, subjectIdx);
 
@@ -34,12 +35,14 @@ public class ExamService {
             long subjectQuestionCnt = examRepository.selectSubjectQuestionCnt(subjectIdx);
             questionListDto = questionListDto.stream().limit(subjectQuestionCnt).collect(Collectors.toList());
 
-            List<OptionsDto> questionsDtos = examRepository.selectOptionsList(questionListDto);
+            List<OptionsDto> optionsDtoList = examRepository.selectOptionsList(questionListDto);
 
             for (QuestionDto repeatedQuestionDto : questionListDto) {
-                repeatedQuestionDto.setQuestionsList(questionsDtos.stream()
+                repeatedQuestionDto.setOptionsList(optionsDtoList.stream()
                         .filter(optionsDto -> optionsDto.getQuestionIdx() == repeatedQuestionDto.getQuestionIdx())
                         .collect(Collectors.toList()));
+
+                repeatedQuestionDto.setQuestionNumber(questionNumber++);
 
                 examInfoAndQuestionListDto.addQuestionList(repeatedQuestionDto);
             }
