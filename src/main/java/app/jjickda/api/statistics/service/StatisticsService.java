@@ -18,7 +18,7 @@ public class StatisticsService {
     public AdminDashboardDto adminDashboard() {
         AdminDashboardDto adminDashboardDto = new AdminDashboardDto();
 
-        adminDashboardDto.setNewUser(statisticsRepository.selectNewUser());
+        adminDashboardDto.setNewUsersCountByDate(statisticsRepository.selectNewUsersCountByDateList());
 
         adminDashboardDto.setUserTotalCount(statisticsRepository.selectUserTotalCount());
         adminDashboardDto.setExamTotalCount(statisticsRepository.selectExamTotalCount());

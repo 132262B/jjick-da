@@ -9,7 +9,7 @@ import java.util.List;
 @Setter
 public class AdminDashboardDto {
 
-    private List<NewUserDto> newUser;
+    private List<NewUsersCountByDate> newUsersCountByDate;
 
     private long userTotalCount;
 
