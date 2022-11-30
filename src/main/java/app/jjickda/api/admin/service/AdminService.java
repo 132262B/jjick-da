@@ -130,7 +130,17 @@ public class AdminService {
         return examInfo;
     }
 
-    public List<UnconfirmedExamDto> getUnconfirmedExamData() {
-        return adminRepository.getUnconfirmedExamData();
+    public List<UnconfirmedExamDto> getUnconfirmedExamData(SearchDto searchDto) {
+        return adminRepository.getUnconfirmedExamData(searchDto);
+    }
+
+    public DefaultResultDto confirmExam(List<Long> examIdx) {
+        for(long i : examIdx){
+            adminRepository.confirmExam(i);
+        }
+        return DefaultResultDto.builder()
+                .message("선택된 시험이 결재 되었습니다.")
+                .success(true)
+                .build();
     }
 }

@@ -66,9 +66,7 @@ section {
 
 @media (max-width: 768px) {
 
- .confirm_list_subject{
-     font-size: 20px;
- }
+
 .category_option{
     margin-top:10px;
 }
@@ -280,6 +278,8 @@ section {
 @media (max-width: 991px) {
  .confirm_list_subject{
      font-size: 20px;
+     text-overflow:nowrap;
+     white-space:nowrap;
  }
   .mobile-nav-toggle {
     display: block;
@@ -1570,7 +1570,6 @@ box-sizing: border-box;
      height: 100%;
  }
  .confirm_list{
-     padding-top: 10px;
      clear:both;
      width: 100%;
      height: auto;
@@ -1578,37 +1577,64 @@ box-sizing: border-box;
  .scroll{
     overflow-y:scroll;
     clear:both;
-    height:90%;
  }
 
  .confirm_list_subject{
-     font-size: 24px;
+     font-size: 20px;
+     font-weight:1000;
  }
 
  .confirm_checkbox{
+     padding-top:10px;
+     padding-bottom:10px;
      float: left;
-     width: 5%;
+     width: 3%;
      text-align: center;
  }
  .confirm_number{
+     padding-top:10px;
+     padding-bottom:10px;
      float: left;
      width: 10%;
      text-align: center;
  }
  .confirm_name{
+     padding-top:10px;
+     padding-bottom:10px;
      float: left;
      width: 50%;
      text-align: center;
+     overflow:hidden;
+     text-overflow:ellipsis;
+     white-space:nowrap;
  }
+
+#confirm_name_hover{
+    cursor:pointer;
+}
+#confirm_name_hover:hover{
+    color:gray;
+}
+
  .confirm_reg_date{
+     padding-top:10px;
+     padding-bottom:10px;
      float: left;
      width: 20%;
      text-align: center;
+     overflow:hidden;
+     text-overflow:ellipsis;
+     white-space:nowrap;
  }
  .confirm_reg_name{
+     padding-top:10px;
+     padding-bottom:10px;
      float: left;
-     width: 10%;
+     width: 12%;
      text-align: center;
+     overflow:hidden;
+     text-overflow:ellipsis;
+     white-space:nowrap;
  }
 
  .scroll::-webkit-scrollbar {
@@ -1624,4 +1650,69 @@ box-sizing: border-box;
 
  .scroll::-webkit-scrollbar-track {
      background: rgba(33, 122, 244, .1);
+ }
+
+  #confirm_checkbox{
+      padding-top:10px;
+      padding-bottom:10px;
+      float: left;
+      width: 3%;
+      text-align: center;
+  }
+  #confirm_number{
+      padding-top:10px;
+      padding-bottom:10px;
+      float: left;
+      width: 10%;
+      text-align: center;
+  }
+  #confirm_subject_name{
+      padding-top:10px;
+      padding-bottom:10px;
+      float: left;
+      width: 50%;
+      text-align: center;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+  }
+
+  #confirm_reg_date{
+      padding-top:10px;
+      padding-bottom:10px;
+      float: left;
+      width: 20%;
+      text-align: center;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+  }
+  #confirm_reg_name{
+      padding-top:10px;
+      padding-bottom:10px;
+      float: left;
+      width: 12%;
+      text-align: center;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+  }
+.emptyScroll{
+    overflow-y:scroll;
+    clear:both;
+}
+
+ .emptyScroll::-webkit-scrollbar {
+     width: 10px;
+ }
+
+ .emptyScroll::-webkit-scrollbar-thumb {
+     height: 30%;
+     background: rgba(0, 0, 0, 0);
+
+     border-radius: 10px;
+ }
+
+ .emptyScroll::-webkit-scrollbar-track {
+     background: rgba(0, 0, 0, 0);
  }

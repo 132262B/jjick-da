@@ -37,5 +37,7 @@ public interface AdminRepository {
 
     List<SubjectInformationDto> getSubjectInfo(long subIdx);
 
-    List<UnconfirmedExamDto> getUnconfirmedExamData();
+    List<UnconfirmedExamDto> getUnconfirmedExamData(SearchDto searchObject);
+
+    void confirmExam(long examIdx);
 }

@@ -218,7 +218,21 @@
         FROM TB_EXAM e
         LEFT JOIN TB_USER u
         ON REG_IDX = u.IDX
-        WHERE CONFIRM_STATUS = 0;
+        WHERE CONFIRM_STATUS = 0 AND
+        <choose>
+            <when test="searchObject != null">
+                EXAM_NAME LIKE CONCAT('%',#{searchObject},'%')
+            </when>
+            <otherwise>
+                EXAM_NAME LIKE '%%'
+            </otherwise>
+        </choose>
     </select>
+
+    <update id="confirmExam">
+        UPDATE TB_EXAM
+        SET CONFIRM_STATUS = 1
+        WHERE IDX = #{examIdx};
+    </update>
 
 </mapper>

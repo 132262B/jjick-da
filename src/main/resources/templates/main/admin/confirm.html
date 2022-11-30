@@ -12,22 +12,24 @@
 <section class="wrapper">
     <div class="main_wrapper" data-aos="fade-up" data-aos-duration="1000">
         <div class="search_bar">
-            <input class="search_button button5" type="button" value="검색">
+            <input class="search_button button5" type="button" onclick="unconfirmedExamData();" value="검색">
             <input class="search_object form-control" type="text" placeholder="시험명으로 검색">
         </div>
         <div class="main_content">
-            <div class="confirm_list confirm_list_subject">
-                <div class="confirm_checkbox">&nbsp;</div>
-                <div class="confirm_number">No.</div>
-                <div class="confirm_name">시험 이름</div>
-                <div class="confirm_reg_date">등록일</div>
-                <div class="confirm_reg_name">등록자</div>
+            <div class="emptyScroll">
+                <div class="confirm_list confirm_list_subject">
+                    <div id="confirm_checkbox">&nbsp;</div>
+                    <div id="confirm_number">No.</div>
+                    <div id="confirm_subject_name">시험 이름</div>
+                    <div id="confirm_reg_date">등록일</div>
+                    <div id="confirm_reg_name">등록자</div>
+                </div>
             </div>
             <div class="scroll">
 
             </div>
         </div>
-        <input class="confirm_button button5" type="button" value="확정 버튼">
+        <input class="confirm_button button5" onclick="confirmExam();" type="button" value="확정 버튼">
     </div>
 </section>
 
