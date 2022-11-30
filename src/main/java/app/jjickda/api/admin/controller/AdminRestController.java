@@ -99,7 +99,7 @@ public class AdminRestController {
     public ResponseEntity<ApiResponse<DefaultResultDto>> addExam(@Validated @RequestBody AddExamDto addExamDto) {
         return ResponseEntity.ok(new ApiResponse<>(adminService.addExam(addExamDto)));
     }
-    @ApiOperation("문항 등록 API")
+    @ApiOperation("문항 등록 페이지에서 쓰일 시험 정보 API")
     @LoginCheck(auth = Role.ADMIN, type = Type.API)
     @PostMapping("/get-exam-information")
     public ResponseEntity<ApiResponse<ExamInformationDto>> getExamInformation(@RequestBody long subIdx) {
@@ -107,11 +107,21 @@ public class AdminRestController {
         return ResponseEntity.ok(new ApiResponse<>(examInfo));
     }
 
-    @ApiOperation("문항등록(datalist) 에 쓰일 서브 카테고리 리스트 API")
+    @ApiOperation("시험 결재 대기중인 시험 정보 가져오는 API")
     @LoginCheck(auth = Role.ADMIN, type = Type.API)
     @PostMapping("/getUnconfirmedExamData")
-    public ResponseEntity<ApiResponse<List<UnconfirmedExamDto>>> unconfirmedExamData() {
-        List<UnconfirmedExamDto> unconfirmedExamDataList = adminService.getUnconfirmedExamData();
+    public ResponseEntity<ApiResponse<List<UnconfirmedExamDto>>> unconfirmedExamData(@RequestBody SearchDto searchDto) {
+        List<UnconfirmedExamDto> unconfirmedExamDataList = adminService.getUnconfirmedExamData(searchDto);
         return ResponseEntity.ok(new ApiResponse<>(unconfirmedExamDataList));
     }
+
+    @ApiOperation("시험 결재 API")
+    @LoginCheck(auth = Role.ADMIN, type = Type.API)
+    @PostMapping("/confirmExam")
+    public ResponseEntity<ApiResponse<DefaultResultDto>> confirmExam(@RequestBody List<Long> examIdx) {
+        DefaultResultDto response = adminService.confirmExam(examIdx);
+        return ResponseEntity.ok(new ApiResponse<DefaultResultDto>(response));
+    }
+
 }
+
