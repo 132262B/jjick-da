@@ -104,12 +104,13 @@ function optionAndQuestion(item, number) {
     if(name === questionNumber) {
         existId(optionId).click();
     } else {
-        existId(questionId).click();
+        existId(questionId).click();MessageUtil
     }
 }
 
 function result() {
     let num = 1;
+    let nullCheck = 0;
     for(let i = 0; i < resultInfo.submitAnswerList.length; i++) {
     let correct = '';
         let questionName = `question${num}`;
@@ -117,11 +118,18 @@ function result() {
             resultInfo.submitAnswerList[i].inputAnswer = document.querySelector('input[name="' + questionName + '"]:checked').value;
         } catch(e) {
             resultInfo.submitAnswerList[i].inputAnswer = null;
+            nullCheck++;
         }
         num++;
     }
+    if(nullCheck > 0) {
+        let isConfirm = confirm(messageUtil.MESSAGE_EXAM_SUBMIT_CONFIRM_ALERT);
+        if(isConfirm) {
+            let resultIdx = 10;
+            let token = 13;
+            opener.setResultInfo(resultIdx, token);
+            window.close();
+        }
+    }
     console.log(resultInfo);
-    let resultIdx = 10;
-    let token = 13;
-    opener.setResultInfo(resultIdx, token);
 }

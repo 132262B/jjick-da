@@ -12,4 +12,5 @@ import org.apache.ibatis.type.Alias;
 @Alias("searchDto")
 public class SearchDto {
     private String searchObject;
+    private String sort;
 }

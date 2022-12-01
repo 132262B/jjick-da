@@ -1,36 +1,27 @@
-let emptyData = {};
 function getMainList() {
-    httpUtil.defaultRequest('/api/admin/get-main-category','post', emptyData, function(data) {
+        let data = {};
+        let searchObject = $(".search_object").val();
+        if(isEmpty(searchObject)){
+            data.searchObject = null;
+        }else{
+            data.searchObject = searchObject;
+        }
+    httpUtil.defaultRequest('/api/admin/get-main-category','post',data , (data) => {
             let mainCategoryList = "";
             for(let i of data.data){
-                let reg_date = cutTime(i.regDate);
-                let udt_date = i.udtDate;
-                let use_sts = i.useStatus;
-                let udt_seq = i.udtIdx;
-                    if(udt_date == null){
-                      udt_date = "없음";
-                    }else{
-                      udt_date = cutTime(udt_date);
-                    }
-                    if(use_sts == 1){
-                    use_sts = "사용중";
-                    }else{
-                    use_sts = "미사용중";
-                    }
-                mainCategoryList += `<div class="col-md-12" id="main_list">
-                              <div class="list_1" id="main_lists">${i.idx}</div>
-                              <div class="list_2" id="main_lists">${i.mainCategoryName}</div>
-                              <div class="list_3" id="main_lists">${reg_date}</div>
-                              <div class="list_4" id="main_lists">${i.regUserName}</div>
-                              <div class="list_5" id="main_lists">${udt_date}</div>
-                              <div class="list_6" id="main_lists">${i.udtUserName}</div>
-                              <div class="list_7" id="main_lists">${use_sts}</div>
-                            </div>`
+                mainCategoryList += `
+                    <div class="list">
+                        <div class="scroll_element list_checkbox">&nbsp;</div>
+                        <div class="scroll_element list_number">${i.idx}</div>
+                        <div class="list_name_hover scroll_element list_name">${i.mainCategoryName}</div>
+                        <div class="scroll_element list_reg_date">${i.regDate}</div>
+                        <div class="scroll_element list_reg_name">${i.regUserName}</div>
+                    </div>
+            `
             }
-      $(".htmls").html(mainCategoryList);
+      $(".html").html(mainCategoryList);
     })
 }
-
 function registMain() {
       let main_name = existId('mainCategoryName');
       if(main_name == null || main_name == "") {
@@ -38,8 +29,10 @@ function registMain() {
       }else{
         let data = {};
         data.mainCategoryName = main_name.value;
-            httpUtil.defaultRequest('/api/admin/regist-main','post', data, function(data) {
+            httpUtil.defaultRequest('/api/admin/regist-main','post', data,  (data) => {
                 getMainList();
+                modalClose();
+                main_name.value = "";
                 successMessageToast(data.data.message);
         })
       }

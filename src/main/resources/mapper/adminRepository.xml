@@ -67,7 +67,7 @@
         e.MAIN_CATEGORY_NAME,
         e.IDX,
         e.USE_STATUS,
-        e.REG_DATE,
+        date_format(e.REG_DATE, '%Y-%m-%d') AS regDate,
         e.REG_IDX,
         e.UDT_DATE,
         e.UDT_IDX,
@@ -77,25 +77,51 @@
         LEFT JOIN TB_USER u
         ON REG_IDX = u.IDX
         LEFT JOIN TB_USER user
-        ON UDT_IDX = user.IDX;
+        ON UDT_IDX = user.IDX
+        WHERE
+        <choose>
+            <when test="searchObject != null">
+                MAIN_CATEGORY_NAME LIKE CONCAT('%',#{searchObject},'%')
+            </when>
+            <otherwise>
+                MAIN_CATEGORY_NAME LIKE '%%'
+            </otherwise>
+        </choose>
     </select>
 
     <select id="getSubList" resultType="getSubCategoryDto">
-        select
+        SELECT
         e.IDX,
         e.SUB_CATEGORY_NAME,
         e.USE_STATUS,
-        e.REG_DATE,
+        date_format(e.REG_DATE, '%Y-%m-%d') AS regDate,
         e.REG_IDX,
-        e.UDT_DATE,
+        date_format(e.UDT_DATE, '%Y-%m-%d') AS udtDate,
         e.UDT_IDX,
+        m.MAIN_CATEGORY_NAME,
         u.NAME as regUserName,
         IFNULL(user.NAME,"없음") as udtUserName
         FROM TB_EXAM_SUB_CATEGORY e
         LEFT JOIN TB_USER u
         ON REG_IDX = u.IDX
         LEFT JOIN TB_USER user
-        ON UDT_IDX = user.IDX;
+        ON UDT_IDX = user.IDX
+        LEFT JOIN TB_EXAM_MAIN_CATEGORY m
+        ON MAIN_CATEGORY_IDX = m.IDX
+        WHERE
+        <choose>
+            <when test="sort.equals('main')">
+                m.MAIN_CATEGORY_NAME LIKE CONCAT('%',#{searchObject},'%');
+            </when>
+            <when test="sort.equals('sub')">
+                e.SUB_CATEGORY_NAME LIKE CONCAT('%',#{searchObject},'%');
+            </when>
+            <otherwise>
+                m.MAIN_CATEGORY_NAME LIKE CONCAT('%',#{searchObject},'%')
+                OR
+                e.SUB_CATEGORY_NAME LIKE CONCAT('%',#{searchObject},'%');
+            </otherwise>
+        </choose>
     </select>
 
     <select id="getSubCategory" resultType="getSubCategoryDto">

@@ -11,11 +11,11 @@ import java.util.List;
 public interface AdminRepository {
     int registMain(AddMainCategoryDto mainQuestion, User user);
 
-    List<GetMainCategoryDto> getMainList();
+    List<GetMainCategoryDto> getMainList(SearchDto searchDto);
 
     int registSub(AddSubCategoryDto subQuestion, User user);
 
-    List<GetSubCategoryDto> getSubList();
+    List<GetSubCategoryDto> getSubList(SearchDto searchDto);
 
     List<GetSubCategoryDto> getSubCategory(long mainIdx);
 

@@ -3,9 +3,7 @@ package app.jjickda.api.admin.dto.response;
 import lombok.*;
 import org.apache.ibatis.type.Alias;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 @Getter
 @Setter
@@ -18,9 +16,9 @@ public class GetSubCategoryDto {
     private String subCategoryName;
     private long idx;
     private int useStatus;
-    private Timestamp regDate;
+    private Date regDate;
     private long regIdx;
-    private Timestamp udtDate;
+    private Date udtDate;
     private long udtIdx;
     private String regUserName;
     private String udtUserName;
