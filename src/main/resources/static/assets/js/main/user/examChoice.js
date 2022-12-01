@@ -1,5 +1,4 @@
 let choiceInfo = {}
-
 /**
  * 자격증 조회
  */
@@ -98,4 +97,8 @@ function checkTerm(name) {
             examSingle.opener.choiceInfo = choiceInfo;
         }
     }
+}
+
+function setResultInfo(resultIdx, token) {
+    console.log(resultIdx+', '+token);
 }

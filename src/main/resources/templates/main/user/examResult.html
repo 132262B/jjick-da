@@ -3,6 +3,13 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <!-- 공통 헤더-->
 <th:block th:replace="fragments/user/head :: headFragment"></th:block>
+
+<script>
+    $(document).ready(function () {
+        result();
+    });
+</script>
+
 <body>
 <th:block th:replace="fragments/user/header :: headerFragment"></th:block>
 
