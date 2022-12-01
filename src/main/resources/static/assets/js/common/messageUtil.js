@@ -8,4 +8,6 @@ class MessageUtil {
     MESSAGE_PASSWORD_CHECK = "비밀번호는 대,소문자,특수문자 1개 이상, 길이는 8자리 이상으로 입력해주세요.";
     MESSAGE_NAME_LENGTH_CHECK = "이름은 2자 이상, 20자 이하로 입력해주세요."
 
+    MESSAGE_EXAM_SUBMIT_CONFIRM_ALERT = "풀지 않은 문제가 존재합니다.\n그래도 제출하시겠습니까?";
+
 }

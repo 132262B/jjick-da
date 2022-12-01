@@ -44,10 +44,7 @@ public class UserServiceTest {
                 .roleName("ROLE_USER")
                 .name("테스터")
                 .build();
-
-
     }
-
 
     @DisplayName("이메일 체크 테스트 (존재하는 이메일이 없는경우)")
     @Test
@@ -151,4 +148,5 @@ public class UserServiceTest {
 
         verify(userRepository, times(1))
                 .getUser(any(LoginDto.class));
-    }}
+    }
+}

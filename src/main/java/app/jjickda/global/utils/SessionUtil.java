@@ -1,6 +1,7 @@
 package app.jjickda.global.utils;
 
 import app.jjickda.domain.user.dto.response.User;
+import lombok.experimental.UtilityClass;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -8,6 +9,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+@UtilityClass
 public class SessionUtil {
 
     private static final String SESSION_USER = "user";

@@ -10,7 +10,7 @@
     </div>
 
     <!-- 에러 메세지 출력 Toast -->
-    <div class="toast-container position-fixed top-100 start-50 translate-middle p-3">
+    <div class="toast-container position-fixed top-100 start-50 translate-middle p-3" style="z-index: 8001;">
         <div class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true" id="errorMessageToast" style="margin-bottom: 60px">
             <div class="d-flex">
                 <div class="toast-body" id="errorMessage">
@@ -22,7 +22,7 @@
     </div>
 
     <!-- 경고 메세지 출력 Toast -->
-    <div class="toast-container position-fixed top-100 start-50 translate-middle p-3">
+    <div class="toast-container position-fixed top-100 start-50 translate-middle p-3" style="z-index: 8001;">
         <div class="toast align-items-center text-bg-warning border-0" role="alert" aria-live="assertive" aria-atomic="true" id="warningMessageToast" style="margin-bottom: 60px">
             <div class="d-flex">
                 <div class="toast-body" id="warningMessage">
@@ -34,10 +34,22 @@
     </div>
 
     <!-- 성공 메세지 출력 Toast -->
-    <div class="toast-container position-fixed top-100 start-50 translate-middle p-3">
-        <div class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true" id="successMessageToast" style="margin-bottom: 60px">
+    <div class="toast-container position-fixed top-100 start-50 translate-middle p-3" style="z-index: 8001;">
+        <div class="toast align-items-center text-bg-primary border-0 bg-opacity-75" role="alert" aria-live="assertive" aria-atomic="true" id="successMessageToast" style="margin-bottom: 60px">
             <div class="d-flex">
                 <div class="toast-body" id="successMessage">
+                    &nbsp;
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 알림 메세지 출력 Toast -->
+    <div class="toast-container position-fixed top-100 start-50 translate-middle p-3" style="z-index: 8001;">
+        <div class="toast align-items-center text-bg-success border-0 bg-opacity-75" role="alert" aria-live="assertive" aria-atomic="true" id="notifyMessageToast" style="margin-bottom: 60px">
+            <div class="d-flex">
+                <div class="toast-body" id="notifyMessage">
                     &nbsp;
                 </div>
                 <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>

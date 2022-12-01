@@ -593,9 +593,8 @@ section {
 
 .exam .entry {
     height: auto;
-    min-height: 500px;
     padding: 30px;
-    margin: 50px 0;
+    margin-bottom: 50px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
@@ -607,7 +606,7 @@ section {
 
 .exam .entry .entry-title, .exam .entry .exam-title {
     color: #012970;
-    font-size: 28px;
+    font-size: 20px;
     font-weight: bold;
     padding: 0;
     margin: 0 0 20px 0;
@@ -625,7 +624,7 @@ section {
 }
 
 .exam .entry .entry-meta .select-content {
-    margin: 70px 0 100px 0;
+    margin: 70px 0 160px 0;
 }
 
 .entry-meta > img {
@@ -642,22 +641,6 @@ section {
     align-items: center;
     padding: 0;
     margin: 0;
-}
-
-.exam .entry .entry-meta ul li {
-    padding-left: 20px;
-}
-
-.exam .entry .entry-meta i {
-    font-size: 16px;
-    margin-right: 8px;
-    line-height: 0;
-}
-
-.exam .entry .entry-meta a {
-    font-size: 14px;
-    display: inline-block;
-    line-height: 1;
 }
 
 .exam .entry .entry-content p {
@@ -759,6 +742,10 @@ section {
     border-radius: 1.5rem;
 }
 
+.exam .side-alias {
+    height: auto;
+}
+
 .exam .sidebar {
     padding: 30px;
     margin: 0 0 60px 20px;
@@ -787,7 +774,13 @@ section {
     display: inline-block;
 }
 
-.exam .sidebar .tags ul a {
+.exam .sidebar .tags ul .correct-radio {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.exam .sidebar .tags ul label {
     color: #0257ee;
     font-size: 14px;
     padding: 5px 12px;
@@ -797,16 +790,38 @@ section {
     transition: 0.3s;
 }
 
-.exam .sidebar .tags ul a:hover {
+.exam .sidebar .tags ul label:hover {
     color: #fff;
     border: 1px solid #4154f1;
     background: #4154f1;
 }
 
-.exam .sidebar .tags ul a span {
-    padding-left: 5px;
-    color: #a5c5fe;
+.exam .sidebar .tags ul .correct-radio:checked + label {
+    color: #fff;
+    border: 1px solid #4154f1;
+    background: #4154f1;
+}
+
+.exam .entry .entry-meta ul .correct-radio {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.exam .entry .entry-meta ul label {
     font-size: 14px;
+    padding-left: 10px;
+}
+
+.exam .entry .entry-meta ul label:hover {
+    color: #012790;
+    font-weight: 700;
+}
+
+.exam .entry .entry-meta ul .correct-radio:checked + label {
+    color: #012790;
+    font-weight: 700;
+    text-decoration: underline;
 }
 
 .select-btn, .select-btn:focus {
@@ -894,6 +909,7 @@ section {
 
     .exam .sidebar {
         margin: 0 0 60px 0;
+
     }
 
     .exam .entry .entry-meta #d-exams {
@@ -923,7 +939,7 @@ section {
 
 @media screen and (max-width: 820px) {
     .exam .entry {
-        margin: 150px 0;
+        margin-bottom: 30px;
     }
 }
 

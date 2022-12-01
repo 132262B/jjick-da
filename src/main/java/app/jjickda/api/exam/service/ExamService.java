@@ -25,20 +25,19 @@ public class ExamService {
 
     // 시험문제 조회
     public ExamInfoAndQuestionListDto examQuestion(ChoiceInfoDto choiceInfoDto) {
-
         ExamInfoAndQuestionListDto examInfoAndQuestionListDto = new ExamInfoAndQuestionListDto();
 
-        OngoingExamInfoDto ongoingExamInfoDto = examRepository.selectOngoingExamInfo(choiceInfoDto);
-        ongoingExamInfoDto.setSubjectCnt(choiceInfoDto.getSubjectIdxArray().size());
-        examInfoAndQuestionListDto.setOngoingExamInfoDto(ongoingExamInfoDto);
+        examInfoAndQuestionListDto.setOngoingExamInfoDto(examRepository.selectOngoingExamInfo(choiceInfoDto));
 
         int questionNumber = 1;
         for (long subjectIdx : choiceInfoDto.getSubjectIdxArray()) {
             List<QuestionDto> questionListDto = examRepository.selectQuestionList(choiceInfoDto, subjectIdx);
 
-            Collections.shuffle(questionListDto);
-            long subjectQuestionCnt = examRepository.selectSubjectQuestionCnt(subjectIdx);
-            questionListDto = questionListDto.stream().limit(subjectQuestionCnt).collect(Collectors.toList());
+            if(choiceInfoDto.getExamIdxArray().size() != 1) {
+                Collections.shuffle(questionListDto);
+                long subjectQuestionCnt = examRepository.selectSubjectQuestionCnt(subjectIdx);
+                questionListDto = questionListDto.stream().limit(subjectQuestionCnt).collect(Collectors.toList());
+            }
 
             List<OptionsDto> optionsDtoList = examRepository.selectOptionsList(questionListDto);
 

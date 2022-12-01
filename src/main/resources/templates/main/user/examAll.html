@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<!-- 공통 헤더-->
+<!-- 공통 헤드-->
 <th:block th:replace="fragments/user/head :: headFragment"></th:block>
 
 <!-- 해당 페이지 js -->
-<script th:src="@{/assets/js/main/user/exam.js}"></script>
+<script th:src="@{/assets/js/main/user/examAll.js}"></script>
 
 <script>
     $(document).ready(function () {
@@ -21,59 +21,34 @@
     <section class="breadcrumbs">
         <div class="container">
             <ol>
-                <li><a th:href="@{/home}">홈</a></li>
-                <li><a th:href="@{/select}">과목선택</a></li>
+                <li>홈</li>
+                <li>과목선택</li>
                 <li>문제풀기</li>
             </ol>
-            <p class="main-subject">문제풀기(전체) - </p>
+            <p id="main-subject" class="main-subject"></p>
         </div>
     </section>
 
     <section id="exam" class="exam">
         <div class="container" data-aos="fade-up">
             <div class="row">
-                <div class="col-lg-8 entries">
-
-                    <article class="entry">
-                        <h2 class="exam-title">
-
-                        </h2>
-
-                        <div class="entry-content">
-
-                        </div>
-
-                        <div class="entry-meta">
-                            <br><br><br>
-                            <ul>
-                                <li class="d-flex align-items-center"><span>①&nbsp;</span>기능(Function)</li>
-                                <li class="d-flex align-items-center"><span>②&nbsp;</span>성능(Performance)</li>
-                                <li class="d-flex align-items-center"><span>③&nbsp;</span>제약 조건(Constraint)</li>
-                                <li class="d-flex align-items-center"><span>④&nbsp;</span>인터페이스(Interface)</li>
-                            </ul>
-                        </div>
-                    </article>
+                <div id="questions" class="col-lg-8 entries">
 
                 </div>
 
                 <div class="col-lg-4">
-                    <div class="sidebar">
-                        <h3 class="sidebar-title align-center">답안지</h3>
-                        <div class="sidebar-item tags">
-                            <ul class="align-center mx-auto">
-                                <div clanss="d-cell">
-                                    <span class="title fs-5 jb-700 mr-2">01.</span>
-                                    <li><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4 </a></li>
-                                </div>
-                            </ul>
-                        </div>
+                    <div class="side-alias">
+                        <div class="sidebar">
+                            <h3 class="sidebar-title align-center">답안지</h3>
+                            <div class="sidebar-item tags text-center">
+                                <ul id="exam-correct" class="align-center mx-auto">
+                                </ul>
+                            </div>
 
-                        <nav class="grading-nav">
-                            <a class="grading-btn" th:href="@{/result}">채점하기</a>
-                        </nav>
+                            <nav class="grading-nav">
+                                <a class="grading-btn" onclick="result()">채점하기</a>
+                            </nav>
+                        </diV>
                     </div>
                 </div>
             </div>

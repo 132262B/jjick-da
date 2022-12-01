@@ -8,6 +8,7 @@
     <select id="selectQuestionList" resultType="questionDto">
         SELECT TEQ.IDX AS QUESTION_IDX
              , TEM.FILE_ID
+             , TES.IDX AS SUBJECT_IDX
              , TES.SUBJECT_NAME
              , TEQ.QUESTION_NAME
           FROM TB_EXAM_QUESTION AS TEQ
@@ -32,13 +33,16 @@
 
     <!-- 선지 정보 조회 -->
     <select id="selectOptionsList" resultType="optionsDto">
-        SELECT * FROM TB_EXAM_OPTIONS TEO
-        WHERE TEO.QUESTION_IDX  IN (
-                <foreach collection="questionListDto" item="item" index="index" separator=",">
-                    #{item.questionIdx}
-                </foreach>
+        SELECT IDX
+             , QUESTION_IDX
+             , OPTIONS_NUMBER
+             , OPTIONS_CONTENT
+          FROM TB_EXAM_OPTIONS TEO
+         WHERE TEO.QUESTION_IDX  IN ( <foreach collection="questionListDto" item="item" index="index" separator=",">
+                                        #{item.questionIdx}
+                                      </foreach>
         )
-        ORDER BY QUESTION_IDX,OPTIONS_NUMBER ASC
+         ORDER BY QUESTION_IDX,OPTIONS_NUMBER ASC
     </select>
 
     <!-- 진행중인 시험 정보 조회 -->

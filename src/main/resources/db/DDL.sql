@@ -107,7 +107,7 @@ ALTER TABLE TB_EXAM_SUBJECT COMMENT='시험과목';
 
 # 시험문항선지
 CREATE TABLE `TB_EXAM_OPTIONS` (
-	`IDX`             int          NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '선지IDX',
+	`IDX`             bigint       NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '선지IDX',
 	`QUESTION_IDX`    bigint       NOT NULL                            COMMENT '문항IDX',
 	`OPTIONS_NUMBER`  int          NOT NULL                            COMMENT '선지번호',
 	`OPTIONS_CONTENT` varchar(500) NOT NULL                            COMMENT '선지내용'
@@ -129,3 +129,44 @@ CREATE TABLE `TB_EXAM_MULTIMEDIA` (
 );
 
 ALTER TABLE TB_EXAM_MULTIMEDIA COMMENT='시험 멀티미디어';
+
+# 시험 전체 결과
+CREATE TABLE `TB_EXAM_ALL_RESULT` (
+    `IDX`               bigint       NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '결과IDX',
+    `MAIN_CATEGORY_IDX` bigint       NOT NULL                            COMMENT '메인카테고리IDX',
+    `SUB_CATEGORY_IDX`  bigint       NOT NULL                            COMMENT '서브카테고리IDX',
+    `SUBJECT_CNT`       int          NOT NULL                            COMMENT '과목 개수',
+    `AVERAGE_SCORE`     float        NOT NULL                            COMMENT '평균 점수',
+    `PASS_STATUS`       bit(1)       NOT NULL                            COMMENT '합격 유무',
+    `LOGIN_STATUS`      bit(1)       NOT NULL                            COMMENT '로그인 유무',
+    `UN_LOGIN_REG_ID`   varchar(30)  NULL                                COMMENT '비로그인시 등록 아이디',
+    `EXAM_RESULT_TOKEN` varchar(100) NOT NULL                            COMMENT '시험 토큰',
+    `LOGIN_REG_IDX`     bigint       NULL                                COMMENT '로그인시 등록자',
+    `REG_DATE`          datetime     NOT NULL DEFAULT now()              COMMENT '등록일'
+);
+
+ALTER TABLE TB_EXAM_ALL_RESULT COMMENT='시험 전체 결과';
+
+# 시험 문항 결과
+CREATE TABLE `TB_EXAM_QUESTION_RESULT` (
+    `IDX`             bigint NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '문항결과IDX',
+    `EXAM_RESULT_IDX` bigint NOT NULL                            COMMENT '결과IDX',
+    `QUESTION_IDX`    bigint NOT NULL                            COMMENT '문항IDX',
+    `SUBJECT_IDX`     bigint NOT NULL                            COMMENT '과목IDX',
+    `QUESTION_NUMBER` int    NOT NULL                            COMMENT '문항번호',
+    `INPUT_ANSWER`    int    NOT NULL                            COMMENT '입력한 정답',
+    `ANSWER_STATUS`   bit(1) NOT NULL                            COMMENT '정답 유무'
+);
+
+ALTER TABLE TB_EXAM_QUESTION_RESULT COMMENT='시험 문항 결과';
+
+# 시험 문항 결과
+CREATE TABLE `TB_EXAM_SUBJECT_RESULT` (
+    `IDX`             bigint NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '과목결과IDX',
+    `EXAM_RESULT_IDX` bigint NOT NULL                            COMMENT '결과IDX',
+    `SUBJECT_IDX`     bigint NOT NULL                            COMMENT '과목IDX',
+    `SUBJECT_SCORE`   float  NOT NULL                            COMMENT '과목 평균 점수',
+    `PASS_STATUS`     bit(1) NOT NULL                            COMMENT '합격 유무'
+);
+
+ALTER TABLE TB_EXAM_SUBJECT_RESULT COMMENT='시험 과목별 결과';
