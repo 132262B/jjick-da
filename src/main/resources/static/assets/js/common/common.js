@@ -97,6 +97,19 @@ function successMessageToast(successMessage) {
 }
 
 /**
+ * notifyMessageToast 출력
+ * @param notifyMessage - 성공 메시지
+ */
+function notifyMessageToast(notifyMessage) {
+    const notifyMessageToast = existId('notifyMessageToast')
+    const notifyMessageElem = existId('notifyMessage');
+
+    notifyMessageElem.innerText = notifyMessage;
+    const toast = new bootstrap.Toast(notifyMessageToast);
+    toast.show();
+}
+
+/**
  * 로딩바 출력
  */
 function openLoadingBar() {
