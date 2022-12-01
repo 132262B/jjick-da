@@ -32,8 +32,8 @@ public class AdminService {
     }
 
     // 메인 카테고리 리스트
-    public List<GetMainCategoryDto> getMainList() {
-        return adminRepository.getMainList();
+    public List<GetMainCategoryDto> getMainList(SearchDto searchDto) {
+        return adminRepository.getMainList(searchDto);
     }
 
     // 서브 카테고리 등록
@@ -57,8 +57,8 @@ public class AdminService {
     }
 
     // 서브 카테고리 리스트
-    public List<GetSubCategoryDto> getSubList() {
-        return adminRepository.getSubList();
+    public List<GetSubCategoryDto> getSubList(SearchDto searchDto) {
+        return adminRepository.getSubList(searchDto);
     }
 
     // mainCategoryIdx를 상속받는 서브 카테고리 리스트

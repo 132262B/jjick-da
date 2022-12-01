@@ -48,16 +48,16 @@ public class AdminRestController {
     @ApiOperation("서브등록(datalist) 메인등록(list) 에서 쓰일 Main_ctg_getList API")
     @LoginCheck(auth = Role.ADMIN, type = Type.API)
     @PostMapping("/get-main-category")
-    public ResponseEntity<ApiResponse<List<GetMainCategoryDto>>> getMainList() {
-        List<GetMainCategoryDto> questionList = adminService.getMainList();
+    public ResponseEntity<ApiResponse<List<GetMainCategoryDto>>> getMainList(@RequestBody SearchDto searchDto) {
+        List<GetMainCategoryDto> questionList = adminService.getMainList(searchDto);
         return ResponseEntity.ok(new ApiResponse<>(questionList));
     }
 
     @ApiOperation("문항등록(datalist) 에 쓰일 서브 카테고리 리스트 API")
     @LoginCheck(auth = Role.ADMIN, type = Type.API)
     @PostMapping("/get-sub-list")
-    public ResponseEntity<ApiResponse<List<GetSubCategoryDto>>> getSubList() {
-        List<GetSubCategoryDto> questionList = adminService.getSubList();
+    public ResponseEntity<ApiResponse<List<GetSubCategoryDto>>> getSubList(@RequestBody SearchDto searchDto) {
+        List<GetSubCategoryDto> questionList = adminService.getSubList(searchDto);
         return ResponseEntity.ok(new ApiResponse<>(questionList));
     }
 

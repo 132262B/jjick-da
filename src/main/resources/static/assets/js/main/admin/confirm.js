@@ -10,16 +10,16 @@ function unconfirmedExamData() {
     let html = "";
         for(let i of data.data){
             html += `
-                <div class="confirm_list">
-                    <div class="confirm_checkbox"><input name="confirmedExam" type="checkbox" value="${i.idx}"></div>
-                    <div class="confirm_number">${i.idx}</div>
-                    <div id="confirm_name_hover" class="confirm_name">${i.examName}</div>
-                    <div class="confirm_reg_date">${i.regDate}</div>
-                    <div class="confirm_reg_name">${i.regName}</div>
+                <div class="list">
+                    <div class="scroll_element list_checkbox"><input name="confirmedExam" type="checkbox" value="${i.idx}"></div>
+                    <div class="scroll_element list_number">${i.idx}</div>
+                    <div class="scroll_element list_name list_name_hover">${i.examName}</div>
+                    <div class="scroll_element list_reg_date">${i.regDate}</div>
+                    <div class="scroll_element list_reg_name">${i.regName}</div>
                 </div>
             `
         }
-        $(".scroll").html(html);
+        $(".html").html(html);
     })
 }
 

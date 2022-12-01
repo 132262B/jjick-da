@@ -5,7 +5,7 @@ import lombok.*;
 import org.apache.ibatis.type.Alias;
 
 import javax.validation.constraints.NotBlank;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 @Getter
 @Setter
@@ -26,11 +26,11 @@ public class GetMainCategoryDto {
 
     private String udtUserName;
 
-    private Timestamp regDate;
+    private Date regDate;
 
     private long regIdx;
 
-    private Timestamp udtDate;
+    private Date udtDate;
 
     private long udtIdx;
 }
