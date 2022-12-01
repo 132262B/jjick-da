@@ -54,4 +54,118 @@
            AND IDX = #{subCtgIdx}
     </select>
 
+    <!-- 시험 전체 결과 등록 -->
+    <insert id="insertExamAllResult" useGeneratedKeys="true" keyProperty="submitExamDto.examResultIdx">
+        INSERT
+          INTO TB_EXAM_ALL_RESULT
+             ( MAIN_CATEGORY_IDX
+             , SUB_CATEGORY_IDX
+             , SUBJECT_CNT
+             , AVERAGE_SCORE
+             , PASS_STATUS
+             , LOGIN_STATUS
+             , EXAM_RESULT_TOKEN
+             , LOGIN_REG_IDX
+             )
+        VALUES
+             ( #{submitExamDto.mainCategoryIdx}
+             , #{submitExamDto.subCategoryIdx}
+             , #{submitExamDto.subjectCnt}
+             , 0
+             , 0
+             , IF(#{user.idx} IS NULL, 0, 1)
+             , #{uuid}
+             , IFNULL(#{user.idx}, NULL)
+             )
+    </insert>
+
+    <!-- 시험 문항 결과 등록 -->
+    <insert id="insertExamQuestionResult">
+        INSERT
+          INTO TB_EXAM_QUESTION_RESULT
+             ( EXAM_RESULT_IDX
+             , QUESTION_IDX
+             , SUBJECT_IDX
+             , QUESTION_NUMBER
+             , INPUT_ANSWER
+             , ANSWER_NUMBER
+             , ANSWER_STATUS
+             )
+        VALUES
+        <foreach collection="submitAnswerList" item="item" index="index" separator=",">
+             ( #{examResultIdx}
+             , #{item.questionIdx}
+             , #{item.subjectIdx}
+             , #{item.questionNumber}
+             , #{item.inputAnswer}
+             , ( SELECT TEQ.ANSWER_NUMBER
+                   FROM TB_EXAM_QUESTION TEQ
+                  WHERE TEQ.IDX = #{item.questionIdx}
+               )
+             , ( SELECT IF(TEQ.ANSWER_NUMBER = #{item.inputAnswer}, 1, 0) AS ANSWER_STATUS
+                   FROM TB_EXAM_QUESTION TEQ
+                  WHERE TEQ.IDX = #{item.questionIdx}
+               )
+             )
+        </foreach>
+    </insert>
+
+    <!-- 시험 과목별 결과 등록 -->
+    <insert id="insertExamSubjectResult"><![CDATA[
+        INSERT
+          INTO TB_EXAM_SUBJECT_RESULT
+             ( EXAM_RESULT_IDX
+             , SUBJECT_IDX
+             , SUBJECT_SCORE
+             , PASS_STATUS
+             )
+        SELECT A.EXAM_RESULT_IDX
+             , A.SUBJECT_IDX
+             , IFNULL(B.SUBJECT_SCORE, 0) AS SUBJECT_SCORE
+             , IFNULL(B.PASS_STATUS, 0) AS PASS_STATUS
+          FROM ( SELECT TEQR.EXAM_RESULT_IDX
+                      , TEQR.SUBJECT_IDX
+                   FROM TB_EXAM_QUESTION_RESULT TEQR
+                  WHERE TEQR.EXAM_RESULT_IDX = #{examResultIdx}
+                  GROUP BY TEQR.SUBJECT_IDX
+             ) A
+          LEFT JOIN ( SELECT TEQR.EXAM_RESULT_IDX
+                           , TEQR.SUBJECT_IDX
+                           , ( (100 / TES.SUBJECT_QUESTION_CNT) * COUNT(TEQR.ANSWER_STATUS)) AS SUBJECT_SCORE
+                           , IF(TES.SUBJECT_CUT_OFF_SCORE <= ((100 / TES.SUBJECT_QUESTION_CNT) * COUNT(TEQR.ANSWER_STATUS)),1,0) AS PASS_STATUS
+                        FROM TB_EXAM_QUESTION_RESULT TEQR
+                        LEFT JOIN TB_EXAM_SUBJECT TES
+                          ON TES.IDX = TEQR.SUBJECT_IDX
+                        WHERE TEQR.EXAM_RESULT_IDX = #{examResultIdx}
+                          AND TEQR.ANSWER_STATUS = 1
+                       GROUP BY TEQR.SUBJECT_IDX
+              ) B
+             ON A.SUBJECT_IDX = B.SUBJECT_IDX
+        ]]></insert>
+
+    <!-- 시험 전체 결과 업데이트(평균점수,합격유무) -->
+    <update id="updateExamAllResult"><![CDATA[
+        UPDATE TB_EXAM_ALL_RESULT TEAR
+             , ( SELECT B.AVERAGE_SCORE
+                      , IF((A.PASS_STATUS = B.SUBJECT_CNT)AND(B.AVERAGE_SCORE <= C.EXAM_CUT_OFF_SCORE),1,0) AS PASS_STATUS
+                   FROM ( SELECT TESR.PASS_STATUS
+                            FROM TB_EXAM_SUBJECT_RESULT TESR
+                           WHERE TESR.EXAM_RESULT_IDX = #{examResultIdx}
+                             AND TESR.PASS_STATUS = 1
+                      ) A
+                   JOIN ( SELECT TRUNCATE(SUM(TESR.SUBJECT_SCORE)/ COUNT(TESR.IDX), 1) AS AVERAGE_SCORE
+                               , COUNT(TESR.IDX) AS SUBJECT_CNT
+                            FROM TB_EXAM_SUBJECT_RESULT TESR
+                           WHERE TESR.EXAM_RESULT_IDX = #{examResultIdx}
+                      ) B
+                   JOIN ( SELECT TESC.EXAM_CUT_OFF_SCORE
+                            FROM TB_EXAM_SUB_CATEGORY TESC
+                           WHERE TESC.IDX = #{subCategoryIdx}
+                      ) C
+             ) JI
+           SET TEAR.AVERAGE_SCORE = JI.AVERAGE_SCORE
+             , TEAR.PASS_STATUS = JI.PASS_STATUS
+         WHERE TEAR.IDX = #{examResultIdx}
+       ]]></update>
+
 </mapper>

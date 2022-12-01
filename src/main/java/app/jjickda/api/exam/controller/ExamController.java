@@ -10,17 +10,17 @@ import springfox.documentation.annotations.ApiIgnore;
 public class ExamController {
 
     @GetMapping("/exam-single")
-    public String examSingle(Model model) {
+    public String examSingle() {
         return "main/user/examSingle";
     }
 
     @GetMapping("/exam-all")
-    public String examAll(Model model) {
+    public String examAll() {
         return "main/user/examAll";
     }
 
     @GetMapping("/exam-result")
-    public String examResult(Model model) {
+    public String examResult() {
         return "main/user/examResult";
     }
 

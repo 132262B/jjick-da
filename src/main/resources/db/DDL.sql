@@ -155,6 +155,7 @@ CREATE TABLE `TB_EXAM_QUESTION_RESULT` (
     `SUBJECT_IDX`     bigint NOT NULL                            COMMENT '과목IDX',
     `QUESTION_NUMBER` int    NOT NULL                            COMMENT '문항번호',
     `INPUT_ANSWER`    int    NOT NULL                            COMMENT '입력한 정답',
+    `ANSWER_NUMBER`   int    NOT NULL                            COMMENT '정답번호',
     `ANSWER_STATUS`   bit(1) NOT NULL                            COMMENT '정답 유무'
 );
 
