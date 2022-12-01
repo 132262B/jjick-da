@@ -2,12 +2,14 @@ package app.jjickda.global.utils;
 
 import app.jjickda.global.config.exception.CustomException;
 import app.jjickda.global.config.exception.ErrorCode;
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 @Slf4j
+@UtilityClass
 public class SHA256Util {
 
     public static String encrypt(String str) {

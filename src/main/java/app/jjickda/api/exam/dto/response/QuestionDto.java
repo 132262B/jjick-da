@@ -22,6 +22,9 @@ public class QuestionDto {
     @ApiModelProperty(value = "문항번호")
     private int questionNumber;
 
+    @ApiModelProperty(value = "과목IDX")
+    private long subjectIdx;
+
     @ApiModelProperty(value = "과목이름")
     private String subjectName;
 

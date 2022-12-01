@@ -16,7 +16,5 @@ public class OngoingExamInfoDto {
     @ApiModelProperty(value = "선지 개수")
     private long optionsCnt;
 
-    @ApiModelProperty(value = "과목 개수")
-    private int subjectCnt;
 
 }
