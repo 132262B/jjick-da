@@ -13,7 +13,7 @@ function getMainList() {
                     <div class="list">
                         <div class="scroll_element list_checkbox">&nbsp;</div>
                         <div class="scroll_element list_number">${i.idx}</div>
-                        <div class="list_name_hover scroll_element list_name">${i.mainCategoryName}</div>
+                        <div class="list_name_hover scroll_element list_name" onclick='location.href="/admin/write-sub-question/main/${i.mainCategoryName}"'>${i.mainCategoryName}</div>
                         <div class="scroll_element list_reg_date">${i.regDate}</div>
                         <div class="scroll_element list_reg_name">${i.regUserName}</div>
                     </div>

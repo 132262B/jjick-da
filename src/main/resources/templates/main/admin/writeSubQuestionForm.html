@@ -35,8 +35,6 @@
   </div>
   <button class="mt-3 preview_button button5" type="button" onclick="registSub();">등록</button>
 </div>
-
-
 <script>
     $(document).ready(function(){
       getMainDataList();
@@ -50,9 +48,27 @@
         <p>서브 카테고리</p>
       </header>
       <div class="main_wrapper" data-aos="fade-up" data-aos-duration="1000">
-        <div class="search_bar">
+        <div th:if="${sort == 'main' and searchTarget != null}" class="search_bar">
           <input class="search_button button5" type="button" onclick="getSubList();" value="검색">
-          <input id="search_object" class="form-control" type="text" placeholder="카테고리명 으로 검색">
+          <input id="search_object" th:value="${searchTarget}" class="form-control" type="text" placeholder="카테고리명 으로 검색">
+          <select id="search_sort" class="sort form-control">
+            <option value="all">전체</option>
+            <option value="main" selected>메인 카테고리명</option>
+            <option value="sub">서브 카테고리명</option>
+          </select>
+        </div>
+        <div th:if="${sort == 'sub' and searchTarget != null}" class="search_bar">
+          <input class="search_button button5" type="button" onclick="getSubList();" value="검색">
+          <input id="search_object" th:value="${searchTarget}" class="form-control" type="text" placeholder="카테고리명 으로 검색">
+          <select id="search_sort" class="sort form-control">
+            <option value="all">전체</option>
+            <option value="main">메인 카테고리명</option>
+            <option value="sub" selected>서브 카테고리명</option>
+          </select>
+        </div>
+        <div th:if="${sort == null and searchTarget == null}" class="search_bar">
+          <input class="search_button button5" type="button" onclick="getSubList();" value="검색">
+          <input id="search_object" th:value="${searchTarget}" class="form-control" type="text" placeholder="카테고리명 으로 검색">
           <select id="search_sort" class="sort form-control">
             <option value="all">전체</option>
             <option value="main">메인 카테고리명</option>
