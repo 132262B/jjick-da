@@ -10,7 +10,7 @@ import org.apache.ibatis.type.Alias;
 @Alias("examSubjectResultListDto")
 public class ExamSubjectResultListDto {
 
-    @ApiModelProperty(value = "과목 이름")
+    @ApiModelProperty(value = "과목명")
     private String subjectName;
 
     @ApiModelProperty(value = "과목 합격 점수")
