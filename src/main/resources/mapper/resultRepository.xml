@@ -4,7 +4,7 @@
 
 <mapper namespace="app.jjickda.api.result.repository.ResultRepository">
 
-    <!-- 과목 결과 조회 -->
+    <!-- 과목결과 조회 -->
     <select id="selectExamSubjectResultList" resultType="examSubjectResultListDto">
         SELECT TES.SUBJECT_NAME
              , TES.SUBJECT_CUT_OFF_SCORE
@@ -21,7 +21,7 @@
            AND TEAR.EXAM_RESULT_TOKEN = #{token}
     </select>
 
-    <!-- 시험 전체 결과 조회 -->
+    <!-- 시험전체 결과 조회 -->
     <select id="selectExamAllResult" resultType="examAllResultDto">
         SELECT TEAR.AVERAGE_SCORE
              , CASE WHEN TEAR.PASS_STATUS = 1 THEN '합격'
@@ -30,7 +30,25 @@
           FROM TB_EXAM_ALL_RESULT TEAR
          WHERE TEAR.IDX = #{idx}
            AND TEAR.EXAM_RESULT_TOKEN = #{token}
+    </select>
 
+    <!-- 시험결과 상세 조회 -->
+    <select id="selectExamDetailResultList" resultType="examDetailResultDto">
+        SELECT TES.SUBJECT_NAME
+             , TEQR.QUESTION_NUMBER
+             , TEQR.INPUT_ANSWER
+             , TEQR.ANSWER_NUMBER
+             , CASE WHEN TEQR.ANSWER_STATUS = 1 THEN '정답'
+                    ELSE '틀림'
+                END AS ANSWER_YN
+          FROM TB_EXAM_ALL_RESULT TEAR
+          LEFT JOIN TB_EXAM_QUESTION_RESULT TEQR
+            ON TEAR.IDX = TEQR.EXAM_RESULT_IDX
+          LEFT JOIN TB_EXAM_SUBJECT TES
+            ON TES.IDX = TEQR.SUBJECT_IDX
+         WHERE TEAR.IDX = #{idx}
+           AND TEAR.EXAM_RESULT_TOKEN = #{token}
+         ORDER BY TEQR.QUESTION_NUMBER
     </select>
 
 </mapper>
