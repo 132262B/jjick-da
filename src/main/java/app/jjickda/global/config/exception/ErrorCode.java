@@ -15,6 +15,8 @@ public enum ErrorCode {
     SIGN_UP_EMAIL_DUPLICATE(HttpStatus.CONFLICT, "이미 가입된 이메일 주소입니다. 다른 이메일을 입력하여 주세요."),
 
     // Common
+
+    REQUIRED_REQUEST_NO_PARAMETER(HttpStatus.BAD_REQUEST, "필수 값이 존재하지 않습니다."),
     INVALID_INPUT_VALUE(HttpStatus.BAD_REQUEST, "입력 값이 잘못 되었습니다."),
     METHOD_NOT_ALLOWED(HttpStatus.METHOD_NOT_ALLOWED, "메소드를 사용할 수 없습니다."),
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버에 문제가 발생하였습니다. 관리자에게 문의 부탁드립니다."),
