@@ -2,9 +2,31 @@
 <html lang="kr" xmlns:th="http://www.w3.org/1999/xhtml">
 <th:block th:replace="fragments/admin/head :: adminHeadFragment"></th:block>
 <script th:src="@{/assets/js/main/admin/writeSubject.js}"></script>
+<script th:src="@{/assets/js/main/admin/customModal.js}"></script>
 <body>
+<div id="modal" onclick="modalClose();">
+</div>
+<div id="modal_content" class="top-50 start-50 translate-middle">
+    <div class="close close2" onclick="modalClose();"></div>
+    <div class="modal_subject">과목 등록</div>
+
+    <div class="col-md-12 mb-3">
+        <input type="text" id="subjectName" class="form-control" placeholder="과목을 입력해주세요." required />
+    </div>
+    <div class="row flex">
+        <div class="flex_child col-md-6">
+            <input id="subjectQuestionCnt" type="number" placeholder="문항 개수" class=" form-control" onkeyup="onchangeNum(this); positiveNumber(this,1,50);" required />
+        </div>
+        <div class="flex_child col-md-6">
+            <input id="subjectCutOffScore" type="number" placeholder="과목 합격 기준" class=" form-control" onkeyup="onchangeNum(this); positiveNumber(this,1,100);" required />
+        </div>
+    </div>
+    <div class="col-md-12 text-center">
+        <button class="main_button" type="button" onclick="registSubject();">등록</button>
+    </div>
+</div>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         getSubDetail();
     });
 </script>
@@ -14,39 +36,28 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <section class="sub_ctg_info" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
    <div class="info">
-       <div id="htmls"></div>
-        <div class="col-md-12" id="m_b">
-            <input type="text" id="subjectName" class="form-control" placeholder="과목을 입력해주세요." required />
-        </div>
-       <div class="row media_flex">
-           <div class="media_flex_child col-md-6">
-               <input id="subjectQuestionCnt" type="number" placeholder="문항 개수" class=" form-control" onkeyup="onchangeNum(this); positiveNumber(this,1,50);" required />
-           </div>
-           <div class="media_flex_child col-md-6">
-               <input id="subjectCutOffScore" type="number" placeholder="과목 합격 기준" class=" form-control" onkeyup="onchangeNum(this); positiveNumber(this,1,100);" required />
-           </div>
-       </div>
-        <div class="col-md-12 text-center">
-            <button class="main_button" type="button" onclick="registSubject();">등록</button>
-        </div>
+       <div id="html"></div>
     </div>
 </section>
-<section id="contact" class="contact">
-    <div class="container" data-aos="fade-up">
-        <header class="section-header">
-            <p>과목 리스트</p>
-        </header>
-
-        <div class="col-md-12" id="main_list">
-            <div class="list_1">번호</div>
-            <div class="list_2">과목명</div>
-            <div class="list_3">등록일</div>
-            <div class="list_4">등록자</div>
-            <div class="list_5">수정일</div>
-            <div class="list_6">수정자</div>
-            <div class="list_7">사용 유무</div>
+<section class="wrapper" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
+    <header class="section-header">
+        <p>과목 리스트</p>
+    </header>
+    <div class="main_wrapper">
+        <div class="scroll">
+            <div class="main_content">
+                <div class="list list_subject">
+                    <div class="scroll_element list_checkbox">&nbsp;</div>
+                    <div class="scroll_element list_number">No.</div>
+                    <div class="scroll_element list_name">과목 이름</div>
+                    <div class="scroll_element list_reg_date">등록일</div>
+                    <div class="scroll_element list_reg_name">등록자</div>
+                </div>
+                <div id="html2">
+                </div>
+            </div>
         </div>
-        <div class="htmls"></div>
+        <input class="confirm_button button5" onclick="modal();" type="button" value="과목 등록">
     </div>
 </section>
 <th:block th:replace="fragments/user/layout :: layoutFragment"></th:block>

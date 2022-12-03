@@ -4,6 +4,7 @@ import lombok.*;
 import org.apache.ibatis.type.Alias;
 
 import javax.validation.constraints.NotNull;
+import java.sql.Date;
 
 @Getter
 @Setter
@@ -12,7 +13,8 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Alias("GetSubjectDto")
 public class GetSubjectDto {
-    private long subCategoryIdx;
     private String subjectName;
     private long idx;
+    private String regName;
+    private Date regDate;
 }

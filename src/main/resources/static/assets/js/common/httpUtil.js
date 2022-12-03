@@ -146,5 +146,30 @@ class HttpUtil {
             }
         });
     }
+        /**
+         * http 기본 요청, 컨트롤러에서 PathVariable 로 데이터 받아올때 사용하는 GET 방식의 메서드
+         *
+         * @param url {string}
+         * @param successFunction
+         * @param completeFunction
+         */
+    pathRequest(url, successFunction) {
+        $.ajax({
+            url: url,
+            type: "get",
+            dataType: "json",
+            contentType: 'application/json',
+            success: (data) => {
+                successFunction(data);
+            },
+            error: (err) => {
+                errorMessageToast(err.responseJSON.message);
+            },
+            complete: () => {
+                // 공통 컴플리트 개발해야함.
+            }
+        });
+    }
+
 
 }

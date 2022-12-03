@@ -63,16 +63,16 @@ public class AdminRestController {
 
     @ApiOperation("문항등록(datalist) 에 쓰일 서브 카테고리 리스트 API")
     @LoginCheck(auth = Role.ADMIN, type = Type.API)
-    @PostMapping("/get-sub-category")
-    public ResponseEntity<ApiResponse<List<GetSubCategoryDto>>> getSubCategory(@RequestBody long mainIdx) {
+    @GetMapping("/get-sub-category/{mainIdx}")
+    public ResponseEntity<ApiResponse<List<GetSubCategoryDto>>> getSubCategory(@PathVariable long mainIdx) {
         List<GetSubCategoryDto> questionList = adminService.getSubList(mainIdx);
         return ResponseEntity.ok(new ApiResponse<>(questionList));
     }
 
-    @ApiOperation("문항등록(datalist) 에 쓰일 서브 카테고리 리스트 API")
+    @ApiOperation("과목등록에 쓰일 subject List API")
     @LoginCheck(auth = Role.ADMIN, type = Type.API)
-    @PostMapping("/get-subject-category")
-    public ResponseEntity<ApiResponse<List<GetSubjectDto>>> getSubjectCategory(@RequestBody long subIdx) {
+    @GetMapping("/get-subject-category/{subIdx}")
+    public ResponseEntity<ApiResponse<List<GetSubjectDto>>> getSubjectCategory(@PathVariable long subIdx) {
         List<GetSubjectDto> subjectList = adminService.getSubjectCategory(subIdx);
         System.out.println(subjectList);
         return ResponseEntity.ok(new ApiResponse<>(subjectList));
@@ -80,8 +80,8 @@ public class AdminRestController {
 
     @ApiOperation("과목등록에 쓰일 Sub detail API")
     @LoginCheck(auth = Role.ADMIN, type = Type.API)
-    @PostMapping("/get-sub-detail")
-    public ResponseEntity<ApiResponse<GetSubCategoryDto>> getSubDetail(@RequestBody long subIdx) {
+    @GetMapping("/get-sub-detail/{subIdx}")
+    public ResponseEntity<ApiResponse<GetSubCategoryDto>> getSubDetail(@PathVariable long subIdx) {
         GetSubCategoryDto subDetail = adminService.getSubDetail(subIdx);
         return ResponseEntity.ok(new ApiResponse<>(subDetail));
     }
@@ -101,8 +101,8 @@ public class AdminRestController {
     }
     @ApiOperation("문항 등록 페이지에서 쓰일 시험 정보 API")
     @LoginCheck(auth = Role.ADMIN, type = Type.API)
-    @PostMapping("/get-exam-information")
-    public ResponseEntity<ApiResponse<ExamInformationDto>> getExamInformation(@RequestBody long subIdx) {
+    @GetMapping("/get-exam-information/{subIdx}")
+    public ResponseEntity<ApiResponse<ExamInformationDto>> getExamInformation(@PathVariable long subIdx) {
         ExamInformationDto examInfo = adminService.getExamInformation(subIdx);
         return ResponseEntity.ok(new ApiResponse<>(examInfo));
     }

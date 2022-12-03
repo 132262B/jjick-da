@@ -156,12 +156,15 @@
 
     <select id="getSubjectCategory" resultType="GetSubjectDto">
         SELECT
-        IDX
-        ,SUBJECT_NAME
-        FROM TB_EXAM_SUBJECT
+        s.IDX
+        ,s.SUBJECT_NAME
+        ,s.REG_DATE
+        ,U.NAME AS regName
+        FROM TB_EXAM_SUBJECT s
+        LEFT JOIN TB_USER U
+        ON REG_IDX = U.IDX
         WHERE SUB_CATEGORY_IDX = #{subIdx}
     </select>
-
 
     <!-- 시험 정보 등록 -->
     <insert id="insertExamInfo" useGeneratedKeys="true" keyProperty="examInfo.examIdx">

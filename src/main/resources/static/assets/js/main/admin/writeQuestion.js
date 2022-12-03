@@ -5,8 +5,8 @@ let optionCnt = 0;
 function getExamInfo(callback){
     index = 0;
     $("#question_html").html("");
-    let subData = $("#sub_ctg_name").val();
-    httpUtil.defaultRequest('/api/admin/get-exam-information','post', subData, (data) => {
+    let subIdx = $("#sub_ctg_name").val();
+    httpUtil.pathRequest('/api/admin/get-exam-information/'+subIdx, (data) => {
     optionCnt = data.data.optionsCnt;
         for(let i of data.data.subjectInformation){
             for(let k = 1; k<=i.subjectQuestionCnt; k++){
@@ -41,7 +41,7 @@ function getExamInfo(callback){
                             html_end ="</div></div>"
 
                             let html = html_first+html_middle+html_end;
-                            $("#question_html").append(html);
+                            $("#question_html").html(html);
             }
         }
         callback(data.data);
@@ -58,6 +58,7 @@ function getMainDataList() {
     })
 }
 function getSubDataList() {
+      $("#question_html").html("");
       $("#data_list2").html("");
       $("#sub_ctg_name").val("");
       for(let i=1; i<=index; i++){
@@ -68,7 +69,7 @@ function getSubDataList() {
       }else{
             let subDataList = `<option disabled selected value=''>서브 카테고리 선택</option>`;
             let data = mainIdx;
-            httpUtil.defaultRequest('/api/admin/get-sub-category','post', data, (data) => {
+            httpUtil.pathRequest('/api/admin/get-sub-category/'+mainIdx, (data) => {
                 for(let i of data.data){
                   subDataList += `<option value='${i.idx}'>${i.subCategoryName}</option>`
                 }
@@ -115,7 +116,6 @@ function loadData() {
                     let mainCategoryIdx = existIdValue("main_ctg_name");
                     let subCategoryIdx = existIdValue("sub_ctg_name");
                     let saveData = window.localStorage.getItem(`saveData_${mainCategoryIdx}_${subCategoryIdx}`);
-                    console.log(saveData);
                     saveData = JSON.parse(saveData);
                     if(!isEmptyStr(saveData)){
                         let loadData = confirm("이전에 작성하신 데이터를 가져옵니까?(취소시 삭제)");
@@ -150,6 +150,10 @@ function saveData() {
         let examInfo = {};
         let mainCategoryIdx = existIdValue("main_ctg_name");
         let subCategoryIdx = existIdValue("sub_ctg_name");
+        if(mainCategoryIdx == null || mainCategoryIdx == "" || subCategoryIdx == null || subCategoryIdx == ""){
+            warningMessageToast("임시 저장전 메인,서브 카테고리를 선택해주세요");
+            return false;
+        }
         let examName = existIdValue("examName");
         let questionCnt = index;
         examInfo.mainCategoryIdx = mainCategoryIdx;

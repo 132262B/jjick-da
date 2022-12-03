@@ -1,9 +1,8 @@
 function getSubDetail() {
-    let htmls = "";
-    let subIdx = existId("subIdx");
-    let data = subIdx.value;
-    httpUtil.defaultRequest(`/api/admin/get-sub-detail`, 'post', data,
-    function (data) {
+    let html = "";
+    let subIdx = existId("subIdx").value;
+    getSubjectList(subIdx);
+    httpUtil.pathRequest("/api/admin/get-sub-detail/"+subIdx, (data) => {
     let useStatus = data.data.useStatus;
     if(useStatus == 1){
        useStatus = "사용중";
@@ -17,8 +16,8 @@ function getSubDetail() {
     }else{
         udtDate = cutTime(udtDate);
     }
-    htmls += `<div class="info_subject">
-                <a href="">${data.data.mainCategoryName}</a>-${data.data.subCategoryName}
+    html += `<div class="info_subject">
+                <a href="/admin/write-sub-question/main/${data.data.mainCategoryName}">${data.data.mainCategoryName}</a>-${data.data.subCategoryName}
               </div>
               <div class="info_details">
               <div class="info_right">
@@ -34,20 +33,55 @@ function getSubDetail() {
                   <div id="subjects" class=""><a href="">수정</a></div>
               </div>
           </div>`
-        $("#htmls").html(htmls)
+        $("#html").html(html)
     });
 }
+
+function getSubjectList(subIdx) {
+    let subjectList = "";
+    httpUtil.pathRequest("/api/admin/get-subject-category/"+subIdx, (data) => {
+        for(let i of data.data){
+            subjectList += `
+                <div class="list">
+                    <div class="scroll_element list_checkbox">&nbsp;</div>
+                    <div class="scroll_element list_number">${i.idx}</div>
+                    <div class="scroll_element list_name list_name_hover">${i.subjectName}</div>
+                    <div class="scroll_element list_reg_date">${i.regDate}</div>
+                    <div class="scroll_element list_reg_name">${i.regName}</div>
+                </div>
+            `
+        }
+        $("#html2").html(subjectList);
+    })
+}
+
 function registSubject() {
     let subjectData = {};
     subjectData.subCategoryIdx = existId("subIdx").value;
     subjectData.subjectName = existId("subjectName").value;
     subjectData.subjectQuestionCnt = existId("subjectQuestionCnt").value;
     subjectData.subjectCutOffScore = existId("subjectCutOffScore").value;
+    if(isEmptyStr(subjectData.subCategoryIdx)){
+       warningMessageToast("가용하지 않는 페이지입니다.");
+       return false;
+    }
+    if(isEmptyStr(subjectData.subjectQuestionCnt)){
+       warningMessageToast("문제 개수를 입력하세요.");
+       return false;
+    }
+    if(isEmptyStr(subjectData.subjectName)){
+       warningMessageToast("과목 이름을 입력하세요.");
+       return false;
+    }
+    if(isEmptyStr(subjectData.subjectCutOffScore)){
+       warningMessageToast("과목 합격 기준을 입력하세요.");
+       return false;
+    }
+
     httpUtil.defaultRequest('/api/admin/regist-subject','post', subjectData, function(data) {
         if(data.data.success){
             getSubDetail();
             successMessageToast(data.data.message);
-            $("#subIdx").val("");
             $("#subjectName").val("");
             $("#subjectQuestionCnt").val("");
             $("#subjectCutOffScore").val("");
