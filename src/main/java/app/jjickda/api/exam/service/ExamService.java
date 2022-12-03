@@ -72,10 +72,9 @@ public class ExamService {
     @Transactional
     public ResultTokenAndIndex submit(SubmitExamDto submitExamDto) {
 
-        UUID uuid;
+        UUID uuid = UUID.randomUUID();
         try {
             User user = SessionUtil.getUserAttribute();
-            uuid = UUID.randomUUID();
 
             examRepository.insertExamAllResult(submitExamDto, user, uuid.toString());
             examRepository.insertExamQuestionResult(submitExamDto);

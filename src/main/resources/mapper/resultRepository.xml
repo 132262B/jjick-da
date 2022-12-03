@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="app.jjickda.api.result.repository.ResultRepository">
+
+    <!-- 과목 결과 조회 -->
+    <select id="selectExamSubjectResultList" resultType="examSubjectResultListDto">
+        SELECT TES.SUBJECT_NAME
+             , TES.SUBJECT_CUT_OFF_SCORE
+             , TESR.SUBJECT_SCORE
+             , CASE WHEN TESR.PASS_STATUS = 1 THEN '합격'
+                    ELSE '과락'
+                END AS PASS_YN
+          FROM TB_EXAM_ALL_RESULT TEAR
+          LEFT JOIN TB_EXAM_SUBJECT_RESULT TESR
+            ON TEAR.IDX = TESR.EXAM_RESULT_IDX
+          LEFT JOIN TB_EXAM_SUBJECT TES
+            ON TES.IDX = TESR.SUBJECT_IDX
+         WHERE TEAR.IDX = #{idx}
+           AND TEAR.EXAM_RESULT_TOKEN = #{token}
+    </select>
+
+    <!-- 시험 전체 결과 조회 -->
+    <select id="selectExamAllResult" resultType="examAllResultDto">
+        SELECT TEAR.AVERAGE_SCORE
+             , CASE WHEN TEAR.PASS_STATUS = 1 THEN '합격'
+                    ELSE '과락'
+                END AS PASS_YN
+          FROM TB_EXAM_ALL_RESULT TEAR
+         WHERE TEAR.IDX = #{idx}
+           AND TEAR.EXAM_RESULT_TOKEN = #{token}
+
+    </select>
+
+</mapper>

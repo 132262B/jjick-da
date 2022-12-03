@@ -136,8 +136,8 @@
                         FROM TB_EXAM_QUESTION_RESULT TEQR
                         LEFT JOIN TB_EXAM_SUBJECT TES
                           ON TES.IDX = TEQR.SUBJECT_IDX
-                        WHERE TEQR.EXAM_RESULT_IDX = #{examResultIdx}
-                          AND TEQR.ANSWER_STATUS = 1
+                       WHERE TEQR.EXAM_RESULT_IDX = #{examResultIdx}
+                         AND TEQR.ANSWER_STATUS = 1
                        GROUP BY TEQR.SUBJECT_IDX
               ) B
              ON A.SUBJECT_IDX = B.SUBJECT_IDX
