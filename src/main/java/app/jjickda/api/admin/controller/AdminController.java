@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Optional;
+
 
 @Controller
 @RequestMapping("/admin")
@@ -39,8 +41,12 @@ public class AdminController {
     }
 
     @LoginCheck(auth = Role.ADMIN, type = Type.PAGE)
-    @GetMapping("/write-sub-question")
-    public String subQuestionWriteForm() {
+    @GetMapping(value = {"/write-sub-question/{searchSort}/{searchObject}","/write-sub-question"})
+    public String subQuestionWriteForm(@PathVariable(required = false) Optional<String> searchSort, @PathVariable(required = false) Optional<String>searchObject, Model model) {
+    if(searchSort.isPresent() && searchObject.isPresent()){
+        model.addAttribute("sort",searchSort.get());
+        model.addAttribute("searchTarget",searchObject.get());
+    }
         return "main/admin/writeSubQuestionForm";
     }
 
