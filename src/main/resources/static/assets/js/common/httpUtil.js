@@ -23,9 +23,6 @@ class HttpUtil {
             },
             error: (err) => {
                 errorMessageToast(err.responseJSON.message);
-            },
-            complete: () => {
-                // 공통 컴플리트 개발해야함.
             }
         });
     }
@@ -140,23 +137,23 @@ class HttpUtil {
             },
             error: (err) => {
                 errorMessageToast(err.responseJSON.message);
-            },
-            complete: () => {
-                // 공통 컴플리트 개발해야함.
             }
         });
     }
-        /**
-         * http 기본 요청, 컨트롤러에서 PathVariable 로 데이터 받아올때 사용하는 GET 방식의 메서드
-         *
-         * @param url {string}
-         * @param successFunction
-         * @param completeFunction
-         */
-    pathRequest(url, successFunction) {
+
+
+    /**
+     * http 기본 요청
+     * 1. 컨트롤러에서 PathVariable 로 데이터 받아올때 사용하는 GET 방식의 메서드
+     * 2. 데이터를 전달할 필요가 없는 경우에 사용.
+     *
+     * @param url {string}
+     * @param successFunction
+     */
+    noDataRequest(url, successFunction) {
         $.ajax({
             url: url,
-            type: "get",
+            type: "GET",
             dataType: "json",
             contentType: 'application/json',
             success: (data) => {
@@ -164,9 +161,6 @@ class HttpUtil {
             },
             error: (err) => {
                 errorMessageToast(err.responseJSON.message);
-            },
-            complete: () => {
-                // 공통 컴플리트 개발해야함.
             }
         });
     }
