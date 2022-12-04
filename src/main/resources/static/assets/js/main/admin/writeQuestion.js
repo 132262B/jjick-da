@@ -41,7 +41,7 @@ function getExamInfo(callback){
                             html_end ="</div></div>"
 
                             let html = html_first+html_middle+html_end;
-                            $("#question_html").html(html);
+                            $("#question_html").append(html);
             }
         }
         callback(data.data);

@@ -1,12 +1,8 @@
 function getMainList() {
         let data = {};
-        let searchObject = $(".search_object").val();
-        if(isEmpty(searchObject)){
-            data.searchObject = null;
-        }else{
-            data.searchObject = searchObject;
-        }
-    httpUtil.defaultRequest('/api/admin/get-main-category','post',data , (data) => {
+        let search = $(".search_object").val();
+
+    httpUtil.defaultRequest('/api/admin/main/category','GET',search , (data) => {
             let mainCategoryList = "";
             for(let i of data.data){
                 mainCategoryList += `

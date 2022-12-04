@@ -35,31 +35,31 @@ public class AdminRestController {
     @ApiOperation(value = "메인카테고리 조회.", notes = "메인카테고리 조회할때 쓰는 API.")
     @LoginCheck(auth = Role.ADMIN, type = Type.API)
     @GetMapping("/main/category")
-    public ResponseEntity<ApiResponse<List<GetMainCategoryDto>>> getMainCategoryList(@RequestBody SearchDto searchDto) {
-        List<GetMainCategoryDto> questionList = adminService.getMainList(searchDto);
+    public ResponseEntity<ApiResponse<List<GetMainCategoryDto>>> getMainCategoryList(@RequestBody(required = false) String search) {
+        List<GetMainCategoryDto> questionList = adminService.getMainCategoryList(search);
         return ResponseEntity.ok(new ApiResponse<>(questionList));
     }
 
     @ApiOperation(value = "메인카테고리 등록.", notes = "메인카테고리 등록할때 쓰는 API.")
     @LoginCheck(auth = Role.ADMIN, type = Type.API)
     @PostMapping("/main/category")
-    public ResponseEntity<ApiResponse<DefaultResultDto>> registerMain(@Validated @RequestBody AddMainCategoryDto addMainCategoryDto) {
-        return ResponseEntity.ok(new ApiResponse<>(adminService.registMain(addMainCategoryDto)));
+    public ResponseEntity<ApiResponse<DefaultResultDto>> addMainCategory(@Validated @RequestBody AddMainCategoryDto addMainCategoryDto) {
+        return ResponseEntity.ok(new ApiResponse<>(adminService.addMainCategory(addMainCategoryDto)));
     }
 
     @ApiOperation(value = "서브카테고리 등록.", notes = "서브카테고리 등록할때 쓰는 API.")
     @LoginCheck(auth = Role.ADMIN, type = Type.API)
     @PostMapping("/sub/category")
-    public ResponseEntity<ApiResponse<DefaultResultDto>> registerSub(@Validated @RequestBody AddSubCategoryDto sub_question) {
-        return ResponseEntity.ok(new ApiResponse<>(adminService.registSub(sub_question)));
+    public ResponseEntity<ApiResponse<DefaultResultDto>> addSubCategory(@Validated @RequestBody AddSubCategoryDto addSubCategoryDto) {
+        return ResponseEntity.ok(new ApiResponse<>(adminService.addSubCategory(addSubCategoryDto)));
     }
 
     @ApiOperation(value = "서브카테고리 조회.", notes = "서브카테고리 조회할때 쓰는 API")
     @LoginCheck(auth = Role.ADMIN, type = Type.API)
     @GetMapping("/sub/category")
-    public ResponseEntity<ApiResponse<List<GetSubCategoryDto>>> getSubList(@RequestParam String search,
-                                                                           @RequestParam String sort) {
-        return ResponseEntity.ok(new ApiResponse<>(adminService.selectSubCategoryList(search, sort)));
+    public ResponseEntity<ApiResponse<List<GetSubCategoryDto>>> getSubCategoryList(@RequestParam String search,
+                                                                                   @RequestParam String sort) {
+        return ResponseEntity.ok(new ApiResponse<>(adminService.getSubCategoryList(search, sort)));
     }
 
     @ApiOperation(value = "서브카테고리 상세정보 조회.", notes = "서브카테고리 상세정보 조회할때 쓰는 API")
@@ -72,22 +72,22 @@ public class AdminRestController {
     @ApiOperation(value = "메인IDX로 서브카테고리 조회.", notes = "메인IDX를 통해 서브카테고리를 조회할때 쓰는 API")
     @LoginCheck(auth = Role.ADMIN, type = Type.API)
     @GetMapping("/sub/category/{mainIdx}")
-    public ResponseEntity<ApiResponse<List<GetSubCategoryDto>>> getSubCategory(@PathVariable long mainIdx) {
-        return ResponseEntity.ok(new ApiResponse<>(adminService.selectSubCategoryList(mainIdx)));
+    public ResponseEntity<ApiResponse<List<GetSubCategoryDto>>> getSubCategoryList(@PathVariable long mainIdx) {
+        return ResponseEntity.ok(new ApiResponse<>(adminService.getSubCategoryList(mainIdx)));
     }
 
     @ApiOperation(value = "서브IDX로 과목리스트 조회.", notes = "서브IDX로 통해 과목리스트 조회할때 쓰는 API")
     @LoginCheck(auth = Role.ADMIN, type = Type.API)
     @GetMapping("/subject/{subIdx}")
-    public ResponseEntity<ApiResponse<List<GetSubjectDto>>> getSubjectCategory(@PathVariable long subIdx) {
-        return ResponseEntity.ok(new ApiResponse<>(adminService.getSubjectCategory(subIdx)));
+    public ResponseEntity<ApiResponse<List<GetSubjectDto>>> getSubjectCategoryList(@PathVariable long subIdx) {
+        return ResponseEntity.ok(new ApiResponse<>(adminService.getSubjectCategoryList(subIdx)));
     }
 
     @ApiOperation(value = "과목정보 등록.", notes = "과목정보를 등록할때 쓰는 API.")
     @LoginCheck(auth = Role.ADMIN, type = Type.API)
     @PostMapping("/subject")
     public ResponseEntity<ApiResponse<DefaultResultDto>> addSubject(@Validated @RequestBody AddSubjectDto addSubjectDto) {
-        return ResponseEntity.ok(new ApiResponse<>(adminService.registSubject(addSubjectDto)));
+        return ResponseEntity.ok(new ApiResponse<>(adminService.addSubject(addSubjectDto)));
     }
 
     @ApiOperation(value = "문항정보 등록.", notes = "문항정보를 등록할때 쓰는 API.")
@@ -107,16 +107,16 @@ public class AdminRestController {
     @ApiOperation(value = "시험 결재정보 조회.", notes = "시험 결재정보 조회할때 쓰는 API")
     @LoginCheck(auth = Role.ADMIN, type = Type.API)
     @GetMapping("/confirm")
-    public ResponseEntity<ApiResponse<List<UnconfirmedExamDto>>> getConfirm(@RequestParam(required = false) String search) {
-        List<UnconfirmedExamDto> unconfirmedExamDataList = adminService.getUnconfirmedExamData(search);
+    public ResponseEntity<ApiResponse<List<UnconfirmedExamDto>>> getConfirmedExamList(@RequestParam(required = false) String search) {
+        List<UnconfirmedExamDto> unconfirmedExamDataList = adminService.getConfirmedExamList(search);
         return ResponseEntity.ok(new ApiResponse<>(unconfirmedExamDataList));
     }
 
     @ApiOperation(value = "시험 결재정보 등록.", notes = "시험 결재정보 등록할때 쓰는 API")
     @LoginCheck(auth = Role.ADMIN, type = Type.API)
     @PutMapping("/confirm")
-    public ResponseEntity<ApiResponse<DefaultResultDto>> addConfirm(@RequestBody List<Long> examIdx) {
-        DefaultResultDto response = adminService.confirmExam(examIdx);
+    public ResponseEntity<ApiResponse<DefaultResultDto>> putConfirmExam(@RequestBody List<Long> examIdx) {
+        DefaultResultDto response = adminService.putConfirmExam(examIdx);
         return ResponseEntity.ok(new ApiResponse<>(response));
     }
 

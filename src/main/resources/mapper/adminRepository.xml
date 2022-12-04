@@ -4,23 +4,23 @@
 
 <mapper namespace="app.jjickda.api.admin.repository.AdminRepository">
 
-    <insert id="registMain">
+   <!-- 메인 카테고리 등록 -->
+    <insert id="insertMainCategory">
         INSERT
           INTO TB_EXAM_MAIN_CATEGORY
              ( MAIN_CATEGORY_NAME
              , USE_STATUS
-             , REG_DATE
              , REG_IDX
              )
         VALUES
-             ( #{mainQuestion.mainCategoryName}
+             ( #{addMainCategoryDto.mainCategoryName}
              , 1
-             , now()
              , #{user.idx}
              )
     </insert>
 
-    <insert id="registSub">
+    <!-- 서브 카테고리 등록 -->
+    <insert id="insertSubCategory">
         INSERT
           INTO TB_EXAM_SUB_CATEGORY
              ( MAIN_CATEGORY_IDX
@@ -31,75 +31,76 @@
              , REG_IDX
              )
         VALUES
-             ( #{subQuestion.mainCategoryIdx}
-             , #{subQuestion.subCategoryName}
-             , #{subQuestion.optionsCnt}
-             , #{subQuestion.examCutOffScore}
+             ( #{addSubCategoryDto.mainCategoryIdx}
+             , #{addSubCategoryDto.subCategoryName}
+             , #{addSubCategoryDto.optionsCnt}
+             , #{addSubCategoryDto.examCutOffScore}
              , 1
              , #{user.idx}
              )
     </insert>
 
-    <insert id="registSubject">
-        INSERT INTO TB_EXAM_SUBJECT(
-          SUB_CATEGORY_IDX
+    <!-- 과목 등록 -->
+    <insert id="insertSubject">
+        INSERT
+          INTO TB_EXAM_SUBJECT
+        ( SUB_CATEGORY_IDX
         , SUBJECT_NAME
         , USE_STATUS
-        , REG_DATE
         , REG_IDX
         , SUBJECT_CUT_OFF_SCORE
         , SUBJECT_QUESTION_CNT
-        ) VALUES(
-          #{subject.subCategoryIdx}
-        , #{subject.subjectName}
+        ) VALUES
+        ( #{addSubjectDto.subCategoryIdx}
+        , #{addSubjectDto.subjectName}
         , 1
-        , now()
         , #{user.idx}
-        , #{subject.subjectCutOffScore}
-        , #{subject.subjectQuestionCnt}
+        , #{addSubjectDto.subjectCutOffScore}
+        , #{addSubjectDto.subjectQuestionCnt}
         )
     </insert>
 
-
-
-    <select id="getMainList" resultType="getMainCategoryDto">
+    <!-- 메인 카테고리 리스트 조회 -->
+    <select id="selectMainCategoryList" resultType="getMainCategoryDto">
         SELECT
-        e.MAIN_CATEGORY_NAME,
-        e.IDX,
-        e.USE_STATUS,
-        date_format(e.REG_DATE, '%Y-%m-%d') AS regDate,
-        e.REG_IDX,
-        e.UDT_DATE,
-        e.UDT_IDX,
-        u.NAME as regUserName,
-        IFNULL(user.NAME,"없음") as udtUserName
-        FROM TB_EXAM_MAIN_CATEGORY e
-        LEFT JOIN TB_USER u
-        ON REG_IDX = u.IDX
-        LEFT JOIN TB_USER user
-        ON UDT_IDX = user.IDX
+          E.MAIN_CATEGORY_NAME
+        , E.IDX
+        , E.USE_STATUS
+        , E.REG_DATE
+        , E.REG_IDX
+        , E.UDT_DATE
+        , E.UDT_IDX
+        , U.NAME as REG_USER_NAME
+        , IFNULL(USER.NAME,"없음") AS UDT_USER_NAME
+        FROM TB_EXAM_MAIN_CATEGORY E
+        LEFT JOIN TB_USER U
+        ON E.REG_IDX = U.IDX
+        LEFT JOIN TB_USER USER
+        ON E.UDT_IDX = USER.IDX
         WHERE
         <choose>
             <when test="searchObject != null">
-                MAIN_CATEGORY_NAME LIKE CONCAT('%',#{searchObject},'%')
+                E.MAIN_CATEGORY_NAME LIKE CONCAT('%',#{search},'%')
             </when>
             <otherwise>
-                MAIN_CATEGORY_NAME LIKE '%%'
+                E.MAIN_CATEGORY_NAME LIKE '%%'
             </otherwise>
         </choose>
     </select>
 
-    <select id="selectSubCategoryList" resultType="getSubCategoryDto">
-        SELECT E.IDX
-             , E.SUB_CATEGORY_NAME
-             , E.USE_STATUS
-             , DATE_FORMAT(E.REG_DATE, '%Y-%M-%D') AS REG_DATE
-             , E.REG_IDX
-             , DATE_FORMAT(E.UDT_DATE, '%Y-%M-%D') AS UDT_DATE
-             , E.UDT_IDX
-             , M.MAIN_CATEGORY_NAME
-             , U.NAME AS REG_USER_NAME
-             , IFNULL(USER.NAME,"없음") AS UDT_USER_NAME
+    <!-- 키워드로 서브 카테고리 리스트 조회 -->
+    <select id="selectSubCategoryListBySearch" resultType="getSubCategoryDto">
+        SELECT
+           E.IDX
+         , E.SUB_CATEGORY_NAME
+         , E.USE_STATUS
+         , REG_DATE
+         , E.REG_IDX
+         , E.UDT_DATE
+         , E.UDT_IDX
+         , M.MAIN_CATEGORY_NAME
+         , U.NAME AS REG_USER_NAME
+         , IFNULL(USER.NAME,"없음") AS UDT_USER_NAME
           FROM TB_EXAM_SUB_CATEGORY E
           LEFT JOIN TB_USER U
             ON REG_IDX = U.IDX
@@ -107,22 +108,23 @@
             ON E.UDT_IDX = USER.IDX
           LEFT JOIN TB_EXAM_MAIN_CATEGORY M
             ON E.MAIN_CATEGORY_IDX = M.IDX
-         WHERE 1=1
+         WHERE
         <choose>
             <when test="sort.equals('main')">
-           AND m.MAIN_CATEGORY_NAME LIKE CONCAT('%',#{search},'%');
+            m.MAIN_CATEGORY_NAME LIKE CONCAT('%',#{search},'%')
             </when>
             <when test="sort.equals('sub')">
-           AND e.SUB_CATEGORY_NAME LIKE CONCAT('%',#{search},'%');
+            e.SUB_CATEGORY_NAME LIKE CONCAT('%',#{search},'%')
             </when>
             <otherwise>
-           AND m.MAIN_CATEGORY_NAME LIKE CONCAT('%',#{search},'%')
-            OR e.SUB_CATEGORY_NAME LIKE CONCAT('%',#{search},'%');
+               m.MAIN_CATEGORY_NAME LIKE CONCAT('%',#{search},'%')
+            OR e.SUB_CATEGORY_NAME LIKE CONCAT('%',#{search},'%')
             </otherwise>
         </choose>
     </select>
 
-    <select id="getSubCategory" resultType="getSubCategoryDto">
+    <!-- mainIdx로 서브 카테고리 조회 -->
+    <select id="selectSubCategoryListByMainIdx" resultType="getSubCategoryDto">
         select
          IDX
         ,SUB_CATEGORY_NAME
@@ -130,7 +132,8 @@
         WHERE MAIN_CATEGORY_IDX = #{mainIdx}
     </select>
 
-    <select id="getSubDetail" resultType="getSubCategoryDto">
+    <!-- subIdx로 서브 카테고리 디테일 조회 -->
+    <select id="selectSubDetail" resultType="getSubCategoryDto">
         SELECT E.IDX
         , E.USE_STATUS
         , E.REG_DATE
@@ -149,19 +152,20 @@
         ON MAIN_CATEGORY_IDX = M.IDX
         LEFT JOIN TB_EXAM_SUBJECT TES
         ON E.IDX = TES.SUB_CATEGORY_IDX
-        WHERE E.IDX = #{idx}
+        WHERE E.IDX = #{subIdx}
     </select>
 
-    <select id="getSubjectCategory" resultType="GetSubjectDto">
+    <!-- subIdx로 과목 리스트 조회 -->
+    <select id="selectSubjectCategoryListBySubIdx" resultType="GetSubjectDto">
         SELECT
-        s.IDX
-        ,s.SUBJECT_NAME
-        ,s.REG_DATE
+         S.IDX
+        ,S.SUBJECT_NAME
+        ,S.REG_DATE
         ,U.NAME AS regName
-        FROM TB_EXAM_SUBJECT s
+        FROM TB_EXAM_SUBJECT S
         LEFT JOIN TB_USER U
-        ON REG_IDX = U.IDX
-        WHERE SUB_CATEGORY_IDX = #{subIdx}
+        ON S.REG_IDX = U.IDX
+        WHERE S.SUB_CATEGORY_IDX = #{subIdx}
     </select>
 
     <!-- 시험 정보 등록 -->
@@ -172,14 +176,12 @@
              , SUB_CATEGORY_IDX
              , EXAM_NAME
              , REG_IDX
-             , REG_DATE
              , CONFIRM_STATUS
              ) VALUES
              ( #{examInfo.mainCategoryIdx}
              , #{examInfo.subCategoryIdx}
              , #{examInfo.examName}
              , #{user.idx}
-             , now()
              , 0
              )
     </insert>
@@ -220,13 +222,15 @@
             </foreach>
     </insert>
 
-    <select id="getOptionsCnt" resultType="int">
+    <!-- subIdx로 선지개수 조회 -->
+    <select id="selectOptionsCnt" resultType="int">
         SELECT OPTIONS_CNT
         FROM TB_EXAM_SUB_CATEGORY
         WHERE IDX = #{subIdx}
     </select>
 
-    <select id="getSubjectInfo" resultType="subjectInformationDto">
+    <!-- subIdx로 과목 정보 조회 -->
+    <select id="selectSubjectInfo" resultType="subjectInformationDto">
         SELECT
          IDX as subjectIdx
         ,SUBJECT_NAME
@@ -235,16 +239,17 @@
         WHERE SUB_CATEGORY_IDX = #{subIdx}
     </select>
 
-    <select id="getUnconfirmedExamData" resultType="UnconfirmedExamDto">
+    <!-- 키워드로 결재 대기중인 시험 조회 -->
+    <select id="selectConfirmedExamList" resultType="UnconfirmedExamDto">
         SELECT
-         e.IDX
-        ,e.EXAM_NAME
-        ,date_format(e.REG_DATE, '%Y-%m-%d') AS regDate
-        ,e.REG_IDX
-        ,u.NAME AS regName
-        FROM TB_EXAM e
-        LEFT JOIN TB_USER u
-        ON REG_IDX = u.IDX
+         E.IDX
+        ,E.EXAM_NAME
+        ,E.REG_DATE
+        ,E.REG_IDX
+        ,E.NAME AS regName
+        FROM TB_EXAM E
+        LEFT JOIN TB_USER U
+        ON E.REG_IDX = U.IDX
         WHERE CONFIRM_STATUS = 0 AND
         <choose>
             <when test="searchObject != null">
@@ -256,7 +261,8 @@
         </choose>
     </select>
 
-    <update id="confirmExam">
+    <!-- 시험 결재 -->
+    <update id="updateConfirm">
         UPDATE TB_EXAM
         SET CONFIRM_STATUS = 1
         WHERE IDX = #{examIdx}
