@@ -20,7 +20,7 @@ public interface ExamRepository {
     long selectSubjectQuestionCnt(long subjectIdx);
 
     // 선지 정보 조회
-    List<OptionsDto> selectOptionsList(List<QuestionDto> questionListDto);
+    List<OptionsDto> selectOptionsList(List<Long> questionIdxList);
 
     // 진행중인 시험 정보 조회
     OngoingExamInfoDto selectOngoingExamInfo(ChoiceInfoDto choiceInfoDto);

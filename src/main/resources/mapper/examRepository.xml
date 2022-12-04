@@ -38,10 +38,10 @@
              , OPTIONS_NUMBER
              , OPTIONS_CONTENT
           FROM TB_EXAM_OPTIONS TEO
-         WHERE TEO.QUESTION_IDX  IN ( <foreach collection="questionListDto" item="item" index="index" separator=",">
-                                        #{item.questionIdx}
+         WHERE TEO.QUESTION_IDX  IN ( <foreach collection="questionIdxList" item="item" index="index" separator=",">
+                                        #{item}
                                       </foreach>
-        )
+                                    )
          ORDER BY QUESTION_IDX,OPTIONS_NUMBER ASC
     </select>
 

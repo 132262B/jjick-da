@@ -16,9 +16,7 @@ import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -40,18 +38,22 @@ public class ExamService {
 
             int questionNumber = 1;
             for (long subjectIdx : choiceInfoDto.getSubjectIdxArray()) {
-                List<QuestionDto> questionListDto = examRepository.selectQuestionList(choiceInfoDto, subjectIdx);
+                List<QuestionDto> questionList = examRepository.selectQuestionList(choiceInfoDto, subjectIdx);
 
                 if (choiceInfoDto.getExamIdxArray().length != 1) {
-                    Collections.shuffle(questionListDto);
+                    Collections.shuffle(questionList);
                     long subjectQuestionCnt = examRepository.selectSubjectQuestionCnt(subjectIdx);
-                    questionListDto = questionListDto.stream().limit(subjectQuestionCnt).collect(Collectors.toList());
+                    questionList = questionList.stream().limit(subjectQuestionCnt).collect(Collectors.toList());
                 }
 
-                List<OptionsDto> optionsDtoList = examRepository.selectOptionsList(questionListDto);
+                List<Long> questionIdxList = new ArrayList<>();
+                for (QuestionDto question : questionList)
+                    questionIdxList.add(question.getQuestionIdx());
 
-                for (QuestionDto repeatedQuestionDto : questionListDto) {
-                    repeatedQuestionDto.setOptionsList(optionsDtoList.stream()
+                List<OptionsDto> optionsList = examRepository.selectOptionsList(questionIdxList);
+
+                for (QuestionDto repeatedQuestionDto : questionList) {
+                    repeatedQuestionDto.setOptionsList(optionsList.stream()
                             .filter(optionsDto -> optionsDto.getQuestionIdx() == repeatedQuestionDto.getQuestionIdx())
                             .collect(Collectors.toList()));
 

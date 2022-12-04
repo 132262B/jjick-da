@@ -34,7 +34,9 @@
 
     <!-- 시험결과 상세 조회 -->
     <select id="selectExamDetailResultList" resultType="examDetailResultDto">
-        SELECT TES.SUBJECT_NAME
+        SELECT TEQR.QUESTION_IDX
+             , TEQ.QUESTION_NAME
+             , TES.SUBJECT_NAME
              , TEQR.QUESTION_NUMBER
              , TEQR.INPUT_ANSWER
              , TEQR.ANSWER_NUMBER
@@ -46,6 +48,8 @@
             ON TEAR.IDX = TEQR.EXAM_RESULT_IDX
           LEFT JOIN TB_EXAM_SUBJECT TES
             ON TES.IDX = TEQR.SUBJECT_IDX
+          LEFT JOIN TB_EXAM_QUESTION TEQ
+            ON TEQ.IDX = TEQR.QUESTION_IDX
          WHERE TEAR.IDX = #{idx}
            AND TEAR.EXAM_RESULT_TOKEN = #{token}
          ORDER BY TEQR.QUESTION_NUMBER

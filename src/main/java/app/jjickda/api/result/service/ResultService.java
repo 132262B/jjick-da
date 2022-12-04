@@ -1,5 +1,7 @@
 package app.jjickda.api.result.service;
 
+import app.jjickda.api.exam.dto.response.OptionsDto;
+import app.jjickda.api.exam.repository.ExamRepository;
 import app.jjickda.api.result.dto.response.ExamDetailResultDto;
 import app.jjickda.api.result.dto.response.ExamResultDto;
 import app.jjickda.api.result.repository.ResultRepository;
@@ -7,14 +9,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ResultService {
 
     private final ResultRepository resultRepository;
 
-    public ResultService(ResultRepository resultRepository) {
+    private final ExamRepository examRepository;
+
+    public ResultService(ResultRepository resultRepository, ExamRepository examRepository) {
         this.resultRepository = resultRepository;
+        this.examRepository = examRepository;
     }
 
 
@@ -31,6 +37,20 @@ public class ResultService {
 
     // 시험결과 상세조회
     public List<ExamDetailResultDto> resultDetail(long idx, String token) {
-        return resultRepository.selectExamDetailResultList(idx, token);
+        List<ExamDetailResultDto> examDetailResultList = resultRepository.selectExamDetailResultList(idx, token);
+
+        List<Long> questionIdxList = new ArrayList<>();
+        for (ExamDetailResultDto question : examDetailResultList)
+            questionIdxList.add(question.getQuestionIdx());
+
+        List<OptionsDto> optionsList = examRepository.selectOptionsList(questionIdxList);
+
+        for (ExamDetailResultDto repeatedQuestionDto : examDetailResultList) {
+            repeatedQuestionDto.setOptionsList(optionsList.stream()
+                    .filter(optionsDto -> optionsDto.getQuestionIdx() == repeatedQuestionDto.getQuestionIdx())
+                    .collect(Collectors.toList()));
+        }
+
+        return examDetailResultList;
     }
 }
