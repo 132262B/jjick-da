@@ -6,29 +6,49 @@ class HttpUtil {
     /**
      * http 기본 요청시 사용하는 메서드
      *
+     * data를 null 로 보내면 Request에 data를 담지 않고 전달, type은 GET으로 고정됨.
+     *
      * @param url {string}
      * @param type {string}
      * @param data {any[]} json
      * @param successFunction
      */
     defaultRequest(url, type, data, successFunction) {
-        $.ajax({
-            url: url,
-            type: type,
-            data: JSON.stringify(data),
-            dataType: "json",
-            contentType: 'application/json',
-            success: (data) => {
-                successFunction(data);
-            },
-            error: (err) => {
-                errorMessageToast(err.responseJSON.message);
-            }
-        });
+
+        if (data === null) {
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: "json",
+                contentType: 'application/json',
+                success: (data) => {
+                    successFunction(data);
+                },
+                error: (err) => {
+                    errorMessageToast(err.responseJSON.message);
+                }
+            });
+        } else {
+            $.ajax({
+                url: url,
+                type: type,
+                data: JSON.stringify(data),
+                dataType: "json",
+                contentType: 'application/json',
+                success: (data) => {
+                    successFunction(data);
+                },
+                error: (err) => {
+                    errorMessageToast(err.responseJSON.message);
+                }
+            });
+        }
     }
 
     /**
      * http 요청시 로딩바가 필요할때 사용하는 메서드
+     *
+     * data를 null 로 보내면 Request에 data를 담지 않고 전달, type은 GET으로 고정됨.
      *
      * @param url {string}
      * @param type {string}
@@ -36,25 +56,48 @@ class HttpUtil {
      * @param successFunction
      */
     loadingRequest(url, type, data, successFunction) {
-        $.ajax({
-            url: url,
-            type: type,
-            data: JSON.stringify(data),
-            dataType: "json",
-            contentType: 'application/json',
-            success: (data) => {
-                successFunction(data);
-            },
-            error: (err) => {
-                errorMessageToast(err.responseJSON.message);
-            },
-            complete: () => {
-                closeLoadingBar();
-            },
-            beforeSend: () => {
-                openLoadingBar();
-            }
-        });
+
+        if (data === null) {
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: "json",
+                contentType: 'application/json',
+                success: (data) => {
+                    successFunction(data);
+                },
+                error: (err) => {
+                    errorMessageToast(err.responseJSON.message);
+                },
+                complete: () => {
+                    closeLoadingBar();
+                },
+                beforeSend: () => {
+                    openLoadingBar();
+                }
+            });
+        } else {
+            $.ajax({
+                url: url,
+                type: type,
+                data: JSON.stringify(data),
+                dataType: "json",
+                contentType: 'application/json',
+                success: (data) => {
+                    successFunction(data);
+                },
+                error: (err) => {
+                    errorMessageToast(err.responseJSON.message);
+                },
+                complete: () => {
+                    closeLoadingBar();
+                },
+                beforeSend: () => {
+                    openLoadingBar();
+                }
+            });
+        }
+
     }
 
     /**
@@ -140,30 +183,5 @@ class HttpUtil {
             }
         });
     }
-
-
-    /**
-     * http 기본 요청
-     * 1. 컨트롤러에서 PathVariable 로 데이터 받아올때 사용하는 GET 방식의 메서드
-     * 2. 데이터를 전달할 필요가 없는 경우에 사용.
-     *
-     * @param url {string}
-     * @param successFunction
-     */
-    noDataRequest(url, successFunction) {
-        $.ajax({
-            url: url,
-            type: "GET",
-            dataType: "json",
-            contentType: 'application/json',
-            success: (data) => {
-                successFunction(data);
-            },
-            error: (err) => {
-                errorMessageToast(err.responseJSON.message);
-            }
-        });
-    }
-
 
 }
