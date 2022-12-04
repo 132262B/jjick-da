@@ -50,6 +50,7 @@ public class AdminService {
     public DefaultResultDto registSubject(AddSubjectDto subject) {
         User user = SessionUtil.getUserAttribute();
         adminRepository.registSubject(subject, user);
+
         return DefaultResultDto.builder()
                 .message("1건의 과목이 등록 되었습니다.")
                 .success(true)
@@ -57,13 +58,13 @@ public class AdminService {
     }
 
     // 서브 카테고리 리스트
-    public List<GetSubCategoryDto> getSubList(SearchDto searchDto) {
-        return adminRepository.getSubList(searchDto);
+    public List<GetSubCategoryDto> selectSubCategoryList(String search, String sort) {
+        return adminRepository.selectSubCategoryListBySearch(search, sort);
     }
 
     // mainCategoryIdx를 상속받는 서브 카테고리 리스트
-    public List<GetSubCategoryDto> getSubList(long mainIdx) {
-        return adminRepository.getSubCategory(mainIdx);
+    public List<GetSubCategoryDto> selectSubCategoryList(long mainIdx) {
+        return adminRepository.selectSubCategoryListByMainIdx(mainIdx);
     }
 
     // 서브 카테고리 디테일
@@ -89,11 +90,9 @@ public class AdminService {
 
         List<Question> questions = addExamDto.getQuestions();
 
-
         // 선지개수가 모두 일치하는지 검증하는 데이터
         int beforeOptionsCnt = 0;
         boolean optionsFlag = true;
-
 
         for (Question question : questions) {
 
@@ -123,20 +122,20 @@ public class AdminService {
     }
 
     public ExamInformationDto getExamInformation(long subIdx) {
-    ExamInformationDto examInfo = new ExamInformationDto();
-    examInfo.setOptionsCnt(adminRepository.getOptionsCnt(subIdx));
-    examInfo.setSubjectInformation(adminRepository.getSubjectInfo(subIdx));
+        ExamInformationDto examInfo = new ExamInformationDto();
+        examInfo.setOptionsCnt(adminRepository.getOptionsCnt(subIdx));
+        examInfo.setSubjectInformation(adminRepository.getSubjectInfo(subIdx));
 
         return examInfo;
     }
 
-    public List<UnconfirmedExamDto> getUnconfirmedExamData(SearchDto searchDto) {
-        return adminRepository.getUnconfirmedExamData(searchDto);
+    public List<UnconfirmedExamDto> getUnconfirmedExamData(String search) {
+        return adminRepository.getUnconfirmedExamData(search);
     }
 
     public DefaultResultDto confirmExam(List<Long> examIdx) {
-        for(long i : examIdx){
-            adminRepository.confirmExam(i);
+        for (long i : examIdx) {
+            int a = adminRepository.confirmExam(i);
         }
         return DefaultResultDto.builder()
                 .message("선택된 시험이 결재 되었습니다.")

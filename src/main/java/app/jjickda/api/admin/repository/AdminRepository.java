@@ -15,9 +15,9 @@ public interface AdminRepository {
 
     int registSub(AddSubCategoryDto subQuestion, User user);
 
-    List<GetSubCategoryDto> getSubList(SearchDto searchDto);
+    List<GetSubCategoryDto> selectSubCategoryListBySearch(String search, String sort);
 
-    List<GetSubCategoryDto> getSubCategory(long mainIdx);
+    List<GetSubCategoryDto> selectSubCategoryListByMainIdx(long mainIdx);
 
     GetSubCategoryDto getSubDetail(long idx);
 
@@ -37,7 +37,7 @@ public interface AdminRepository {
 
     List<SubjectInformationDto> getSubjectInfo(long subIdx);
 
-    List<UnconfirmedExamDto> getUnconfirmedExamData(SearchDto searchObject);
+    List<UnconfirmedExamDto> getUnconfirmedExamData(String search);
 
-    void confirmExam(long examIdx);
+    int confirmExam(long examIdx);
 }

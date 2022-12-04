@@ -17,27 +17,27 @@
              , 1
              , now()
              , #{user.idx}
-             );
+             )
     </insert>
 
     <insert id="registSub">
-        INSERT INTO TB_EXAM_SUB_CATEGORY(
-        MAIN_CATEGORY_IDX,
-        SUB_CATEGORY_NAME,
-        OPTIONS_CNT,
-        EXAM_CUT_OFF_SCORE,
-        USE_STATUS,
-        REG_DATE,
-        REG_IDX
-        )VALUES(
-             #{subQuestion.mainCategoryIdx}
-           , #{subQuestion.subCategoryName}
-           , #{subQuestion.optionsCnt}
-           , #{subQuestion.examCutOffScore}
-           , 1
-           , now()
-           , #{user.idx}
-        );
+        INSERT
+          INTO TB_EXAM_SUB_CATEGORY
+             ( MAIN_CATEGORY_IDX
+             , SUB_CATEGORY_NAME
+             , OPTIONS_CNT
+             , EXAM_CUT_OFF_SCORE
+             , USE_STATUS
+             , REG_IDX
+             )
+        VALUES
+             ( #{subQuestion.mainCategoryIdx}
+             , #{subQuestion.subCategoryName}
+             , #{subQuestion.optionsCnt}
+             , #{subQuestion.examCutOffScore}
+             , 1
+             , #{user.idx}
+             )
     </insert>
 
     <insert id="registSubject">
@@ -57,7 +57,7 @@
         , #{user.idx}
         , #{subject.subjectCutOffScore}
         , #{subject.subjectQuestionCnt}
-        );
+        )
     </insert>
 
 
@@ -89,37 +89,35 @@
         </choose>
     </select>
 
-    <select id="getSubList" resultType="getSubCategoryDto">
-        SELECT
-        e.IDX,
-        e.SUB_CATEGORY_NAME,
-        e.USE_STATUS,
-        date_format(e.REG_DATE, '%Y-%m-%d') AS regDate,
-        e.REG_IDX,
-        date_format(e.UDT_DATE, '%Y-%m-%d') AS udtDate,
-        e.UDT_IDX,
-        m.MAIN_CATEGORY_NAME,
-        u.NAME as regUserName,
-        IFNULL(user.NAME,"없음") as udtUserName
-        FROM TB_EXAM_SUB_CATEGORY e
-        LEFT JOIN TB_USER u
-        ON REG_IDX = u.IDX
-        LEFT JOIN TB_USER user
-        ON UDT_IDX = user.IDX
-        LEFT JOIN TB_EXAM_MAIN_CATEGORY m
-        ON MAIN_CATEGORY_IDX = m.IDX
-        WHERE
+    <select id="selectSubCategoryList" resultType="getSubCategoryDto">
+        SELECT E.IDX
+             , E.SUB_CATEGORY_NAME
+             , E.USE_STATUS
+             , DATE_FORMAT(E.REG_DATE, '%Y-%M-%D') AS REG_DATE
+             , E.REG_IDX
+             , DATE_FORMAT(E.UDT_DATE, '%Y-%M-%D') AS UDT_DATE
+             , E.UDT_IDX
+             , M.MAIN_CATEGORY_NAME
+             , U.NAME AS REG_USER_NAME
+             , IFNULL(USER.NAME,"없음") AS UDT_USER_NAME
+          FROM TB_EXAM_SUB_CATEGORY E
+          LEFT JOIN TB_USER U
+            ON REG_IDX = U.IDX
+          LEFT JOIN TB_USER USER
+            ON E.UDT_IDX = USER.IDX
+          LEFT JOIN TB_EXAM_MAIN_CATEGORY M
+            ON E.MAIN_CATEGORY_IDX = M.IDX
+         WHERE 1=1
         <choose>
             <when test="sort.equals('main')">
-                m.MAIN_CATEGORY_NAME LIKE CONCAT('%',#{searchObject},'%');
+           AND m.MAIN_CATEGORY_NAME LIKE CONCAT('%',#{search},'%');
             </when>
             <when test="sort.equals('sub')">
-                e.SUB_CATEGORY_NAME LIKE CONCAT('%',#{searchObject},'%');
+           AND e.SUB_CATEGORY_NAME LIKE CONCAT('%',#{search},'%');
             </when>
             <otherwise>
-                m.MAIN_CATEGORY_NAME LIKE CONCAT('%',#{searchObject},'%')
-                OR
-                e.SUB_CATEGORY_NAME LIKE CONCAT('%',#{searchObject},'%');
+           AND m.MAIN_CATEGORY_NAME LIKE CONCAT('%',#{search},'%')
+            OR e.SUB_CATEGORY_NAME LIKE CONCAT('%',#{search},'%');
             </otherwise>
         </choose>
     </select>
@@ -129,7 +127,7 @@
          IDX
         ,SUB_CATEGORY_NAME
         FROM TB_EXAM_SUB_CATEGORY
-        WHERE MAIN_CATEGORY_IDX = #{mainIdx};
+        WHERE MAIN_CATEGORY_IDX = #{mainIdx}
     </select>
 
     <select id="getSubDetail" resultType="getSubCategoryDto">
@@ -151,7 +149,7 @@
         ON MAIN_CATEGORY_IDX = M.IDX
         LEFT JOIN TB_EXAM_SUBJECT TES
         ON E.IDX = TES.SUB_CATEGORY_IDX
-        WHERE E.IDX = #{idx};
+        WHERE E.IDX = #{idx}
     </select>
 
     <select id="getSubjectCategory" resultType="GetSubjectDto">
@@ -261,7 +259,7 @@
     <update id="confirmExam">
         UPDATE TB_EXAM
         SET CONFIRM_STATUS = 1
-        WHERE IDX = #{examIdx};
+        WHERE IDX = #{examIdx}
     </update>
 
 </mapper>
