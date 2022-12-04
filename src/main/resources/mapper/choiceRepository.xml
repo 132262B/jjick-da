@@ -4,42 +4,35 @@
 
 <mapper namespace="app.jjickda.api.choice.repository.ChoiceRepository">
 
-    <!-- 자격증 리스트 가져오는 구문 -->
-    <select id="questionChoice" resultType="certificateListDto">
-        SELECT
-            TEMC.IDX AS MAIN_IDX,
-            TESC.IDX AS SUB_IDX,
-            CONCAT(TEMC.MAIN_CATEGORY_NAME, '-', TESC.SUB_CATEGORY_NAME) AS CERTIFICATE_NAME
-        FROM
-            TB_EXAM_MAIN_CATEGORY AS TEMC
-        JOIN
-            TB_EXAM_SUB_CATEGORY AS TESC
-        ON
-            TEMC.IDX = TESC.MAIN_CATEGORY_IDX
-        WHERE
-            TEMC.USE_STATUS = 1 AND TESC.USE_STATUS = 1
+    <!-- 자격증 리스트 조회 -->
+    <select id="selectCertificate" resultType="certificateListDto">
+        SELECT TEMC.IDX AS MAIN_IDX
+             , TESC.IDX AS SUB_IDX
+             , CONCAT(TEMC.MAIN_CATEGORY_NAME, '-', TESC.SUB_CATEGORY_NAME) AS CERTIFICATE_NAME
+          FROM TB_EXAM_MAIN_CATEGORY TEMC
+          JOIN TB_EXAM_SUB_CATEGORY TESC
+            ON TEMC.IDX = TESC.MAIN_CATEGORY_IDX
+         WHERE TEMC.USE_STATUS = 1
+           AND TESC.USE_STATUS = 1
     </select>
 
-    <!-- 과목 리스트 가져오는 구문 -->
-    <select id="subjectChoice" resultType="subjectListDto">
-        SELECT
-            IDX AS SUBJECT_IDX,
-            SUBJECT_NAME
-        FROM
-            TB_EXAM_SUBJECT
-        WHERE
-            SUB_CATEGORY_IDX = #{subIdx} AND USE_STATUS = 1
+    <!-- 과목 리스트 조회 -->
+    <select id="selectSubject" resultType="subjectListDto">
+        SELECT IDX AS SUBJECT_IDX
+             , SUBJECT_NAME
+          FROM TB_EXAM_SUBJECT
+         WHERE SUB_CATEGORY_IDX = #{subIdx}
+           AND USE_STATUS = 1
     </select>
 
-    <!-- 회차 리스트 가져오는 구문 -->
-    <select id="examChoice" resultType="examListDto">
-        SELECT
-            IDX AS EXAM_IDX,
-            EXAM_NAME
-        FROM
-            TB_EXAM
-        WHERE
-            SUB_CATEGORY_IDX = #{subIdx} AND USE_STATUS = 1
+    <!-- 회차 리스트 조회 -->
+    <select id="selectExam" resultType="examListDto">
+        SELECT IDX AS EXAM_IDX
+             , EXAM_NAME
+          FROM TB_EXAM
+         WHERE SUB_CATEGORY_IDX = #{subIdx}
+           AND USE_STATUS = 1
+           AND CONFIRM_STATUS = 1
     </select>
 
 </mapper>

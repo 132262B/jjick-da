@@ -11,16 +11,24 @@ import java.util.List;
 @Service
 public class ChoiceService {
 
-    private final ChoiceRepository termRepository;
+    private final ChoiceRepository choiceRepository;
 
-    public ChoiceService(ChoiceRepository termsRepository) { this.termRepository = termsRepository; }
+    public ChoiceService(ChoiceRepository choiceRepository) {
+        this.choiceRepository = choiceRepository;
+    }
 
     // 자격증 리스트 조회
-    public List<CertificateListDto> questionSelect() { return termRepository.questionChoice(); }
+    public List<CertificateListDto> certificate() {
+        return choiceRepository.selectCertificate();
+    }
 
     // 과목 리스트 조회
-    public List<SubjectListDto> subjectSelect(long subIdx) { return termRepository.subjectChoice(subIdx); }
+    public List<SubjectListDto> subject(long subIdx) {
+        return choiceRepository.selectSubject(subIdx);
+    }
 
     // 회차 리스트 조회
-    public List<ExamListDto> examSelect(long subIdx) { return termRepository.examChoice(subIdx); }
+    public List<ExamListDto> exam(long subIdx) {
+        return choiceRepository.selectExam(subIdx);
+    }
 }

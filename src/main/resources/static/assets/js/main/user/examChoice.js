@@ -1,11 +1,10 @@
 let choiceInfo = {}
+
 /**
  * 자격증 조회
  */
 function selectCertificate() {
-    const data = {};
-
-    httpUtil.defaultRequest('/api/certificate', 'POST', data, (data) => {
+    httpUtil.defaultRequest('/api/choice/certificate', 'GET', null, (data) => {
         let certificates = '';
         $.each(data.data, function () {
             certificates += `
@@ -25,8 +24,7 @@ function selectSubjectAndExam(mainIdx, subIdx) {
     choiceInfo.mainCtgIdx = mainIdx;
     choiceInfo.subCtgIdx = subIdx;
     const data = {};
-    let url = `/api/subject/${subIdx}`;
-    httpUtil.defaultRequest(url, 'POST', data, (data) => {
+    httpUtil.defaultRequest(`/api/choice/subject/${subIdx}`, 'POST', data, (data) => {
         let subjects = '';
         $.each(data.data, function () {
             subjects += `
@@ -36,8 +34,7 @@ function selectSubjectAndExam(mainIdx, subIdx) {
         existId('d-subjects').innerHTML = subjects;
     });
 
-    url = `/api/exam/${subIdx}`;
-    httpUtil.defaultRequest(url, 'post', data, (data) => {
+    httpUtil.defaultRequest(`/api/choice/exam/${subIdx}`, 'post', data, (data) => {
         let exams = '';
         $.each(data.data, function () {
             exams += `
@@ -100,5 +97,5 @@ function checkTerm(name) {
 }
 
 function setResultInfo(resultIdx, token) {
-    console.log(resultIdx+', '+token);
+    console.log(resultIdx + ', ' + token);
 }

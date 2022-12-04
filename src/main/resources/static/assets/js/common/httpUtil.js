@@ -164,7 +164,6 @@ class HttpUtil {
      * @param type {string}
      * @param data {object} formData
      * @param successFunction
-     * @param completeFunction
      */
     uploadRequest(url, type, data, successFunction) {
         $.ajax({

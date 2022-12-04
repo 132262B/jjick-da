@@ -11,11 +11,11 @@ import java.util.List;
 public interface ChoiceRepository {
 
     // 자격증 리스트 조회
-    List<CertificateListDto> questionChoice();
+    List<CertificateListDto> selectCertificate();
 
     // 과목 리스트 조회
-    List<SubjectListDto> subjectChoice(long subIdx);
+    List<SubjectListDto> selectSubject(long subIdx);
 
-    // 과목 리스트 조회
-    List<ExamListDto> examChoice(long subIdx);
+    // 회차 리스트 조회
+    List<ExamListDto> selectExam(long subIdx);
 }

@@ -14,34 +14,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Slf4j
-@Api(tags = "자격증선택 페이지 데이터 처리와 관련된 API.")
+@Api(tags = "자격증선택 페이지 관련 API.")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/choice/")
 public class ChoiceRestController {
 
     private final ChoiceService ChoiceService;
 
-    public ChoiceRestController(ChoiceService ChoiceService) { this.ChoiceService = ChoiceService; }
-
-    @ApiOperation("자격증데이터를 가져오는 API")
-    @PostMapping("/certificate")
-    public ResponseEntity<ApiResponse<List<CertificateListDto>>> questionSelect() {
-        List<CertificateListDto> certificateListDto = ChoiceService.questionSelect();
-        return ResponseEntity.ok(new ApiResponse<>(certificateListDto));
+    public ChoiceRestController(ChoiceService ChoiceService) {
+        this.ChoiceService = ChoiceService;
     }
 
-    @ApiOperation("과목데이터를 가져오는 API")
-    @PostMapping("/subject/{subIdx}")
-    public ResponseEntity<ApiResponse<List<SubjectListDto>>> subjectSelect(@PathVariable long subIdx) {
-        List<SubjectListDto> subjectListDto = ChoiceService.subjectSelect(subIdx);
-        return ResponseEntity.ok(new ApiResponse<>(subjectListDto));
+    @ApiOperation(value = "자격증데이터 조회.", notes = "자격증 데이터를 조회(메인카테고리-서브카테고리) 하는 API")
+    @GetMapping("/certificate")
+    public ResponseEntity<ApiResponse<List<CertificateListDto>>> certificate() {
+        return ResponseEntity.ok(new ApiResponse<>(ChoiceService.certificate()));
     }
 
-    @ApiOperation("회차데이터를 가져오는 API")
-    @PostMapping("/exam/{subIdx}")
-        public ResponseEntity<ApiResponse<List<ExamListDto>>> examSelect(@PathVariable long subIdx) {
-        List<ExamListDto> examListDto = ChoiceService.examSelect(subIdx);
-        return ResponseEntity.ok(new ApiResponse<>(examListDto));
+    @ApiOperation(value = "과목정보 조회", notes = "과목정보를 조회하는 API")
+    @GetMapping("/subject/{subIdx}")
+    public ResponseEntity<ApiResponse<List<SubjectListDto>>> subject(@PathVariable long subIdx) {
+        return ResponseEntity.ok(new ApiResponse<>(ChoiceService.subject(subIdx)));
+    }
+
+    @ApiOperation(value = "회차정보 조회", notes = "회차정보를 조회하는 API")
+    @GetMapping("/exam/{subIdx}")
+    public ResponseEntity<ApiResponse<List<ExamListDto>>> exam(@PathVariable long subIdx) {
+        return ResponseEntity.ok(new ApiResponse<>(ChoiceService.exam(subIdx)));
     }
 
 }

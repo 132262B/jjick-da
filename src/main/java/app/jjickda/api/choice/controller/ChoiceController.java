@@ -8,6 +8,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @Controller
 public class ChoiceController {
 
+    // 자격증 선택 페이지
     @GetMapping("/choice")
     public String SelectQuestion() { return "main/user/examChoice"; }
 
