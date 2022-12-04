@@ -38,8 +38,8 @@
     </select>
 
     <!-- 총 결과 수 조회 -->
-    <select id="selectResultTotalCount" resultType="long">
-
+    <select id="selectResulTotaltCount" resultType="long">
+        SELECT COUNT(IDX) FROM TB_EXAM_ALL_RESULT TEAR;
     </select>
 
     <!-- 총 문항 수 조회 -->

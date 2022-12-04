@@ -137,7 +137,7 @@ function loadDashboard() {
         counter('userTotalCount', data.data.userTotalCount);
         counter('examTotalCount', data.data.examTotalCount);
         counter('questionTotalCount', data.data.questionTotalCount);
-        counter('resultTotalCount', 9999);
+        counter('resultTotalCount', data.data.resultTotalCount);
 
         const newUsersCountByDate = new ApexCharts(existId('newUsersCountByDate'), dashboardData.newUsersCountByDate);
         newUsersCountByDate.render();

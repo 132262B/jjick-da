@@ -22,4 +22,5 @@ public interface StatisticsRepository {
 
     // 총 문항 수 조회
     long selectQuestionTotalCount();
+
 }
