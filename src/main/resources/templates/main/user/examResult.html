@@ -4,9 +4,11 @@
 <!-- 공통 헤더-->
 <th:block th:replace="fragments/user/head :: headFragment"></th:block>
 
-<script>
+<script th:src="@{/assets/js/main/user/examResult.js}"></script>
+
+<script th:inline="javascript">
     $(document).ready(function () {
-        result();
+        result([[${idx}]],[[${token}]]);
     });
 </script>
 
