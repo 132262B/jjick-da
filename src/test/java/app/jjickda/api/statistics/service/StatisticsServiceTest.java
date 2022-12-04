@@ -33,16 +33,19 @@ public class StatisticsServiceTest {
         when(statisticsRepository.selectUserTotalCount()).thenReturn(2403L);
         when(statisticsRepository.selectExamTotalCount()).thenReturn(52L);
         when(statisticsRepository.selectQuestionTotalCount()).thenReturn(5200L);
+        when(statisticsRepository.selectResulTotaltCount()).thenReturn(12322L);
 
         UserDashboardDto userDashboardDto = statisticsService.userDashboard();
 
         Assertions.assertEquals(userDashboardDto.getUserTotalCount(), 2403L);
         Assertions.assertEquals(userDashboardDto.getExamTotalCount(), 52L);
         Assertions.assertEquals(userDashboardDto.getQuestionTotalCount(), 5200L);
+        Assertions.assertEquals(userDashboardDto.getResultTotalCount(), 12322L);
 
         verify(statisticsRepository, times(1)).selectUserTotalCount();
         verify(statisticsRepository, times(1)).selectExamTotalCount();
         verify(statisticsRepository, times(1)).selectQuestionTotalCount();
+        verify(statisticsRepository, times(1)).selectResulTotaltCount();
     }
 
     @DisplayName("어드민 대시보드 통계 테스트")
@@ -64,6 +67,7 @@ public class StatisticsServiceTest {
         when(statisticsRepository.selectUserTotalCount()).thenReturn(2403L);
         when(statisticsRepository.selectExamTotalCount()).thenReturn(52L);
         when(statisticsRepository.selectQuestionTotalCount()).thenReturn(5200L);
+        when(statisticsRepository.selectResulTotaltCount()).thenReturn(12322L);
 
         AdminDashboardDto adminDashboardDto = statisticsService.adminDashboard();
 
@@ -71,11 +75,13 @@ public class StatisticsServiceTest {
         Assertions.assertEquals(adminDashboardDto.getUserTotalCount(), 2403L);
         Assertions.assertEquals(adminDashboardDto.getExamTotalCount(), 52L);
         Assertions.assertEquals(adminDashboardDto.getQuestionTotalCount(), 5200L);
+        Assertions.assertEquals(adminDashboardDto.getResultTotalCount(), 12322L);
 
         verify(statisticsRepository, times(1)).selectNewUsersCountByDateList();
         verify(statisticsRepository, times(1)).selectUserTotalCount();
         verify(statisticsRepository, times(1)).selectExamTotalCount();
         verify(statisticsRepository, times(1)).selectQuestionTotalCount();
+        verify(statisticsRepository, times(1)).selectResulTotaltCount();
     }
 
 }

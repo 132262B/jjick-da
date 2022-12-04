@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
 @Api(tags = "통계관련 API")
+@RestController
 @RequestMapping("/api/statistics/")
 public class StatisticsRestController {
 
@@ -25,14 +25,14 @@ public class StatisticsRestController {
         this.statisticsService = statisticsService;
     }
 
-    @ApiOperation("어드민 대시보드(통계) 데이터 출력 API")
+    @ApiOperation(value = "어드민 대시보드(통계) 데이터 조회", notes = "어드민 메인페이지(대시보드) 사용자 통계데이터 출력용 API")
     @LoginCheck(auth = Role.ADMIN, type = Type.API)
     @GetMapping("/admin-dashboard")
     public ResponseEntity<ApiResponse<AdminDashboardDto>> AdminDashboard() {
         return ResponseEntity.ok(new ApiResponse<>(statisticsService.adminDashboard()));
     }
 
-    @ApiOperation("유저 대시보드(통계) 데이터 출력 API")
+    @ApiOperation(value = "유저 대시보드(통계) 데이터 조회", notes = "메인페이지 사용자 통계데이터 출력용 API")
     @GetMapping("/user-dashboard")
     public ResponseEntity<ApiResponse<UserDashboardDto>> UserDashboard() {
         return ResponseEntity.ok(new ApiResponse<>(statisticsService.userDashboard()));
