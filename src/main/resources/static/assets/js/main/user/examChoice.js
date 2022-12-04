@@ -23,8 +23,7 @@ function selectCertificate() {
 function selectSubjectAndExam(mainIdx, subIdx) {
     choiceInfo.mainCtgIdx = mainIdx;
     choiceInfo.subCtgIdx = subIdx;
-    const data = {};
-    httpUtil.defaultRequest(`/api/choice/subject/${subIdx}`, 'POST', data, (data) => {
+    httpUtil.defaultRequest(`/api/choice/subject/${subIdx}`, 'POST', null, (data) => {
         let subjects = '';
         $.each(data.data, function () {
             subjects += `
@@ -34,7 +33,7 @@ function selectSubjectAndExam(mainIdx, subIdx) {
         existId('d-subjects').innerHTML = subjects;
     });
 
-    httpUtil.defaultRequest(`/api/choice/exam/${subIdx}`, 'post', data, (data) => {
+    httpUtil.defaultRequest(`/api/choice/exam/${subIdx}`, 'GET', null, (data) => {
         let exams = '';
         $.each(data.data, function () {
             exams += `
@@ -97,5 +96,5 @@ function checkTerm(name) {
 }
 
 function setResultInfo(resultIdx, token) {
-    console.log(resultIdx + ', ' + token);
+    location.href = `/result?idx=${resultIdx}&token=${token}`;
 }

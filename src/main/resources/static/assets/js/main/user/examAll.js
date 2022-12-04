@@ -12,10 +12,10 @@ function Terms() {
     resultInfo.subjectCnt = choiceInfo.subjectIdxArray.length;
 
     // 페이지 입장 후 바로 출력되어야 하는 데이터들 불러오기
-    let url = '/api/exam-question';
+    let url = '/api/exam/start';
     httpUtil.loadingRequest(url, 'POST', choiceInfo, (data) => {
         console.log(data.data);
-        // 시험제목
+        // 위치 영역에 들어갈 정보
         let examSubject = '전체풀기 - ' + data.data.ongoingExamInfoDto.subCategoryName;
         existId('main-subject').innerHTML = examSubject;
 
@@ -49,7 +49,7 @@ function Terms() {
                         <br>
                         <ul>
             `;
-            // 시험선지
+            // 문항선지
             questionList.optionsList.forEach((optionsList) => {
                 options += `
                     <li class="d-flex align-items-center">
@@ -97,14 +97,14 @@ function Terms() {
 function optionAndQuestion(item, number) {
     console.log(number);
     let name = item.name;
-    let questionNumber = 'question' + number;
-    let optionNumber = 'option' + number;
-    let questionId = 'question' + number + '-' + item.value;
-    let optionId = 'option' + number + '-' + item.value;
+    let questionNumber = `question${number}`;
+    let optionNumber = `option${number}`;
+    let questionId = `question${number}-${item.value}`;
+    let optionId = `option${number}-${item.value}`;
     if(name === questionNumber) {
         existId(optionId).click();
     } else {
-        existId(questionId).click();MessageUtil
+        existId(questionId).click();
     }
 }
 
@@ -112,7 +112,6 @@ function result() {
     let num = 1;
     let nullCheck = 0;
     for(let i = 0; i < resultInfo.submitAnswerList.length; i++) {
-    let correct = '';
         let questionName = `question${num}`;
         try {
             resultInfo.submitAnswerList[i].inputAnswer = document.querySelector('input[name="' + questionName + '"]:checked').value;
@@ -125,11 +124,15 @@ function result() {
     if(nullCheck > 0) {
         let isConfirm = confirm(messageUtil.MESSAGE_EXAM_SUBMIT_CONFIRM_ALERT);
         if(isConfirm) {
-            let resultIdx = 10;
-            let token = 13;
-            opener.setResultInfo(resultIdx, token);
-            window.close();
+            httpUtil.defaultRequest('/api/exam/submit', 'POST', resultInfo, (data) => {
+                opener.setResultInfo(data.data.resultIdx, data.data.token);
+                window.close();
+            });
         }
+    } else {
+        httpUtil.defaultRequest('/api/exam/submit', 'POST', resultInfo, (data) => {
+            opener.setResultInfo(data.data.resultIdx, data.data.token);
+            window.close();
+        });
     }
-    console.log(resultInfo);
 }
