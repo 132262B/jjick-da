@@ -18,7 +18,10 @@ public class StatisticsService {
     public AdminDashboardDto adminDashboard() {
         AdminDashboardDto adminDashboardDto = new AdminDashboardDto();
 
-        adminDashboardDto.setNewUsersCountByDate(statisticsRepository.selectNewUsersCountByDateList());
+        adminDashboardDto.setTwoWeeksNewUsersCountAndDate(statisticsRepository.selectTwoWeeksNewUsersCountAndDateList());
+        adminDashboardDto.setTwoWeeksSubmitResultCountAndDate(statisticsRepository.selectTwoWeeksSubmitResultCountAndDateList());
+
+        adminDashboardDto.setTopCountByExamFiveList(statisticsRepository.selectTopCountByExamFiveList());
 
         adminDashboardDto.setUserTotalCount(statisticsRepository.selectUserTotalCount());
         adminDashboardDto.setExamTotalCount(statisticsRepository.selectExamTotalCount());
