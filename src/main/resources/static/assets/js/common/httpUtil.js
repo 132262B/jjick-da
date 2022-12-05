@@ -28,7 +28,7 @@ class HttpUtil {
                     errorMessageToast(err.responseJSON.message);
                 }
             });
-        } else {
+        }else {
             $.ajax({
                 url: url,
                 type: type,
@@ -44,6 +44,34 @@ class HttpUtil {
             });
         }
     }
+
+        /**
+         * http 기본 요청시 사용하는 메서드
+         *
+         * Stringfy 없이 data를 전달
+         *
+         * @param url {string}
+         * @param type {string}
+         * @param data {any[]} json
+         * @param successFunction
+         */
+    notStringifyRequest(url, type, data, successFunction) {
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: "json",
+                data: data,
+                contentType: 'application/json',
+                success: (data) => {
+                    successFunction(data);
+                },
+                error: (err) => {
+                    errorMessageToast(err.responseJSON.message);
+                }
+            });
+    }
+
+
 
     /**
      * http 요청시 로딩바가 필요할때 사용하는 메서드
