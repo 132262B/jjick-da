@@ -57,8 +57,9 @@ public class AdminRestController {
     @ApiOperation(value = "서브카테고리 조회.", notes = "서브카테고리 조회할때 쓰는 API")
     @LoginCheck(auth = Role.ADMIN, type = Type.API)
     @GetMapping("/sub/category")
-    public ResponseEntity<ApiResponse<List<GetSubCategoryDto>>> getSubCategoryList(@RequestParam String search,
-                                                                                   @RequestParam String sort) {
+    public ResponseEntity<ApiResponse<List<GetSubCategoryDto>>> getSubCategoryList(@RequestParam(value = "search",required = false) String search,
+                                                                                   @RequestParam(value = "sort",required = false) String sort) {
+
         return ResponseEntity.ok(new ApiResponse<>(adminService.getSubCategoryList(search, sort)));
     }
 

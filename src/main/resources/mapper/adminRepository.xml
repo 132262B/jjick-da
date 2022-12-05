@@ -94,31 +94,26 @@
            E.IDX
          , E.SUB_CATEGORY_NAME
          , E.USE_STATUS
-         , REG_DATE
+         , E.REG_DATE
          , E.REG_IDX
-         , E.UDT_DATE
-         , E.UDT_IDX
          , M.MAIN_CATEGORY_NAME
          , U.NAME AS REG_USER_NAME
-         , IFNULL(USER.NAME,"없음") AS UDT_USER_NAME
           FROM TB_EXAM_SUB_CATEGORY E
           LEFT JOIN TB_USER U
             ON REG_IDX = U.IDX
-          LEFT JOIN TB_USER USER
-            ON E.UDT_IDX = USER.IDX
           LEFT JOIN TB_EXAM_MAIN_CATEGORY M
             ON E.MAIN_CATEGORY_IDX = M.IDX
          WHERE
         <choose>
             <when test="sort.equals('main')">
-            m.MAIN_CATEGORY_NAME LIKE CONCAT('%',#{search},'%')
+            M.MAIN_CATEGORY_NAME LIKE CONCAT('%',#{search},'%')
             </when>
             <when test="sort.equals('sub')">
-            e.SUB_CATEGORY_NAME LIKE CONCAT('%',#{search},'%')
+            E.SUB_CATEGORY_NAME LIKE CONCAT('%',#{search},'%')
             </when>
             <otherwise>
-               m.MAIN_CATEGORY_NAME LIKE CONCAT('%',#{search},'%')
-            OR e.SUB_CATEGORY_NAME LIKE CONCAT('%',#{search},'%')
+               M.MAIN_CATEGORY_NAME LIKE CONCAT('%',#{search},'%')
+            OR E.SUB_CATEGORY_NAME LIKE CONCAT('%',#{search},'%')
             </otherwise>
         </choose>
     </select>

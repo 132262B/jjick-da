@@ -1394,6 +1394,8 @@ box-sizing: border-box;
 }
 .flex_child{
     flex:2;
+    margin-right:5px;
+    margin-left:5px;
 }
 .img_file{
     margin-top: 10px;

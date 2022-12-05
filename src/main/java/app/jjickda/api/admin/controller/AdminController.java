@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
@@ -38,12 +39,12 @@ public class AdminController {
 
     // 어드민 서브 카테고리 등록 페이지
     @LoginCheck(auth = Role.ADMIN, type = Type.PAGE)
-    @GetMapping(value = {"/sub/{searchSort}/{searchObject}","/write-sub-question"})
-    public String subQuestionWriteForm(@PathVariable(required = false) Optional<String> searchSort, @PathVariable(required = false) Optional<String>searchObject, Model model) {
-    if(searchSort.isPresent() && searchObject.isPresent()){
-        model.addAttribute("sort",searchSort.get());
-        model.addAttribute("searchTarget",searchObject.get());
-    }
+    @GetMapping("/sub")
+    public String subQuestionWriteForm(@RequestParam(value="search",required = false) String search,
+                                       @RequestParam(value="sort",required = false) String sort,
+                                       Model model) {
+        model.addAttribute("sort",sort);
+        model.addAttribute("searchTarget",search);
         return "main/admin/sub";
     }
 

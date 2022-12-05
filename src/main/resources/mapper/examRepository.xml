@@ -148,7 +148,7 @@
         UPDATE TB_EXAM_ALL_RESULT TEAR
              , ( SELECT B.AVERAGE_SCORE
                       , IF((A.PASS_STATUS = B.SUBJECT_CNT)AND(B.AVERAGE_SCORE <= C.EXAM_CUT_OFF_SCORE),1,0) AS PASS_STATUS
-                   FROM ( SELECT TESR.PASS_STATUS
+                   FROM ( SELECT COUNT(TESR.PASS_STATUS) AS PASS_STATUS
                             FROM TB_EXAM_SUBJECT_RESULT TESR
                            WHERE TESR.EXAM_RESULT_IDX = #{examResultIdx}
                              AND TESR.PASS_STATUS = 1
