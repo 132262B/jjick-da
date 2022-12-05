@@ -1,0 +1,13 @@
+.exam .entry .result-title {
+    color: #012970;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.exam .entry .result-content {
+    color: #012970;
+}
+
+.exam .entry .entry-meta caption {
+    visibility:hidden;
+}

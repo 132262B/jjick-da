@@ -12,7 +12,9 @@
     });
 </script>
 
-<body>
+<link th:href="@{/assets/css/user/examResult.css}" rel="stylesheet">
+
+<body class="d-flex flex-column min-vh-100">
 <th:block th:replace="fragments/user/header :: headerFragment"></th:block>
 
 <main id="main">
@@ -21,8 +23,12 @@
     <section class="breadcrumbs">
         <div class="container">
             <ol>
+                <li><a th:href="@{/home}">홈</a></li>
+                <li><a th:href="@{/choice}">과목선택</a></li>
+                <li>문제풀기</li>
+                <li>시험결과</li>
             </ol>
-            <p class="main-subject">시험 결과</p>
+            <p class="main-subject">시험결과</p>
 
         </div>
     </section><!-- 위치영역 끝 -->
@@ -32,17 +38,28 @@
         <div class="container" data-aos="fade-up">
             <div class="col-lg-8 entries">
                 <article class="entry entry-single">
-                    <h2 class="entry-title">
-                        <span class="select-title">시험 결과</span>
+                    <h2 class="text-center result-title mt-3 mb-5">
+                        <span>시험결과</span>
                     </h2>
+                    <div class="entry-meta">
 
-                    <div class="entry-meta"><br><br><br>
-                        <ul>
-                            <li class="d-flex align-items-center">맞힌 문제 :</li>
-                            <li class="d-flex align-items-center">틀린 문제 :</li>
-                            <li class="d-flex align-items-center"></li>
-                            <li class="d-flex align-items-center"></li>
-                        </ul>
+                        <table class="table result-content">
+                            <caption>시험결과</caption>
+                            <thead class="text-center">
+                            <tr>
+                                <th scope="col">과목</th>
+                                <th scope="col">합격점수</th>
+                                <th scope="col">시험점수</th>
+                                <th scope="col">통과여부</th>
+                            </tr>
+                            </thead>
+                            <tbody id="result-subject"></tbody>
+                        </table>
+
+                        <nav class="grading-nav">
+                            <a class="grading-btn" th:href="@{/home}">홈으로</a>
+                            <a class="grading-btn" onclick="goDetail()">상세보기</a>
+                        </nav>
                     </div>
                 </article>
             </div>

@@ -17,4 +17,11 @@ public class ResultController {
         return "main/user/examResult";
     }
 
+    @GetMapping("/result/detail")
+    public String examResultDetail(@RequestParam long idx, @RequestParam String token, Model model) {
+        model.addAttribute("idx", idx);
+        model.addAttribute("token", token);
+        return "main/user/examResultDetail";
+    }
+
 }
