@@ -8,17 +8,16 @@ import org.apache.ibatis.type.Alias;
 
 @Getter
 @Setter
-@ToString
-@Alias("newUsersCountByDate")
-public class NewUsersCountByDate {
+@Alias("countAndDataDto")
+public class CountAndDataDto {
 
-    private String date;
+    private String data;
 
     private int count;
 
     @Builder
-    public NewUsersCountByDate(String date, int count) {
-        this.date = date;
+    public CountAndDataDto(String data, int count) {
+        this.data = data;
         this.count = count;
     }
 }

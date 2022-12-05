@@ -6,7 +6,7 @@ function getExamInfo(callback){
     index = 0;
     $("#question_html").html("");
     let subIdx = $("#sub_ctg_name").val();
-    httpUtil.pathRequest('/api/admin/get-exam-information/'+subIdx, (data) => {
+    httpUtil.defaultRequest('/api/admin/exam/'+subIdx,"get",null, (data) => {
     optionCnt = data.data.optionsCnt;
         for(let i of data.data.subjectInformation){
             for(let k = 1; k<=i.subjectQuestionCnt; k++){
@@ -41,7 +41,7 @@ function getExamInfo(callback){
                             html_end ="</div></div>"
 
                             let html = html_first+html_middle+html_end;
-                            $("#question_html").html(html);
+                            $("#question_html").append(html);
             }
         }
         callback(data.data);
@@ -50,13 +50,14 @@ function getExamInfo(callback){
 
 function getMainDataList() {
     let dataList = `<option disabled selected value=''>메인 카테고리 선택</option>`;
-    httpUtil.defaultRequest('/api/admin/get-main-category','post', emptyData, (data) => {
+    httpUtil.defaultRequest('/api/admin/main/category','get', null, (data) => {
         for(let i of data.data){
             dataList += `<option value = "${i.idx}"/>${i.mainCategoryName}</option>`
         }
         $("#main_ctg_name").html(dataList);
     })
 }
+
 function getSubDataList() {
       $("#question_html").html("");
       $("#data_list2").html("");
@@ -69,7 +70,7 @@ function getSubDataList() {
       }else{
             let subDataList = `<option disabled selected value=''>서브 카테고리 선택</option>`;
             let data = mainIdx;
-            httpUtil.pathRequest('/api/admin/get-sub-category/'+mainIdx, (data) => {
+            httpUtil.defaultRequest('/api/admin/sub/category/'+mainIdx,'get',null, (data) => {
                 for(let i of data.data){
                   subDataList += `<option value='${i.idx}'>${i.subCategoryName}</option>`
                 }
@@ -77,6 +78,7 @@ function getSubDataList() {
           })
       }
 }
+
 function uploadFile(target) {
     let file_id_name = $(target).attr('id');
     let file_index = file_id_name.substr(4);
@@ -270,7 +272,7 @@ function registQuestion() {
         data.examInfo = examInfo;
         data.questions = questions;
         console.log(JSON.stringify(data));
-    httpUtil.defaultRequest('/api/admin/add-exam','post', data, (data) => {
+    httpUtil.defaultRequest('/api/admin/exam','post', data, (data) => {
         successMessageToast(data.data.message);
     })
 

@@ -4,15 +4,15 @@
 
 <mapper namespace="app.jjickda.api.statistics.repository.StatisticsRepository">
 
-    <!-- 일일 신규 사용자 리스트 조회 -->
-    <select id="selectNewUsersCountByDateList" resultType="newUsersCountByDate"><![CDATA[
+    <!-- 2주 신규 사용자 리스트 조회 -->
+    <select id="selectTwoWeeksNewUsersCountAndDateList" resultType="countAndDateDto"><![CDATA[
         WITH RECURSIVE CTE AS (
             SELECT DATE_ADD(DATE_FORMAT(NOW(), '%Y-%m-%d'), INTERVAL -2 WEEK) + INTERVAL 1 DAY AS ALL_DATE
             UNION ALL
             SELECT ALL_DATE + INTERVAL 1 DAY FROM CTE WHERE ALL_DATE < DATE_FORMAT(NOW(), '%Y-%m-%d')
         )
-        SELECT CTE.ALL_DATE AS `date`
-             , IFNULL(B.COUNT, 0) as `count`
+        SELECT CTE.ALL_DATE AS `DATE`
+             , IFNULL(B.COUNT, 0) AS `COUNT`
           FROM CTE
           LEFT JOIN ( SELECT DATE_FORMAT(TU.REG_DATE, '%Y-%m-%d') AS NEW_USER_DATE
                            , COUNT(TU.REG_DATE) AS COUNT
@@ -52,4 +52,34 @@
            AND TE.CONFIRM_STATUS = 1
     </select>
 
+    <!-- 2주 결과제출 리스트 조회 -->
+    <select id="selectTwoWeeksSubmitResultCountAndDateList" resultType="countAndDateDto"><![CDATA[
+        WITH RECURSIVE CTE AS (
+            SELECT DATE_ADD(DATE_FORMAT(NOW(), '%Y-%m-%d'), INTERVAL -2 WEEK) + INTERVAL 1 DAY AS ALL_DATE
+            UNION ALL
+            SELECT ALL_DATE + INTERVAL 1 DAY FROM CTE WHERE ALL_DATE < DATE_FORMAT(NOW(), '%Y-%m-%d')
+        )
+        SELECT CTE.ALL_DATE AS `DATE`
+             , IFNULL(B.COUNT, 0) as `COUNT`
+          FROM CTE
+          LEFT JOIN ( SELECT DATE_FORMAT(TEAR.REG_DATE, '%Y-%m-%d') AS RESULT_DATE
+                           , COUNT(TEAR.REG_DATE) AS COUNT
+                        FROM TB_EXAM_ALL_RESULT TEAR
+                       WHERE TEAR.REG_DATE BETWEEN DATE_ADD(DATE_FORMAT(NOW(), '%Y-%m-%d'), INTERVAL -2 WEEK)
+                         AND DATE_ADD(DATE_FORMAT(NOW(), '%Y-%m-%d'), INTERVAL +1 DAY)
+                       GROUP BY DATE_FORMAT(TEAR.REG_DATE, '%Y-%m-%d')
+                    ) B
+            ON CTE.ALL_DATE = B.RESULT_DATE
+       ]]></select>
+
+    <!-- 2주 결과제출 상위 5개 리스트 조회 -->
+    <select id="selectTopCountByExamFiveList" resultType="countAndDataDto">
+        SELECT TESC.SUB_CATEGORY_NAME AS `DATA`
+             , COUNT(TEAR.SUB_CATEGORY_IDX) AS `COUNT`
+          FROM TB_EXAM_ALL_RESULT TEAR
+          LEFT JOIN TB_EXAM_SUB_CATEGORY TESC
+            ON TEAR.SUB_CATEGORY_IDX = TESC.IDX
+         GROUP BY TEAR.SUB_CATEGORY_IDX
+         LIMIT 5
+    </select>
 </mapper>

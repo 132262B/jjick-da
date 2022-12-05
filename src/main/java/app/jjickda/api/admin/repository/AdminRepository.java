@@ -9,21 +9,30 @@ import java.util.List;
 
 @Mapper
 public interface AdminRepository {
-    int registMain(AddMainCategoryDto mainQuestion, User user);
 
-    List<GetMainCategoryDto> getMainList(SearchDto searchDto);
+    // 메인 카테고리 등록
+    int insertMainCategory(AddMainCategoryDto addMainCategoryDto, User user);
 
-    int registSub(AddSubCategoryDto subQuestion, User user);
+    // 메인 카테고리 조회
+    List<GetMainCategoryDto> selectMainCategoryList(String search);
 
+    // 서브 카테고리 등록
+    int insertSubCategory(AddSubCategoryDto addSubCategoryDto, User user);
+
+    // 키워드로 서브 카테고리 조회
     List<GetSubCategoryDto> selectSubCategoryListBySearch(String search, String sort);
 
+    // mainIdx로 서브 카테고리 조회
     List<GetSubCategoryDto> selectSubCategoryListByMainIdx(long mainIdx);
 
-    GetSubCategoryDto getSubDetail(long idx);
+    // subIdx로 서브 디테일 조회
+    GetSubCategoryDto selectSubDetail(long subIdx);
 
-    int registSubject(AddSubjectDto subject, User user);
-
-    List<GetSubjectDto> getSubjectCategory(long subIdx);
+    // 과목 등록
+    int insertSubject(AddSubjectDto addSubjectDto, User user);
+    
+    // subIdx로 과목 리스트 조회
+    List<GetSubjectDto> selectSubjectCategoryListBySubIdx(long subIdx);
 
     // 시험 정보 등록
     void insertExamInfo(ExamInfo examInfo, User user);
@@ -31,13 +40,18 @@ public interface AdminRepository {
     // 시험문항 등록
     void insertExamQuestions(ExamInfo examInfo, Question question);
 
+    // 시험 선지 등록
     void insertExamOptions(Question question, List<Options> options);
 
-    int getOptionsCnt(long subIdx);
+    // subIdx로 선지 개수 조회
+    int selectOptionsCnt(long subIdx);
 
-    List<SubjectInformationDto> getSubjectInfo(long subIdx);
+    // subIdx로 과목 정보 조회
+    List<SubjectInformationDto> selectSubjectInfo(long subIdx);
 
-    List<UnconfirmedExamDto> getUnconfirmedExamData(String search);
+    // 키워드로 결재 대기중인 시험 조회
+    List<UnconfirmedExamDto> selectConfirmedExamList(String search);
 
-    int confirmExam(long examIdx);
+    // 시험 결재
+    int updateConfirm(long examIdx);
 }

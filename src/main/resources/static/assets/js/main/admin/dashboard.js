@@ -1,7 +1,5 @@
-let b = ["2022-10-01", "2022-10-02", "2022-10-03", "2022-10-04", "2022-10-05", "2022-10-06", "2022-10-07", "2022-10-08", "2022-10-09", "2022-10-10"];
-
 let dashboardData = {
-    "newUsersCountByDate": {
+    "twoWeeksNewUsersCountAndDate": {
         chart: {
             id: 'sparkline1',
             group: 'sparklines',
@@ -38,7 +36,7 @@ let dashboardData = {
             }
         },
     },
-    "examResultSubmitNumber": {
+    "twoWeeksSubmitResultCountAndDate": {
         chart: {
             id: 'sparkline1',
             group: 'sparklines',
@@ -56,9 +54,9 @@ let dashboardData = {
         },
         series: [{
             name: '제출수',
-            data: [10, 41, 35, 51, 49, 62, 69, 91, 148, 62]
+            data: []
         }],
-        labels: b,
+        labels: [],
         yaxis: {
             min: 0
         },
@@ -75,13 +73,13 @@ let dashboardData = {
             }
         },
     },
-    "test1chart": {
-        series: [44, 55, 13, 43, 22],
+    "topCountByExamFiveList": {
+        series: [],
         chart: {
             width: 325,
             type: 'pie',
         },
-        labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+        labels: [],
         responsive: [{
             breakpoint: 480,
             options: {
@@ -128,10 +126,22 @@ function loadDashboard() {
 
     httpUtil.loadingRequest('/api/statistics/admin-dashboard', 'GET', null, (data) => {
 
-        // 신규 사용자(일일) 통계
-        data.data.newUsersCountByDate.forEach((i) => {
-            dashboardData.newUsersCountByDate.series[0].data.push(i.count);
-            dashboardData.newUsersCountByDate.labels.push(i.date);
+        // 2주 신규 사용자 통계
+        data.data.twoWeeksNewUsersCountAndDate.forEach((i) => {
+            dashboardData.twoWeeksNewUsersCountAndDate.series[0].data.push(i.count);
+            dashboardData.twoWeeksNewUsersCountAndDate.labels.push(i.date);
+        })
+
+        // 2주 결과 제출수 통계
+        data.data.twoWeeksSubmitResultCountAndDate.forEach((i) => {
+            dashboardData.twoWeeksSubmitResultCountAndDate.series[0].data.push(i.count);
+            dashboardData.twoWeeksSubmitResultCountAndDate.labels.push(i.date);
+        })
+
+        // 2주 결과제출 상위 5개 통계
+        data.data.topCountByExamFiveList.forEach((i) => {
+            dashboardData.topCountByExamFiveList.series.push(i.count);
+            dashboardData.topCountByExamFiveList.labels.push(i.data);
         })
 
         counter('userTotalCount', data.data.userTotalCount);
@@ -139,16 +149,16 @@ function loadDashboard() {
         counter('questionTotalCount', data.data.questionTotalCount);
         counter('resultTotalCount', data.data.resultTotalCount);
 
-        const newUsersCountByDate = new ApexCharts(existId('newUsersCountByDate'), dashboardData.newUsersCountByDate);
-        newUsersCountByDate.render();
+        const twoWeeksNewUsersCountAndDate = new ApexCharts(existId('twoWeeksNewUsersCountAndDate'), dashboardData.twoWeeksNewUsersCountAndDate);
+        twoWeeksNewUsersCountAndDate.render();
+
+        const twoWeeksSubmitResultCountAndDate = new ApexCharts(existId('twoWeeksSubmitResultCountAndDate'), dashboardData.twoWeeksSubmitResultCountAndDate);
+        twoWeeksSubmitResultCountAndDate.render();
+
+        const topCountByExamFiveList = new ApexCharts(existId('topCountByExamFiveList'), dashboardData.topCountByExamFiveList);
+        topCountByExamFiveList.render();
 
     });
-
-    const examResultSubmitNumber = new ApexCharts(existId('examResultSubmitNumber'), dashboardData.examResultSubmitNumber);
-    examResultSubmitNumber.render();
-
-    const test1chart = new ApexCharts(existId('test1chart'), dashboardData.test1chart);
-    test1chart.render();
 
     const test2chart = new ApexCharts(existId('test2chart'), dashboardData.test2chart);
     test2chart.render();

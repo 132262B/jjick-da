@@ -2,7 +2,7 @@ function getSubDetail() {
     let html = "";
     let subIdx = existId("subIdx").value;
     getSubjectList(subIdx);
-    httpUtil.pathRequest("/api/admin/get-sub-detail/"+subIdx, (data) => {
+    httpUtil.defaultRequest("/api/admin/sub/category/detail/"+subIdx,'get',null, (data) => {
     let useStatus = data.data.useStatus;
     if(useStatus == 1){
        useStatus = "사용중";
@@ -17,7 +17,7 @@ function getSubDetail() {
         udtDate = cutTime(udtDate);
     }
     html += `<div class="info_subject">
-                <a href="/admin/write-sub-question/main/${data.data.mainCategoryName}">${data.data.mainCategoryName}</a>-${data.data.subCategoryName}
+                <a href="/admin/sub?search=${data.data.mainCategoryName}&sort=main">${data.data.mainCategoryName}</a>-${data.data.subCategoryName}
               </div>
               <div class="info_details">
               <div class="info_right">
@@ -39,7 +39,7 @@ function getSubDetail() {
 
 function getSubjectList(subIdx) {
     let subjectList = "";
-    httpUtil.pathRequest("/api/admin/get-subject-category/"+subIdx, (data) => {
+    httpUtil.defaultRequest("/api/admin/subject/"+subIdx,'get',null, (data) => {
         for(let i of data.data){
             subjectList += `
                 <div class="list">
@@ -78,7 +78,7 @@ function registSubject() {
        return false;
     }
 
-    httpUtil.defaultRequest('/api/admin/regist-subject','post', subjectData, function(data) {
+    httpUtil.defaultRequest('/api/admin/subject','post', subjectData, function(data) {
         if(data.data.success){
             getSubDetail();
             successMessageToast(data.data.message);

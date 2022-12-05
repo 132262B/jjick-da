@@ -1,7 +1,6 @@
 function getMainDataList() {
-let data = {};
     let dataList = "";
-    httpUtil.defaultRequest('/api/admin/get-main-category','post', data, function(data) {
+    httpUtil.defaultRequest('/api/admin/main/category','GET', null, function(data) {
         for(let i of data.data){
             dataList += `<option data-value = "${i.idx}" value ="${i.mainCategoryName}" />`
         }
@@ -10,32 +9,24 @@ let data = {};
 }
 function getSubList() {
 let data = {};
-let searchSort = existId('search_sort').value;
-let searchObject = existId('search_object').value;
-        if(isEmpty(searchObject)){
-            data.searchObject = null;
-        }else{
-            data.searchObject = searchObject;
-        }
-
-        if(isEmpty(searchSort)){
-            data.sort = null;
-        }else{
-            data.sort = searchSort;
-        }
-    httpUtil.defaultRequest('/api/admin/get-sub-list', 'post', data,
-        function (data) {
-            let subList = "";
-            for(let i of data.data){
-                subList += `<div onclick="write_subject(${i.idx})" class="list_name_hover col-md-12">
+data.search = existId('search_object').value;
+data.sort = existId('search_sort').value;
+httpUtil.notStringifyRequest('/api/admin/sub/category', 'GET',data ,
+    function (data) {
+        let subList = "";
+        for(let i of data.data){
+            subList += `
+                        <div onclick="write_subject(${i.idx})" class="list_name_hover col-md-12">
                           <div class="scroll_element list_number">${i.idx}</div>
                           <div class="scroll_element list_main_name">${i.mainCategoryName}</div>
                           <div class="scroll_element list_sub_name">${i.subCategoryName}</div>
                           <div class="scroll_element list_reg_date">${i.regDate}</div>
                           <div class="scroll_element list_reg_name">${i.regUserName}</div>
-                          </div>`
-                }
-                $(".html").html(subList);
+                        </div>
+                      `
+            }
+            console.log(subList);
+            $(".html").html(subList);
     });
 }
 function registSub() {
@@ -62,7 +53,7 @@ function registSub() {
     data.mainCategoryIdx = mainCategoryIdx;
     data.optionsCnt = optionsCnt;
     data.examCutOffScore = examCutOffScore;
-        httpUtil.defaultRequest('/api/admin/regist-sub','post', data, function(data) {
+        httpUtil.defaultRequest('/api/admin/sub/category','post', data, function(data) {
             if(data.data.success){
                 existId("subCategoryName").value = "";
                 existId("mainCategoryName").value = "";
@@ -75,7 +66,7 @@ function registSub() {
         })
     }
 }
-  function write_subject(ob) {
-    location.href="/admin/write-sub-question/subject/"+ob;
+  function write_subject(idx) {
+    location.href="/admin/subject/"+idx;
   }
 

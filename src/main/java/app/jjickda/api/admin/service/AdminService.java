@@ -22,9 +22,9 @@ public class AdminService {
     }
 
     // 메인 카테고리 등록
-    public DefaultResultDto registMain(AddMainCategoryDto main_question) {
+    public DefaultResultDto addMainCategory(AddMainCategoryDto addMainCategoryDto) {
         User user = SessionUtil.getUserAttribute();
-        adminRepository.registMain(main_question, user);
+        adminRepository.insertMainCategory(addMainCategoryDto, user);
         return DefaultResultDto.builder()
                 .message("1건의 메인 카테고리가 등록 되었습니다.")
                 .success(true)
@@ -32,14 +32,14 @@ public class AdminService {
     }
 
     // 메인 카테고리 리스트
-    public List<GetMainCategoryDto> getMainList(SearchDto searchDto) {
-        return adminRepository.getMainList(searchDto);
+    public List<GetMainCategoryDto> getMainCategoryList(String search) {
+        return adminRepository.selectMainCategoryList(search);
     }
 
     // 서브 카테고리 등록
-    public DefaultResultDto registSub(AddSubCategoryDto sub_question) {
+    public DefaultResultDto addSubCategory(AddSubCategoryDto addSubCategoryDto) {
         User user = SessionUtil.getUserAttribute();
-        adminRepository.registSub(sub_question, user);
+        adminRepository.insertSubCategory(addSubCategoryDto, user);
         return DefaultResultDto.builder()
                 .message("1건의 서브 카테고리가 등록 되었습니다.")
                 .success(true)
@@ -47,9 +47,9 @@ public class AdminService {
     }
 
     // 과목 등록
-    public DefaultResultDto registSubject(AddSubjectDto subject) {
+    public DefaultResultDto addSubject(AddSubjectDto addSubjectDto) {
         User user = SessionUtil.getUserAttribute();
-        adminRepository.registSubject(subject, user);
+        adminRepository.insertSubject(addSubjectDto, user);
 
         return DefaultResultDto.builder()
                 .message("1건의 과목이 등록 되었습니다.")
@@ -57,24 +57,24 @@ public class AdminService {
                 .build();
     }
 
-    // 서브 카테고리 리스트
-    public List<GetSubCategoryDto> selectSubCategoryList(String search, String sort) {
+    // 키워드로 서브 카테고리 리스트
+    public List<GetSubCategoryDto> getSubCategoryList(String search, String sort) {
         return adminRepository.selectSubCategoryListBySearch(search, sort);
     }
 
-    // mainCategoryIdx를 상속받는 서브 카테고리 리스트
-    public List<GetSubCategoryDto> selectSubCategoryList(long mainIdx) {
+    // mainIdx로 서브 카테고리 조회
+    public List<GetSubCategoryDto> getSubCategoryList(long mainIdx) {
         return adminRepository.selectSubCategoryListByMainIdx(mainIdx);
     }
 
     // 서브 카테고리 디테일
-    public GetSubCategoryDto getSubDetail(long idx) {
-        return adminRepository.getSubDetail(idx);
+    public GetSubCategoryDto getSubDetail(long subIdx) {
+        return adminRepository.selectSubDetail(subIdx);
     }
 
-    // subCategoryIdx를 상속받는 과목 리스트
-    public List<GetSubjectDto> getSubjectCategory(long subIdx) {
-        return adminRepository.getSubjectCategory(subIdx);
+    // subCategoryIdx로 과목 조회
+    public List<GetSubjectDto> getSubjectCategoryList(long subIdx) {
+        return adminRepository.selectSubjectCategoryListBySubIdx(subIdx);
     }
 
 
@@ -121,21 +121,24 @@ public class AdminService {
                 .build();
     }
 
+    // 시험 정보
     public ExamInformationDto getExamInformation(long subIdx) {
         ExamInformationDto examInfo = new ExamInformationDto();
-        examInfo.setOptionsCnt(adminRepository.getOptionsCnt(subIdx));
-        examInfo.setSubjectInformation(adminRepository.getSubjectInfo(subIdx));
+        examInfo.setOptionsCnt(adminRepository.selectOptionsCnt(subIdx));
+        examInfo.setSubjectInformation(adminRepository.selectSubjectInfo(subIdx));
 
         return examInfo;
     }
 
-    public List<UnconfirmedExamDto> getUnconfirmedExamData(String search) {
-        return adminRepository.getUnconfirmedExamData(search);
+    // 결재 대기중인 시험
+    public List<UnconfirmedExamDto> getConfirmedExamList(String search) {
+        return adminRepository.selectConfirmedExamList(search);
     }
 
-    public DefaultResultDto confirmExam(List<Long> examIdx) {
+    // 시험 결재
+    public DefaultResultDto putConfirmExam(List<Long> examIdx) {
         for (long i : examIdx) {
-            int a = adminRepository.confirmExam(i);
+            int a = adminRepository.updateConfirm(i);
         }
         return DefaultResultDto.builder()
                 .message("선택된 시험이 결재 되었습니다.")
