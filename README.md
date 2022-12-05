@@ -1,7 +1,9 @@
 <img width="100%" alt="찍다 메인 화면" src="https://user-images.githubusercontent.com/75984011/202119283-ffa74ca2-28f8-45d0-aeeb-13d66703b84a.png">
 
 # 프로젝트 소개
-기사, 산업기사, 기능사 등 다양한 문제 풀이, 결과, 해설 등을 확인하며 시험 합격을 돕는 프로젝트.
+사용자의 문제은행 유형의 시험에 합격률을 높이기 위해, 개발된 서비스입니다.
+
+자세한 사항은 [WIKI를](https://github.com/132262B/jjick-da/wiki) 통해 확인하실 수 있습니다.
 
 # 팀원 소개
 <table>
@@ -22,7 +24,7 @@
         <td>황정민(realomadia)</td>
     </tr>
     <tr>
-        <td>공통모듈개발,PM</td>
+        <td>공통모듈개발,PL</td>
         <td>사용자 페이지 개발</td>
         <td>어드민 페이지 개발</td>
     </tr>
@@ -117,7 +119,7 @@
 # 아키텍처
 
 ## 서버 구성도
-<img width="100%" alt="tomcat" src="https://user-images.githubusercontent.com/75984011/202645481-196874ff-6e38-4574-a1a2-44c5d9518190.png">
+<img width="100%" alt="tomcat" src="https://user-images.githubusercontent.com/75984011/205581791-8ac2f7de-030e-4d33-8b20-1a29a5bf7adb.jpg">
 
 ## ERD
 <img width="100%" alt="tomcat" src="https://user-images.githubusercontent.com/75984011/204812461-b4f56005-0d40-4882-adda-3cd6a1e2e67d.png">
