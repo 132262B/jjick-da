@@ -6,17 +6,17 @@ function unconfirmedExamData() {
     }else{
         data.searchObject = searchObject;
     }
-    httpUtil.defaultRequest('/api/admin/getUnconfirmedExamData','post', data, (data) => {
+    httpUtil.defaultRequest('/api/admin/confirm','GET', null, (data) => {
     let html = "";
         for(let i of data.data){
             html += `
-                <div class="list">
-                    <div class="scroll_element list_checkbox"><input name="confirmedExam" type="checkbox" value="${i.idx}"></div>
-                    <div class="scroll_element list_number">${i.idx}</div>
-                    <div class="scroll_element list_name list_name_hover">${i.examName}</div>
-                    <div class="scroll_element list_reg_date">${i.regDate}</div>
-                    <div class="scroll_element list_reg_name">${i.regName}</div>
-                </div>
+                <tr>
+                    <td><input name="confirmedExam" type="checkbox" value="${i.idx}"></td>
+                    <td>${i.idx}</td>
+                    <td>${i.examName}</td>
+                    <td>${i.regDate}</td>
+                    <td>${i.regName}</td>
+                </tr>
             `
         }
         $(".html").html(html);
@@ -28,7 +28,7 @@ function confirmExam() {
     $("input[name=confirmedExam]:checked").each(function(){
         checked.push($(this).val());
     })
-        httpUtil.defaultRequest('/api/admin/confirmExam','post', checked, (data) => {
+        httpUtil.defaultRequest('/api/admin/confirm','put', checked, (data) => {
             unconfirmedExamData();
             successMessageToast(data.data.message);
         })

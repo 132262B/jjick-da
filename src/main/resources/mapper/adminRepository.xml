@@ -241,7 +241,7 @@
         ,E.EXAM_NAME
         ,E.REG_DATE
         ,E.REG_IDX
-        ,E.NAME AS regName
+        ,U.NAME AS REG_NAME
         FROM TB_EXAM E
         LEFT JOIN TB_USER U
         ON E.REG_IDX = U.IDX
