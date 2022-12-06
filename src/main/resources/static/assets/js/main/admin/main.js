@@ -5,13 +5,13 @@ function getMainList() {
             let mainCategoryList = "";
             for(let i of data.data){
                 mainCategoryList += `
-                    <div class="list">
-                        <div class="scroll_element list_checkbox">&nbsp;</div>
-                        <div class="scroll_element list_number">${i.idx}</div>
-                        <div class="list_name_hover scroll_element list_name" onclick='location.href="/admin/sub?search=${i.mainCategoryName}&sort=main"'>${i.mainCategoryName}</div>
-                        <div class="scroll_element list_reg_date">${i.regDate}</div>
-                        <div class="scroll_element list_reg_name">${i.regUserName}</div>
-                    </div>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>${i.idx}</td>
+                        <td class="cursor" onclick='location.href="/admin/sub?search=${i.mainCategoryName}&sort=main"'>${i.mainCategoryName}</td>
+                        <td>${i.regDate}</td>
+                        <td>${i.regUserName}</td>
+                    </tr>
             `
             }
       $(".html").html(mainCategoryList);

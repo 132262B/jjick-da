@@ -16,13 +16,13 @@ httpUtil.notStringifyRequest('/api/admin/sub/category', 'GET',data ,
         let subList = "";
         for(let i of data.data){
             subList += `
-                        <div onclick="write_subject(${i.idx})" class="list_name_hover col-md-12">
-                          <div class="scroll_element list_number">${i.idx}</div>
-                          <div class="scroll_element list_main_name">${i.mainCategoryName}</div>
-                          <div class="scroll_element list_sub_name">${i.subCategoryName}</div>
-                          <div class="scroll_element list_reg_date">${i.regDate}</div>
-                          <div class="scroll_element list_reg_name">${i.regUserName}</div>
-                        </div>
+                    <tr class="cursor" onclick="write_subject(${i.idx})">
+                        <td>${i.idx}</td>
+                        <td>${i.mainCategoryName}</td>
+                        <td>${i.subCategoryName}</td>
+                        <td>${i.regDate}</td>
+                        <td>${i.regUserName}</td>
+                    </tr>
                       `
             }
             console.log(subList);

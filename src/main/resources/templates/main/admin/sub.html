@@ -47,7 +47,7 @@
       <header class="section-header">
         <p>서브 카테고리</p>
       </header>
-      <div class="main_wrapper" data-aos="fade-up" data-aos-duration="1000">
+      <div class="m-auto h-auto main_wrapper" data-aos="fade-up" data-aos-duration="1000">
         <div th:if="${sort == 'main' and searchTarget != null}" class="search_bar">
           <input class="search_button button5" type="button" onclick="getSubList();" value="검색">
           <input id="search_object" th:value="${searchTarget}" class="form-control" type="text" placeholder="카테고리명 으로 검색">
@@ -76,17 +76,20 @@
           </select>
         </div>
         <div class="scroll">
-          <div class="main_content">
-            <div class="list list_subject">
-              <div class="scroll_element list_number">No.</div>
-              <div class="scroll_element list_main_name">메인 카테고리 이름</div>
-              <div class="scroll_element list_sub_name">서브 카테고리 이름</div>
-              <div class="scroll_element list_reg_date">등록일</div>
-              <div class="scroll_element list_reg_name">등록자</div>
-            </div>
-            <div class="html">
-            </div>
-          </div>
+          <table class="table table-hover table-bordered text-center">
+            <caption>테이블 설명</caption>
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>메인 카테고리</th>
+                <th>서브 카테고리</th>
+                <th>등록일</th>
+                <th>등록자</th>
+              </tr>
+            </thead>
+            <tbody class="html">
+            </tbody>
+          </table>
         </div>
         <input class="confirm_button button5" onclick="modal();" type="button" value="서브 카테고리 등록">
       </div>

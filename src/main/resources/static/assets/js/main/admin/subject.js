@@ -19,7 +19,7 @@ function getSubDetail() {
     html += `<div class="info_subject">
                 <a href="/admin/sub?search=${data.data.mainCategoryName}&sort=main">${data.data.mainCategoryName}</a>-${data.data.subCategoryName}
               </div>
-              <div class="info_details">
+              <div class="info_details mt-5 m-auto text-center">
               <div class="info_right">
                   <div id="subjects" class="">No : <span> ${data.data.idx}.</span></div>
                   <div id="subjects" class="">사용 유무 : <span> ${useStatus} </span></div>
@@ -33,7 +33,7 @@ function getSubDetail() {
                   <div id="subjects" class=""><a href="">수정</a></div>
               </div>
           </div>`
-        $("#html").html(html)
+        $(".html").html(html)
     });
 }
 
@@ -42,16 +42,16 @@ function getSubjectList(subIdx) {
     httpUtil.defaultRequest("/api/admin/subject/"+subIdx,'get',null, (data) => {
         for(let i of data.data){
             subjectList += `
-                <div class="list">
-                    <div class="scroll_element list_checkbox">&nbsp;</div>
-                    <div class="scroll_element list_number">${i.idx}</div>
-                    <div class="scroll_element list_name list_name_hover">${i.subjectName}</div>
-                    <div class="scroll_element list_reg_date">${i.regDate}</div>
-                    <div class="scroll_element list_reg_name">${i.regName}</div>
-                </div>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>${i.idx}</td>
+                    <td>${i.subjectName}</td>
+                    <td>${i.regDate}</td>
+                    <td>${i.regName}</td>
+                </tr>
             `
         }
-        $("#html2").html(subjectList);
+        $(".html2").html(subjectList);
     })
 }
 
