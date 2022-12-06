@@ -10,7 +10,7 @@ function unconfirmedExamData() {
     let html = "";
         for(let i of data.data){
             html += `
-                <tr>
+                <tr class='table_content'>
                     <td><input name="confirmedExam" type="checkbox" value="${i.idx}"></td>
                     <td>${i.idx}</td>
                     <td>${i.examName}</td>

@@ -42,8 +42,7 @@ function getSubjectList(subIdx) {
     httpUtil.defaultRequest("/api/admin/subject/"+subIdx,'get',null, (data) => {
         for(let i of data.data){
             subjectList += `
-                <tr>
-                    <td>&nbsp;</td>
+                <tr class='table_content'>
                     <td>${i.idx}</td>
                     <td>${i.subjectName}</td>
                     <td>${i.regDate}</td>

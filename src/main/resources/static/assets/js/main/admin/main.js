@@ -5,8 +5,7 @@ function getMainList() {
             let mainCategoryList = "";
             for(let i of data.data){
                 mainCategoryList += `
-                    <tr>
-                        <td>&nbsp;</td>
+                    <tr class='table_content'>
                         <td>${i.idx}</td>
                         <td class="cursor" onclick='location.href="/admin/sub?search=${i.mainCategoryName}&sort=main"'>${i.mainCategoryName}</td>
                         <td>${i.regDate}</td>

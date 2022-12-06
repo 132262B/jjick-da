@@ -1445,61 +1445,15 @@ box-sizing: border-box;
      height: auto;
      width: 1000px;
  }
- .list{
-     clear: both;
-     width: 100%;
-     height: auto;
- }
+
  .html{
      clear:both;
- }
-
- .list_subject{
-     font-size: 20px;
-     font-weight:1000;
- }
-
- .list_checkbox{
-    width: 3%;
- }
- .list_number{
-    margin-right:5px;
-    width: 10%;
- }
- .list_main_name{
-    width:30%
- }
- .list_sub_name{
-    width:30%;
- }
-
- .list_name{
-    width: 50%;
- }
-.scroll_element{
-    float:left;
-    text-align:center;
-    padding-top:10px;
-}
-
-.list_name_hover{
-    cursor:pointer;
-}
-.list_name_hover:hover{
-    color:gray;
-}
-
- .list_reg_date{
-    width: 12%;
- }
- .list_reg_name{
-    width: 12%;
  }
 .scroll{
     width: 100%;
     clear:both;
     margin-top:20px;
-	overflow: auto;
+	overflow-x: auto;
 	white-space: nowrap;
 	text-overflow:nowrap;
 }
@@ -1589,3 +1543,24 @@ caption{
     cursor: pointer;
 }
 
+#table_body>tr:nth-child(even){
+    background:#f8f6ff;
+}
+#table_head>.table_header>th{
+    padding-top:18px;
+    padding-bottom:18px;
+    font-size: 18px;
+    padding-left:20px;
+    padding-right:10px;
+}
+#table_body>.table_content>td{
+    padding-top:16px;
+    padding-bottom:16px;
+    padding-left:20px;
+    padding-right:10px;
+    color:#808080;
+    font-size:15px;
+}
+.scroll>#table_top{
+	box-shadow: 0 0 40px 0 rgb(0 0 0 / 15%);
+}

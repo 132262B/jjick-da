@@ -75,11 +75,10 @@
             <option value="sub">서브 카테고리명</option>
           </select>
         </div>
-        <div class="scroll">
-          <table class="table table-hover table-bordered text-center">
-            <caption>테이블 설명</caption>
-            <thead>
-              <tr>
+        <div class="scroll" style="border-radius: 10px;">
+          <table id="table_top" class="table table-hover table-bordered text-left">
+            <thead id="table_head" style="background-color: #6c7ae0; color:white;">
+            <tr class="table_header">
                 <th>No.</th>
                 <th>메인 카테고리</th>
                 <th>서브 카테고리</th>
@@ -87,7 +86,7 @@
                 <th>등록자</th>
               </tr>
             </thead>
-            <tbody class="html">
+            <tbody id="table_body" class="html" style="border-top:none;">
             </tbody>
           </table>
         </div>

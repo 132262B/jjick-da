@@ -44,19 +44,17 @@
         <p>과목 리스트</p>
     </header>
     <div class="m-auto h-auto main_wrapper">
-        <div class="scroll">
-            <table class="table table-hover table-bordered text-center">
-                <caption>테이블 설명</caption>
-                <thead>
-                    <tr>
-                        <th>&nbsp;</th>
+        <div class="scroll" style="border-radius: 10px;">
+            <table id="table_top" class="table table-hover table-bordered text-left">
+                <thead id="table_head" style="background-color: #6c7ae0; color:white;">
+                <tr class="table_header">
                         <th>No.</th>
                         <th>과목명</th>
                         <th>등록일</th>
                         <th>등록자</th>
                     </tr>
                 </thead>
-                <tbody class="html2">
+                <tbody id="table_body" class="html2" style="border-top:none;">
                 </tbody>
             </table>
         </div>

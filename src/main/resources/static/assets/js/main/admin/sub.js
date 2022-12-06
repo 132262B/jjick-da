@@ -16,7 +16,7 @@ httpUtil.notStringifyRequest('/api/admin/sub/category', 'GET',data ,
         let subList = "";
         for(let i of data.data){
             subList += `
-                    <tr class="cursor" onclick="write_subject(${i.idx})">
+                    <tr class="table_content cursor" onclick="write_subject(${i.idx})">
                         <td>${i.idx}</td>
                         <td>${i.mainCategoryName}</td>
                         <td>${i.subCategoryName}</td>
