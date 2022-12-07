@@ -47,7 +47,7 @@ function Terms() {
 
                     <div class="entry-meta">
                         <br>
-                        <ul>
+                        <ul class="exam-option">
             `;
             // 문항선지
             questionList.optionsList.forEach((optionsList) => {

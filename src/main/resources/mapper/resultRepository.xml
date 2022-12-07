@@ -36,6 +36,7 @@
     <select id="selectExamDetailResultList" resultType="examDetailResultDto">
         SELECT TEQR.QUESTION_IDX
              , TEQ.QUESTION_NAME
+             , TEM.FILE_ID
              , TES.SUBJECT_NAME
              , TEQR.QUESTION_NUMBER
              , TEQR.INPUT_ANSWER
@@ -50,6 +51,8 @@
             ON TES.IDX = TEQR.SUBJECT_IDX
           LEFT JOIN TB_EXAM_QUESTION TEQ
             ON TEQ.IDX = TEQR.QUESTION_IDX
+          LEFT JOIN TB_EXAM_MULTIMEDIA TEM
+            ON TEQ.MULTIMEDIA_IDX = TEM.IDX
          WHERE TEAR.IDX = #{idx}
            AND TEAR.EXAM_RESULT_TOKEN = #{token}
          ORDER BY TEQR.QUESTION_NUMBER

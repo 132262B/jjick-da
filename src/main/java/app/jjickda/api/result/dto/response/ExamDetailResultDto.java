@@ -19,6 +19,9 @@ public class ExamDetailResultDto {
     @ApiModelProperty(value = "문항명")
     private String questionName;
 
+    @ApiModelProperty(value = "파일명")
+    private String fileId;
+
     @ApiModelProperty(value = "과목명")
     private String subjectName;
 

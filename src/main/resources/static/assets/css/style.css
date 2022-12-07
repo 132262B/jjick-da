@@ -813,7 +813,7 @@ section {
     padding-left: 10px;
 }
 
-.exam .entry .entry-meta ul label:hover {
+.exam .entry .entry-meta .exam-option label:hover {
     color: #012790;
     font-weight: 700;
 }
