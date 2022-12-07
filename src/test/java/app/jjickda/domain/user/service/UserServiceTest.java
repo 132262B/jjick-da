@@ -24,16 +24,16 @@ import static org.mockito.Mockito.*;
 
 @DisplayName("USER 관련 테스트")
 @ExtendWith({MockitoExtension.class})
-public class UserServiceTest {
+class UserServiceTest {
 
     @Mock
     UserRepository userRepository;
     @InjectMocks
     UserService userService;
 
-    User testUser;
+    private User testUser;
 
-    String password = "Test1234#";
+    private final String PASSWORD = "Test1234#";
 
     @BeforeEach
     public void generateUser() {
@@ -83,7 +83,7 @@ public class UserServiceTest {
     public void signUpUserTestWithSuccess() {
         SignUpDto signUpDto = SignUpDto.builder()
                 .email(testUser.getEmail())
-                .password(SHA256Util.encrypt(password))
+                .password(SHA256Util.encrypt(PASSWORD))
                 .name("테스터")
                 .build();
 
@@ -103,7 +103,7 @@ public class UserServiceTest {
     public void signUpUserTestWithFailed() {
         SignUpDto signUpDto = SignUpDto.builder()
                 .email(testUser.getEmail())
-                .password(SHA256Util.encrypt(password))
+                .password(SHA256Util.encrypt(PASSWORD))
                 .name("테스터")
                 .build();
 
@@ -121,7 +121,7 @@ public class UserServiceTest {
     public void loginTestWithSuccess() {
         LoginDto loginDto = LoginDto.builder()
                 .email(testUser.getEmail())
-                .password(SHA256Util.encrypt(password))
+                .password(SHA256Util.encrypt(PASSWORD))
                 .build();
 
         when(userRepository.getUser(loginDto)).thenReturn(testUser);

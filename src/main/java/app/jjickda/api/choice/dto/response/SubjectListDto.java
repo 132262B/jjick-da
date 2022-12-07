@@ -6,9 +6,6 @@ import org.apache.ibatis.type.Alias;
 
 @Getter
 @Setter
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
 @Alias("subjectListDto")
 public class SubjectListDto {
 
@@ -18,4 +15,9 @@ public class SubjectListDto {
     @ApiModelProperty(value = "과목명")
     private String subjectName;
 
+    @Builder
+    public SubjectListDto(long subjectIdx, String subjectName) {
+        this.subjectIdx = subjectIdx;
+        this.subjectName = subjectName;
+    }
 }

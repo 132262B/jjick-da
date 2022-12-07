@@ -7,9 +7,6 @@ import org.apache.ibatis.type.Alias;
 
 @Getter
 @Setter
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
 @Alias("certificateListDto")
 public class CertificateListDto {
 
@@ -22,4 +19,10 @@ public class CertificateListDto {
     @ApiModelProperty(value = "메인 카테고리명 + 서브 카테고리명")
     private String certificateName;
 
+    @Builder
+    public CertificateListDto(long mainIdx, long subIdx, String certificateName) {
+        this.mainIdx = mainIdx;
+        this.subIdx = subIdx;
+        this.certificateName = certificateName;
+    }
 }
