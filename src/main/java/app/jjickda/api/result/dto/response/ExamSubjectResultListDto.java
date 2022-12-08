@@ -1,6 +1,7 @@
 package app.jjickda.api.result.dto.response;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.ibatis.type.Alias;
@@ -22,4 +23,11 @@ public class ExamSubjectResultListDto {
     @ApiModelProperty(value = "합격 유무")
     private String passYn;
 
+    @Builder
+    public ExamSubjectResultListDto(String subjectName, float subjectCutOffScore, float subjectScore, String passYn) {
+        this.subjectName = subjectName;
+        this.subjectCutOffScore = subjectCutOffScore;
+        this.subjectScore = subjectScore;
+        this.passYn = passYn;
+    }
 }

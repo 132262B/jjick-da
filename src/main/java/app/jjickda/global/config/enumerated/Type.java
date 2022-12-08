@@ -1,4 +1,4 @@
-package app.jjickda.global.config.exception;
+package app.jjickda.global.config.enumerated;
 
 import lombok.Getter;
 

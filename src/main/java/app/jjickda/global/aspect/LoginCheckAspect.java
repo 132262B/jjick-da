@@ -1,12 +1,12 @@
 package app.jjickda.global.aspect;
 
-import app.jjickda.domain.role.Role;
+import app.jjickda.global.config.enumerated.Role;
 import app.jjickda.domain.user.dto.response.User;
 import app.jjickda.global.annotation.LoginCheck;
 import app.jjickda.global.config.exception.CustomException;
 import app.jjickda.global.config.exception.ErrorCode;
 import app.jjickda.global.config.exception.PagePermissionException;
-import app.jjickda.global.config.exception.Type;
+import app.jjickda.global.config.enumerated.Type;
 import app.jjickda.global.utils.SessionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;

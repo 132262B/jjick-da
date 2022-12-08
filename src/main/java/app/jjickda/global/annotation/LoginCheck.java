@@ -1,7 +1,7 @@
 package app.jjickda.global.annotation;
 
-import app.jjickda.domain.role.Role;
-import app.jjickda.global.config.exception.Type;
+import app.jjickda.global.config.enumerated.Role;
+import app.jjickda.global.config.enumerated.Type;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

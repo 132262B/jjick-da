@@ -1,16 +1,14 @@
 package app.jjickda.api.admin.controller;
 
-import app.jjickda.domain.role.Role;
+import app.jjickda.global.config.enumerated.Role;
 import app.jjickda.global.annotation.LoginCheck;
-import app.jjickda.global.config.exception.Type;
+import app.jjickda.global.config.enumerated.Type;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")

@@ -1,4 +1,4 @@
-package app.jjickda.domain.role;
+package app.jjickda.global.config.enumerated;
 
 import lombok.Getter;
 
