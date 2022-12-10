@@ -2,6 +2,7 @@ package app.jjickda.api.exam.dto.response;
 
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -25,4 +26,11 @@ public class OptionsDto {
     @ApiModelProperty(value = "선지내용")
     private String optionsContent;
 
+    @Builder
+    public OptionsDto(long idx, long questionIdx, int optionsNumber, String optionsContent) {
+        this.idx = idx;
+        this.questionIdx = questionIdx;
+        this.optionsNumber = optionsNumber;
+        this.optionsContent = optionsContent;
+    }
 }

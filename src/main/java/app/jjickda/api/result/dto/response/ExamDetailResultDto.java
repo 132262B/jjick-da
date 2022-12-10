@@ -2,6 +2,7 @@ package app.jjickda.api.result.dto.response;
 
 import app.jjickda.api.exam.dto.response.OptionsDto;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.ibatis.type.Alias;
@@ -40,4 +41,15 @@ public class ExamDetailResultDto {
     @ApiModelProperty(value = "선지 리스트")
     private List<OptionsDto> optionsList;
 
+    @Builder
+    public ExamDetailResultDto(long questionIdx, String questionName, String fileId, String subjectName, int questionNumber, int inputAnswer, int answerNumber, String answerYn) {
+        this.questionIdx = questionIdx;
+        this.questionName = questionName;
+        this.fileId = fileId;
+        this.subjectName = subjectName;
+        this.questionNumber = questionNumber;
+        this.inputAnswer = inputAnswer;
+        this.answerNumber = answerNumber;
+        this.answerYn = answerYn;
+    }
 }
