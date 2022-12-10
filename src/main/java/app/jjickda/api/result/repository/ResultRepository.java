@@ -1,5 +1,6 @@
 package app.jjickda.api.result.repository;
 
+import app.jjickda.api.result.dto.request.ResultRegisterDto;
 import app.jjickda.api.result.dto.response.ExamAllResultDto;
 import app.jjickda.api.result.dto.response.ExamDetailResultDto;
 import app.jjickda.api.result.dto.response.ExamSubjectResultListDto;
@@ -19,4 +20,7 @@ public interface ResultRepository {
 
     // 시험결과 상세 조회
     List<ExamDetailResultDto> selectExamDetailResultList(long idx, String token);
+
+    // 비 로그인 결과 저장
+    void updateUnLoginResultRegister(ResultRegisterDto resultRegisterDto);
 }

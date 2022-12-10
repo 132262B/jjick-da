@@ -25,7 +25,7 @@ public class UserController {
     public String signUp() {
         User user = SessionUtil.getUserAttribute();
         if (user != null)
-            throw new PagePermissionException("로그인 상태로 로그인 페이지 방문", ErrorCode.HANDLE_ACCESS_DENIED);
+            throw new PagePermissionException("로그인 상태로 회원가입 페이지 방문", ErrorCode.HANDLE_ACCESS_DENIED);
 
         return "main/signUp";
     }

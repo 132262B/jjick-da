@@ -18,6 +18,7 @@ public class SignUpDto {
 
     @NotBlank
     @Email
+    @Length(min = 4, max = 50)
     @ApiModelProperty(value = "사용자 이메일", example = "user@gmail.com", required = true)
     private String email;
 

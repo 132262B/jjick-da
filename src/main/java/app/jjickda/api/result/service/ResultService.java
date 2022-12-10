@@ -2,9 +2,11 @@ package app.jjickda.api.result.service;
 
 import app.jjickda.api.exam.dto.response.OptionsDto;
 import app.jjickda.api.exam.repository.ExamRepository;
+import app.jjickda.api.result.dto.request.ResultRegisterDto;
 import app.jjickda.api.result.dto.response.ExamDetailResultDto;
 import app.jjickda.api.result.dto.response.ExamResultDto;
 import app.jjickda.api.result.repository.ResultRepository;
+import app.jjickda.domain.common.dto.response.DefaultResultDto;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -52,5 +54,15 @@ public class ResultService {
         }
 
         return examDetailResultList;
+    }
+
+    // 비 로그인 결과 저장
+    public DefaultResultDto resultRegister(ResultRegisterDto resultRegisterDto) {
+        resultRepository.updateUnLoginResultRegister(resultRegisterDto);
+
+        return DefaultResultDto.builder()
+                .success(true)
+                .message("등록되었습니다.")
+                .build();
     }
 }

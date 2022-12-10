@@ -58,4 +58,13 @@
          ORDER BY TEQR.QUESTION_NUMBER
     </select>
 
+    <!-- 비 로그인 결과 저장 -->
+    <update id="updateUnLoginResultRegister">
+        UPDATE TB_EXAM_ALL_RESULT
+           SET UN_LOGIN_REG_ID = #{unLoginRegId}
+         WHERE IDX = #{idx}
+           AND EXAM_RESULT_TOKEN = #{token}
+           AND LOGIN_STATUS = 1
+    </update>
+
 </mapper>
