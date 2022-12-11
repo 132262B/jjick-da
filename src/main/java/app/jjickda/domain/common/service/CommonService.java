@@ -1,6 +1,5 @@
 package app.jjickda.domain.common.service;
 
-import app.jjickda.domain.common.dto.response.DefaultResultDto;
 import app.jjickda.domain.common.repository.CommonRepository;
 import app.jjickda.domain.user.dto.response.User;
 import app.jjickda.global.config.model.UpLoadFileInfo;
@@ -17,9 +16,9 @@ public class CommonService {
     }
 
 
-    public UpLoadFileInfo addMultiMedia(UpLoadFileInfo upLoadFileInfo) {
+    public UpLoadFileInfo uploadFile(UpLoadFileInfo upLoadFileInfo) {
         User user = SessionUtil.getUserAttribute();
-        commonRepository.addMultiMedia(upLoadFileInfo,user);
+        commonRepository.insertMultiMedia(upLoadFileInfo, user);
 
         return upLoadFileInfo;
     }

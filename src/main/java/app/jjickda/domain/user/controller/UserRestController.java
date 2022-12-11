@@ -27,26 +27,26 @@ public class UserRestController {
     }
 
 
-    @ApiOperation("이메일 중복 체크 API")
+    @ApiOperation(value = "이메일 중복 조회.", notes = "이메일 중복 체크를 위한 API")
     @PostMapping("/email-duplication")
     public ResponseEntity<ApiResponse<DefaultResultDto>> emailDuplicationCheck(@Validated @RequestBody EmailDuplicationDto emailDuplicationDto) {
         return ResponseEntity.ok(new ApiResponse<>(userService.emailDuplicationCheck(emailDuplicationDto)));
     }
 
-    @ApiOperation("회원가입, 계정생성 API")
+    @ApiOperation(value = "회원 정보 등록.", notes = "회원 정보 등록을 위한 API")
     @PostMapping("/sign-up")
     public ResponseEntity<ApiResponse<DefaultResultDto>> signUp(@Validated @RequestBody SignUpDto signUpDto) {
         return ResponseEntity.ok(new ApiResponse<>(userService.signUp(signUpDto)));
     }
 
-    @ApiOperation("로그인 API")
+    @ApiOperation(value = "로그인")
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<DefaultResultDto>> login(@Validated @RequestBody LoginDto loginDto) {
         User user = userService.getUser(loginDto);
         return ResponseEntity.ok(new ApiResponse<>(userService.login(user)));
     }
 
-    @ApiOperation("로그아웃 API")
+    @ApiOperation(value = "로그아웃")
     @GetMapping("/logout")
     public ResponseEntity<ApiResponse<DefaultResultDto>> login() {
         return ResponseEntity.ok(new ApiResponse<>(userService.logout()));

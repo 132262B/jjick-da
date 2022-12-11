@@ -44,40 +44,39 @@
     <insert id="insertSubject">
         INSERT
           INTO TB_EXAM_SUBJECT
-        ( SUB_CATEGORY_IDX
-        , SUBJECT_NAME
-        , USE_STATUS
-        , REG_IDX
-        , SUBJECT_CUT_OFF_SCORE
-        , SUBJECT_QUESTION_CNT
-        ) VALUES
-        ( #{addSubjectDto.subCategoryIdx}
-        , #{addSubjectDto.subjectName}
-        , 1
-        , #{user.idx}
-        , #{addSubjectDto.subjectCutOffScore}
-        , #{addSubjectDto.subjectQuestionCnt}
-        )
+             ( SUB_CATEGORY_IDX
+             , SUBJECT_NAME
+             , USE_STATUS
+             , REG_IDX
+             , SUBJECT_CUT_OFF_SCORE
+             , SUBJECT_QUESTION_CNT
+             ) VALUES
+             ( #{addSubjectDto.subCategoryIdx}
+             , #{addSubjectDto.subjectName}
+             , 1
+             , #{user.idx}
+             , #{addSubjectDto.subjectCutOffScore}
+             , #{addSubjectDto.subjectQuestionCnt}
+             )
     </insert>
 
     <!-- 메인 카테고리 리스트 조회 -->
     <select id="selectMainCategoryList" resultType="getMainCategoryDto">
-        SELECT
-          E.MAIN_CATEGORY_NAME
-        , E.IDX
-        , E.USE_STATUS
-        , E.REG_DATE
-        , E.REG_IDX
-        , E.UDT_DATE
-        , E.UDT_IDX
-        , U.NAME as REG_USER_NAME
-        , IFNULL(USER.NAME,"없음") AS UDT_USER_NAME
-        FROM TB_EXAM_MAIN_CATEGORY E
-        LEFT JOIN TB_USER U
-        ON E.REG_IDX = U.IDX
-        LEFT JOIN TB_USER USER
-        ON E.UDT_IDX = USER.IDX
-        WHERE
+        SELECT E.MAIN_CATEGORY_NAME
+             , E.IDX
+             , E.USE_STATUS
+             , E.REG_DATE
+             , E.REG_IDX
+             , E.UDT_DATE
+             , E.UDT_IDX
+             , U.NAME as REG_USER_NAME
+             , IFNULL(USER.NAME,"없음") AS UDT_USER_NAME
+          FROM TB_EXAM_MAIN_CATEGORY E
+          LEFT JOIN TB_USER U
+            ON E.REG_IDX = U.IDX
+          LEFT JOIN TB_USER USER
+            ON E.UDT_IDX = USER.IDX
+         WHERE
         <choose>
             <when test="searchObject != null">
                 E.MAIN_CATEGORY_NAME LIKE CONCAT('%',#{search},'%')
@@ -90,14 +89,13 @@
 
     <!-- 키워드로 서브 카테고리 리스트 조회 -->
     <select id="selectSubCategoryListBySearch" resultType="getSubCategoryDto">
-        SELECT
-           E.IDX
-         , E.SUB_CATEGORY_NAME
-         , E.USE_STATUS
-         , E.REG_DATE
-         , E.REG_IDX
-         , M.MAIN_CATEGORY_NAME
-         , U.NAME AS REG_USER_NAME
+        SELECT E.IDX
+             , E.SUB_CATEGORY_NAME
+             , E.USE_STATUS
+             , E.REG_DATE
+             , E.REG_IDX
+             , M.MAIN_CATEGORY_NAME
+             , U.NAME AS REG_USER_NAME
           FROM TB_EXAM_SUB_CATEGORY E
           LEFT JOIN TB_USER U
             ON REG_IDX = U.IDX
@@ -120,47 +118,45 @@
 
     <!-- mainIdx로 서브 카테고리 조회 -->
     <select id="selectSubCategoryListByMainIdx" resultType="getSubCategoryDto">
-        select
-         IDX
-        ,SUB_CATEGORY_NAME
-        FROM TB_EXAM_SUB_CATEGORY
-        WHERE MAIN_CATEGORY_IDX = #{mainIdx}
+        select IDX
+             , SUB_CATEGORY_NAME
+          FROM TB_EXAM_SUB_CATEGORY
+         WHERE MAIN_CATEGORY_IDX = #{mainIdx}
     </select>
 
     <!-- subIdx로 서브 카테고리 디테일 조회 -->
     <select id="selectSubDetail" resultType="getSubCategoryDto">
         SELECT E.IDX
-        , E.USE_STATUS
-        , E.REG_DATE
-        , E.UDT_DATE
-        , U.NAME AS REG_USER_NAME
-        , IFNULL(USER.NAME,"수정 없음") AS UDT_USER_NAME
-        , COUNT(TES.IDX) AS SUBJECT_COUNT
-        , M.MAIN_CATEGORY_NAME
-        , E.SUB_CATEGORY_NAME
-        FROM TB_EXAM_SUB_CATEGORY E
-        LEFT JOIN TB_USER U
-        ON REG_IDX = U.IDX
-        LEFT JOIN TB_USER USER
-        ON UDT_IDX = USER.IDX
-        LEFT JOIN TB_EXAM_MAIN_CATEGORY M
-        ON MAIN_CATEGORY_IDX = M.IDX
-        LEFT JOIN TB_EXAM_SUBJECT TES
-        ON E.IDX = TES.SUB_CATEGORY_IDX
-        WHERE E.IDX = #{subIdx}
+             , E.USE_STATUS
+             , E.REG_DATE
+             , E.UDT_DATE
+             , U.NAME AS REG_USER_NAME
+             , IFNULL(USER.NAME,"수정 없음") AS UDT_USER_NAME
+             , COUNT(TES.IDX) AS SUBJECT_COUNT
+             , M.MAIN_CATEGORY_NAME
+             , E.SUB_CATEGORY_NAME
+          FROM TB_EXAM_SUB_CATEGORY E
+          LEFT JOIN TB_USER U
+            ON REG_IDX = U.IDX
+          LEFT JOIN TB_USER USER
+            ON UDT_IDX = USER.IDX
+          LEFT JOIN TB_EXAM_MAIN_CATEGORY M
+            ON MAIN_CATEGORY_IDX = M.IDX
+          LEFT JOIN TB_EXAM_SUBJECT TES
+            ON E.IDX = TES.SUB_CATEGORY_IDX
+         WHERE E.IDX = #{subIdx}
     </select>
 
     <!-- subIdx로 과목 리스트 조회 -->
     <select id="selectSubjectCategoryListBySubIdx" resultType="GetSubjectDto">
-        SELECT
-         S.IDX
-        ,S.SUBJECT_NAME
-        ,S.REG_DATE
-        ,U.NAME AS regName
-        FROM TB_EXAM_SUBJECT S
-        LEFT JOIN TB_USER U
-        ON S.REG_IDX = U.IDX
-        WHERE S.SUB_CATEGORY_IDX = #{subIdx}
+        SELECT S.IDX
+             , S.SUBJECT_NAME
+             , S.REG_DATE
+             , U.NAME AS regName
+          FROM TB_EXAM_SUBJECT S
+          LEFT JOIN TB_USER U
+            ON S.REG_IDX = U.IDX
+         WHERE S.SUB_CATEGORY_IDX = #{subIdx}
     </select>
 
     <!-- 시험 정보 등록 -->
@@ -220,32 +216,30 @@
     <!-- subIdx로 선지개수 조회 -->
     <select id="selectOptionsCnt" resultType="int">
         SELECT OPTIONS_CNT
-        FROM TB_EXAM_SUB_CATEGORY
-        WHERE IDX = #{subIdx}
+          FROM TB_EXAM_SUB_CATEGORY
+         WHERE IDX = #{subIdx}
     </select>
 
     <!-- subIdx로 과목 정보 조회 -->
     <select id="selectSubjectInfo" resultType="subjectInformationDto">
-        SELECT
-         IDX as subjectIdx
-        ,SUBJECT_NAME
-        ,SUBJECT_QUESTION_CNT
-        FROM TB_EXAM_SUBJECT
-        WHERE SUB_CATEGORY_IDX = #{subIdx}
+        SELECT IDX as SUBJECT_IDX
+             , SUBJECT_NAME
+             , SUBJECT_QUESTION_CNT
+          FROM TB_EXAM_SUBJECT
+         WHERE SUB_CATEGORY_IDX = #{subIdx}
     </select>
 
     <!-- 키워드로 결재 대기중인 시험 조회 -->
     <select id="selectConfirmedExamList" resultType="UnconfirmedExamDto">
-        SELECT
-         E.IDX
-        ,E.EXAM_NAME
-        ,E.REG_DATE
-        ,E.REG_IDX
-        ,U.NAME AS REG_NAME
-        FROM TB_EXAM E
-        LEFT JOIN TB_USER U
-        ON E.REG_IDX = U.IDX
-        WHERE CONFIRM_STATUS = 0 AND
+        SELECT E.IDX
+             , E.EXAM_NAME
+             , E.REG_DATE
+             , E.REG_IDX
+             , U.NAME AS REG_NAME
+          FROM TB_EXAM E
+          LEFT JOIN TB_USER U
+            ON E.REG_IDX = U.IDX
+         WHERE CONFIRM_STATUS = 0 AND
         <choose>
             <when test="searchObject != null">
                 EXAM_NAME LIKE CONCAT('%',#{searchObject},'%')
@@ -259,8 +253,8 @@
     <!-- 시험 결재 -->
     <update id="updateConfirm">
         UPDATE TB_EXAM
-        SET CONFIRM_STATUS = 1
-        WHERE IDX = #{examIdx}
+           SET CONFIRM_STATUS = 1
+         WHERE IDX = #{examIdx}
     </update>
 
 </mapper>

@@ -4,24 +4,25 @@
 
 <mapper namespace="app.jjickda.domain.common.repository.CommonRepository">
 
-    <insert id="addMultiMedia" useGeneratedKeys="true" keyProperty="upLoadFileInfo.multiMediaIdx">
-        INSERT INTO TB_EXAM_MULTIMEDIA (
-         FILE_ID
-        ,ORIGINAL_FILE_NAME
-        ,FILE_EXTENSION
-        ,FILE_SIZE
-        ,USE_STATUS
-        ,REG_DATE
-        ,REG_IDX
-        )VALUES(
-         #{upLoadFileInfo.fileId}
-        ,#{upLoadFileInfo.originalName}
-        ,#{upLoadFileInfo.extension}
-        ,#{upLoadFileInfo.size}
-        ,1
-        ,NOW()
-        ,#{user.idx}
-        )
+    <insert id="insertMultiMedia" useGeneratedKeys="true" keyProperty="upLoadFileInfo.multiMediaIdx">
+        INSERT
+           INTO TB_EXAM_MULTIMEDIA
+              ( FILE_ID
+              , ORIGINAL_FILE_NAME
+              , FILE_EXTENSION
+              , FILE_SIZE
+              , USE_STATUS
+              , REG_DATE
+              , REG_IDX
+              ) VALUES
+              ( #{upLoadFileInfo.fileId}
+              , #{upLoadFileInfo.originalName}
+              , #{upLoadFileInfo.extension}
+              , #{upLoadFileInfo.size}
+              , 1
+              , NOW()
+              , #{user.idx}
+              )
     </insert>
 
 </mapper>

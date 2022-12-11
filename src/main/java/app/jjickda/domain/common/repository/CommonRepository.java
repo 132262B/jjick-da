@@ -6,5 +6,5 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface CommonRepository {
-    void addMultiMedia(UpLoadFileInfo upLoadFileInfo, User user);
+    void insertMultiMedia(UpLoadFileInfo upLoadFileInfo, User user);
 }
