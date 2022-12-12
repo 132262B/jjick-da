@@ -2,6 +2,8 @@ let emptyData = {};
 let index = 0;
 let totalScore = 0;
 let optionCnt = 0;
+let autoSave = null;
+
 function getExamInfo(callback){
     index = 0;
     $("#question_html").html("");
@@ -14,34 +16,40 @@ function getExamInfo(callback){
                                 let html_first = "";
                                 let html_middle = "";
                                 let html_end = "";
-                                html_first += `<div class='add question_data_${index} row gy-4'>
-                                    <div class="col-md-12">
-                                        <div class="info_wrap accordion-item">
-                                            <div id='hidden_html${index}'></div>
-                                            <input id="question${index}" type="text" class="question_subject form-control" name="subject" placeholder="No ${k}." required>
-                                            <button class="hide_button accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#No${index}" />
-                                        </div>
-                                    </div>
-                                      <div id='No${index}' class='accordion-collapse collapse' data-bs-parent='#faqlist'>
-                                        <div class='filebox'>
-                                          <input class='upload-name form-control' id='upload_name_${index}' readonly placeholder='첨부파일'>
-                                          <label for='file${index}'>파일찾기</label>
-                                          <input type='file' id='file${index}' onchange='uploadFile(this);'>
-                                          <input type="text" id="th_${index}" class="subjects_name form-control" value="${i.subjectName}" readonly>
-                                          <input type="hidden" id="subjectIdx${index}" value="${i.subjectIdx}">
-                                          </div>
-                                          <div class="img_div" id="img${index}"></div>`
+                                html_first += `
+                                            <div class="row accordion-item">
+                                                <span class="subject col-md-2">
+                                                    <input type="hidden" id="subjectIdx${index}" value="${i.subjectIdx}">
+                                                    ${i.subjectName}<span>${index}.</span>
+                                                </span>
+                                                <input id="question${index}" type="text" placeholder="문항 제목 입력" class="col-md-9 question_subject">
+                                                <div class="col-md-1">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#No${index}" />
+                                                </div>
+                                              <div id="No${index}" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                                              <div class="accordion-body">
+                                              <div class='filebox mb-3'>
+                                                  <input class='upload-name form-control' id='upload_name_${index}' readonly placeholder='첨부파일'>
+                                                  <label for='file${index}'>파일찾기</label>
+                                                  <input type='file' id='file${index}' onchange='uploadFile(this);'>
+                                              </div>
+                                              <div class="img_div" id="img${index}"></div>
+                                          `
+
                                 for(let j=1; j<=optionCnt;j++){
-                              html_middle +=    `<div class="choice col-md-12" id="">
-                                                      <div class="choice_index">${j}.</div>
-                                                      <input type="radio" name="correct_check_${index}" class="correct_check correct_check_${j}" value="${j}">
-                                                      <textarea id="" class="question choice_content_${j} form-control" name="" rows="2" placeholder="보기" required></textarea>
-                                                  </div>`
+                              html_middle +=    `
+                                                    <div class="row mt-1">
+                                                        <div class="col-md-1 correct_radio"><input class="correct_check_${j}" name="correct_check_${index}" type="radio" value="${j}"><span>${j}.</span></div>
+                                                        <div class="col-md-11 options_content">
+                                                            <textarea id="" class="question choice_content_${j} form-control" name="" rows="2" placeholder="보기" required></textarea>
+                                                        </div>
+                                                    </div>
+                                                `
                             }
-                            html_end ="</div></div>"
+                            html_end ="</div></div></div>"
 
                             let html = html_first+html_middle+html_end;
-                            $("#question_html").append(html);
+                            $("#faqlist").append(html);
             }
         }
         callback(data.data);
@@ -59,8 +67,8 @@ function getMainDataList() {
 }
 
 function getSubDataList() {
-      $("#question_html").html("");
-      $("#data_list2").html("");
+      stopSave();
+      $("#faqlist").html("");
       $("#sub_ctg_name").val("");
       for(let i=1; i<=index; i++){
       $("#th_"+i).val("");
@@ -114,7 +122,6 @@ function uploadFile(target) {
 
 function loadData() {
         getExamInfo(function(subData) {
-
                     let mainCategoryIdx = existIdValue("main_ctg_name");
                     let subCategoryIdx = existIdValue("sub_ctg_name");
                     let saveData = window.localStorage.getItem(`saveData_${mainCategoryIdx}_${subCategoryIdx}`);
@@ -145,7 +152,12 @@ function loadData() {
                         }
                     }
         });
+              autoSave = setInterval(saveData, 180000);
 }
+function stopSave() {
+    clearInterval(autoSave);
+}
+
 
 function saveData() {
         let data = {};
@@ -197,8 +209,8 @@ function saveData() {
         data.examInfo = examInfo;
         data.questions = questions;
         data = JSON.stringify(data);
-        console.log(data);
         window.localStorage.setItem(`saveData_${mainCategoryIdx}_${subCategoryIdx}`,data);
+        notifyMessageToast("임시저장 되었습니다.");
 }
 
 
@@ -275,5 +287,4 @@ function registQuestion() {
     httpUtil.defaultRequest('/api/admin/exam','post', data, (data) => {
         successMessageToast(data.data.message);
     })
-
 }
