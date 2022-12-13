@@ -6,6 +6,7 @@ import app.jjickda.global.config.model.ApiResponse;
 import app.jjickda.global.config.model.UpLoadFileInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.ResponseEntity;
@@ -36,8 +37,8 @@ public class CommonController {
     }
 
     @ApiOperation(value = "이미지 View", notes = "이미지 View API")
-    @GetMapping("/image/{filename}")
-    public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
-        return new UrlResource("file:" + fileStore.getFullFilePath(filename));
+    @GetMapping("/image/{imageNumber}")
+    public Resource downloadImage(@ApiParam(name = "이미지 번호 입력", type = "String", required = true) @PathVariable String imageNumber) throws MalformedURLException {
+        return new UrlResource("file:" + fileStore.getFullFilePath(imageNumber));
     }
 }

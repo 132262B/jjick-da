@@ -60,17 +60,18 @@ public class ResultServiceTest {
                 .build();
 
         ExamResultDto predictedExamResultDto = new ExamResultDto();
-        predictedExamResultDto.setExamAllResultDto(predictedExamAllResultDto);
         predictedExamResultDto.setExamSubjectResultList(predictedExamSubjectResultList);
+        predictedExamResultDto.setExamAllResultDto(predictedExamAllResultDto);
 
         // when
         when(resultRepository.selectExamSubjectResultList(TEST_IDX, TEST_TOKEN)).thenReturn(predictedExamSubjectResultList);
         when(resultRepository.selectExamAllResult(TEST_IDX, TEST_TOKEN)).thenReturn(predictedExamAllResultDto);
 
+
         ExamResultDto serviceReturnExamResultDto = resultService.result(TEST_IDX, TEST_TOKEN);
 
         // then
-        Assertions.assertEquals(serviceReturnExamResultDto, predictedExamResultDto);
+        Assertions.assertEquals(predictedExamResultDto, serviceReturnExamResultDto);
 
         verify(resultRepository, times(1)).selectExamSubjectResultList(TEST_IDX, TEST_TOKEN);
         verify(resultRepository, times(1)).selectExamAllResult(TEST_IDX, TEST_TOKEN);
