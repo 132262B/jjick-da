@@ -6,6 +6,9 @@
 
 자세한 사항은 [WIKI](https://github.com/132262B/jjick-da/wiki)를 통해 확인하실 수 있습니다.
 
+
+__프로젝트 기간 :__ 2022년 10월 15일 ~ 2022년 12월 13일
+
 # Wiki
 
 [0. Wiki Main](https://github.com/132262B/jjick-da/wiki) <br>
