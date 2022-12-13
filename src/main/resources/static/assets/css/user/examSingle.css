@@ -1,0 +1,15 @@
+.exam .entry {
+    min-height: 500px;
+}
+
+.exam .entry-single {
+    min-height: 610px;
+    position: relative;
+}
+
+.grading-nav {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

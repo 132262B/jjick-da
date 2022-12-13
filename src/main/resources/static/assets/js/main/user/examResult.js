@@ -29,18 +29,19 @@ function result(idx, token) {
         `;
         existId('result-subject').innerHTML = subjects;
         // 통과여부에 색 넣기
-        let examSubjectResultLength = data.data.examSubjectResultList.length;
-        if(examAllResult.passYn == '합격') {
+        if(examAllResult.passYn === "합격") {
             existId('all-passYn').style.color = "GREEN";
         } else {
             existId('all-passYn').style.color = "RED";
         }
-        for(let i = 1; i <= examSubjectResultLength; i++) {
-            if(data.data.examSubjectResultList.passYn == '합격') {
-                existId(`subject-passYn${i}`).style.color = "GREEN";
+        let num2 = 1;
+        for(let i = 0; i < data.data.examSubjectResultList.length; i++) {
+            if(data.data.examSubjectResultList[i].passYn === "합격") {
+                existId(`subject-passYn${num2}`).style.color = "GREEN";
             } else {
-                existId(`subject-passYn${i}`).style.color = "RED";
+                existId(`subject-passYn${num2}`).style.color = "RED";
             }
+            num2++;
         }
     });
 }
