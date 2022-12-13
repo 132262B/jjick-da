@@ -279,12 +279,6 @@ section {
   .mobile-nav-toggle {
     display: block;
   }
-  .filebox{
-    white-space: nowrap;
-    display:flex;
-    width: 100%;
-    margin-top: 10px;
-  }
 
   .select_subject{
     flex:2;
@@ -293,17 +287,6 @@ section {
     margin-left:10px;
     float:left;
     width:30%;
-  }
-  .filebox .upload-name {
-    flex:2;
-    white-space: nowrap;
-    width: 50%;
-    height: 40px;
-    padding: 0 10px;
-    vertical-align: middle;
-    border: 1px solid #dddddd;
-    color: #999999;
-    background-color: #fff;
   }
 
   .score{
@@ -325,32 +308,6 @@ section {
       overflow:nowrap;
       white-space:nowrap;
   }
-
-  .filebox label {
-    flex:2;
-    white-space: nowrap;
-    text-align: center;
-    width: auto;
-    box-sizing: border-box;
-    padding: 10px 20px;
-    color: #fff;
-    vertical-align: middle;
-    background-color: #5b6aed;
-    cursor: pointer;
-    height: 40px;
-    margin-left: 10px;
-  }
-  .filebox input[type="file"] {
-      position: absolute;
-      width: 0%;
-      height: 0;
-      padding: 0;
-      overflow: hidden;
-      border: 0;
-  }
-
-
-
 
   .navbar ul {
     display: none;
@@ -1108,25 +1065,7 @@ custom
   cursor: pointer;
   width: 25px;
 }
-#examName {
-  display: block;
-  width: 100%;
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #212529;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border-radius: 0.375rem;
-  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-  margin-bottom: 40px;
-  height: 38px;
-}
+
 #select_flex{
   display: flex;
 }
@@ -1164,84 +1103,9 @@ custom
 }
 
 
-.accordion-collapse {
-  border: 0;
-}
-
-.accordion-button {
-  padding: 15px 15px 20px 0;
-  font-weight: 600;
-  border: 0;
-  font-size: 18px;
-  color: #444444;
-  text-align: left;
-}
-
-.accordion-button:focus {
-  box-shadow: none;
-}
-
-.accordion-button:not(.collapsed) {
-  background: none;
-  color: #4154f1;
-  border-bottom: 0;
-}
-
-.accordion-body {
-  padding: 0 0 25px 0;
-  border: 0;
-}
 #subject2{
     width: 100%;
     margin: 10px auto;
-}
-.info_wrap{
-    width:98%;
-}
-
-.question_subject{
-    margin-left:1%;
-    float: left;
-    width:78%;
-    box-sizing: border-box;
-}
-
-.subject_name{
-    float: left;
-    width:15%;
-    box-sizing: border-box;
-}
-
-.hide_button{
-    text-align:right;
-    float: right;
-    width:3%;
-    box-sizing: border-box;
-}
-.choice{
-  float:left;
-  width: 100%;
-  margin-top: 10px;
-}
-
-.choice_index{
-text-align: center;
-margin-top: 20px;
-float: left;
-width: 5%;
-box-sizing: border-box;
-}
-
-.correct_check{
-  margin-top: 25px;
-  float: left;
-  width:5%;
-  box-sizing: border-box;
-}
-
-.question{
-  width:90%;
-  box-sizing: border-box;
 }
 
 .main_button{
@@ -1253,16 +1117,7 @@ box-sizing: border-box;
     transition: 0.4s;
     border-radius: 4px;
     margin-bottom: 20px;
-
 }
-
-.filebox{
-  white-space: nowrap;
-  width: 100%;
-  margin-top: 10px;
-  float: left;
-}
-
 
 .select_subject{
   overflow: nowrap;
@@ -1270,17 +1125,6 @@ box-sizing: border-box;
   margin-left:10px;
   float:left;
   width:30%;
-}
-.filebox .upload-name {
-  white-space: nowrap;
-  float: left;
-  width: 30%;
-  height: 40px;
-  padding: 0 10px;
-  vertical-align: middle;
-  border: 1px solid #dddddd;
-  color: #999999;
-  background-color: #fff;
 }
 
 
@@ -1293,39 +1137,7 @@ box-sizing: border-box;
     overflow:nowrap;
     white-space:nowrap;
 }
-.remnantScore{
-    line-height:40px;
-    float:left;
-    width: 20%;
-    height: 40px;
-    padding: 0 10px;
-    margin-left: 10px;
-    overflow:nowrap;
-    white-space:nowrap;
-}
 
-.filebox label {
-  white-space: nowrap;
-  text-align: center;
-  float: left;
-  width: auto;
-  box-sizing: border-box;
-  padding: 10px 20px;
-  color: #fff;
-  vertical-align: middle;
-  background-color: #5b6aed;
-  cursor: pointer;
-  height: 40px;
-  margin-left: 10px;
-}
-.filebox input[type="file"] {
-    position: absolute;
-    width: 0%;
-    height: 0;
-    padding: 0;
-    overflow: hidden;
-    border: 0;
-}
 .button5{
   background: #4154f1;
   border: 0;
@@ -1563,4 +1375,137 @@ caption{
 }
 .scroll>#table_top{
 	box-shadow: 0 0 40px 0 rgb(0 0 0 / 15%);
+}
+
+#table_top{
+  box-shadow:0px 1px 18px -12px #607d8b;
+}
+#table_head>.table_th>th{
+  font-size: 18px;
+  line-height: 2.5;
+
+}
+#table_head>.table_th{
+  box-shadow:0px 1px 18px -12px #607d8b;
+}
+
+
+
+.form-inline .form-group { margin-right:10px; }
+.well-primary {
+color: rgb(255, 255, 255);
+background-color: rgb(66, 139, 202);
+border-color: rgb(53, 126, 189);
+}
+.glyphicon { margin-right:5px; }
+
+.accordion-button {
+  padding: 15px 15px 20px 0;
+  font-weight: 600;
+  border: 0;
+  font-size: 18px;
+  color: #444444;
+  text-align: left;
+}
+
+.accordion-collapse {
+  border: 0;
+}
+
+.accordion-button {
+  padding: 15px 15px 20px 0;
+  font-weight: 600;
+  border: 0;
+  font-size: 18px;
+  color: #444444;
+  text-align: left;
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+}
+
+.accordion-button:not(.collapsed) {
+  background: none;
+  color: #4154f1;
+  border-bottom: 0;
+}
+
+.accordion-body {
+  padding: 0 0 25px 0;
+  border: 0;
+}
+
+.question_subject{
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #212529;
+      background-color: #fff;
+      border:0;
+}
+.subject{
+  font-size: 18px;
+  line-height: 50px;
+  text-align: center;
+}
+.subject>span{
+  float: right;
+  text-align: right;
+  font-weight: bold;
+}
+
+.accordion-button {
+  width: 50%;
+}
+
+.correct_radio{
+  font-size: 18px;
+  line-height: 50px;
+  text-align: center;
+}
+.correct_radio>span{
+  float: right;
+  text-align: right;
+  font-weight: bold;
+}
+
+.filebox label {
+  white-space: nowrap;
+  text-align: center;
+  float: left;
+  width: auto;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  color: #fff;
+  vertical-align: middle;
+  background-color: #5b6aed;
+  cursor: pointer;
+  height: 40px;
+  margin-left: 10px;
+}
+.filebox input[type="file"] {
+    position: absolute;
+    width: 0%;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+.filebox .upload-name {
+  white-space: nowrap;
+  float: left;
+  width: 30%;
+  height: 40px;
+  padding: 0 10px;
+  vertical-align: middle;
+  border: 1px solid #dddddd;
+  color: #999999;
+  background-color: #fff;
+}
+.filebox{
+  white-space: nowrap;
+  width: 100%;
+  margin-top: 10px;
+  float: left;
 }
