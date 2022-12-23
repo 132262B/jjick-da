@@ -16,7 +16,8 @@ __프로젝트 기간 :__ 2022년 10월 15일 ~ 2022년 12월 13일 (종료)
 [2. Architecture](https://github.com/132262B/jjick-da/wiki/Architecture) <br>
 [3. ERD](https://github.com/132262B/jjick-da/wiki/ERD) <br>
 [4. FlowDiagram](https://github.com/132262B/jjick-da/wiki/FlowDiagram) <br>
-[5. 화면 설계서](https://github.com/132262B/jjick-da/wiki/%ED%99%94%EB%A9%B4-%EC%84%A4%EA%B3%84%EC%84%9C)
+[5. 개발된 내용 보기(GIF)](https://github.com/132262B/jjick-da/wiki/%EA%B0%9C%EB%B0%9C%EB%90%9C-%EB%82%B4%EC%9A%A9-%EB%B3%B4%EA%B8%B0(GIF)) <br>
+[6. 화면 설계서](https://github.com/132262B/jjick-da/wiki/%ED%99%94%EB%A9%B4-%EC%84%A4%EA%B3%84%EC%84%9C)
 
 # 팀원 소개
 
